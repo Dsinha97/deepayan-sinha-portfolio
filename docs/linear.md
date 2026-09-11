@@ -30,13 +30,13 @@ gate rather than copying it into a second place where it can rot.
 | Linear mapping doc, skills, weekly drift check | DSI-80 | M0 | this file, and `.claude/skills/` |
 | Scaffold Astro 5 and Tailwind 4 | DSI-81 | M1 | [site-architecture.md](wiki/site-architecture.md) |
 | Design tokens: purple and teal, light and dark | DSI-82 | M1 | [design-system.md](wiki/design-system.md) |
+| Apex domain, www redirect, HTTPS and HSTS | DSI-84 | M1 | [deployment-domain.md](wiki/deployment-domain.md) |
 
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
-| DSI-83 | Cloudflare Workers static-assets deploy | M1 | The `*.workers.dev` URL serves the build |
-| DSI-84 | Apex domain, www redirect, HTTPS and HSTS | M1 | Apex 200; www 301s preserving path and query; http 301s to https |
+| DSI-83 | Cloudflare Workers static-assets deploy via Git integration | M1 | Manual `wrangler deploy` is live; Cloudflare Workers Builds not yet connected to the GitHub repo |
 | DSI-85 | Email routing for contact@ | M1 | A test message arrives in Gmail. Check whether routing already exists on the zone |
 | DSI-86 | BaseLayout, header, footer, navigation | M2 | Renders on every route, keyboard-navigable end to end |
 | DSI-87 | Theme toggle, no-flash init, CSP hash pipeline | M2 | No flash either mode; dist guard passes; zero CSP violations under `wrangler dev` — [security-headers.md](wiki/security-headers.md) |

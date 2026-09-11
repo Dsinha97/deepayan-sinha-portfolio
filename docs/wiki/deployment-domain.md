@@ -8,8 +8,8 @@ sources:
 related:
   - site-architecture.md
   - security-headers.md
-updated: 2026-09-10
-status: planned
+updated: 2026-09-11
+status: built
 ---
 
 # Deployment and Domain
@@ -17,7 +17,9 @@ status: planned
 > Static build on Cloudflare Workers static assets, apex-canonical, with `www` redirecting and
 > `contact@` routed to Gmail.
 
-**Status: planned.** Nothing is deployed yet.
+**Status: built, partially.** The Worker is deployed via manual `wrangler deploy` (DSI-83; Git
+integration/Workers Builds still pending), the apex serves the build, `www` 301s to it preserving
+path and query, and `http` 301s to `https` (DSI-84). Email routing (DSI-85) is not yet set up.
 
 `deepayansinha.com` is already registered and its zone is already on Cloudflare, which removes
 the usual first step and means the whole stack sits in one account.
