@@ -69,9 +69,10 @@ environment-driven — `site` is hardcoded — specifically so this cannot bite.
 
 ## Build integration
 
-Cloudflare Workers Builds, connected to the GitHub repository. Build command `npm run build`,
-deploy `npx wrangler deploy`, Node version from `.nvmrc`. Non-production branches get their own
-preview URLs; `site` stays hardcoded to the apex so canonical URLs and the sitemap always point
+Cloudflare Workers Builds is connected to the GitHub repository (DSI-83): pushes to `main` build
+and deploy automatically. Build command `npm run build`, deploy `npx wrangler deploy`, Node
+version from `.nvmrc`. Non-production branches get their own preview URLs; `site` stays hardcoded
+to the apex so canonical URLs and the sitemap always point
 at production regardless of which host served the build.
 
 The original `*.workers.dev` URL keeps resolving and cannot cleanly be turned off for a
