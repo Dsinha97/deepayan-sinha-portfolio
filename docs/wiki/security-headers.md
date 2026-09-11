@@ -127,6 +127,32 @@ generalises: **a clean local CSP run is necessary and not sufficient.** Anything
 adds above the origin has to be checked against the live site, which is why DSI-105 audits
 production rather than a local build.
 
+**Resolved at source, 2026-09-11.** Automatic beacon injection was disabled in the Cloudflare
+dashboard — account home (not the zone) → **Analytics & Logs → Web Analytics** → the site card →
+**Manage site** → **Disable**. It is on by default for any proxied zone, so nobody switched it
+on; it arrived with the orange cloud. The beacon is now not sent, rather than sent and blocked,
+and the policy was not widened by a character to achieve that.
+
+Verified on production: no `cloudflareinsights` string and no `cf-beacon` token in the served
+HTML, exactly three scripts on `/` (the hashed inline theme script plus the two module scripts),
+console clean on `/`, `/404/` and an unmatched path, `www` still 301ing to the apex with path and
+query preserved, and `/fonts/*` still `immutable`.
+
+Two things worth keeping from the verification:
+
+- **A cached copy will lie to you.** The first two checks still showed the violation, and adding
+  a cache-busting query did not help — the stale copy was the *browser's*, not the edge's. A
+  `curl` against the origin and a brand-new tab were what separated "still injected" from "stale
+  copy". Hard-reload before believing a negative result here.
+- **There is a header-only alternative, not taken.** Cloudflare cannot inject into a response
+  marked `Cache-Control: public, no-transform`, since injection is an edge HTML transform. That
+  would work from the repo alone, but it uses a caching header as a feature switch, and appending
+  it to the `/*` block interacts with the rule-append behaviour documented above. The dashboard
+  setting stops the request rather than blocking it, and needs no such reasoning.
+
+The deliberate-adoption path remains **DSI-111**, which would need `script-src` *and*
+`connect-src` widened in the same change — the beacon fetches as well as loads.
+
 ## Testing locally
 
 `wrangler dev` serves `dist/` **with `_headers` applied**, which is a genuine advantage of this

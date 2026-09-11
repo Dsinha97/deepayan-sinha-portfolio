@@ -40,23 +40,25 @@ gate rather than copying it into a second place where it can rot.
 | Theme toggle, no-flash init, CSP hash pipeline | DSI-87 | M2 | [security-headers.md](wiki/security-headers.md) |
 | Design references reviewed and folded into the plan | DSI-131 | M2 | [design-references.md](wiki/design-references.md) |
 | Responsive pass across breakpoints and both themes | DSI-90 | M2 | `.claude/skills/responsive-check/` |
+| Edge-injected analytics beacon removed at source | DSI-132 | M2 | [security-headers.md](wiki/security-headers.md) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
 
-**M2 shipped 2026-09-11, one issue open.** The shell, the ceramic/kintsugi token system, the
-traced mark, the typography and the CSP pipeline are all built and the milestone is committed.
-**DSI-90 closed on device 2026-09-11**: clean in emulation at all six breakpoints in both themes,
-and confirmed by the owner on an Android handset — both themes, the mobile menu, the 404 route
-and landscape. **DSI-132 remains open**: Cloudflare injects its analytics beacon at the edge and
-the strict `script-src` refuses it, so every production page view logs one violation. That is an
-owner action on the Cloudflare dashboard and it blocks DSI-105.
+**M2 closed 2026-09-11.** The shell, the ceramic/kintsugi token system, the traced mark, the
+typography and the CSP pipeline are all built, committed and live.
+**DSI-90 closed on device**: clean in emulation at all six breakpoints in both themes, and
+confirmed by the owner on an Android handset — both themes, the mobile menu, the 404 route and
+landscape. **DSI-132 closed at source**: automatic beacon injection was disabled in the Cloudflare
+dashboard, so the script is no longer sent rather than sent-and-blocked. Verified on production —
+zero `cloudflareinsights` references in the served HTML, console clean on `/`, `/404/` and an
+unmatched path, and the CSP byte-identical to `headers.template` with no directive widened. That
+unblocks DSI-105 and keeps DSI-106's no-third-party-request budget intact.
 
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
-| DSI-132 | Cloudflare analytics beacon blocked by the CSP on production | M2 | Console clean on every route without widening the policy. **Owner action** — Cloudflare dashboard. Blocks DSI-105 |
 | DSI-91 | Hero | M3 | Owner approves the copy; zero layout shift from the headshot |
 | DSI-92 | Proof strip and About | M3 | Every claim traceable to a wiki page |
 | DSI-93 | Experience timeline | M3 | Guardrails grep passes: no withheld names, no phone number, self-reported figures marked — [content-guardrails.md](wiki/content-guardrails.md) |

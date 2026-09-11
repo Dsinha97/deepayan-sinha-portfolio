@@ -130,3 +130,20 @@ One line per action, newest at the bottom.
   cutout with no `env(safe-area-inset-*)` handling, because the viewport meta omits
   `viewport-fit=cover`. Recorded in `CLAUDE.md` as a rule — going edge-to-edge later means
   taking on safe-area padding in the same change.
+
+- **2026-09-11** — DSI-132 closed, and M2 with it. Cloudflare's automatic Web Analytics beacon
+  injection was disabled in the dashboard (account home → Analytics & Logs → Web Analytics →
+  Manage site → Disable), so `static.cloudflareinsights.com/beacon.min.js` is no longer sent
+  rather than sent-and-blocked. The CSP was not widened: production still serves
+  `script-src 'self' 'sha256-…'` and `connect-src 'self'` byte-identical to `headers.template`.
+  Verified against the live site — zero `cloudflareinsights` references in the served HTML,
+  console clean on `/`, `/404/` and an unmatched path, `www` 301 and `immutable` font caching
+  intact.
+
+  Two notes recorded in [security-headers.md](security-headers.md): a browser's own cached copy
+  will keep showing the violation and a cache-busting query does not defeat it, so a negative
+  result needs a fresh fetch before it is believed; and there is a header-only alternative
+  (`Cache-Control: public, no-transform` blocks the edge transform) that was deliberately not
+  taken, because it uses a caching header as a feature switch.
+
+  This unblocks DSI-105 and preserves DSI-106's no-third-party-request budget.
