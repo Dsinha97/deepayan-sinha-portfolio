@@ -30,17 +30,24 @@ const SPAN = {
   small: '',
 } as const;
 
+/*
+ * Titles are real; the copy under them is not written yet, so every tile and
+ * section says "Coming soon" and nothing else. Issue numbers belong in Linear
+ * and in source comments — never in text a visitor can read.
+ */
+const SOON = 'Coming soon.';
+
 const tiles: { title: string; note: string; size: keyof typeof SPAN }[] = [
-  { title: 'FPL Decision', note: 'A model, an optimiser and a deployment — DSI-99.', size: 'large' },
-  { title: 'Abhijit Sinha website', note: 'Client work with regulatory exposure — DSI-100.', size: 'small' },
-  { title: 'Fort Monroe', note: 'Engagement outcomes only — DSI-101.', size: 'small' },
-  { title: 'Recognition', note: 'Beta Gamma Sigma and the ICPAT-19 paper — DSI-94.', size: 'wide' },
+  { title: 'FPL Decision', note: SOON, size: 'large' },
+  { title: 'Abhijit Sinha website', note: SOON, size: 'small' },
+  { title: 'Fort Monroe', note: SOON, size: 'small' },
+  { title: 'Recognition', note: SOON, size: 'wide' },
 ];
 
 const sections = [
-  { id: 'experience', title: 'Experience', note: 'Four roles, reverse chronological — DSI-93.' },
-  { id: 'about', title: 'About', note: 'Three short paragraphs — DSI-92.' },
-  { id: 'contact', title: 'Contact', note: 'Email with copy button, LinkedIn, GitHub — DSI-96.' },
+  { id: 'experience', title: 'Experience', note: SOON },
+  { id: 'about', title: 'About', note: SOON },
+  { id: 'contact', title: 'Contact', note: SOON },
 ];
 ---
 
@@ -53,9 +60,6 @@ const sections = [
 		<div class="min-w-0">
 			<section id="work">
 				<h2 class="font-serif text-h2 font-normal text-fg">Selected work</h2>
-				<p class="mt-2 max-w-[65ch] text-meta text-fg-muted">
-					Placeholder tiles. The case studies are DSI-99 to DSI-101, the grid is DSI-102.
-				</p>
 				<ul class="mt-6 grid auto-rows-[minmax(9rem,auto)] grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
 					{
 						tiles.map((tile) => (

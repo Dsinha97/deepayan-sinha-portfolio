@@ -107,3 +107,10 @@ One line per action, newest at the bottom.
     wrapping to three lines — because the grid sits beside a 304px rail and has far less width
     than the viewport suggests. Now one column, two at `sm`, four at `xl`, which is what
     DSI-102 specified in the first place.
+- 2026-09-11 — M2 committed (`e8603a5`) and ingested. Placeholder copy reduced to "Coming soon."
+  after the first pass shipped section stubs naming their Linear issues in reader-visible text;
+  that is now a rule in `CLAUDE.md` rather than a one-off fix. Ingest found no source drift —
+  every file in `.manifest.json` still matches its hash, so nothing new arrived in
+  `docs/sources/` or the vault snapshot. Tidy pass linked `content-guardrails.md` to the build
+  guard that now actually enforces the phone-number rule, and recorded in `seo-and-metadata.md`
+  that the OG base asset exists while the typographic cards wait for a generator.

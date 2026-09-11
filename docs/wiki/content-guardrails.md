@@ -81,6 +81,10 @@ experience entries: data-driven decision making (the Wipro AI/ML work) and gover
 
 - **The phone number is never published.** Not in page copy, not in JSON-LD, not in the resume
   PDF that ships to `public/`. The build fails on a phone-number pattern anywhere in `dist/`.
+  **This is enforced, not aspirational** — [`scripts/check-dist.mjs`](../../scripts/check-dist.mjs)
+  runs as a build step and exits non-zero, scanning the PDF bytes as well as the text output. It
+  is deliberately over-eager: a false positive costs one conversation, a false negative is
+  permanent and scrapeable.
 - Published contact channels are exactly: `contact@deepayansinha.com`, LinkedIn, GitHub.
 - `deepayansinha@gmail.com` is the mail-routing destination, not a published address.
 - No home address. City and state are fine.

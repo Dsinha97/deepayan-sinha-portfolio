@@ -103,6 +103,9 @@ for them; these lines are the ones worth having in every session:
 - **The phone number is never published** — not in copy, not in JSON-LD, not in the resume PDF
   that ships to `public/`. The build fails on a phone-number pattern in `dist/`.
 - Published contact channels are exactly `contact@deepayansinha.com`, LinkedIn, GitHub.
+- **Issue numbers never appear in copy a visitor can read.** They belong in Linear and in source
+  comments. Placeholder sections say "Coming soon." and nothing else — a stub that names DSI-99
+  tells a reader the site is unfinished and tells them the internal tracker's shape.
 
 ## Design
 

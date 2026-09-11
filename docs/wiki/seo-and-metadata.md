@@ -49,7 +49,10 @@ the Rich Results Test is the expected outcome, not a failure.
 
 ## Open Graph images
 
-A default 1200 by 630 card for the homepage and the resume, plus a generated card per case study
+The base asset already ships: `public/og-default.png`, the mark on the paper ground, generated
+by `scripts/trace-logo.py` (DSI-89). It carries no type — the typographic cards wait for the
+fonts to be wired into a generator rather than being set in a system face that does not match
+the site. A default 1200 by 630 card for the homepage and the resume, plus a generated card per case study
 so a shared link shows the case study title rather than the site name. Generation happens at
 build time from the same design tokens, so the cards cannot drift from the site palette.
 
