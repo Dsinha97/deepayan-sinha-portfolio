@@ -10,7 +10,7 @@ related:
   - site-architecture.md
   - research-synthesis.md
 updated: 2026-09-10
-status: planned
+status: built
 ---
 
 # Design System
@@ -18,8 +18,9 @@ status: planned
 > A purple and teal palette derived from the logo, dual-mode, with every text pair measured
 > against WCAG before it was written down.
 
-**Status: planned.** Nothing here is built yet. Flip `status` to `built` in the same change that
-ships the token file, not before.
+**Status: built.** The token file is [src/styles/global.css](../../src/styles/global.css), wired
+through Tailwind 4 exactly as described below. The logo mark itself is still the placeholder
+favicon — DSI-89 replaces it.
 
 ## Where the colours come from
 

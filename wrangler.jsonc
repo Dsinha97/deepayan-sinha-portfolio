@@ -1,0 +1,18 @@
+// Cloudflare Worker config — static assets only, no server script. See
+// docs/wiki/deployment-domain.md.
+//
+// Apex only. Registering www.deepayansinha.com as a second custom_domain was
+// tried on the sibling fpldecision.com deploy and reverted: it makes the
+// Worker serve www directly with a 200, which is the opposite of making the
+// apex canonical. www is instead a proxied placeholder A record plus a
+// dashboard-only Redirect Rule (not expressible here) issuing a 301 to the
+// apex with path and query preserved.
+{
+  "name": "deepayansinha-com",
+  "compatibility_date": "2026-09-10",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  },
+  "routes": [{ "pattern": "deepayansinha.com", "custom_domain": true }]
+}

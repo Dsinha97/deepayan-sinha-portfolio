@@ -3,8 +3,9 @@
 Personal portfolio site for Deepayan Sinha — MBA (William & Mary, 2026), six years of AI/ML
 product engineering, and a habit of shipping the tools himself.
 
-**Status: in development.** The domain is registered and the planning and content work is done;
-the site itself is not built yet.
+**Status: in development.** The domain is registered, planning and content work is done, and the
+Astro scaffold is up. Layout, theming and content still ship in later milestones — see
+[docs/linear.md](docs/linear.md).
 
 ## Stack
 
@@ -14,8 +15,6 @@ the site itself is not built yet.
   Policy stay on `'self'`
 
 ## Getting started
-
-Nothing to run yet. Once the scaffold lands:
 
 ```bash
 npm install

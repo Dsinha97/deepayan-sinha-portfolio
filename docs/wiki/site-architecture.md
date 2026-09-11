@@ -10,7 +10,7 @@ related:
   - deployment-domain.md
   - content-guardrails.md
 updated: 2026-09-10
-status: planned
+status: built
 ---
 
 # Site Architecture
@@ -18,7 +18,9 @@ status: planned
 > Astro 5 with Tailwind 4, static output, six typed content collections, one page plus three
 > case studies and a resume.
 
-**Status: planned.** None of this is built. Flip to `built` when the scaffold ships.
+**Status: built, partially.** The Astro 5 + Tailwind 4 scaffold, config and `src/data/site.ts`
+are up (DSI-81). The content collections, full route set and homepage sections below are still
+M3/M4 work.
 
 ## Framework decisions
 

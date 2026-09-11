@@ -1,0 +1,31 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{site.name} — {site.headline}</title>
+	</head>
+	<body class="bg-bg text-fg">
+		<main class="mx-auto max-w-3xl px-6 py-24">
+			<p class="font-mono text-sm uppercase tracking-[0.08em] text-fg-muted">
+				M1 scaffold — layout, header and content ship in M2 and M3
+			</p>
+			<h1 class="mt-4 text-4xl font-semibold tracking-[-0.03em] text-fg">
+				{site.name}
+			</h1>
+			<p class="mt-2 text-lg text-fg-2">{site.headline}</p>
+			<a
+				href={`mailto:${site.email}`}
+				class="mt-8 inline-block rounded-[10px] bg-accent-fill px-6 py-3 text-on-accent hover:bg-accent-fill-hover"
+			>
+				{site.email}
+			</a>
+		</main>
+	</body>
+</html>

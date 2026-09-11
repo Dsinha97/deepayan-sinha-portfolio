@@ -28,13 +28,13 @@ gate rather than copying it into a second place where it can rot.
 | Repo, private boundary, first push | DSI-78 | M0 | [CLAUDE.md](../CLAUDE.md) |
 | Build docs/wiki from the sources | DSI-79 | M0 | [wiki/index.md](wiki/index.md) |
 | Linear mapping doc, skills, weekly drift check | DSI-80 | M0 | this file, and `.claude/skills/` |
+| Scaffold Astro 5 and Tailwind 4 | DSI-81 | M1 | [site-architecture.md](wiki/site-architecture.md) |
+| Design tokens: purple and teal, light and dark | DSI-82 | M1 | [design-system.md](wiki/design-system.md) |
 
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
-| DSI-81 | Scaffold Astro 5 and Tailwind 4 | M1 | `astro check` and `npm run build` clean. **Pin `astro@^5.18`** — `latest` is now 7.x |
-| DSI-82 | Design tokens: purple and teal, light and dark | M1 | Every text pair at or above 4.5:1 in both modes — [design-system.md](wiki/design-system.md) |
 | DSI-83 | Cloudflare Workers static-assets deploy | M1 | The `*.workers.dev` URL serves the build |
 | DSI-84 | Apex domain, www redirect, HTTPS and HSTS | M1 | Apex 200; www 301s preserving path and query; http 301s to https |
 | DSI-85 | Email routing for contact@ | M1 | A test message arrives in Gmail. Check whether routing already exists on the zone |

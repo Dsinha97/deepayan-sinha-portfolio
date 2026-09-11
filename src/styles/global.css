@@ -1,0 +1,200 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/*
+ * Semantic tokens live on :root / [data-theme] OUTSIDE @theme, because
+ * Tailwind 4 hoists @theme values to :root once and can't redeclare them
+ * per theme. @theme inline then maps utility names onto the CSS variables,
+ * so e.g. bg-surface emits var(--surface) and switches for free.
+ *
+ * Never add a dark: colour variant — these tokens already switch on
+ * data-theme; a dark: colour utility means the token was wrong.
+ * See docs/wiki/design-system.md.
+ */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+:root {
+  color-scheme: light;
+
+  --bg: #ffffff;
+  --surface: #f9f8fb;
+  --surface-2: #f2f0f6;
+  --elevated: #ffffff;
+  --border: #e5e1ec;
+  --border-strong: #cfc9da;
+
+  --fg: #1d1927;
+  --fg-2: #5a526c;
+  --fg-muted: #6f6683;
+
+  --accent: #533a80;
+  --accent-hover: #3e2a68;
+  --accent-fill: #3e2a68;
+  --accent-fill-hover: #2e1f4e;
+  --on-accent: #ffffff;
+  --accent-soft: #ebe5f4;
+  --on-accent-soft: #3e2a68;
+
+  --teal: #2e7683;
+  --teal-strong: #245c66;
+  --teal-soft: #e3f1f3;
+  --on-teal-soft: #245c66;
+
+  --ring: #6b4f9a;
+  --selection-bg: #3e2a68;
+  --selection-fg: #ffffff;
+}
+
+/*
+ * Dark values are defined twice on purpose: once for a system preference with
+ * no explicit choice yet (no-flash init and the toggle itself are DSI-87,
+ * M2), and again for [data-theme="dark"] once that toggle exists, so a
+ * user's explicit choice always wins over the media query in both
+ * directions.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --bg: #141019;
+    --surface: #1d1927;
+    --surface-2: #241f30;
+    --elevated: #2c2739;
+    --border: #2c2739;
+    --border-strong: #433c54;
+
+    --fg: #f2f0f6;
+    --fg-2: #b8b0c6;
+    --fg-muted: #9a91ab;
+
+    --accent: #b5a3d2;
+    --accent-hover: #d3c8e6;
+    --accent-fill: #6b4f9a;
+    --accent-fill-hover: #7a5fa8;
+    --on-accent: #ffffff;
+    --accent-soft: #2e1f4e;
+    --on-accent-soft: #d3c8e6;
+
+    --teal: #5fb0be;
+    --teal-strong: #8fcbd4;
+    --teal-soft: #12333a;
+    --on-teal-soft: #8fcbd4;
+
+    --ring: #b5a3d2;
+    --selection-bg: #b5a3d2;
+    --selection-fg: #141019;
+  }
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #141019;
+  --surface: #1d1927;
+  --surface-2: #241f30;
+  --elevated: #2c2739;
+  --border: #2c2739;
+  --border-strong: #433c54;
+
+  --fg: #f2f0f6;
+  --fg-2: #b8b0c6;
+  --fg-muted: #9a91ab;
+
+  --accent: #b5a3d2;
+  --accent-hover: #d3c8e6;
+  --accent-fill: #6b4f9a;
+  --accent-fill-hover: #7a5fa8;
+  --on-accent: #ffffff;
+  --accent-soft: #2e1f4e;
+  --on-accent-soft: #d3c8e6;
+
+  --teal: #5fb0be;
+  --teal-strong: #8fcbd4;
+  --teal-soft: #12333a;
+  --on-teal-soft: #8fcbd4;
+
+  --ring: #b5a3d2;
+  --selection-bg: #b5a3d2;
+  --selection-fg: #141019;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-elevated: var(--elevated);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-fg: var(--fg);
+  --color-fg-2: var(--fg-2);
+  --color-fg-muted: var(--fg-muted);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-fill: var(--accent-fill);
+  --color-accent-fill-hover: var(--accent-fill-hover);
+  --color-on-accent: var(--on-accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent-soft: var(--on-accent-soft);
+
+  --color-teal: var(--teal);
+  --color-teal-strong: var(--teal-strong);
+  --color-teal-soft: var(--teal-soft);
+  --color-on-teal-soft: var(--on-teal-soft);
+
+  --color-ring: var(--ring);
+}
+
+/* Static scales — the numbered steps, not the semantic tokens above. Used
+ * directly only where a component needs a rung the semantic tokens don't
+ * name (e.g. bg-purple-700 for the logo mark itself). */
+@theme {
+  --color-purple-50: #f5f2fa;
+  --color-purple-100: #ebe5f4;
+  --color-purple-200: #d3c8e6;
+  --color-purple-300: #b5a3d2;
+  --color-purple-400: #8f76b6;
+  --color-purple-500: #6b4f9a;
+  --color-purple-600: #533a80;
+  --color-purple-700: #3e2a68;
+  --color-purple-800: #2e1f4e;
+  --color-purple-900: #201538;
+  --color-purple-950: #140c24;
+
+  --color-teal-100: #e3f1f3;
+  --color-teal-200: #bfe0e5;
+  --color-teal-300: #8fcbd4;
+  --color-teal-400: #5fb0be;
+  --color-teal-500: #3a93a3;
+  --color-teal-600: #2e7683;
+  --color-teal-700: #245c66;
+  --color-teal-900: #12333a;
+}
+
+html {
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  border-color: var(--border);
+}
+
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-fg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
