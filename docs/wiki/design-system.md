@@ -1,7 +1,7 @@
 ---
 title: "Design System"
 type: reference
-tags: [design, tokens, color, typography]
+tags: [design, tokens, color, typography, kintsugi]
 sources:
   - docs/sources/design-suggestions.md
   - docs/sources/portfolio-website-plan.md
@@ -9,18 +9,24 @@ sources:
 related:
   - site-architecture.md
   - research-synthesis.md
-updated: 2026-09-10
+updated: 2026-09-11
 status: built
 ---
 
 # Design System
 
-> A purple and teal palette derived from the logo, dual-mode, with every text pair measured
-> against WCAG before it was written down.
+> A purple and teal palette derived from the logo, laid on a ceramic ground and joined with a
+> gold kintsugi seam, dual-mode, with every text pair measured against WCAG before it was
+> written down.
 
 **Status: built.** The token file is [src/styles/global.css](../../src/styles/global.css), wired
 through Tailwind 4 exactly as described below. The logo mark itself is still the placeholder
 favicon — DSI-89 replaces it.
+
+Two rounds built this page. DSI-82 derived purple and teal from the logo. DSI-115 added the
+kintsugi layer: the grounds became ceramic — warm paper in light mode, indigo in dark — and gold
+arrived as a seam. Purple and teal were **not** touched by the second round; gold is an accent
+layer on top of them, not a replacement for them.
 
 ## Where the colours come from
 
@@ -30,9 +36,31 @@ arrow teal around `#3890A0`–`#4098A0`. The system is built on **`#3E2A68` purp
 **`#3A93A3` teal**, with neutrals tinted toward purple so that dark mode reads as branded rather
 than grey.
 
-The logo file itself is a JPEG on a white background. Until a transparent vector mark exists,
-dark mode would show a white rectangle — that asset is a blocking dependency for the shell, not
-a nice-to-have.
+The logo file itself is a JPEG on a white background, and no vector original survives. It was
+traced rather than redrawn — see [The mark](#the-mark) — and `images/logo.jpg` is now an archive
+copy that nothing references.
+
+### Why there is gold in it
+
+The site's organising metaphor is **kintsugi**, the Japanese practice of repairing broken
+pottery with lacquer mixed with gold: the break is not concealed, it is made the most valuable
+line on the object. The owner's reading of it, and the reason it is here rather than being
+decoration, is that a flaw worked on openly becomes part of what the thing is worth — which is
+also the argument the case studies make about mis-migrated benchmarks, genericised client work
+and a survey that had to be redone.
+
+Two reference images set the two modes. A slate-indigo plate with gold veins became dark mode; a
+cream bowl with a single gold branch became light mode. The grounds are ceramic; the seams are
+gold; the identity stays purple and teal.
+
+The gold is an **accent layer**, decided explicitly:
+
+- Purple and teal keep every role they had. Links, buttons, chips, focus rings and the logo are
+  untouched by the kintsugi round, so the mark still matches the site it sits on.
+- Gold appears only as a seam, a rule, a hover underline, a large numeral. It names no state and
+  labels no control.
+- Pure white is gone from light mode. The canvas is `#FAF7F2` paper and the only remaining pure
+  white is `--on-accent`, the text on a filled purple button.
 
 ## Base scales
 
@@ -56,16 +84,43 @@ Teal, with 500 as the arrow colour:
 | 300 | `#8FCBD4` | 700 | `#245C66` |
 | 400 | `#5FB0BE` | 900 | `#12333A` |
 
-Neutrals, hue-shifted toward purple at low chroma:
+Gold, the kintsugi lacquer, with 400 as the seam itself:
 
 | Step | Hex | Step | Hex |
 |---|---|---|---|
-| 0 | `#FFFFFF` | 500 | `#786F8C` |
-| 50 | `#F9F8FB` | 600 | `#5A526C` |
-| 100 | `#F2F0F6` | 700 | `#433C54` |
-| 200 | `#E5E1EC` | 800 | `#2C2739` |
-| 300 | `#CFC9DA` | 900 | `#1D1927` |
-| 400 | `#A49CB4` | 950 | `#141019` |
+| 100 | `#F6EDD7` | 500 | `#B08717` |
+| 200 | `#E8DCAF` | 600 | `#8F6B10` |
+| 300 | `#E0C066` | 700 | `#6E520C` |
+| **400** | **`#C9A227`** | 900 | `#33270A` |
+
+Paper — the warm light ground, the cream bowl in the second reference image:
+
+| Step | Hex | Step | Hex |
+|---|---|---|---|
+| 0 | `#FFFDFA` | 200 | `#EDE8DF` |
+| 50 | `#FAF7F2` | 300 | `#E3DCD0` |
+| 100 | `#F4F0E9` | 400 | `#CBC1B1` |
+
+Ink — the indigo ceramic dark ground and the text that sits on it, the slate plate in the first
+reference image:
+
+| Step | Hex | Step | Hex |
+|---|---|---|---|
+| 50 | `#EEF1F7` | 500 | `#6E7789` |
+| 100 | `#D8DDE8` | 600 | `#3D4557` |
+| 200 | `#B6BDCD` | 700 | `#2A3142` |
+| 300 | `#98A1B5` | 800 | `#1C2230` |
+| 400 | `#7A8397` | 900 | `#151A24` |
+| | | 950 | `#0F131B` |
+
+Light-mode text is still the purple-tinted neutral scale, which the ceramic grounds did not
+replace:
+
+| Step | Hex | Step | Hex |
+|---|---|---|---|
+| 500 | `#786F8C` | 800 | `#2C2739` |
+| 600 | `#5A526C` | 900 | `#1D1927` |
+| 700 | `#433C54` | 950 | `#141019` |
 
 ## Semantic tokens
 
@@ -73,75 +128,184 @@ These are what components use. They switch on `data-theme`; the scales above nev
 
 | Token | Light | Dark | Role |
 |---|---|---|---|
-| `--bg` | `#FFFFFF` | `#141019` | page canvas |
-| `--surface` | `#F9F8FB` | `#1D1927` | cards, bento tiles |
-| `--surface-2` | `#F2F0F6` | `#241F30` | nested sections, proof strip |
-| `--elevated` | `#FFFFFF` | `#2C2739` | sticky header, popovers |
-| `--border` | `#E5E1EC` | `#2C2739` | card and divider rules |
-| `--border-strong` | `#CFC9DA` | `#433C54` | hover borders, control outlines |
-| `--fg` | `#1D1927` | `#F2F0F6` | headings, primary text |
-| `--fg-2` | `#5A526C` | `#B8B0C6` | body text |
-| `--fg-muted` | `#6F6683` | `#9A91AB` | dates, captions, mono meta |
+| `--bg` | `#FAF7F2` | `#151A24` | page canvas |
+| `--surface` | `#F4F0E9` | `#1C2230` | cards, bento tiles |
+| `--surface-2` | `#EDE8DF` | `#232A3A` | nested sections, proof strip |
+| `--elevated` | `#FFFDFA` | `#2A3142` | sticky header, popovers |
+| `--border` | `#E3DCD0` | `#2A3142` | card and divider rules |
+| `--border-strong` | `#CBC1B1` | `#3D4557` | hover borders, control outlines |
+| `--fg` | `#1D1927` | `#EEF1F7` | headings, primary text |
+| `--fg-2` | `#5A526C` | `#B6BDCD` | body text |
+| `--fg-muted` | `#695F7D` | `#98A1B5` | dates, captions, mono meta |
 | `--accent` | `#533A80` | `#B5A3D2` | links, icons, active nav |
 | `--accent-hover` | `#3E2A68` | `#D3C8E6` | link hover |
 | `--accent-fill` | `#3E2A68` | `#6B4F9A` | primary button background |
 | `--accent-fill-hover` | `#2E1F4E` | `#7A5FA8` | primary button hover |
 | `--on-accent` | `#FFFFFF` | `#FFFFFF` | text on the primary button |
-| `--accent-soft` | `#EBE5F4` | `#2E1F4E` | purple chip background |
+| `--accent-soft` | `#ECE6F3` | `#2E1F4E` | purple chip background |
 | `--on-accent-soft` | `#3E2A68` | `#D3C8E6` | purple chip text |
-| `--teal` | `#2E7683` | `#5FB0BE` | secondary accent text, metric values |
+| `--teal` | `#2B6E7A` | `#5FB0BE` | secondary accent text, metric values |
 | `--teal-strong` | `#245C66` | `#8FCBD4` | teal hover and emphasis |
-| `--teal-soft` | `#E3F1F3` | `#12333A` | teal chip background |
+| `--teal-soft` | `#E2F0F1` | `#12333A` | teal chip background |
 | `--on-teal-soft` | `#245C66` | `#8FCBD4` | teal chip text |
+| `--seam` | `#C9A227` | `#D9B44A` | the kintsugi seam — **never text in light mode** |
+| `--seam-soft` | `#E8DCAF` | `#4A3A12` | a seam receding into the ground |
+| `--gold` | `#6E520C` | `#E0C066` | gold *text*, where a seam needs a label |
+| `--gold-soft` | `#F6EDD7` | `#33270A` | gold chip background |
+| `--on-gold-soft` | `#6E520C` | `#E8CD7E` | gold chip text |
 | `--ring` | `#6B4F9A` | `#B5A3D2` | 2px focus ring, 2px offset |
-| `--selection-bg` / `--selection-fg` | `#3E2A68` / `#FFFFFF` | `#B5A3D2` / `#141019` | text selection |
+| `--selection-bg` / `--selection-fg` | `#3E2A68` / `#FFFFFF` | `#B5A3D2` / `#151A24` | text selection |
+
+The focus ring stays purple in both modes. Gold is the decorative layer and must never be the
+thing that tells a keyboard user where they are.
 
 ## Measured contrast
 
-WCAG 2.1: AA body text 4.5:1, AA large text and non-text UI 3:1, AAA 7:1.
+WCAG 2.1: AA body text 4.5:1, AA large text and non-text UI 3:1, AAA 7:1. Every number below was
+measured against the ceramic grounds, not the white and near-black the first round used.
 
-Light mode:
-
-| Pair | Ratio |
-|---|---|
-| `--fg` on bg / surface | 17.2 / 16.3 |
-| `--fg-2` on bg / surface / surface-2 | 7.35 / 6.94 / 6.50 |
-| `--fg-muted` on bg / surface / surface-2 | 5.38 / 5.08 / 4.76 |
-| `--accent` link on bg / surface | 9.19 / 8.69 |
-| white on `--accent-fill` / hover | 12.1 / above 12 |
-| purple chip text on `--accent-soft` | 9.82 |
-| `--teal` text on bg / surface | 5.20 / 4.92 |
-| teal chip text on `--teal-soft` | 6.48 |
-| `--ring` against bg | 6.54 |
-
-Dark mode:
+Light mode, on paper:
 
 | Pair | Ratio |
 |---|---|
-| `--fg` on bg / surface / elevated | 16.6 / 15.2 / 12.8 |
-| `--fg-2` on bg / surface / elevated | 9.00 / 8.24 / 6.91 |
-| `--fg-muted` on bg / surface / elevated | 6.27 / 5.74 / 4.81 |
-| `--accent` link on bg / surface / elevated | 8.17 / 7.48 / 6.27 |
+| `--fg` on bg / surface / surface-2 | 16.1 / 15.2 / 14.1 |
+| `--fg-2` on bg / surface / surface-2 | 6.88 / 6.47 / 6.02 |
+| `--fg-muted` on bg / surface / surface-2 | 5.56 / 5.23 / 4.87 |
+| `--accent` link on bg / surface / surface-2 | 8.60 / 8.09 / 7.53 |
+| white on `--accent-fill` / hover | 12.1 / 14.8 |
+| purple chip text on `--accent-soft` | 9.90 |
+| `--teal` text on bg / surface / surface-2 | 5.44 / 5.12 / 4.76 |
+| teal chip text on `--teal-soft` | 6.42 |
+| `--gold` text on bg / surface / surface-2 | 6.83 / 6.43 / 5.99 |
+| gold chip text on `--gold-soft` | 6.27 |
+| `--seam` against bg | **2.26 — decorative only** |
+| `--ring` against bg | 6.12 |
+
+Dark mode, on indigo:
+
+| Pair | Ratio |
+|---|---|
+| `--fg` on bg / surface / elevated | 15.4 / 14.1 / 11.5 |
+| `--fg-2` on bg / surface / elevated | 9.25 / 8.44 / 6.90 |
+| `--fg-muted` on bg / surface / elevated | 6.72 / 6.13 / 5.01 |
+| `--accent` link on bg / surface / elevated | 7.58 / 6.92 / 5.65 |
 | white on `--accent-fill` / hover | 6.54 / 5.21 |
 | purple chip text on `--accent-soft` | 9.26 |
-| `--teal` text on bg / surface / elevated | 7.55 / 6.91 / 5.80 |
+| `--teal` text on bg / surface / elevated | 7.00 / 6.39 / 5.22 |
 | teal chip text on `--teal-soft` | 7.47 |
-| `--ring` against bg | 8.17 |
+| `--gold` text on bg / surface / elevated | 9.88 / 9.01 / 7.36 |
+| gold chip text on `--gold-soft` | 9.38 |
+| `--seam` against bg | 8.78 |
+| `--ring` against bg | 7.58 |
 
-Two decisions came out of measuring rather than guessing:
+Four decisions came out of measuring rather than guessing:
 
 - **The logo teal is not a text colour.** `#3A93A3` on white is 3.57:1, which fails body text.
   Teal 500 is reserved for non-text use — the arrow, status dots, numerals at 24px and above —
-  and teal *text* uses 600 in light mode. Using the logo colour for links would have been the
+  and teal *text* uses a 600-to-700 value. Using the logo colour for links would have been the
   obvious move and would have failed the audit.
-- **Two first-pass muted values were rejected.** `#786F8C` measured 4.46:1 on the light surface
-  and `#8E859F` measured 4.12:1 on the dark elevated surface. Both were adjusted until every
-  surface they sit on passes.
+- **The seam gold is not a text colour either, and only in light mode.** `#C9A227` on paper is
+  2.26:1 — a hairline the eye reads perfectly well as a line and cannot read at all as a word.
+  Gold text uses `--gold`, which is dark enough to be olive in light mode, and that is the
+  price. In dark mode the same seam measures 8.78:1 against the indigo ground, so the rule is
+  asymmetric: gold text is safe in dark mode and forbidden in light. Do not "simplify" this into
+  one rule for both modes.
+- **The warm ground cost two tokens a step of darkness.** Paper is darker than white, so
+  everything sitting on it lost roughly 0.3 of a ratio point. `--fg-muted` `#6F6683` fell to
+  4.41:1 on `--surface-2` and `--teal` `#2E7683` to 4.26:1 on the same surface; both failed body
+  text on the third surface only. They were darkened to `#695F7D` and `#2B6E7A`, which is why
+  neither sits exactly on a scale rung. The rule being protected is that a text token passes on
+  **every** surface it can legally sit on, not on the canvas alone.
+- **Two first-pass muted values were rejected in the first round.** `#786F8C` measured 4.46:1 on
+  the light surface and `#8E859F` measured 4.12:1 on the dark elevated surface.
 
 Borders are decorative card edges rather than the sole boundary of a control, so the 3:1
 non-text rule does not apply to them; every interactive element is identified by text or an icon
 at `--fg-2` or stronger. The surface step against the canvas is deliberately subtle and always
 paired with a border.
+
+## The seam
+
+The kintsugi idea is carried by one component, [`src/components/Seam.astro`](../../src/components/Seam.astro):
+a hairline gold join used wherever the layout would otherwise draw a straight grey rule —
+section dividers, the underside of the sticky header, the top edge of the footer.
+
+It is a stroked inline SVG, not an image and not a border:
+
+- **Inline markup costs a round trip of nothing.** No `img-src` entry in the policy, no request,
+  no decode. It is a few hundred bytes in the HTML.
+- **No `style=""` attribute anywhere.** The dist guard fails the build on one, so colour comes
+  from a class (`text-seam`) through `stroke="currentColor"`, and everything else is a plain SVG
+  attribute. See [security-headers.md](security-headers.md).
+- **`preserveAspectRatio="none"` plus `vector-effect="non-scaling-stroke"`.** The first lets one
+  path stretch to any container width; the second keeps the line a true hairline while it does.
+  Without the second, the same seam across a 1200px container renders as a fat smear.
+- **Three sub-paths at three stroke widths** — 1.2, 2.2, 1.4 — meeting end to end with round
+  caps. Real lacquer swells and thins along a break, and a single uniform stroke reads as a
+  ruled line with a wobble. The short branch strokes at 50% opacity are what make it read as a
+  crack rather than a chart line.
+- **Irregular segment lengths, deliberately.** Evenly spaced vertices compress into a visible
+  sawtooth at 375px. Checked at 375 and at full width, in both modes.
+
+It is `aria-hidden` and carries no meaning: a seam separates two sections that are already real
+`<section>` elements, and a screen reader gets nothing from it.
+
+## The mark
+
+`images/logo.jpg` is a 2390 by 1792 JPEG of the DS monogram on a **white canvas**, and the
+original vector is gone. A JPEG cannot be recoloured, so in dark mode it renders as a white
+rectangle — which is why this was a blocking dependency for the shell rather than a polish item.
+
+It was **traced, not redrawn**, by [`scripts/trace-logo.py`](../../scripts/trace-logo.py): the
+purple and teal masks are cut from the source by channel comparison, blurred, contoured at the
+half-level with marching squares, simplified, and refitted as closed Catmull-Rom splines emitted
+as cubic Beziers. `fill-rule="evenodd"` handles the counters of the D and S, so holes never have
+to be identified separately. The script is a **developer tool, not part of the build** — nothing
+in `npm run build` calls it and its outputs are committed — but it exists so a change to the
+seam or a new size does not mean redoing the trace by hand.
+
+What it produces:
+
+| File | Use |
+|---|---|
+| `src/components/LogoMark.astro` | the inline mark, colour from CSS, theme-aware |
+| `public/logo-mark.svg` | standalone copy, theme-aware on its own via an internal media query |
+| `public/favicon.svg` | square, dilated strokes, thickened seam |
+| `public/favicon-32.png`, `favicon.ico` | raster fallback |
+| `public/icon-192.png`, `icon-512.png` | manifest icons |
+| `public/apple-touch-icon.png` | 180px on a paper tile |
+| `public/og-default.png` | 1200 by 630 base card |
+
+Four things this settled, each of which cost a round of looking at it:
+
+- **Colour never goes on a `fill` attribute.** The mark has to switch with the theme —
+  `#3E2A68` on the indigo ground is unreadable — so the component's paths carry
+  `.logo-mark__*` classes and the colour lives in `global.css` as `--mark-letters` and
+  `--mark-arrow`. A hardcoded fill would have reintroduced exactly the problem the JPEG had.
+- **The favicon is deliberately a different drawing.** At 16 to 32px the script strokes wash out
+  and a 1.5-wide seam disappears, so the letterforms get a stroke of their own colour to fatten
+  them and the seam is thickened to 2.6 with the branches dropped. The stroke is capped at
+  **0.6**: at 1.1 the mark still reads at 32px, but browser UI sometimes renders `favicon.svg` at
+  128px or more, and there the stroke closes the counters and the letters collapse into a blob.
+- **Two purples ship.** Where the ground is ours — the apple touch icon, the OG card — the mark
+  is `#3E2A68`. Where it is not — a favicon on an unknown tab bar, a transparent manifest icon —
+  it is `#533A80`, which survives both light and dark chrome. The SVG favicon does switch
+  properly, via its own `prefers-color-scheme` block; the PNGs cannot.
+- **An inlined SVG needs a unique id.** The seam is applied with a `clipPath`, and two copies of
+  the mark on one page would collide on the id and one would clip against the other. `LogoMark`
+  generates a per-instance suffix.
+- **`logo-mark.svg` follows the operating system, not the toggle.** An `<img>` gets no CSS from
+  the page that embeds it, so the standalone file can only switch on `prefers-color-scheme`. A
+  reader who sets the site to dark on a light OS would get the light mark. Use the component
+  anywhere on the page and keep the file for contexts with no page at all. The component costs
+  about 17KB of markup per instance — it compresses to very little, but that is a reason to
+  mount it once in the header rather than in the footer as well.
+
+`site.webmanifest` ships alongside the icons. The policy in
+[security-headers.md](security-headers.md) already covers it, because `manifest-src` falls back
+to `default-src 'self'` — but only for as long as `default-src` is there. Tighten the policy into
+explicit per-directive rules and the manifest is blocked silently, in the usual CSP way, and the
+icons simply stop applying.
 
 ## Tailwind 4 wiring
 
@@ -157,11 +321,11 @@ and so on.
 @plugin "@tailwindcss/typography";
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-:root             { color-scheme: light; --bg: #FFFFFF; /* light column */ }
-[data-theme=dark] { color-scheme: dark;  --bg: #141019; /* dark column  */ }
+:root             { color-scheme: light; --bg: #FAF7F2; /* light column */ }
+[data-theme=dark] { color-scheme: dark;  --bg: #151A24; /* dark column  */ }
 
-@theme inline { --color-bg: var(--bg); --color-surface: var(--surface); }
-@theme        { --color-purple-700: #3E2A68; }
+@theme inline { --color-bg: var(--bg); --color-seam: var(--seam); }
+@theme        { --color-purple-700: #3E2A68; --color-gold-400: #C9A227; }
 ```
 
 **Never use a `dark:` variant for colour.** The tokens already switch; a `dark:` colour utility
@@ -174,10 +338,22 @@ generates no CSS at all, silently.
 
 ## Typography
 
-Three tiers, two self-hosted variable faces:
+Three tiers, three self-hosted faces:
 
-- **Inter Variable** for display and body. Weight axis 400 to 800, latin subset, one woff2.
+- **Instrument Serif** for display — the hero name, section headings, case-study titles. One
+  weight, latin subset, 21KB. Added in DSI-131 from the editorial references; see
+  [design-references.md](design-references.md).
+- **Inter Variable** for body and UI. Weight axis 400 to 800, latin subset, one woff2.
 - **JetBrains Mono Variable** for metadata, chips, dates and metric numerals.
+
+**The serif is display-only and the face has one weight, deliberately.** A serif body would make
+the site read as a research publication rather than a portfolio, and having no second weight
+available is the cheapest guard against it drifting into body copy later.
+
+That makes three font files, not two. The budget in DSI-106 was written for two, and this is the
+change to it: **three files, two preloaded.** Inter and the serif are both on the critical path —
+the serif sets the largest contentful paint on every page — and the mono is `font-display:
+optional` and never preloaded. Total 109KB of font, all first-party.
 
 Self-hosting is a CSP decision, not an aesthetic one: Google Fonts would need two external
 origins in the policy, add a third-party connection before first paint, and send every visitor
@@ -186,12 +362,55 @@ stable enough to preload. Do not `@import` the fontsource stylesheet — it regi
 and defeats the preload.
 
 Inter gets `font-display: swap` with a metric-adjusted system fallback; the mono gets
-`font-display: optional`, since it is never the largest contentful paint.
+`font-display: optional`, since it is never the largest contentful paint and a 100ms window
+means it can never cost a layout shift on text the reader is not primarily there for.
 
 Scale: display `clamp(2.5rem, 1.6rem + 3.5vw, 4.25rem)` at 1.05 line-height and -0.03em
 tracking; h2 `clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem)` at 1.15 and -0.02em; h3 1.375rem at 1.25;
 body 1rem, 1.0625rem at large widths, at 1.6; small 0.875rem; mono meta 0.8125rem at +0.02em,
 uppercase labels 0.75rem at +0.08em. Body measure 65ch, grid 1200px.
+
+The fluid steps are Tailwind theme entries — `text-display`, `text-h2`, `text-h3`, `text-meta`,
+`text-label` — each carrying its own line-height and tracking, so no component has to remember
+that the display step also needs `tracking-[-0.03em]`.
+
+### The measured fallback
+
+`swap` means the first paint is Arial. If Arial's metrics differ from Inter's, the swap reflows
+the text and the page books a layout shift for it. `Inter Fallback` in
+[`fonts.css`](../../src/styles/fonts.css) is a `local('Arial')` face with overrides that make it
+occupy Inter's space:
+
+| Override | Value |
+|---|---|
+| `size-adjust` | 104.55% |
+| `ascent-override` | 92.78% |
+| `descent-override` | 22.96% |
+| `line-gap-override` | 0% |
+
+These were **measured from the shipped woff2**, not copied from a blog post — published Inter
+numbers assume the full font, and what ships here is the latin weight-axis subset. Method:
+load the face, then in a canvas at 100px read `fontBoundingBoxAscent` / `Descent` and the mean
+advance width of `a-zA-Z0-9` plus space, for both Inter and Arial. Then
+`size-adjust = avgWidth(Inter) / avgWidth(Arial)`, and each vertical metric is divided by that
+same factor. Inter measured 0.97 / 0.24 ascent and descent against Arial's 0.91 / 0.21, and
+0.6004 against 0.5743 average advance.
+
+Chrome reports `fontBoundingBox*` in whole pixels, so measuring at 100px gives two decimal
+places — enough for this, and the reason the numbers are not quoted more precisely.
+**Re-measure if the font file is ever replaced**, including a Fontsource version bump that
+resubsets it.
+
+`'Inter Fallback'` must sit directly after `'Inter'` in the stack. Anywhere else and the browser
+reaches a real fallback first and the adjustment does nothing.
+
+The serif got the same treatment and the numbers are worth reading rather than trusting.
+Instrument Serif is **narrow**: 0.419em mean advance against Times New Roman's 0.548em. So
+`size-adjust` is 76.47%, with `ascent-override` 129.46% and `descent-override` 40.54%. That is a
+large correction, and the honest consequence is that the pre-swap paint looks visibly small
+rather than merely different. It is still the right trade — the face sets a handful of large
+words, and the alternative is the heading reflowing under the reader. Times New Roman rather than
+Georgia because Georgia needs 72.51% and distorts further.
 
 ## Spacing, radii, targets
 
@@ -205,9 +424,26 @@ is at least 44 by 44 pixels, carried over from the Abhijit site where it is a do
 
 ## Motion
 
-Composite-only properties, transform and opacity. Everything respects
+Composite-only properties: **transform, opacity and filter**. Everything respects
 `prefers-reduced-motion: reduce`, which also disables smooth scrolling. No animation that moves
 content the reader is trying to read.
+
+`filter` is on that list for a reason worth stating, because it was briefly left off and the
+omission cost a real effect. Filter animations are **compositor-animated in every engine this
+site targets** — the same fast path as transform and opacity, off the main thread, with no
+layout and no repaint of the element's content. What a blur does cost is GPU fill-rate, and that
+cost scales with the **area** being blurred, not with the fact that it is a filter. So the
+constraint is size, not property: a 2px cross-blur on a nav panel or a card is free enough to be
+worth it, and the same blur on a full-width section or the page ground is not. Do not reach for
+`backdrop-filter` on a large surface at all — that one samples everything behind it every frame.
+
+**One deliberate exception: the header shrinking on scroll (DSI-86)** animates `padding-block`,
+which is a layout property and therefore off the composite-only path. It is allowed because it
+breaks none of the reasons for the rule: the header is chrome rather than content, so nothing
+the reader is reading moves; it fires once per threshold crossing rather than per scroll event;
+it lasts 150ms; and the global reduced-motion block disables it outright. The logo scales with
+`transform` in the same gesture, which is on the fast path. If a second exception ever wants
+making, it needs an argument of its own — this one is not a precedent.
 
 ## Sources
 
@@ -216,3 +452,6 @@ content the reader is trying to read.
   [research-synthesis](research-synthesis.md)
 - [portfolio-website-plan.md](../sources/portfolio-website-plan.md) — same
 - `images/logo.jpg` — the source of both brand colours, sampled directly
+- [DSI-115](https://linear.app/dsinha-org/issue/DSI-115/update-website-theme-using-elements-of-kintsugi-design)
+  — the kintsugi brief in the owner's own words, and the two reference images the ceramic
+  grounds were read off

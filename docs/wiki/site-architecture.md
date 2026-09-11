@@ -61,6 +61,57 @@ appears in two places will eventually disagree with itself.
 `@id`, a `ProfilePage` for the homepage, and an `Article` per case study that references the
 person by id rather than repeating it.
 
+## The shell
+
+Built in DSI-86. One layout, [`src/layouts/BaseLayout.astro`](../../src/layouts/BaseLayout.astro),
+mounting `Head`, `Header`, the slot and `Footer`. Every page uses it, including `404.astro`,
+which is the whole point of a static 404: a reader who lands on one can navigate out.
+
+| File | Role |
+|---|---|
+| `layouts/BaseLayout.astro` | skip link, header, `<main>`, footer |
+| `components/Head.astro` | title, description, canonical, icons, font preload |
+| `components/Header.astro` | sticky bar, mark, nav, resume link, theme-toggle slot |
+| `components/Footer.astro` | name, year, the three published channels, colophon |
+| `scripts/header.js` | shrink on scroll, mobile menu, which section is current |
+| `components/ThemeToggle.astro` | the toggle button, both icons, CSS picks one |
+| `scripts/theme-init.js` | **inline**, pre-paint, the only hashed script |
+| `scripts/theme.js` | click handling, persistence, label sync |
+
+Five things that needed deciding rather than typing:
+
+- **Nav entries are two different kinds and cannot be tested the same way.** `#work` is a
+  position, not a route: its current state is whichever section the reader is looking at, set at
+  runtime by an `IntersectionObserver`. `/resume/` is a route, and comparing it to the current
+  path needs a trailing slash stripped from both sides first, because `trailingSlash: 'always'`
+  gives nested pages one that `/` does not have — a raw comparison silently never matches. Off
+  the homepage the hash entries are also rewritten to `/#work`, or they resolve against the
+  current page and go nowhere.
+- **The scroll-spy uses `rootMargin: '-20% 0px -70% 0px'`.** "Current" should mean "at the top of
+  what you are reading", not "anywhere on screen"; without the margin every section from the
+  header to the fold counts and two entries light up at once.
+- **`header.js` is a bundled module, not an inline script.** Astro emits it under `/_astro/`, so
+  `script-src 'self'` covers it with no hash. Only the theme-init script (DSI-87) has to be
+  inline, because it must run before first paint. Nothing in `header.js` is load-bearing: with
+  JavaScript off the header simply stays full height, the mobile menu is a plain anchor list,
+  and no entry is marked current.
+- **The classes that script toggles are the Tailwind static-string trap.** `py-2`, `py-4` and
+  `scale-90` exist in the stylesheet *only* because they appear as whole literals in a scanned
+  source file. Assemble one by concatenation and Tailwind emits no rule, the header stops
+  shrinking, and nothing errors. Verified in the built CSS, not just in dev.
+- **The mobile menu is absolutely positioned, not in flow.** It animates on opacity and
+  visibility rather than `display`, and `visibility: hidden` still occupies its box — so the
+  closed panel left a 237px dead zone under the header on every mobile page load, making the
+  header 314px tall. Out of flow it overlays the page the way a dropdown should. Measured by the
+  responsive pass (DSI-90); it was invisible to every check that only looked for horizontal
+  scroll, because a dead zone does not overflow anything.
+- **`<main>` carries `tabindex="-1"`.** Without it, following the skip link scrolls but does not
+  move focus, so the next Tab carries on from the skip link and the reader is back in the
+  header — which is the exact failure the skip link exists to prevent.
+
+The mark is mounted in the header only. It is around 17KB of inline SVG per instance, and the
+footer does not need a second copy.
+
 ## Content collections
 
 Six collections, Astro 5 content layer, Zod-validated. Markdown for the case studies, YAML for
@@ -108,23 +159,35 @@ There is no `/cv`; `/resume/` is the single canonical path. `www` never serves a
 
 ## Homepage section order
 
-1. **Header** — sticky, shrinks on scroll, logo mark, anchor nav, resume link, theme toggle.
-2. **Hero** — name, headline, value line, two calls to action, social icons, headshot with
-   explicit dimensions and eager loading so the layout never shifts.
-3. **Proof strip** — the four facts from [profile](profile.md), as mono-labelled tiles.
-4. **Selected work** — bento grid. FPL Decision large, the Abhijit site and Fort Monroe medium,
-   with a small recognition tile alongside.
-5. **Capabilities** — the four skill groups as chips, no proficiency bars.
-6. **Experience** — the timeline, reverse chronological.
-7. **Education and credentials** — degrees, certificates grouped by category, recognition.
-8. **About** — three short first-person paragraphs.
-9. **Contact** — email with a copy button, LinkedIn, GitHub, resume.
-10. **Footer** — name, year, colophon, small theme toggle.
+Restructured in DSI-131 from the bento.me and portrait.so references: a **sticky identity rail**
+beside a scrolling content column, rather than a hero the reader scrolls past and loses.
 
-The ordering puts proof before narrative deliberately. A reader who stops after the first two
-screens should already have the four facts and the three pieces of work.
+**Left rail** (`components/IdentityRail.astro`) — sticky from `lg` up, stacked and static below
+it. Mark, name, positioning line, the three published channels, resume. Identity stays on screen
+while the work scrolls past it.
+
+**Right column**, in order:
+
+1. **Selected work** — asymmetric bento tiles, size carrying hierarchy. FPL Decision large, the
+   Abhijit site and Fort Monroe medium, a recognition tile alongside.
+2. **Proof strip** — the four facts from [profile](profile.md), as mono-labelled tiles.
+3. **Capabilities** — the four skill groups as chips, no proficiency bars.
+4. **Experience** — the timeline, reverse chronological.
+5. **Education and credentials** — degrees, certificates grouped by category, recognition.
+6. **About** — three short first-person paragraphs.
+7. **Contact** — email with a copy button, LinkedIn, GitHub, resume.
+
+Work now comes first in the column because the rail already answers "who is this" before the
+reader scrolls at all — which is what the hero used to do with a whole screen.
+
+**The rail does not replace the header.** The header carries the theme toggle, the resume link
+and the nav, and it has to exist on the case-study pages and the 404 where there is no rail. The
+rail sticks *below* the header rather than competing with it. On a phone it is neither sticky
+nor a column: a sticky rail on a 375px screen eats half the viewport.
 
 ## Case study page
+
+
 
 Breadcrumb, then title, tagline, role, period and stack chips, then the links row, cover image,
 the STAR block as four columns collapsing to a stack, the metric row, the long-form body, the

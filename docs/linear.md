@@ -33,19 +33,27 @@ gate rather than copying it into a second place where it can rot.
 | Apex domain, www redirect, HTTPS and HSTS | DSI-84 | M1 | [deployment-domain.md](wiki/deployment-domain.md) |
 | Email routing for contact@deepayansinha.com | DSI-85 | M1 | [deployment-domain.md](wiki/deployment-domain.md) |
 | Cloudflare Workers static-assets deploy via Git integration | DSI-83 | M1 | [deployment-domain.md](wiki/deployment-domain.md) |
+| Kintsugi theme: ceramic grounds and gold seam | DSI-115 | M2 | [design-system.md](wiki/design-system.md) |
+| Logo: traced vector mark, favicons, OG base | DSI-89 | M2 | [design-system.md](wiki/design-system.md) |
+| Self-hosted typography and the spacing scale | DSI-88 | M2 | [design-system.md](wiki/design-system.md) |
+| BaseLayout, header, footer, navigation, 404 | DSI-86 | M2 | [site-architecture.md](wiki/site-architecture.md) |
+| Theme toggle, no-flash init, CSP hash pipeline | DSI-87 | M2 | [security-headers.md](wiki/security-headers.md) |
+| Design references reviewed and folded into the plan | DSI-131 | M2 | [design-references.md](wiki/design-references.md) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
+
+**M2 shipped 2026-09-11, one issue open.** The shell, the ceramic/kintsugi token system, the
+traced mark, the typography and the CSP pipeline are all built and the milestone is committed.
+**DSI-90 stays open**: the responsive matrix is clean in emulation at all six breakpoints in both
+themes, but its gate also requires a real phone, and that check has not been done. The bug it
+guards against is specifically one that did not reproduce in emulation.
 
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
-| DSI-86 | BaseLayout, header, footer, navigation | M2 | Renders on every route, keyboard-navigable end to end |
-| DSI-87 | Theme toggle, no-flash init, CSP hash pipeline | M2 | No flash either mode; dist guard passes; zero CSP violations under `wrangler dev` — [security-headers.md](wiki/security-headers.md) |
-| DSI-88 | Self-hosted typography and spacing scale | M2 | No request to any origin but the site's own |
-| DSI-89 | Logo cleanup: vector mark, favicons, OG base | M2 | Crisp at 32px and 512px; no white box in dark mode. **Blocks the shell** — the source is a JPEG on white |
-| DSI-90 | Responsive pass across breakpoints and themes | M2 | No horizontal scroll at any breakpoint in either theme, checked on a real phone |
+| DSI-90 | Responsive pass across breakpoints and themes | M2 | No horizontal scroll at any breakpoint in either theme. Emulation clean; **real-phone check still outstanding** — `.claude/skills/responsive-check/` |
 | DSI-91 | Hero | M3 | Owner approves the copy; zero layout shift from the headshot |
 | DSI-92 | Proof strip and About | M3 | Every claim traceable to a wiki page |
 | DSI-93 | Experience timeline | M3 | Guardrails grep passes: no withheld names, no phone number, self-reported figures marked — [content-guardrails.md](wiki/content-guardrails.md) |

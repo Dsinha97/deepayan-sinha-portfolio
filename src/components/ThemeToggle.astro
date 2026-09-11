@@ -1,0 +1,62 @@
+---
+/*
+ * Theme toggle (DSI-87).
+ *
+ * Both icons are always in the DOM and CSS decides which one shows, keyed off
+ * the same `data-theme` / `prefers-color-scheme` pair as every colour token —
+ * see the `.theme-toggle__*` rules in global.css. Swapping icons in JavaScript
+ * instead would mean the button renders the wrong glyph until the script runs,
+ * which is the flash this whole issue exists to prevent, in miniature.
+ *
+ * The accessible name says what the button will *do*, not what the theme
+ * currently is, and theme.js keeps it in sync. It ships saying "Switch to dark
+ * theme" because the site's default is light; the first thing theme.js does is
+ * correct that if the reader is already in dark.
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<button
+	type="button"
+	data-theme-toggle
+	aria-label="Switch to dark theme"
+	class:list={[
+		'inline-flex size-11 items-center justify-center rounded-control text-fg-2 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+		className,
+	]}
+>
+	<svg
+		class="theme-toggle__moon size-5"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="1.75"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		aria-hidden="true"
+	>
+		<path d="M20 13.5A8.2 8.2 0 0 1 10.5 4a8.2 8.2 0 1 0 9.5 9.5Z"></path>
+	</svg>
+	<svg
+		class="theme-toggle__sun size-5"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="1.75"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		aria-hidden="true"
+	>
+		<circle cx="12" cy="12" r="4.2"></circle>
+		<path d="M12 2.6v2.2M12 19.2v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.6 12h2.2M19.2 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"
+		></path>
+	</svg>
+</button>
+
+<script>
+	import '../scripts/theme.js';
+</script>

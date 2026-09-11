@@ -1,31 +1,87 @@
 ---
-import '../styles/global.css';
-import { site } from '../data/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import IdentityRail from '../components/IdentityRail.astro';
+import Seam from '../components/Seam.astro';
+
+/*
+ * Homepage structure (DSI-131): a sticky identity rail beside a scrolling
+ * content column, rather than a hero the reader scrolls past and loses. Taken
+ * from the bento.me and portrait.so references.
+ *
+ * Content is still placeholder — the real sections are M3 and M4. What is real
+ * here is the two-column grid, the bento spans and the section ids the
+ * scroll-spy in header.js observes.
+ *
+ * The span classes come from a static lookup, never from concatenation.
+ * Tailwind 4 scans for complete class strings: build `col-span-${n}` and it
+ * emits no rule at all, and the grid silently collapses to one column. Same
+ * rule that governs the classes header.js toggles.
+ */
+/*
+ * Reflow: one column, then two at `sm`, then four at `xl`. Four columns any
+ * earlier is what the first pass did, and at 1024 it produced 136px tiles with
+ * "Abhijit Sinha website" wrapping to three lines — the tile grid has to
+ * account for the 304px identity rail beside it, so it has far less width than
+ * the viewport suggests. Caught by the responsive pass (DSI-90), not by eye.
+ */
+const SPAN = {
+  large: 'sm:col-span-2 sm:row-span-2',
+  wide: 'sm:col-span-2',
+  small: '',
+} as const;
+
+const tiles: { title: string; note: string; size: keyof typeof SPAN }[] = [
+  { title: 'FPL Decision', note: 'A model, an optimiser and a deployment — DSI-99.', size: 'large' },
+  { title: 'Abhijit Sinha website', note: 'Client work with regulatory exposure — DSI-100.', size: 'small' },
+  { title: 'Fort Monroe', note: 'Engagement outcomes only — DSI-101.', size: 'small' },
+  { title: 'Recognition', note: 'Beta Gamma Sigma and the ICPAT-19 paper — DSI-94.', size: 'wide' },
+];
+
+const sections = [
+  { id: 'experience', title: 'Experience', note: 'Four roles, reverse chronological — DSI-93.' },
+  { id: 'about', title: 'About', note: 'Three short paragraphs — DSI-92.' },
+  { id: 'contact', title: 'Contact', note: 'Email with copy button, LinkedIn, GitHub — DSI-96.' },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{site.name} — {site.headline}</title>
-	</head>
-	<body class="bg-bg text-fg">
-		<main class="mx-auto max-w-3xl px-6 py-24">
-			<p class="font-mono text-sm uppercase tracking-[0.08em] text-fg-muted">
-				M1 scaffold — layout, header and content ship in M2 and M3
-			</p>
-			<h1 class="mt-4 text-4xl font-semibold tracking-[-0.03em] text-fg">
-				{site.name}
-			</h1>
-			<p class="mt-2 text-lg text-fg-2">{site.headline}</p>
-			<a
-				href={`mailto:${site.email}`}
-				class="mt-8 inline-block rounded-[10px] bg-accent-fill px-6 py-3 text-on-accent hover:bg-accent-fill-hover"
-			>
-				{site.email}
-			</a>
-		</main>
-	</body>
-</html>
+<BaseLayout>
+	<div
+		class="mx-auto grid max-w-[75rem] gap-12 px-4 py-16 md:px-6 lg:grid-cols-[minmax(0,19rem)_minmax(0,1fr)] lg:gap-16 lg:py-24"
+	>
+		<IdentityRail />
+
+		<div class="min-w-0">
+			<section id="work">
+				<h2 class="font-serif text-h2 font-normal text-fg">Selected work</h2>
+				<p class="mt-2 max-w-[65ch] text-meta text-fg-muted">
+					Placeholder tiles. The case studies are DSI-99 to DSI-101, the grid is DSI-102.
+				</p>
+				<ul class="mt-6 grid auto-rows-[minmax(9rem,auto)] grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+					{
+						tiles.map((tile) => (
+							<li
+								class:list={[
+									'flex flex-col justify-between rounded-card border border-border bg-surface p-6',
+									SPAN[tile.size],
+								]}
+							>
+								<h3 class="font-serif text-h3 font-normal text-fg">{tile.title}</h3>
+								<p class="mt-3 text-meta text-fg-muted">{tile.note}</p>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+
+			{
+				sections.map((section) => (
+					<section id={section.id}>
+						<Seam class="my-12" />
+						<h2 class="font-serif text-h2 font-normal text-fg">{section.title}</h2>
+						<p class="mt-3 max-w-[65ch] text-fg-2">{section.note}</p>
+					</section>
+				))
+			}
+		</div>
+	</div>
+</BaseLayout>

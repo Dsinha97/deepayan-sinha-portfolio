@@ -20,14 +20,15 @@ authority is [docs/wiki/](docs/wiki/index.md); the plan-to-repo join is
 
 ## Current state
 
-**Milestone M0 — foundation.** The repo, the private boundary, the wiki and the Linear backlog
-exist. **The Astro application does not.** There is no `package.json`, no `src/`, no build. The
-first build task is the scaffold; see the Linear backlog for its order, not a line pinned here.
+**Milestone M2 — shell and design system.** M0 and M1 are closed: the repo, the wiki, the Linear
+backlog, the Astro/Tailwind scaffold, the Workers deploy with push-to-deploy on `main`, the apex
+domain and `contact@` routing are all live. M2 has the shell, the tokens, the mark, the
+typography and the CSP pipeline built; the responsive pass is what remains.
+
+**The content is still placeholder.** Every section on the homepage is a stub naming the issue
+that fills it — that is M3 and M4. See the Linear backlog for order, not a line pinned here.
 
 ## Commands
-
-None yet. After the scaffold ships (M1), these are the intended commands — update this block in
-the same change that creates them:
 
 ```bash
 npm run dev      # astro dev on :4321 — use the preview tools, never Bash
@@ -35,6 +36,14 @@ npm run check    # astro check — run before every commit
 npm run build    # static build to dist/, plus the header and dist guards
 npm run preview  # wrangler dev over dist/, which applies _headers so CSP is testable
 ```
+
+`npm run build` is four steps: `astro check`, `astro build`, then `generate-headers.mjs` (writes
+`dist/_headers` with the CSP hash of the inline theme script) and `check-dist.mjs` (fails on any
+other inline script, any `style=""`, any `<style>` block, or a phone-number pattern). Both guards
+exit non-zero, so a broken policy or a leaked number stops the build rather than shipping.
+
+`scripts/trace-logo.py` is **not** part of the build — it regenerates the logo assets from
+`images/logo.jpg` on demand and needs Python with numpy, pillow, scipy and contourpy.
 
 ## Ground rules
 
@@ -53,6 +62,12 @@ as more current. Shipped code plus the live site outrank the wiki. `/wiki-ingest
 projects, an award, performance metrics and a technology stack, and they assume the wrong
 professional archetype. Keep them for their structural thinking; **never take content from them**.
 Full account: [docs/wiki/research-synthesis.md](docs/wiki/research-synthesis.md).
+
+**`Referernces/` is local-only and gitignored** (both that spelling and `References/`). It holds
+third-party style teardowns and component specs — a technique source, never a palette source,
+since every teardown documents a real company's live brand. What was taken, what was refused and
+why is in [docs/wiki/design-references.md](docs/wiki/design-references.md), which is the only
+durable record of a folder that never enters the repo.
 
 **`private/` is never committed and never copied into `public/`.** It holds certificates,
 transcripts, degree certificates, MBA coursework, the original resume PDF, and a frozen snapshot
@@ -102,8 +117,11 @@ Three things that will bite otherwise:
   in light mode; the logo teal is for arrows, dots and large numerals only.
 - **Never use a `dark:` variant for colour.** Semantic tokens already switch on `data-theme`; a
   `dark:` colour utility means the token was wrong.
-- **`images/logo.jpg` is a JPEG on white** and will show a white box in dark mode. A transparent
-  vector mark is a prerequisite for the shell, not a polish item.
+- **The serif is display-only.** Instrument Serif sets headings; body and UI are Inter. The face
+  ships with one weight so it cannot spread into body copy.
+- **`images/logo.jpg` is an archive copy, not a shippable asset** — a JPEG on white that would
+  render as a white box in dark mode. Use `src/components/LogoMark.astro` or
+  `public/logo-mark.svg`, both traced from it by `scripts/trace-logo.py`.
 
 ## Build and deploy
 

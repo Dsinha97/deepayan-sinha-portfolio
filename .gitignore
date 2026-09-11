@@ -2,6 +2,13 @@
 # the original resume PDF, and the MBA Brain snapshot all live here.
 private/
 
+# Design reference material — never committed (DSI-131). Third-party design
+# assets and component sources kept locally for reference only. Both spellings
+# are listed because the folder on disk carries a typo; renaming it should not
+# silently start tracking it.
+Referernces/
+References/
+
 # Build output
 dist/
 .astro/

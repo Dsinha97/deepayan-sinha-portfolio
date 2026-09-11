@@ -1,0 +1,60 @@
+---
+/*
+ * The shell every page uses (DSI-86).
+ *
+ * One layout mounting head, header, slot and footer, so shared chrome is never
+ * duplicated per page. This is the pattern lifted from the Abhijit site, and
+ * the reason for it there is the reason for it here: when each page owns its
+ * own chrome, a required element eventually gets dropped by someone editing
+ * one page, and nothing catches it.
+ *
+ * The skip link is first in the DOM and only visible on focus. `#main` is the
+ * target, and `main` takes `tabindex="-1"` so that following the link actually
+ * moves focus rather than just scrolling — without it, the next Tab press
+ * carries on from the skip link and the reader is back in the header.
+ */
+import Head from '../components/Head.astro';
+// ?raw so the bytes in the HTML are exactly the bytes on disk — the CSP hash
+// is computed over them and any transformation would invalidate it.
+import themeInit from '../scripts/theme-init.js?raw';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		{/*
+			First thing in the head, before any stylesheet, because it has to run
+			before first paint — otherwise the page paints light, then flips, and
+			the reader sees the flash this issue exists to prevent. `is:inline`
+			keeps Astro from bundling it into an external file, which would make
+			it async and reintroduce the flash.
+		*/}
+		<script is:inline set:html={themeInit} />
+		<Head title={title} description={description} />
+	</head>
+	<body class="flex min-h-dvh flex-col bg-bg text-fg">
+		<a
+			href="#main"
+			class="sr-only rounded-control bg-accent-fill px-4 text-on-accent focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:inline-flex focus:min-h-11 focus:items-center"
+		>
+			Skip to content
+		</a>
+
+		<Header />
+
+		<main id="main" tabindex="-1" class="flex-1 focus:outline-none">
+			<slot />
+		</main>
+
+		<Footer />
+	</body>
+</html>

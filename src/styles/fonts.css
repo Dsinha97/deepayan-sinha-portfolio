@@ -1,0 +1,110 @@
+/*
+ * Self-hosted typography (DSI-88). Two variable faces, latin subset only.
+ *
+ * Self-hosting is a Content Security Policy decision, not an aesthetic one.
+ * Google Fonts would need two external origins in the policy, add a
+ * third-party connection before first paint, and send every visitor's IP to
+ * Google. See docs/wiki/security-headers.md.
+ *
+ * Written by hand rather than imported from Fontsource. `@import` of the
+ * package stylesheet registers every subset — cyrillic, greek, vietnamese,
+ * latin-ext — which defeats the preload, because the preloaded URL has to be
+ * the exact one the stylesheet resolves to and a hashed path from node_modules
+ * is not stable. The two .woff2 files in public/fonts/ are copied from
+ * @fontsource-variable/* (devDependencies, kept for provenance and the
+ * licences) and committed; their URLs never move.
+ *
+ * The OFL requires the licence to travel with the fonts: public/fonts/
+ * carries a copy for each.
+ */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  /* The wght axis file spans 100-900; the design uses 400-800. */
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  /*
+   * `optional` rather than `swap`: the mono face is only ever used for dates,
+   * chips and metric labels, never for the largest contentful paint. `optional`
+   * gives it a 100ms window and otherwise leaves the fallback in place for
+   * that page view, so a slow font can never cost a layout shift on text the
+   * reader is not primarily there for.
+   */
+  font-display: optional;
+  src: url('/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  /*
+   * One weight, on purpose. Instrument Serif is a display face and the design
+   * uses it only for display and h2 — body stays Inter (DSI-131). Having no
+   * other weight available is the cheapest guard against it drifting into
+   * body copy later.
+   */
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/instrument-serif-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/*
+ * Metric-adjusted fallback. Inter is `swap`, so the first paint is Arial; if
+ * Arial's metrics differ from Inter's, swapping in the real face reflows the
+ * text and the page scores a layout shift for it.
+ *
+ * These overrides make the fallback occupy the same space as Inter. The
+ * numbers are measured from the shipped .woff2 against the local fallback
+ * rather than copied: see docs/wiki/design-system.md for the method and the
+ * measurements. Re-measure if the font file is ever replaced.
+ */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 104.55%;
+  ascent-override: 92.78%;
+  descent-override: 22.96%;
+  line-gap-override: 0%;
+}
+
+/*
+ * The same treatment for the display serif, and here the numbers are worth
+ * reading rather than trusting. Instrument Serif is a *narrow* high-contrast
+ * face: its mean advance is 0.419em against Times New Roman's 0.548em. So the
+ * override scales the fallback down to 76.47% to make the line occupy the same
+ * width, and pushes the ascent to 129% to keep the baseline where it belongs.
+ *
+ * That is a big adjustment, and the honest consequence is that the pre-swap
+ * paint looks visibly small rather than merely different. It is still the
+ * right trade: this face is used only for display and h2 — a handful of large
+ * words — and the alternative is the heading reflowing under the reader, which
+ * is what actually books a layout shift against the page.
+ *
+ * Times New Roman rather than Georgia because it is the closer match: Georgia
+ * needs 72.51% and distorts further.
+ */
+@font-face {
+  font-family: 'Instrument Serif Fallback';
+  src: local('Times New Roman'), local('Times');
+  size-adjust: 76.47%;
+  ascent-override: 129.46%;
+  descent-override: 40.54%;
+  line-gap-override: 0%;
+}

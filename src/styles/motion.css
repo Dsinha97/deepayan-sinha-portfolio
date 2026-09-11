@@ -1,0 +1,84 @@
+/*
+ * Motion primitives (DSI-131).
+ *
+ * Adapted from the Transitions.dev specs in the (gitignored) reference folder.
+ * They are ported rather than pasted, for three reasons that apply to anything
+ * else taken from that folder:
+ *
+ * 1. **Tokens, not hardcoded values.** Durations and easings become variables
+ *    that sit alongside the rest of the design system, so motion can be tuned
+ *    in one place instead of per component.
+ * 2. **The blur is kept, but bounded.** Every one of those specs cross-fades a
+ *    2px blur alongside the transform, and it is what makes the movement read
+ *    as depth rather than a slide. `filter` is compositor-animated in every
+ *    engine we target — the same fast path as transform and opacity, off the
+ *    main thread, no layout and no repaint of the element's content. What it
+ *    does cost is GPU fill-rate, and that cost scales with the *area* being
+ *    blurred. So the rule here is about size, not about the property:
+ *    small chrome surfaces yes, a full-width section or the page ground never.
+ *    See the Motion section of docs/wiki/design-system.md.
+ * 3. **Closed means unfocusable.** The originals close with opacity and
+ *    `pointer-events`, which hides a panel from the eye but leaves every link
+ *    inside it in the tab order — a keyboard user tabs into a panel they
+ *    cannot see. `visibility` is transitioned in at the end of the close so
+ *    the panel leaves the tab order once it has finished animating out.
+ *
+ * Only primitives with a live consumer belong here. The rest of the shortlist
+ * is in docs/wiki/design-references.md, mapped to the issue that will need it,
+ * so this file never fills up with CSS nothing renders.
+ */
+
+:root {
+  --panel-open-dur: 260ms;
+  --panel-close-dur: 200ms;
+  --panel-travel: 0.5rem;
+  --panel-blur: 2px;
+  --panel-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Panel reveal — the mobile navigation menu. */
+.t-panel {
+  transform: translateY(calc(var(--panel-travel) * -1));
+  opacity: 0;
+  filter: blur(var(--panel-blur));
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    transform var(--panel-close-dur) var(--panel-ease),
+    opacity var(--panel-close-dur) var(--panel-ease),
+    filter var(--panel-close-dur) var(--panel-ease),
+    visibility 0s linear var(--panel-close-dur);
+}
+
+.t-panel[data-open='true'] {
+  transform: translateY(0);
+  opacity: 1;
+  /*
+   * blur(0) rather than `none` so the two states interpolate cleanly. The
+   * side effect is that the panel keeps a stacking context and a containing
+   * block for absolutely positioned children even at rest — harmless for a
+   * flat list of links, but worth knowing before putting a popover inside it.
+   */
+  filter: blur(0);
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    transform var(--panel-open-dur) var(--panel-ease),
+    opacity var(--panel-open-dur) var(--panel-ease),
+    filter var(--panel-open-dur) var(--panel-ease),
+    visibility 0s;
+}
+
+/*
+ * The global reduced-motion block in global.css already collapses every
+ * transition to 0.01ms, which would take the visibility delay with it and let
+ * the panel flash. Pinning it here keeps the open/close instant *and* correct.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .t-panel {
+    transition: visibility 0s linear var(--panel-close-dur) !important;
+  }
+  .t-panel[data-open='true'] {
+    transition: visibility 0s !important;
+  }
+}

@@ -4,3 +4,8 @@
 *.webp binary
 *.pdf binary
 *.woff2 binary
+
+# The CSP hash is computed over the exact bytes of this file. A CRLF checkout
+# would change every byte count and silently invalidate the hash, so it is
+# pinned explicitly rather than relying on `* text=auto`.
+src/scripts/theme-init.js text eol=lf

@@ -1,0 +1,66 @@
+---
+/*
+ * Everything that belongs in <head>, mounted once by BaseLayout (DSI-86).
+ *
+ * Defaults come from `site.ts`, so a page that passes nothing still gets
+ * correct metadata. The failure mode being designed against is a page shipping
+ * with the homepage's description because someone forgot a prop — which is why
+ * `description` has a default here rather than being required and forgotten.
+ *
+ * This is the minimum that has to be right from the first render. Open Graph,
+ * Twitter cards, JSON-LD and the canonical rules are DSI-103 and DSI-104; they
+ * extend this component rather than adding a second one.
+ */
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${site.name} — ${site.headline}`,
+  description = 'Product and analytics leader who builds — six years of AI/ML product engineering, an MBA, and shipped production work.',
+} = Astro.props;
+
+// `Astro.site` is the apex, hardcoded in astro.config.mjs so nothing can point
+// a canonical URL at a preview host by accident.
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+
+{/*
+	Two preloads, not three. Inter carries the body and the UI; Instrument Serif
+	carries the display heading, which is the largest contentful paint on every
+	page — so both are on the critical path. The mono face is
+	`font-display: optional` and is never the LCP, so preloading it would only
+	compete with the two that are.
+
+	crossorigin is required even same-origin: a font request is CORS-mode, and
+	without it the preload is fetched twice.
+*/}
+<link
+	rel="preload"
+	href="/fonts/inter-latin-wght-normal.woff2"
+	as="font"
+	type="font/woff2"
+	crossorigin
+/>
+<link
+	rel="preload"
+	href="/fonts/instrument-serif-latin-400-normal.woff2"
+	as="font"
+	type="font/woff2"
+	crossorigin
+/>
+<meta name="generator" content={Astro.generator} />

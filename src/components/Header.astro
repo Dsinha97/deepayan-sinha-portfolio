@@ -1,0 +1,161 @@
+---
+/*
+ * Sticky header (DSI-86): logo mark, navigation, resume link, and the slot the
+ * theme toggle lands in (DSI-87).
+ *
+ * Active state, which is the fiddly part. The nav is a mix of two kinds of
+ * entry and they cannot be tested the same way:
+ *
+ * - A hash entry (`#work`) is not a route. On the homepage it is a position,
+ *   so its active state is whichever section the reader is looking at — set at
+ *   runtime by the observer in header.js, not here.
+ * - A path entry (`/resume/`) is a route, and comparing it to the current path
+ *   needs normalising on both sides: `trailingSlash: 'always'` gives nested
+ *   pages a trailing slash that the homepage does not have, so a raw string
+ *   comparison silently never matches.
+ *
+ * Off the homepage the hash entries have to become `/#work` or they resolve
+ * against the current page and go nowhere.
+ */
+import { site, nav } from '../data/site';
+import LogoMark from './LogoMark.astro';
+import Seam from './Seam.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+const pathname = Astro.url.pathname;
+const isHome = pathname === '/' || pathname === '';
+
+/** Trailing slashes off both sides before comparing; '/' stays '/'. */
+const normalise = (p: string) => (p.length > 1 ? p.replace(/\/+$/, '') : p);
+const isCurrentRoute = (href: string) =>
+  !href.startsWith('#') && normalise(href) === normalise(pathname);
+
+// A hash entry only works as a bare hash on the page that owns the sections.
+const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` : href);
+---
+
+<header
+	id="site-header"
+	class="sticky top-0 z-50 bg-elevated/95 backdrop-blur-sm"
+	data-header
+>
+	<div
+		class="mx-auto flex max-w-[75rem] items-center justify-between gap-4 px-4 py-4 transition-[padding] duration-150 md:px-6"
+		data-header-bar
+	>
+		<a
+			href="/"
+			class="flex min-h-11 items-center rounded-control focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+			aria-label={`${site.name} — home`}
+		>
+			<LogoMark class="w-20 transition-transform duration-150 md:w-24" data-header-mark />
+		</a>
+
+		<nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
+			{
+				nav.map((item) => (
+					<a
+						href={resolve(item.href)}
+						data-nav-link
+						data-target={item.href.startsWith('#') ? item.href.slice(1) : undefined}
+						aria-current={isCurrentRoute(item.href) ? 'page' : undefined}
+						class="inline-flex min-h-11 items-center rounded-control px-3 text-fg-2 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-[current]:text-accent aria-[current]:font-medium"
+					>
+						{item.label}
+					</a>
+				))
+			}
+			<a
+				href={site.resumePath}
+				aria-current={isCurrentRoute(site.resumePath) ? 'page' : undefined}
+				class="ml-2 inline-flex min-h-11 items-center rounded-control border border-border-strong px-4 text-fg transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+			>
+				Resume
+			</a>
+			<ThemeToggle class="ml-1" />
+		</nav>
+
+		<div class="flex items-center gap-1 md:hidden">
+			<ThemeToggle />
+			<button
+				type="button"
+				class="inline-flex size-11 items-center justify-center rounded-control text-fg transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+				aria-expanded="false"
+				aria-controls="mobile-menu"
+				data-menu-button
+			>
+				<span class="sr-only">Menu</span>
+				<svg
+					viewBox="0 0 24 24"
+					class="size-6"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.75"
+					stroke-linecap="round"
+					aria-hidden="true"
+				>
+					<path d="M4 7h16M4 12h16M4 17h16" data-menu-icon-open />
+					<path d="M6 6l12 12M18 6L6 18" data-menu-icon-close class="hidden" />
+				</svg>
+			</button>
+		</div>
+	</div>
+
+	{/*
+		The header's underside is a seam rather than a rule — the one piece of
+		chrome where the kintsugi idea is structural instead of decorative.
+	*/}
+	<Seam class="absolute inset-x-0 bottom-0 translate-y-1/2" />
+
+	{/*
+		Absolutely positioned, not in flow. The panel animates on opacity and
+		visibility rather than `display`, and `visibility: hidden` still occupies
+		its box — which left a 237px dead zone under the header on every mobile
+		page load until the responsive pass (DSI-90) measured it. Out of flow it
+		overlays the page the way a dropdown should, and the header keeps its own
+		height.
+
+		`left-0 w-full`, never `inset-x-*` — see the responsive-check skill.
+	*/}
+	<div
+		id="mobile-menu"
+		class="t-panel absolute left-0 top-full w-full border-t border-border bg-elevated md:hidden"
+		data-open="false"
+		data-menu
+	>
+		<nav class="mx-auto max-w-[75rem] px-4 py-2" aria-label="Primary, mobile">
+			<ul class="flex flex-col">
+				{
+					nav.map((item) => (
+						<li>
+							<a
+								href={resolve(item.href)}
+								data-menu-link
+								class="flex min-h-11 items-center rounded-control px-2 text-fg-2 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+							>
+								{item.label}
+							</a>
+						</li>
+					))
+				}
+				<li>
+					<a
+						href={site.resumePath}
+						data-menu-link
+						class="flex min-h-11 items-center rounded-control px-2 text-fg-2 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+					>
+						Resume
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<script>
+	// Astro hoists and bundles this into a real file under /_astro/, so it is
+	// an external script and `script-src 'self'` covers it with no hash. Only
+	// the theme-init script (DSI-87) has to be inline, because it must run
+	// before first paint.
+	import '../scripts/header.js';
+</script>

@@ -30,7 +30,8 @@ single home for what may and may not be published, and every other page defers t
 
 ## How the site is built
 
-- [Design System](design-system.md) — purple and teal tokens, measured contrast, typography
+- [Design System](design-system.md) — ceramic grounds, the gold seam, measured contrast, typography
+- [Design References](design-references.md) — the gitignored reference folder: what was taken and refused
 - [Site Architecture](site-architecture.md) — Astro and Tailwind decisions, collections, routes
 - [Deployment and Domain](deployment-domain.md) — Cloudflare Workers, DNS, email routing
 - [Security Headers and CSP](security-headers.md) — the hashed inline script and the policy

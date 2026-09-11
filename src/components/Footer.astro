@@ -1,0 +1,66 @@
+---
+/*
+ * Site footer (DSI-86). Name, year, the three published contact channels, and
+ * a colophon.
+ *
+ * The channels are exactly `contact@`, LinkedIn and GitHub — the published set
+ * from docs/wiki/content-guardrails.md. The phone number is never published
+ * anywhere, including here; the build fails on a phone-number pattern in
+ * `dist/`.
+ *
+ * The mark is deliberately not repeated here. It is about 17KB of inline SVG
+ * per instance, and the header already carries it on every page.
+ */
+import { site } from '../data/site';
+import Seam from './Seam.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="relative mt-24 bg-surface">
+	<Seam class="absolute inset-x-0 top-0 -translate-y-1/2" />
+	<div
+		class="mx-auto flex max-w-[75rem] flex-col gap-6 px-4 py-12 md:flex-row md:items-start md:justify-between md:px-6"
+	>
+		<div>
+			<p class="font-medium text-fg">{site.name}</p>
+			<p class="mt-1 text-meta text-fg-muted">
+				&copy; {year}. Built with Astro and Tailwind, deployed on Cloudflare.
+			</p>
+			<p class="mt-1 font-mono text-meta text-fg-muted">
+				Kintsugi &mdash; the break is the part worth keeping.
+			</p>
+		</div>
+
+		<nav aria-label="Contact">
+			<ul class="flex flex-col gap-1 md:items-end">
+				<li>
+					<a
+						href={`mailto:${site.email}`}
+						class="inline-flex min-h-11 items-center rounded-control text-fg-2 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+					>
+						{site.email}
+					</a>
+				</li>
+				<li>
+					<a
+						href={site.links.linkedin}
+						rel="me noopener"
+						class="inline-flex min-h-11 items-center rounded-control text-fg-2 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+					>
+						LinkedIn
+					</a>
+				</li>
+				<li>
+					<a
+						href={site.links.github}
+						rel="me noopener"
+						class="inline-flex min-h-11 items-center rounded-control text-fg-2 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+					>
+						GitHub
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</footer>

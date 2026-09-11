@@ -1,0 +1,36 @@
+# Cloudflare _headers, generated — do not edit dist/_headers directly.
+#
+# This file is the source; `scripts/generate-headers.mjs` substitutes the CSP
+# hash of the inline theme script and writes dist/_headers after every build.
+# There is deliberately no public/_headers: public/ is copied verbatim into
+# dist/, so it would overwrite the generated file with a stale hash.
+#
+# The hash placeholder is substituted wherever it appears, so it is described
+# rather than written out here. See docs/wiki/security-headers.md.
+
+/*
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; script-src 'self' '{{THEME_HASH}}'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin
+
+# No Cache-Control in the /* block, deliberately. Cloudflare _headers rules
+# *append* to each other rather than overriding, so a `max-age=0` there
+# combines with the immutable rules below into
+# `max-age=0, must-revalidate, public, max-age=31536000, immutable` — and a
+# browser takes the first max-age it sees. That silently drops every font and
+# hashed asset to no-cache. HTML gets Workers' own default for unhashed assets,
+# which already revalidates; verified against `wrangler dev`.
+
+# Content-hashed by the build, so they can never go stale at a given URL.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Not content-hashed, but the filenames are stable by design — they are
+# preloaded, and a preload needs a URL that does not move. Replacing a face
+# means replacing the filename.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable

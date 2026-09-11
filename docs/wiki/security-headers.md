@@ -9,7 +9,7 @@ related:
   - deployment-domain.md
   - site-architecture.md
 updated: 2026-09-10
-status: planned
+status: built
 ---
 
 # Security Headers and CSP
@@ -68,6 +68,11 @@ Plus cache rules: HTML revalidates, hashed assets and fonts get a year and `immu
 
 `form-action 'none'` is correct only while there is no form. Adding one means changing it.
 
+`site.webmanifest` (DSI-89) is covered without a line of its own: `manifest-src` falls back to
+`default-src 'self'`. That holds only while `default-src` is present — if this policy is ever
+rewritten as explicit per-directive rules, the manifest needs `manifest-src 'self'` or it is
+blocked silently and the icon set stops applying.
+
 ## Why the policy can be this strict
 
 Because nothing on the site is third-party. Fonts are self-hosted, there is no analytics, no
@@ -79,6 +84,35 @@ production.
 
 If analytics is added later, it needs its script origin in `script-src` and its reporting
 endpoint in `connect-src`.
+
+## What building it changed
+
+Built in DSI-87. Two things came out of it that the plan above did not anticipate, both worth
+keeping.
+
+**The hash is taken from the built HTML, not from the source file.** The plan said to hash
+`src/scripts/theme-init.js`. That is one step removed from what matters: the browser hashes the
+bytes it actually receives, so hashing the source is a proxy that is correct only while nothing
+transforms the script on its way into the page. `generate-headers.mjs` now extracts the inline
+script out of `dist/`, hashes that, and **cross-checks it against the hash of the source** — if
+the two ever disagree, the build stops and says so, rather than shipping a policy that blocks its
+own script. It also fails if it finds more than one distinct inline script, since the policy
+carries exactly one hash.
+
+**`_headers` rules append; they do not override.** A `Cache-Control` in the `/*` block combined
+with the immutable rules below it into
+`public, max-age=0, must-revalidate, public, max-age=31536000, immutable` — and a browser takes
+the first `max-age` it sees, so every font and hashed asset silently dropped to no-cache. Caught
+by curling the asset URLs under `wrangler dev` rather than by reading the file. The `/*` block
+now carries security headers only; HTML gets Workers' own default for unhashed assets, which
+already revalidates.
+
+Measured under `wrangler dev`: HTML `public, max-age=0, must-revalidate`; `/_astro/*` and
+`/fonts/*` `public, max-age=31536000, immutable`; zero console output on either route, which is
+what zero CSP violations looks like.
+
+The inline script lands at **byte 6 of `<head>`**, ahead of the title and 1.4KB ahead of the
+stylesheet, so it has set `data-theme` before there is any CSS to paint with.
 
 ## Testing locally
 

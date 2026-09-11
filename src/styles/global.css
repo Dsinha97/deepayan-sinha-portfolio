@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "./fonts.css";
+@import "./motion.css";
 @plugin "@tailwindcss/typography";
 
 /*
@@ -10,35 +12,54 @@
  * Never add a dark: colour variant — these tokens already switch on
  * data-theme; a dark: colour utility means the token was wrong.
  * See docs/wiki/design-system.md.
+ *
+ * The grounds are ceramic and the seams are gold (DSI-115). Light mode is
+ * warm paper, dark mode is indigo ceramic, and --seam is the lacquer that
+ * joins them. Purple and teal are unchanged: gold is an accent layer on top
+ * of the DSI-82 system, not a replacement for it.
  */
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 :root {
   color-scheme: light;
 
-  --bg: #ffffff;
-  --surface: #f9f8fb;
-  --surface-2: #f2f0f6;
-  --elevated: #ffffff;
-  --border: #e5e1ec;
-  --border-strong: #cfc9da;
+  --bg: #faf7f2;
+  --surface: #f4f0e9;
+  --surface-2: #ede8df;
+  --elevated: #fffdfa;
+  --border: #e3dcd0;
+  --border-strong: #cbc1b1;
 
   --fg: #1d1927;
   --fg-2: #5a526c;
-  --fg-muted: #6f6683;
+  --fg-muted: #695f7d;
 
   --accent: #533a80;
   --accent-hover: #3e2a68;
   --accent-fill: #3e2a68;
   --accent-fill-hover: #2e1f4e;
   --on-accent: #ffffff;
-  --accent-soft: #ebe5f4;
+  --accent-soft: #ece6f3;
   --on-accent-soft: #3e2a68;
 
-  --teal: #2e7683;
+  --teal: #2b6e7a;
   --teal-strong: #245c66;
-  --teal-soft: #e3f1f3;
+  --teal-soft: #e2f0f1;
   --on-teal-soft: #245c66;
+
+  /*
+   * --seam is the lacquer line and is NOT a text colour in light mode:
+   * #C9A227 on paper is 2.26:1. Gold *text* uses --gold. See the contrast
+   * table in docs/wiki/design-system.md.
+   */
+  --seam: #c9a227;
+  --seam-soft: #e8dcaf;
+  --gold: #6e520c;
+  --gold-soft: #f6edd7;
+  --on-gold-soft: #6e520c;
+
+  --mark-letters: #3e2a68;
+  --mark-arrow: #3a93a3;
 
   --ring: #6b4f9a;
   --selection-bg: #3e2a68;
@@ -56,16 +77,16 @@
   :root:not([data-theme="light"]) {
     color-scheme: dark;
 
-    --bg: #141019;
-    --surface: #1d1927;
-    --surface-2: #241f30;
-    --elevated: #2c2739;
-    --border: #2c2739;
-    --border-strong: #433c54;
+    --bg: #151a24;
+    --surface: #1c2230;
+    --surface-2: #232a3a;
+    --elevated: #2a3142;
+    --border: #2a3142;
+    --border-strong: #3d4557;
 
-    --fg: #f2f0f6;
-    --fg-2: #b8b0c6;
-    --fg-muted: #9a91ab;
+    --fg: #eef1f7;
+    --fg-2: #b6bdcd;
+    --fg-muted: #98a1b5;
 
     --accent: #b5a3d2;
     --accent-hover: #d3c8e6;
@@ -80,25 +101,34 @@
     --teal-soft: #12333a;
     --on-teal-soft: #8fcbd4;
 
+    --seam: #d9b44a;
+    --seam-soft: #4a3a12;
+    --gold: #e0c066;
+    --gold-soft: #33270a;
+    --on-gold-soft: #e8cd7e;
+
+    --mark-letters: #b5a3d2;
+    --mark-arrow: #5fb0be;
+
     --ring: #b5a3d2;
     --selection-bg: #b5a3d2;
-    --selection-fg: #141019;
+    --selection-fg: #151a24;
   }
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --bg: #141019;
-  --surface: #1d1927;
-  --surface-2: #241f30;
-  --elevated: #2c2739;
-  --border: #2c2739;
-  --border-strong: #433c54;
+  --bg: #151a24;
+  --surface: #1c2230;
+  --surface-2: #232a3a;
+  --elevated: #2a3142;
+  --border: #2a3142;
+  --border-strong: #3d4557;
 
-  --fg: #f2f0f6;
-  --fg-2: #b8b0c6;
-  --fg-muted: #9a91ab;
+  --fg: #eef1f7;
+  --fg-2: #b6bdcd;
+  --fg-muted: #98a1b5;
 
   --accent: #b5a3d2;
   --accent-hover: #d3c8e6;
@@ -113,9 +143,18 @@
   --teal-soft: #12333a;
   --on-teal-soft: #8fcbd4;
 
+  --seam: #d9b44a;
+  --seam-soft: #4a3a12;
+  --gold: #e0c066;
+  --gold-soft: #33270a;
+  --on-gold-soft: #e8cd7e;
+
+  --mark-letters: #b5a3d2;
+  --mark-arrow: #5fb0be;
+
   --ring: #b5a3d2;
   --selection-bg: #b5a3d2;
-  --selection-fg: #141019;
+  --selection-fg: #151a24;
 }
 
 @theme inline {
@@ -142,6 +181,12 @@
   --color-teal-strong: var(--teal-strong);
   --color-teal-soft: var(--teal-soft);
   --color-on-teal-soft: var(--on-teal-soft);
+
+  --color-seam: var(--seam);
+  --color-seam-soft: var(--seam-soft);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-on-gold-soft: var(--on-gold-soft);
 
   --color-ring: var(--ring);
 }
@@ -170,20 +215,164 @@
   --color-teal-600: #2e7683;
   --color-teal-700: #245c66;
   --color-teal-900: #12333a;
+
+  /* Kintsugi gold. 400 is the lacquer — decorative in light mode only. */
+  --color-gold-100: #f6edd7;
+  --color-gold-200: #e8dcaf;
+  --color-gold-300: #e0c066;
+  --color-gold-400: #c9a227;
+  --color-gold-500: #b08717;
+  --color-gold-600: #8f6b10;
+  --color-gold-700: #6e520c;
+  --color-gold-900: #33270a;
+
+  /* Paper — the warm light ground. */
+  --color-paper-0: #fffdfa;
+  --color-paper-50: #faf7f2;
+  --color-paper-100: #f4f0e9;
+  --color-paper-200: #ede8df;
+  --color-paper-300: #e3dcd0;
+  --color-paper-400: #cbc1b1;
+
+  /*
+   * Typography (DSI-88). Two families, and a type scale whose display and h2
+   * steps are fluid so the hero does not need a breakpoint of its own.
+   * 'Inter Fallback' is the metric-adjusted local Arial from fonts.css — it
+   * must sit directly after 'Inter', or the swap reflows.
+   */
+  --font-sans: 'Inter', 'Inter Fallback', system-ui, -apple-system, 'Segoe UI',
+    sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', 'Segoe UI Mono',
+    monospace;
+  /*
+   * Display only — the hero, section headings and case-study titles (DSI-131).
+   * Body copy stays Inter. The face ships with one weight so it cannot quietly
+   * spread into body text.
+   */
+  --font-serif: 'Instrument Serif', 'Instrument Serif Fallback', Georgia, serif;
+
+  --text-display: clamp(2.5rem, 1.6rem + 3.5vw, 4.25rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.03em;
+
+  --text-h2: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem);
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.02em;
+
+  --text-h3: 1.375rem;
+  --text-h3--line-height: 1.25;
+  --text-h3--letter-spacing: -0.01em;
+
+  --text-meta: 0.8125rem;
+  --text-meta--line-height: 1.4;
+  --text-meta--letter-spacing: 0.02em;
+
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.4;
+  --text-label--letter-spacing: 0.08em;
+
+  /* Radii, from the measured rules rather than per-component guesses. */
+  --radius-control: 10px;
+  --radius-card: 14px;
+  --radius-media: 20px;
+
+  /* Ink — the indigo ceramic dark ground, and the text that sits on it. */
+  --color-ink-50: #eef1f7;
+  --color-ink-100: #d8dde8;
+  --color-ink-200: #b6bdcd;
+  --color-ink-300: #98a1b5;
+  --color-ink-400: #7a8397;
+  --color-ink-500: #6e7789;
+  --color-ink-600: #3d4557;
+  --color-ink-700: #2a3142;
+  --color-ink-800: #1c2230;
+  --color-ink-900: #151a24;
+  --color-ink-950: #0f131b;
 }
 
 html {
   background-color: var(--bg);
   color: var(--fg);
+  /*
+   * Set explicitly rather than left to preflight's --default-font-family, so
+   * the stack is visible in one place and a Tailwind upgrade cannot quietly
+   * change what the page is set in.
+   */
+  font-family: var(--font-sans);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   border-color: var(--border);
+  /* 1rem, rising a step at large widths; measure is set per block, not here. */
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@media (width >= 64rem) {
+  body {
+    font-size: 1.0625rem;
+  }
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--font-mono);
 }
 
 ::selection {
   background-color: var(--selection-bg);
   color: var(--selection-fg);
+}
+
+/*
+ * Theme toggle icons. Both are in the DOM; CSS picks one, keyed off the same
+ * data-theme / prefers-color-scheme pair as every colour token. Doing this in
+ * JavaScript would render the wrong glyph until the script ran.
+ */
+.theme-toggle__sun {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .theme-toggle__sun {
+    display: block;
+  }
+  :root:not([data-theme='light']) .theme-toggle__moon {
+    display: none;
+  }
+}
+
+[data-theme='dark'] .theme-toggle__sun {
+  display: block;
+}
+
+[data-theme='dark'] .theme-toggle__moon {
+  display: none;
+}
+
+/*
+ * The DS monogram. Colour lives here rather than on fill attributes in
+ * LogoMark.astro so the mark switches with the theme: the logo purple is
+ * unreadable on the indigo dark ground, and a JPEG of it would be a white
+ * box. The seam is the kintsugi break, clipped to the letterforms by the
+ * component.
+ */
+.logo-mark__letters {
+  fill: var(--mark-letters);
+}
+
+.logo-mark__arrow {
+  fill: var(--mark-arrow);
+}
+
+.logo-mark__seam {
+  fill: none;
+  stroke: var(--seam);
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 @media (prefers-reduced-motion: reduce) {
