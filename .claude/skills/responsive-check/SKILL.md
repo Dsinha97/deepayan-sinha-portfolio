@@ -75,6 +75,17 @@ Name the breakpoint, the theme, the route, and the element — not "looks fine" 
 A pass means the probe returned `ok: true` everywhere **and** the visual spot checks were
 reviewed; say which of the two you actually did.
 
+**Landscape and display cutouts.** The viewport meta deliberately omits `viewport-fit=cover`, so
+the browser insets the page away from a notch or camera cutout and nothing needs
+`env(safe-area-inset-*)`. Verified on device in landscape (DSI-90). If anyone adds
+`viewport-fit=cover` to go edge-to-edge, safe-area padding becomes required in the same change
+and this check has to be redone.
+
+**A recording is not a check.** A screen recording shows what happened, not what was attempted:
+a failed attempt to swipe the page sideways looks exactly like never having tried. Video
+corroborates layout; it cannot evidence the absence of horizontal scroll. Ask for the
+observation, not just the capture.
+
 **Emulation is not a phone.** The gate on DSI-90 requires a real device, because that is exactly
 where the bug above failed to reproduce in emulation. If it has not been checked on hardware,
 say so rather than implying it has.

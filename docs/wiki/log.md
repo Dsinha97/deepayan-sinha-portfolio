@@ -119,3 +119,14 @@ One line per action, newest at the bottom.
   and every page view logs a violation (DSI-132, owner action, blocks DSI-105). Recorded in
   `security-headers.md` as the general lesson — a clean `wrangler dev` CSP run tests the policy
   against our own output only, never against what the platform adds on top.
+- 2026-09-11 — DSI-90 closed on a real device. The owner walked the live site on an Android
+  handset: both themes, the mobile menu, the 404 route and landscape, and reported no horizontal
+  scroll. A screen recording corroborated the layout — tiles single-column, menu overlaying
+  rather than pushing, mark correct in both themes — though a recording cannot evidence the
+  *absence* of sideways scroll, since a failed swipe looks identical to no swipe. That
+  distinction is now in the responsive-check skill.
+
+  Landscape resolved a question raised before the check: content is inset away from the camera
+  cutout with no `env(safe-area-inset-*)` handling, because the viewport meta omits
+  `viewport-fit=cover`. Recorded in `CLAUDE.md` as a rule — going edge-to-edge later means
+  taking on safe-area padding in the same change.

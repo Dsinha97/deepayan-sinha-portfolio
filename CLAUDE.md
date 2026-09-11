@@ -122,6 +122,10 @@ Three things that will bite otherwise:
   `dark:` colour utility means the token was wrong.
 - **The serif is display-only.** Instrument Serif sets headings; body and UI are Inter. The face
   ships with one weight so it cannot spread into body copy.
+- **Do not add `viewport-fit=cover` to the viewport meta.** Without it the browser insets the
+  page away from a display cutout, which is why landscape on a notched phone needs no
+  safe-area handling today (verified on device, DSI-90). Opting in to edge-to-edge means
+  taking on `env(safe-area-inset-*)` padding everywhere in the same change.
 - **`images/logo.jpg` is an archive copy, not a shippable asset** — a JPEG on white that would
   render as a white box in dark mode. Use `src/components/LogoMark.astro` or
   `public/logo-mark.svg`, both traced from it by `scripts/trace-logo.py`.

@@ -39,22 +39,24 @@ gate rather than copying it into a second place where it can rot.
 | BaseLayout, header, footer, navigation, 404 | DSI-86 | M2 | [site-architecture.md](wiki/site-architecture.md) |
 | Theme toggle, no-flash init, CSP hash pipeline | DSI-87 | M2 | [security-headers.md](wiki/security-headers.md) |
 | Design references reviewed and folded into the plan | DSI-131 | M2 | [design-references.md](wiki/design-references.md) |
+| Responsive pass across breakpoints and both themes | DSI-90 | M2 | `.claude/skills/responsive-check/` |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
 
 **M2 shipped 2026-09-11, one issue open.** The shell, the ceramic/kintsugi token system, the
 traced mark, the typography and the CSP pipeline are all built and the milestone is committed.
-**DSI-90 stays open**: the responsive matrix is clean in emulation at all six breakpoints in both
-themes, but its gate also requires a real phone, and that check has not been done. The bug it
-guards against is specifically one that did not reproduce in emulation.
+**DSI-90 closed on device 2026-09-11**: clean in emulation at all six breakpoints in both themes,
+and confirmed by the owner on an Android handset — both themes, the mobile menu, the 404 route
+and landscape. **DSI-132 remains open**: Cloudflare injects its analytics beacon at the edge and
+the strict `script-src` refuses it, so every production page view logs one violation. That is an
+owner action on the Cloudflare dashboard and it blocks DSI-105.
 
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
 | DSI-132 | Cloudflare analytics beacon blocked by the CSP on production | M2 | Console clean on every route without widening the policy. **Owner action** — Cloudflare dashboard. Blocks DSI-105 |
-| DSI-90 | Responsive pass across breakpoints and themes | M2 | No horizontal scroll at any breakpoint in either theme. Emulation clean; **real-phone check still outstanding** — `.claude/skills/responsive-check/` |
 | DSI-91 | Hero | M3 | Owner approves the copy; zero layout shift from the headshot |
 | DSI-92 | Proof strip and About | M3 | Every claim traceable to a wiki page |
 | DSI-93 | Experience timeline | M3 | Guardrails grep passes: no withheld names, no phone number, self-reported figures marked — [content-guardrails.md](wiki/content-guardrails.md) |
