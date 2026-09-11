@@ -1,0 +1,142 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project
+
+The personal portfolio site for **Deepayan Sinha**, at **`https://deepayansinha.com`** (domain
+registered, zone on Cloudflare, **not yet deployed**). Repo
+[`Dsinha97/deepayan-sinha-portfolio`](https://github.com/Dsinha97/deepayan-sinha-portfolio),
+public. Planning lives in the Linear project
+[Deepayan-Portfolio](https://linear.app/dsinha-org/project/deepayan-portfolio-4de86f94d1f2),
+team `Dsinha Org` (`DSI`).
+
+Stack, once scaffolded: **Astro 5 + Tailwind CSS 4**, static output, deployed on **Cloudflare
+Workers static assets**. No server, no database, no forms in v1.
+
+Documentation index: [docs/README.md](docs/README.md). Start there. The content and design
+authority is [docs/wiki/](docs/wiki/index.md); the plan-to-repo join is
+[docs/linear.md](docs/linear.md).
+
+## Current state
+
+**Milestone M0 — foundation.** The repo, the private boundary, the wiki and the Linear backlog
+exist. **The Astro application does not.** There is no `package.json`, no `src/`, no build. The
+first build task is the scaffold; see the Linear backlog for its order, not a line pinned here.
+
+## Commands
+
+None yet. After the scaffold ships (M1), these are the intended commands — update this block in
+the same change that creates them:
+
+```bash
+npm run dev      # astro dev on :4321 — use the preview tools, never Bash
+npm run check    # astro check — run before every commit
+npm run build    # static build to dist/, plus the header and dist guards
+npm run preview  # wrangler dev over dist/, which applies _headers so CSP is testable
+```
+
+## Ground rules
+
+**Linear is the planning interface.** The Linear project holds what is planned and what its
+status is; `docs/` holds what happened and why. Read the backlog before proposing work — an item
+changed or added in the dashboard outranks anything written here. When something ships, close its
+issue and add its row to [docs/linear.md](docs/linear.md). Don't copy a gate into Linear that a
+doc already states — link it. `/linear-sync` reconciles the two and reports drift in both
+directions.
+
+**`docs/wiki/` is the content authority.** It is synthesis, one page per topic, cross-linked and
+source-attributed. `docs/sources/` is provenance only and is frozen — never edited, never treated
+as more current. Shipped code plus the live site outrank the wiki. `/wiki-ingest` updates it.
+
+**The two documents in `docs/sources/` are factually fabricated about Deepayan.** They invent
+projects, an award, performance metrics and a technology stack, and they assume the wrong
+professional archetype. Keep them for their structural thinking; **never take content from them**.
+Full account: [docs/wiki/research-synthesis.md](docs/wiki/research-synthesis.md).
+
+**`private/` is never committed and never copied into `public/`.** It holds certificates,
+transcripts, degree certificates, MBA coursework, the original resume PDF, and a frozen snapshot
+of the MBA Brain vault (which names real people). Their factual contents may be published where
+the guardrails allow; the files themselves stay local. `private/sources/mba-brain/` is a
+**read-only copy** of an external vault — fix things in the vault and re-copy, never edit here.
+
+**Git identity is local to this repo.** The global identity is a work account. This repo is
+`Deepayan Sinha <deepayansinha@gmail.com>`, GitHub `Dsinha97`. Check `git config user.email`
+before the first commit in a fresh clone.
+
+## Content rules (the short version)
+
+Full rules, with reasoning, in
+[docs/wiki/content-guardrails.md](docs/wiki/content-guardrails.md). That page is the single home
+for them; these lines are the ones worth having in every session:
+
+- **Engagement outcomes may be claimed; business outcomes may not.** What was delivered and how
+  the client responded is documented. What the client then achieved is not, and writing it is a
+  fabrication however plausible it sounds.
+- **Wipro is genericized.** No client name, no vendor or platform names. The stack — Azure, Java,
+  JavaScript, React Native — is cleared. Say six years, August 2018 to August 2024.
+- **Three Wipro figures are self-reported** and are marked as such wherever they appear: the
+  4.4-star rating, the ~$100K/yr platform cost, the 30% service-call reduction.
+- **Never publish the $500,000 parking figure.** It is another site's benchmark that had migrated
+  into a roadmap as a local baseline, roughly double the real number. The *catch* is publishable
+  and is the best credibility story on the site; the figure is not.
+- **Fort Monroe claims cover only his four deliverables** — the survey, the parking analysis, the
+  event plan, the Central Park Conservancy comparative. No teammate, faculty or client names, no
+  SEO figures.
+- **Studied frameworks are not experience.** Capabilities may be listed; professional application
+  may not be implied.
+- **The phone number is never published** — not in copy, not in JSON-LD, not in the resume PDF
+  that ships to `public/`. The build fails on a phone-number pattern in `dist/`.
+- Published contact channels are exactly `contact@deepayansinha.com`, LinkedIn, GitHub.
+
+## Design
+
+Brand purple **`#3E2A68`** and teal **`#3A93A3`**, both sampled from the logo. Light default,
+dark via system preference plus a toggle. Full token tables, both modes, with measured contrast
+ratios: [docs/wiki/design-system.md](docs/wiki/design-system.md) — read it before styling
+anything rather than re-deriving the palette from component code.
+
+Three things that will bite otherwise:
+
+- **The logo teal is not a text colour.** `#3A93A3` on white is 3.57:1. Teal text uses `#2E7683`
+  in light mode; the logo teal is for arrows, dots and large numerals only.
+- **Never use a `dark:` variant for colour.** Semantic tokens already switch on `data-theme`; a
+  `dark:` colour utility means the token was wrong.
+- **`images/logo.jpg` is a JPEG on white** and will show a white box in dark mode. A transparent
+  vector mark is a prerequisite for the shell, not a polish item.
+
+## Build and deploy
+
+Cloudflare Workers static assets, apex canonical, `www` 301s to it via a Redirect Rule — **not**
+a second `custom_domain`, which was tried on the sibling project and reverted because the Worker
+then serves `www` directly. Details and the DNS table:
+[docs/wiki/deployment-domain.md](docs/wiki/deployment-domain.md).
+
+**The CSP is strict and its one inline script is hashed at build time.** `dist/_headers` is
+*generated* from `headers.template` by a postbuild script, so the hash cannot go stale; there is
+deliberately no `public/_headers`. A second postbuild script fails the build on any other inline
+script, any `style=""` attribute, or a phone number in `dist/`. Adding **any** third-party
+script, style, font, image host or fetch target requires a matching header edit in the same
+change — under an enforcing CSP the failure is silent, the resource simply never loads. See
+[docs/wiki/security-headers.md](docs/wiki/security-headers.md).
+
+`build.inlineStylesheets: 'never'` and `vite.build.assetsInlineLimit: 0` are load-bearing for
+that policy, not preferences.
+
+## Reference projects
+
+Two sibling repos solve the same problems and are worth reading before re-deriving anything:
+
+- `C:\Abhijit-Sinha-Website` — Astro 5 (Tailwind **3**), the single-source-of-truth data module,
+  the shared layout, the CSP work, the mobile-viewport rules.
+- `C:\FPL App` — the Cloudflare Workers static-assets deploy shape, `wrangler.jsonc`, the Linear
+  workflow skills this repo's are ported from.
+
+Both are read-only references. Tailwind 4 differs from the Abhijit site's Tailwind 3 in ways that
+break a direct copy — the differences are tabulated in
+[docs/wiki/site-architecture.md](docs/wiki/site-architecture.md).
+
+## Communication style
+
+Keep responses concise. Skip preamble and restating the request; lead with the answer or the
+change. Match length to the question.

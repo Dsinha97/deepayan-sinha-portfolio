@@ -1,0 +1,62 @@
+{
+  "docs/sources/additional-cert-links.md": {
+    "hash": "sha256:3fa97cd36c4e845051278d9981301ab14be2e96fce10257914e61c9f83305e54",
+    "last_ingested": "2026-09-10"
+  },
+  "docs/sources/design-suggestions.md": {
+    "hash": "sha256:db0f9a95197d598d0f49d472dc7fa843038b54e36e8611f95ddcdeb843caca45",
+    "last_ingested": "2026-09-10"
+  },
+  "docs/sources/portfolio-website-plan.md": {
+    "hash": "sha256:d57d6825249d08e654988b528b6bfceb02099e1f55d5c89d80fccff55c8867e6",
+    "last_ingested": "2026-09-10"
+  },
+  "docs/sources/research-paper-details.md": {
+    "hash": "sha256:a14ad365aa5af19ef66b2d1d98ba4e1cea91cdf4a14991d8d4864bee597fff40",
+    "last_ingested": "2026-09-10"
+  },
+  "private/sources/mba-brain/README.md": {
+    "hash": "sha256:ac5be9a5fc7b55c9dcc22fff6559e36596f9a0a6a1f6eb686955441f46d677fc",
+    "last_ingested": "2026-09-10"
+  },
+  "private/sources/mba-brain/central-park-conservancy.md": {
+    "hash": "sha256:f97df2db79513004fa2a2d1a0c80fa5fc453e9430ba315b2fa74b6baf01433c0",
+    "last_ingested": "2026-09-10"
+  },
+  "private/sources/mba-brain/deepayan-sinha.md": {
+    "hash": "sha256:d5a4ee97aa13bc57123969bb6d17412c21b7565710283a8fa9661436f1634389",
+    "last_ingested": "2026-09-10"
+  },
+  "private/sources/mba-brain/fort-monroe-15th-anniversary-event.md": {
+    "hash": "sha256:c15f136ad415e46051dbb9caa3fe0eb8284a98a0bed85171a5f0bdab5881d764",
+    "last_ingested": "2026-09-10"
+  },
+  "private/sources/mba-brain/fort-monroe-engagement.md": {
+    "hash": "sha256:030f277bf07f33ff73756327762db7019bf084a1736f812f844025af6864b44c",
+    "last_ingested": "2026-09-10"
+  },
+  "private/sources/mba-brain/fort-monroe-parking-monetization.md": {
+    "hash": "sha256:343e5d55c6bceb6b36361980e108b33abffba3a91e69f9f8c57b8304e15e26c7",
+    "last_ingested": "2026-09-10"
+  },
+  "private/sources/mba-brain/fort-monroe-survey.md": {
+    "hash": "sha256:e99306dfb62917b06f5a4224fdabfb35237f9a0aff1bb6502fbcb3ae18ee8736",
+    "last_ingested": "2026-09-10"
+  },
+  "private/sources/mba-brain/job-search-brief.md": {
+    "hash": "sha256:f0e006cd9b259b7b14cb2b05aa2937148855ec466536af2bedfdb751d7b604f2",
+    "last_ingested": "2026-09-10"
+  },
+  "private/sources/mba-brain/profile-source.md": {
+    "hash": "sha256:eb67bb415a9d513fcc8e13e87d458ba5fd5b4720bd5418cbbfd0573738ddd972",
+    "last_ingested": "2026-09-10"
+  },
+  "private/sources/mba-brain/wipro-digital-health-assistant.md": {
+    "hash": "sha256:b562aeb884c4001743e318c95717eedb43a0639487dac86b117941fef608f49e",
+    "last_ingested": "2026-09-10"
+  },
+  "private/sources/mba-brain/wm-it-data-strategy-internship.md": {
+    "hash": "sha256:5fea21fd0f219d01c28d9f9cfde014eb5ca3f89f7b0c46d5f6d2b5d2255f643f",
+    "last_ingested": "2026-09-10"
+  }
+}

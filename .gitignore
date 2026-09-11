@@ -1,0 +1,24 @@
+# Private material — never committed. Certificates, transcripts, MBA coursework,
+# the original resume PDF, and the MBA Brain snapshot all live here.
+private/
+
+# Build output
+dist/
+.astro/
+.wrangler/
+
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Local agent state
+.claude/settings.local.json
+.claude/worktrees/
+
+# OS / editor
+Thumbs.db
+.DS_Store
