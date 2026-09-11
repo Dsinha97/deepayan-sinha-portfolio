@@ -19,7 +19,8 @@ status: built
 
 **Status: built, partially.** The Worker is deployed via manual `wrangler deploy` (DSI-83; Git
 integration/Workers Builds still pending), the apex serves the build, `www` 301s to it preserving
-path and query, and `http` 301s to `https` (DSI-84). Email routing (DSI-85) is not yet set up.
+path and query, and `http` 301s to `https` (DSI-84). `contact@` routes to Gmail with SPF and a
+`p=reject` DMARC record (DSI-85). Replies go out from Gmail directly, per the Email section below.
 
 `deepayansinha.com` is already registered and its zone is already on Cloudflare, which removes
 the usual first step and means the whole stack sits in one account.
