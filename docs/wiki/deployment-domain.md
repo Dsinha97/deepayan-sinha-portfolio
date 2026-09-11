@@ -17,10 +17,10 @@ status: built
 > Static build on Cloudflare Workers static assets, apex-canonical, with `www` redirecting and
 > `contact@` routed to Gmail.
 
-**Status: built, partially.** The Worker is deployed via manual `wrangler deploy` (DSI-83; Git
-integration/Workers Builds still pending), the apex serves the build, `www` 301s to it preserving
-path and query, and `http` 301s to `https` (DSI-84). `contact@` routes to Gmail with SPF and a
-`p=reject` DMARC record (DSI-85). Replies go out from Gmail directly, per the Email section below.
+**Status: built.** Cloudflare Workers Builds deploys `main` on every push (DSI-83), the apex
+serves the build, `www` 301s to it preserving path and query, and `http` 301s to `https` (DSI-84).
+`contact@` routes to Gmail with SPF and a `p=reject` DMARC record (DSI-85). Replies go out from
+Gmail directly, per the Email section below.
 
 `deepayansinha.com` is already registered and its zone is already on Cloudflare, which removes
 the usual first step and means the whole stack sits in one account.
