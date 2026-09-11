@@ -13,3 +13,6 @@ One line per action, newest at the bottom.
   link. Wrote `docs/linear.md` as the join. Tightened the Fort Monroe guidance so the
   mis-migrated benchmark figure is never printed on the site — the catch is the story, and
   printing the number beside the client's name is how it propagates again.
+- 2026-09-10 — M0 closed. Pushed to the public repo (37 files, no `private/` path in any commit)
+  and set a scheduled `/linear-sync` drift check for Monday mornings. DSI-78, DSI-79 and DSI-80
+  moved to the Shipped table.

@@ -25,14 +25,14 @@ gate rather than copying it into a second place where it can rot.
 
 | Item | Issue | Milestone | Doc |
 |---|---|---|---|
+| Repo, private boundary, first push | DSI-78 | M0 | [CLAUDE.md](../CLAUDE.md) |
 | Build docs/wiki from the sources | DSI-79 | M0 | [wiki/index.md](wiki/index.md) |
+| Linear mapping doc, skills, weekly drift check | DSI-80 | M0 | this file, and `.claude/skills/` |
 
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
-| DSI-78 | Initialise the repo and the private-file boundary | M0 | In progress. `git ls-files` shows nothing under `private/`; local git identity is the personal one |
-| DSI-80 | Linear mapping doc, skills, weekly drift check | M0 | In progress. `/linear-sync` reports zero drift on a clean run |
 | DSI-81 | Scaffold Astro 5 and Tailwind 4 | M1 | `astro check` and `npm run build` clean. **Pin `astro@^5.18`** — `latest` is now 7.x |
 | DSI-82 | Design tokens: purple and teal, light and dark | M1 | Every text pair at or above 4.5:1 in both modes — [design-system.md](wiki/design-system.md) |
 | DSI-83 | Cloudflare Workers static-assets deploy | M1 | The `*.workers.dev` URL serves the build |
@@ -77,6 +77,8 @@ gate rather than copying it into a second place where it can rot.
   reports both directions; it does not silently fix either.
 - **Don't copy a gate into Linear.** Link the doc that states it — a gate has exactly one home,
   and it isn't here.
+- **The drift check runs itself.** A scheduled task fires `/linear-sync` every Monday morning and
+  stays silent when the two sides agree. A report from it is a signal, not noise.
 - **The wiki's `status` field is checked too.** A page marked `planned` whose issue is closed, or
   `built` whose issue is open, is drift. It is the only place a doc claims something is built, so
   it is the only place that claim can silently go stale.
