@@ -114,6 +114,19 @@ what zero CSP violations looks like.
 The inline script lands at **byte 6 of `<head>`**, ahead of the title and 1.4KB ahead of the
 stylesheet, so it has set `data-theme` before there is any CSS to paint with.
 
+## What the local check cannot see
+
+`wrangler dev` serves `dist/` with `_headers` applied and is faithful to what the build
+produces — but **it only tests the policy against our own output.** Cloudflare injects its Web
+Analytics beacon at the edge, so it exists only on the deployed site, and the first production
+load after the M2 deploy logged a blocked `static.cloudflareinsights.com` script on every page
+view (DSI-132). Locally: clean. Live: one violation, every time.
+
+The policy behaved correctly — an uninvited third-party script was refused — but the lesson
+generalises: **a clean local CSP run is necessary and not sufficient.** Anything the platform
+adds above the origin has to be checked against the live site, which is why DSI-105 audits
+production rather than a local build.
+
 ## Testing locally
 
 `wrangler dev` serves `dist/` **with `_headers` applied**, which is a genuine advantage of this

@@ -53,6 +53,7 @@ guards against is specifically one that did not reproduce in emulation.
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
+| DSI-132 | Cloudflare analytics beacon blocked by the CSP on production | M2 | Console clean on every route without widening the policy. **Owner action** — Cloudflare dashboard. Blocks DSI-105 |
 | DSI-90 | Responsive pass across breakpoints and themes | M2 | No horizontal scroll at any breakpoint in either theme. Emulation clean; **real-phone check still outstanding** — `.claude/skills/responsive-check/` |
 | DSI-91 | Hero | M3 | Owner approves the copy; zero layout shift from the headshot |
 | DSI-92 | Proof strip and About | M3 | Every claim traceable to a wiki page |

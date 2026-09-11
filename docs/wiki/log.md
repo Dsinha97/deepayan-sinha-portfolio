@@ -114,3 +114,8 @@ One line per action, newest at the bottom.
   `docs/sources/` or the vault snapshot. Tidy pass linked `content-guardrails.md` to the build
   guard that now actually enforces the phone-number rule, and recorded in `seo-and-metadata.md`
   that the OG base asset exists while the typographic cards wait for a generator.
+- 2026-09-11 — M2 pushed and live. First production load surfaced something no local run could:
+  Cloudflare injects its Web Analytics beacon at the edge, the strict `script-src` refuses it,
+  and every page view logs a violation (DSI-132, owner action, blocks DSI-105). Recorded in
+  `security-headers.md` as the general lesson — a clean `wrangler dev` CSP run tests the policy
+  against our own output only, never against what the platform adds on top.
