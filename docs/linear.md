@@ -100,8 +100,21 @@ under `claimScope: own-outcomes`. Cover is the site's own public hero banner, re
 and re-encoded as WebP with `sharp` (1.0MB PNG → 63KB) rather than shipped at source size. Unlike
 DSI-101's mechanical guardrail-grep gate, this issue's gate is owner review — set to **In Review**
 in Linear rather than Done, and left off the Shipped table below until that review happens.
-| DSI-99 | Case study: FPL Decision | M4 | Owner review — [case study](wiki/case-study-fpl-decision.md) |
-| DSI-100 | Case study: Abhijit Sinha website | M4 | Owner review — [case study](wiki/case-study-abhijit-sinha-website.md) |
+
+**DSI-99 written, awaiting owner review 2026-09-12.** The FPL Decision case study, written from
+[case-study-fpl-decision.md](wiki/case-study-fpl-decision.md) under `claimScope: own-outcomes`.
+Cover is a real screenshot of the app's own public landing page
+(`FPL App/Screens/Landing-NotSigned.png`, 1920×1080 PNG resized to 1400px wide and re-encoded as
+WebP at 22KB) rather than a borrowed brand asset — the first of the three case studies where a
+genuine product screenshot exists. Same gate as DSI-100: owner review, so it's **In Review** in
+Linear, not Done.
+
+## Open
+
+| Issue | Item | Milestone | Gate / blocker |
+|---|---|---|---|
+| DSI-99 | Case study: FPL Decision | M4 | In review — [case study](wiki/case-study-fpl-decision.md) |
+| DSI-100 | Case study: Abhijit Sinha website | M4 | In review — [case study](wiki/case-study-abhijit-sinha-website.md) |
 | DSI-102 | Work index: bento grid | M4 | Reflows at 375, 768, 1280 |
 | DSI-103 | SEO: metadata, sitemap, structured data | M5 | Schema validator reports zero errors — [seo-and-metadata.md](wiki/seo-and-metadata.md) |
 | DSI-104 | Open Graph images | M5 | Each URL renders its card in a real link preview |
