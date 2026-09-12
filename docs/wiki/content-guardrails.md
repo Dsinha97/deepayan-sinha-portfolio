@@ -79,12 +79,36 @@ experience entries: data-driven decision making (the Wipro AI/ML work) and gover
 
 ## Personal data
 
-- **The phone number is never published.** Not in page copy, not in JSON-LD, not in the resume
-  PDF that ships to `public/`. The build fails on a phone-number pattern anywhere in `dist/`.
-  **This is enforced, not aspirational** — [`scripts/check-dist.mjs`](../../scripts/check-dist.mjs)
-  runs as a build step and exits non-zero, scanning the PDF bytes as well as the text output. It
-  is deliberately over-eager: a false positive costs one conversation, a false negative is
+- **The phone number is never published, on any route or in any artifact.** Not in page copy,
+  not in JSON-LD, not in the resume PDF that ships to `public/`, not on a case-study page added
+  later. The rule is per-repository, not per-page, and nothing needs adding to the guard when a
+  route is added: [`scripts/check-dist.mjs`](../../scripts/check-dist.mjs) walks `dist/`
+  recursively and scans every text file and every PDF it finds.
+  **This is enforced, not aspirational** — it runs as a build step and exits non-zero. It is
+  deliberately over-eager: a false positive costs one conversation, a false negative is
   permanent and scrapeable.
+- **The PDF scan inflates compressed streams (fixed 2026-09-11, DSI-97).** The earlier version
+  scanned a PDF's raw bytes, which was wrong in both directions, and both were measured against
+  the real resume rather than reasoned about:
+  - **It could not see the number.** PDF text lives in FlateDecode streams, so normally
+    compressed text is simply absent from the raw bytes. The resume carries four phone-shaped
+    strings that appear only after inflating.
+  - **It drowned in noise.** Binary font and image data matched the phone pattern 131 times in
+    that same file, so *any* PDF failed the build with 131 unreadable hits and a real match
+    would have been invisible among them.
+
+  The guard now inflates each stream and scans the decoded text, scans short uncompressed
+  streams, and scans the document structure outside streams — never binary payloads as bytes.
+  Verified by copying the unredacted resume into `dist/` and confirming exit 1 with precise
+  hits, then deleting it.
+- **Not scanned, and worth knowing:** images. A phone number baked into a picture — an OG card,
+  a screenshot of a business card, a scanned document — passes every check here. If an image
+  ever carries contact details, that is a human review, not a build step.
+- **Visa status and work authorization are not published.** Not the visa type, not OPT duration,
+  not whether sponsorship is needed. A peer site reviewed during M3 states all three, and it is a
+  legitimate choice — but it is the owner's to make explicitly, and the answer as of
+  2026-09-11 is no. It belongs in an application form, where it is asked and answered in context,
+  rather than on a public page that outlives the circumstance.
 - Published contact channels are exactly: `contact@deepayansinha.com`, LinkedIn, GitHub.
 - `deepayansinha@gmail.com` is the mail-routing destination, not a published address.
 - No home address. City and state are fine.

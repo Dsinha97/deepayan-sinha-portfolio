@@ -2,15 +2,17 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import IdentityRail from '../components/IdentityRail.astro';
 import Seam from '../components/Seam.astro';
+import ProofStrip from '../components/ProofStrip.astro';
+import Timeline from '../components/Timeline.astro';
+import Skills from '../components/Skills.astro';
+import Education from '../components/Education.astro';
+import Contact from '../components/Contact.astro';
+import { about } from '../data/profile';
 
 /*
  * Homepage structure (DSI-131): a sticky identity rail beside a scrolling
  * content column, rather than a hero the reader scrolls past and loses. Taken
  * from the bento.me and portrait.so references.
- *
- * Content is still placeholder — the real sections are M3 and M4. What is real
- * here is the two-column grid, the bento spans and the section ids the
- * scroll-spy in header.js observes.
  *
  * The span classes come from a static lookup, never from concatenation.
  * Tailwind 4 scans for complete class strings: build `col-span-${n}` and it
@@ -31,9 +33,9 @@ const SPAN = {
 } as const;
 
 /*
- * Titles are real; the copy under them is not written yet, so every tile and
- * section says "Coming soon" and nothing else. Issue numbers belong in Linear
- * and in source comments — never in text a visitor can read.
+ * Case studies are M4. Titles are real; the copy under them is not written
+ * yet, so every tile says "Coming soon" and nothing else. Issue numbers belong
+ * in Linear and in source comments — never in text a visitor can read.
  */
 const SOON = 'Coming soon.';
 
@@ -42,12 +44,6 @@ const tiles: { title: string; note: string; size: keyof typeof SPAN }[] = [
   { title: 'Abhijit Sinha website', note: SOON, size: 'small' },
   { title: 'Fort Monroe', note: SOON, size: 'small' },
   { title: 'Recognition', note: SOON, size: 'wide' },
-];
-
-const sections = [
-  { id: 'experience', title: 'Experience', note: SOON },
-  { id: 'about', title: 'About', note: SOON },
-  { id: 'contact', title: 'Contact', note: SOON },
 ];
 ---
 
@@ -58,7 +54,9 @@ const sections = [
 		<IdentityRail />
 
 		<div class="min-w-0">
-			<section id="work">
+			<ProofStrip />
+
+			<section id="work" class="mt-12">
 				<h2 class="font-serif text-h2 font-normal text-fg">Selected work</h2>
 				<ul class="mt-6 grid auto-rows-[minmax(9rem,auto)] grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
 					{
@@ -77,15 +75,37 @@ const sections = [
 				</ul>
 			</section>
 
-			{
-				sections.map((section) => (
-					<section id={section.id}>
-						<Seam class="my-12" />
-						<h2 class="font-serif text-h2 font-normal text-fg">{section.title}</h2>
-						<p class="mt-3 max-w-[65ch] text-fg-2">{section.note}</p>
-					</section>
-				))
-			}
+			<section id="experience">
+				<Seam class="my-12" />
+				<h2 class="font-serif text-h2 font-normal text-fg">Experience</h2>
+				<Timeline />
+			</section>
+
+			<section id="skills">
+				<Seam class="my-12" />
+				<h2 class="font-serif text-h2 font-normal text-fg">Skills</h2>
+				<Skills />
+			</section>
+
+			<section id="education">
+				<Seam class="my-12" />
+				<h2 class="font-serif text-h2 font-normal text-fg">Education and credentials</h2>
+				<Education />
+			</section>
+
+			<section id="about">
+				<Seam class="my-12" />
+				<h2 class="font-serif text-h2 font-normal text-fg">About</h2>
+				<div class="mt-6 flex max-w-[65ch] flex-col gap-4 text-fg-2">
+					{about.map((paragraph) => <p>{paragraph}</p>)}
+				</div>
+			</section>
+
+			<section id="contact">
+				<Seam class="my-12" />
+				<h2 class="font-serif text-h2 font-normal text-fg">Contact</h2>
+				<Contact />
+			</section>
 		</div>
 	</div>
 </BaseLayout>

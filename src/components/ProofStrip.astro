@@ -1,0 +1,23 @@
+---
+/*
+ * Proof strip (DSI-92): four facts, number first, each answering a different
+ * objection a reader might raise. Structure borrowed from the stat-tile pattern
+ * in the reference teardown recorded in docs/wiki/design-references.md — the
+ * shape only, none of that site's copy, claims or colour.
+ *
+ * No MBA tile on purpose. It is already in the headline's vicinity and in the
+ * education section, and the strip exists to add facts rather than repeat them.
+ */
+import { proof } from '../data/profile';
+---
+
+<ul class="grid grid-cols-2 gap-px overflow-hidden rounded-card border border-border bg-border md:grid-cols-4">
+	{
+		proof.map((stat) => (
+			<li class="flex flex-col gap-1 bg-surface p-5">
+				<span class="font-serif text-h3 font-normal leading-none text-gold">{stat.value}</span>
+				<span class="text-meta text-fg-muted">{stat.label}</span>
+			</li>
+		))
+	}
+</ul>

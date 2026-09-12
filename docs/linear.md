@@ -40,6 +40,13 @@ gate rather than copying it into a second place where it can rot.
 | Theme toggle, no-flash init, CSP hash pipeline | DSI-87 | M2 | [security-headers.md](wiki/security-headers.md) |
 | Design references reviewed and folded into the plan | DSI-131 | M2 | [design-references.md](wiki/design-references.md) |
 | Responsive pass across breakpoints and both themes | DSI-90 | M2 | `.claude/skills/responsive-check/` |
+| Hero: headline, sub-line and headshot | DSI-91 | M3 | [profile.md](wiki/profile.md) |
+| Proof strip and About | DSI-92 | M3 | [profile.md](wiki/profile.md) |
+| Experience timeline | DSI-93 | M3 | [experience.md](wiki/experience.md) |
+| Education, credentials and recognition | DSI-94 | M3 | [education-and-credentials.md](wiki/education-and-credentials.md) |
+| Skills matrix | DSI-95 | M3 | [skills.md](wiki/skills.md) |
+| Contact section with copy-to-clipboard | DSI-96 | M3 | [content-guardrails.md](wiki/content-guardrails.md) |
+| Markdown resume and the /resume/ route | DSI-97 | M3 | [site-architecture.md](wiki/site-architecture.md) |
 | Edge-injected analytics beacon removed at source | DSI-132 | M2 | [security-headers.md](wiki/security-headers.md) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
@@ -55,17 +62,21 @@ zero `cloudflareinsights` references in the served HTML, console clean on `/`, `
 unmatched path, and the CSP byte-identical to `headers.template` with no directive widened. That
 unblocks DSI-105 and keeps DSI-106's no-third-party-request budget intact.
 
+**M3 closed 2026-09-11.** The homepage carries real content: hero, proof strip, experience
+timeline, skills, education and contact, plus a markdown resume at `/resume/`. The copy was
+drafted from the MBA Brain vault and corrected by the owner — the headline was softened away
+from "leader" toward individual contributor at his direction, and every section was cut for
+length and de-duplicated against the others.
+
+Two guardrail changes came out of it, both in [content-guardrails](wiki/content-guardrails.md):
+the phone rule is now explicitly per-repository rather than per-page, and the PDF scan in
+`check-dist.mjs` was rewritten after being measured as broken in both directions. Visa status and
+work authorization are now explicitly never published.
+
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
-| DSI-91 | Hero | M3 | Owner approves the copy; zero layout shift from the headshot |
-| DSI-92 | Proof strip and About | M3 | Every claim traceable to a wiki page |
-| DSI-93 | Experience timeline | M3 | Guardrails grep passes: no withheld names, no phone number, self-reported figures marked — [content-guardrails.md](wiki/content-guardrails.md) |
-| DSI-94 | Education, credentials and recognition | M3 | Verification links resolve. Certificate dates need reading off the files first |
-| DSI-95 | Skills matrix | M3 | Each group maps to evidence elsewhere on the page |
-| DSI-96 | Contact section with copy-to-clipboard | M3 | Works with JavaScript disabled |
-| DSI-97 | Web-safe resume PDF and /resume | M3 | Text extracted from the shipped PDF contains no phone-number pattern |
 | DSI-98 | Content collections, schema, page template | M4 | `astro check` clean; a deliberately broken entry fails the build |
 | DSI-99 | Case study: FPL Decision | M4 | Owner review — [case study](wiki/case-study-fpl-decision.md) |
 | DSI-100 | Case study: Abhijit Sinha website | M4 | Owner review — [case study](wiki/case-study-abhijit-sinha-website.md) |

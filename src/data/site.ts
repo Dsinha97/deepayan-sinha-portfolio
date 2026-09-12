@@ -4,7 +4,8 @@
 
 export const site = {
   name: 'Deepayan Sinha',
-  headline: 'Product and analytics leader who builds',
+  headline: 'Building products with an analytical approach',
+  subline: "Not afraid to get my hands dirty.",
   url: 'https://deepayansinha.com',
   email: 'contact@deepayansinha.com',
   links: {

@@ -149,10 +149,24 @@ image, and a bento size.
 |---|---|
 | `/` | the single page, anchor-linked sections |
 | `/work/<slug>/` | `fpl-decision`, `abhijit-sinha-website`, `fort-monroe-consultancy` |
-| `/resume/` | HTML resume from the collections, with a prominent PDF link |
+| `/resume/` | HTML resume rendered from `src/pages/resume.md`. **No PDF viewer** — print the page |
 | `/404` | emitted as `dist/404.html`, served by the Worker |
 | `/sitemap-index.xml` | from `@astrojs/sitemap` |
 | `/robots.txt` | static, `Allow: /` |
+
+**The resume is markdown, not a PDF (DSI-97, shipped 2026-09-11).** `src/pages/resume.md`
+renders through `layouts/ResumeLayout.astro` and *is* the resume — there is no second copy to
+drift out of sync. The plan above said "a prominent PDF link"; the owner asked for the content
+displayed as a page rather than a PDF screen, and that is the better default anyway: a PDF in an
+iframe is unreadable on a phone, invisible to text search, and hostile to a screen reader.
+
+A PDF still exists when someone wants one — the print rules in `global.css` strip the header,
+footer and page chrome, force a light palette regardless of theme, and keep role headings with
+their bullets, so Ctrl+P produces a clean document. That keeps a headless browser out of the
+build; no PDF-generating dependency is installed and none is needed.
+
+`.resume` carries the only element selectors in `global.css`, because a markdown route produces
+bare tags with no utility classes to hang styles on.
 
 There is no `/cv`; `/resume/` is the single canonical path. `www` never serves anything — see
 [deployment-domain](deployment-domain.md).

@@ -100,8 +100,15 @@ for them; these lines are the ones worth having in every session:
   SEO figures.
 - **Studied frameworks are not experience.** Capabilities may be listed; professional application
   may not be implied.
-- **The phone number is never published** — not in copy, not in JSON-LD, not in the resume PDF
-  that ships to `public/`. The build fails on a phone-number pattern in `dist/`.
+- **The phone number is never published, on any route or in any artifact** — not in copy, not
+  in JSON-LD, not in the resume PDF that ships to `public/`, not on a page added later. The
+  build fails on a phone-number pattern anywhere in `dist/`; the guard walks the whole tree, so
+  a new route needs no new rule. PDFs are scanned by inflating their compressed streams, not by
+  reading raw bytes — raw bytes could not see the number and drowned in binary false positives.
+  Images are **not** scanned: a number baked into a picture is a human review.
+- **Visa status and work authorization are never published** — not the visa type, not OPT
+  duration, not whether sponsorship is needed. That belongs in an application form, not on a
+  public page.
 - Published contact channels are exactly `contact@deepayansinha.com`, LinkedIn, GitHub.
 - **Issue numbers never appear in copy a visitor can read.** They belong in Linear and in source
   comments. Placeholder sections say "Coming soon." and nothing else — a stub that names DSI-99

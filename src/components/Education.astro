@@ -1,0 +1,115 @@
+---
+/*
+ * Education, credentials and recognition (DSI-94).
+ *
+ * Certificate dates were read off the files in private/Certificates/ or the
+ * issuer's own verification page. The three Anthropic certificates print no
+ * date on the certificate itself; those came from the owner. Titles here are
+ * the issuers' exact titles, not the shorthand the wiki carried.
+ *
+ * The certificate *files* stay in private/ and are never committed. What
+ * ships is the issuer, the date and a verification URL where one exists.
+ *
+ * No GPA appears in any source material, so none is published.
+ */
+import { Image } from 'astro:assets';
+import { degrees, publication, certificates } from '../data/profile';
+import wmMark from '../../images/wm_logo_full.png';
+import vitMark from '../../images/Vellore_Institute_of_Technology_seal_2017.svg.webp';
+
+/*
+ * Institution marks are balanced by AREA, not by height. The ratios here run
+ * from a near-square seal (0.95) to a wide wordmark (2.25); give them a common
+ * max-height and the wordmark is visually more than twice the seal, which
+ * reads as the university being twice as important. Equal area reads as equal.
+ *
+ * Each mark keeps its own aspect ratio, so `<Image>` emits truthful intrinsic
+ * dimensions and nothing shifts on decode.
+ */
+const MARK_AREA = 3400;
+
+function markBox(img: ImageMetadata) {
+  const ratio = img.width / img.height;
+  const height = Math.round(Math.sqrt(MARK_AREA / ratio));
+  return { width: Math.round(height * ratio), height };
+}
+
+const marks: Record<string, ImageMetadata> = {
+  'William & Mary, Raymond A. Mason School of Business': wmMark,
+  'Vellore Institute of Technology': vitMark,
+};
+---
+
+<ul class="mt-6 flex flex-col gap-6">
+	{
+		degrees.map((degree) => (
+			<li class="rounded-card border border-border bg-surface p-6">
+				<div class="flex items-start justify-between gap-6">
+					<div class="min-w-0">
+						<p class="text-meta text-fg-muted">{degree.period}</p>
+						<h3 class="mt-1 font-serif text-h3 font-normal text-fg">{degree.award}</h3>
+						<p class="text-fg-2">{degree.school}</p>
+					</div>
+					{marks[degree.school] && (
+						<Image
+							src={marks[degree.school]}
+							alt={degree.school}
+							{...markBox(marks[degree.school])}
+							class="shrink-0 object-contain"
+						/>
+					)}
+				</div>
+				{degree.notes && (
+					<ul class="mt-3 flex flex-col gap-1 text-meta text-fg-2">
+						{degree.notes.map((note) => (
+							<li>{note}</li>
+						))}
+					</ul>
+				)}
+			</li>
+		))
+	}
+</ul>
+
+<h3 class="mt-10 font-serif text-h3 font-normal text-fg">Publication</h3>
+<p class="mt-3 max-w-[65ch] text-fg-2">
+	<a
+		href={publication.href}
+		rel="noopener"
+		class="text-accent underline decoration-seam underline-offset-4 transition-colors hover:text-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+	>
+		{publication.title}
+	</a>
+	<span class="mt-1 block text-meta text-fg-muted">{publication.venue}</span>
+</p>
+
+<h3 class="mt-10 font-serif text-h3 font-normal text-fg">Certificates</h3>
+<div class="mt-4 grid gap-6 sm:grid-cols-2">
+	{
+		certificates.map((group) => (
+			<div>
+				<h4 class="text-meta font-medium uppercase tracking-wide text-fg-muted">{group.group}</h4>
+				<ul class="mt-2 flex flex-col gap-2">
+					{group.items.map((cert) => (
+						<li class="text-fg-2">
+							{cert.href ? (
+								<a
+									href={cert.href}
+									rel="noopener"
+									class="underline decoration-seam underline-offset-4 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+								>
+									{cert.name}
+								</a>
+							) : (
+								cert.name
+							)}
+							<span class="block text-meta text-fg-muted">
+								{cert.issuer} · {cert.date}
+							</span>
+						</li>
+					))}
+				</ul>
+			</div>
+		))
+	}
+</div>

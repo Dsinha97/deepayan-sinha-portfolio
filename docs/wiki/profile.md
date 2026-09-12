@@ -32,11 +32,17 @@ sites, one of them a client's, both live and both his own build. Neither half al
 story. A pure-engineer framing throws away the MBA, the consulting and the Lean Six Sigma
 credential; a pure-MBA framing throws away the thing that makes him unusual in that pool.
 
-**Headline:** Product and analytics leader who builds.
+**Headline (shipped, DSI-91):** Building products with an analytical approach.
 
-**Value line (draft, to be refined against [my-writing-style](../../CLAUDE.md) when the hero is
-written):** Six years building AI/ML products, an MBA in analytics and supply chain, and a habit
-of shipping the tools myself.
+**Sub-line:** Not afraid to get my hands dirty.
+
+**Why it changed.** The M2 draft read "Product and analytics *leader* who builds". The owner
+rejected it as overclaiming and asked for something actionable that leans individual
+contributor — his title at Wipro was Project Engineer, and "leader" is a word he would have had
+to defend in an interview for a gain the site does not need. The replacement is his own wording.
+It also splits cleanly into the hero's two slots: a positioning line and a sub-line.
+
+Keep the pair together. The first half alone is generic; the second half is what makes it his.
 
 ## Target roles
 
@@ -51,10 +57,15 @@ Four facts, all verifiable, chosen because each one answers a different objectio
 
 | Fact | What it answers |
 |---|---|
-| MBA, William & Mary, 2026 — Beta Gamma Sigma | Credentialed, top of cohort |
-| Six years AI/ML product engineering | Not a career-changer with no depth |
-| A 226-respondent survey designed and analysed end to end | Does the analytical work himself |
-| Two production sites shipped and live | Still builds |
+| 6 yrs — AI/ML product engineering | Not a career-changer with no depth |
+| 226 — survey respondents, designed and analysed | Does the analytical work himself |
+| 4 in 7 wks — consulting deliverables | Throughput under a real clock |
+| 2 — production sites shipped | Still builds |
+
+**The MBA is deliberately not a tile.** It was in the strip, the About paragraphs *and* the
+education section, and the strip's job is to add facts rather than repeat them. The degree is
+not in danger of being missed. Same reason the About paragraphs now carry no figures at all:
+every number in them would have been its third appearance on one page.
 
 ## Voice
 

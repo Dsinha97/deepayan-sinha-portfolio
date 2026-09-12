@@ -13,19 +13,38 @@
  * as an ordinary block, which is what both references do on a phone. A sticky
  * rail on a 375px screen would eat half the viewport.
  *
- * Content here is placeholder. The real copy is DSI-91 (positioning line) and
- * DSI-96 (contact), and the headshot lands with DSI-91 carrying explicit
- * dimensions so it cannot shift the layout.
+ * The headshot replaces the mark here (DSI-91). The mark still appears in the
+ * header, and showing it twice within one viewport was the thing to fix.
+ * `<Image>` emits intrinsic width and height, so the rail cannot shift as the
+ * image decodes — that is the gate on this issue, not a nicety.
+ *
+ * The height here must match the source's own aspect ratio (2001x3000, so
+ * 224x336). Astro preserves that ratio and ignores a height that contradicts
+ * it: ask for 224x280 and you still get a 336px-tall file, while the width and
+ * height attributes promise 280 and the page jumps 56px when it decodes. That
+ * is the exact failure this component is supposed to prevent. Changing the
+ * width means recomputing the height, not guessing it.
  */
+import { Image } from 'astro:assets';
 import { site } from '../data/site';
-import LogoMark from './LogoMark.astro';
+import headshot from '../assets/headshot.jpg';
 ---
 
 <aside class="lg:sticky lg:top-28 lg:self-start">
-	<LogoMark label={`${site.name} logo`} class="w-28" />
+	<Image
+		src={headshot}
+		alt={site.name}
+		width={224}
+		height={336}
+		densities={[1, 2]}
+		loading="eager"
+		fetchpriority="high"
+		class="w-56 rounded-media border border-border"
+	/>
 
 	<h1 class="mt-8 font-serif text-display font-normal text-fg">{site.name}</h1>
 	<p class="mt-3 max-w-[38ch] text-fg-2">{site.headline}</p>
+	<p class="mt-1 max-w-[38ch] text-fg-muted">{site.subline}</p>
 
 	<ul class="mt-8 flex flex-col gap-1">
 		<li>

@@ -50,20 +50,31 @@ Published with issuer, date and a verification URL where one exists. The certifi
 stay in `private/Certificates/` and are never committed — see
 [content-guardrails](content-guardrails.md#files).
 
-| Certificate | Issuer | Verification |
-|---|---|---|
-| Lean Six Sigma Green Belt (A2026-129) | William & Mary | certificate on file |
-| Aha! Product Management Professional | Aha! | certificate on file |
-| AI Fluency: Foundation and Frameworks | Anthropic | certificate on file |
-| AI Capabilities and Limitations | Anthropic | certificate on file |
-| Claude Code 101 | Anthropic | certificate on file |
-| Power BI with DAX | LinkedIn Learning | [verify](https://www.linkedin.com/learning/certificates/88e165371499c5e946bb363e6d6a18e9ea60984fea90b9f38059a034cbe25ee3?u=51086953) |
-| Power BI | LinkedIn Learning | [verify](https://www.linkedin.com/learning/certificates/fc6fe15ae3a6ba6e0d049b94956bd86cb375e7a6bcb66ee9cac458607287243d?u=51086953) |
-| SQL | LinkedIn Learning | [verify](https://www.linkedin.com/learning/certificates/3d2e06df96914e928a9405d59467cf20aca13089e5e554fca2b0731cabd374e8?u=51086953) |
-| MBA Math | MBA Math | [verify](https://www.mbamath.com/Certificate.aspx?id=93t8lyrdThg%3d) |
+| Certificate | Issuer | Date | Verification |
+|---|---|---|---|
+| Lean Six Sigma Green Belt (A2026-129) | William & Mary | May 2026 | certificate on file |
+| Claude Code 101 | Anthropic | Jun 2026 | certificate on file |
+| AI Fluency: Framework & Foundations | Anthropic | May 2026 | certificate on file |
+| AI Capabilities and Limitations | Anthropic | May 2026 | certificate on file |
+| Power BI Data Modeling with DAX | LinkedIn Learning | Aug 2025 | [verify](https://www.linkedin.com/learning/certificates/88e165371499c5e946bb363e6d6a18e9ea60984fea90b9f38059a034cbe25ee3?u=51086953) |
+| Power BI Essential Training | LinkedIn Learning | Jul 2025 | [verify](https://www.linkedin.com/learning/certificates/fc6fe15ae3a6ba6e0d049b94956bd86cb375e7a6bcb66ee9cac458607287243d?u=51086953) |
+| SQL Essential Training | LinkedIn Learning | Jun 2025 | [verify](https://www.linkedin.com/learning/certificates/3d2e06df96914e928a9405d59467cf20aca13089e5e554fca2b0731cabd374e8?u=51086953) |
+| Aha! Product Management Professional | Aha! | Mar 2025 | certificate on file |
+| MBA Math | MBA Math | Jul 2024 | [verify](https://www.mbamath.com/Certificate.aspx?id=93t8lyrdThg%3d) |
 
 Grouped on the page by category — process, product, AI, analytics — rather than listed flat.
-Dates need filling in from the certificate files before the education section is built.
+
+**Where the dates came from (DSI-94, 2026-09-11).** Three titles in the earlier version of this
+table were wrong and are corrected above: the LinkedIn courses are *Power BI Data Modeling with
+DAX* and *Power BI Essential Training*, and the Anthropic one is *AI Fluency: **Framework &
+Foundations***, not "Foundation and Frameworks". Titles now match what the issuer prints.
+
+- **Read off the certificate file:** LSSGB (May 2026, consistent with certificate no. A2026-129)
+  and Aha! (14 March 2025, the only file with an extractable text date).
+- **Read off the issuer's verification page:** the three LinkedIn Learning courses and MBA Math.
+- **Supplied by the owner:** the three Anthropic certificates. Those PDFs carry **no date
+  anywhere on the certificate** — the design simply does not print one, so the files cannot
+  settle it and re-reading them will not help a future pass.
 
 ## MBA coursework
 

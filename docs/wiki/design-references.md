@@ -111,6 +111,30 @@ Every port follows the three rules at the top of
 only where the blurred area is small, and a closed state that is genuinely unfocusable rather
 than merely invisible.
 
+## A live peer site, reviewed for structure only (M3)
+
+[sunnysoni.netlify.app](https://sunnysoni.netlify.app/) was supplied by the owner during the M3
+content pass. It belongs to a William & Mary MBA classmate, which makes it the same category as
+everything in `Referernces/`: **a technique source, never a content or palette source.** It is a
+real person's live personal brand and the claims on it are theirs.
+
+**Taken — structure only:**
+
+- **Stat tiles instead of prose claims.** A large figure with a short label under it, in a row.
+  The proof strip (DSI-92) uses this shape.
+- **One sentence of summary per role, then terse bullets.** The first draft of the timeline was
+  paragraphs; the reference makes the case that a line each scans better and repeats less.
+- **Tool names as chips rather than sentences.** Used on the W&M and Wipro entries.
+- **A single "outcome" line per engagement**, visually separated from the bullets above it.
+
+**Not taken:** any copy, any claim, any number, the colour palette, the typography, the
+navigation pattern, the slash-separated keyword hero, or the work-authorization block. Nothing
+about how that site describes its owner has any bearing on how this one describes its own.
+
+One thing it does that this site deliberately does not: it states visa status and sponsorship
+need on the page. That is a legitimate choice and a common one, but it is the owner's call to
+make explicitly rather than a default to copy — it is not on this site unless he asks for it.
+
 ## Sources
 
 - `Referernces/DESIGN-*.md` — teardowns of Air, Amaterasu, Anthropic, Augen, Auros,
@@ -118,3 +142,4 @@ than merely invisible.
 - `Referernces/Components/*.md` — 11 Transitions.dev specs, 9 React components
 - `Referernces/refero.design *.jpg` — bento.me, contra.com, portrait.so
 - [DSI-131](https://linear.app/dsinha-org/issue/DSI-131/review-references-and-components)
+- `sunnysoni.netlify.app` — reviewed live 2026-09-11 during M3; structure only, recorded above

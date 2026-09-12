@@ -387,3 +387,149 @@ samp {
     transition-duration: 0.01ms !important;
   }
 }
+
+/*
+ * The resume page (DSI-97).
+ *
+ * src/pages/resume.md renders through ResumeLayout, so the markdown produces
+ * bare elements with no utility classes to hang styles on. These rules are
+ * scoped to `.resume` and are the only element selectors in this file for that
+ * reason — a markdown route cannot use Tailwind utilities on tags it does not
+ * author.
+ *
+ * Everything below uses the same tokens as the rest of the site, so the resume
+ * follows the theme rather than being a separately-maintained look.
+ */
+.resume {
+  color: var(--fg-2);
+}
+
+.resume h1 {
+  font-family: var(--font-serif);
+  font-size: var(--text-h1, 2.25rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--fg);
+}
+
+/* The contact line: the paragraph immediately after the name. */
+.resume h1 + p {
+  margin-top: 0.5rem;
+  color: var(--fg-muted);
+}
+
+.resume h2 {
+  margin-top: 2.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-serif);
+  font-size: var(--text-h2, 1.75rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--fg);
+}
+
+.resume h3 {
+  margin-top: 1.75rem;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+/* The dates/location line under each role heading. */
+.resume h3 + p {
+  margin-top: 0.125rem;
+  font-size: 0.875rem;
+  color: var(--fg-muted);
+}
+
+.resume p {
+  margin-top: 0.75rem;
+  max-width: 70ch;
+}
+
+.resume ul {
+  margin-top: 0.75rem;
+  padding-left: 1.25rem;
+  max-width: 70ch;
+  list-style: disc;
+}
+
+.resume li {
+  margin-top: 0.375rem;
+}
+
+.resume li::marker {
+  color: var(--seam);
+}
+
+.resume a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--seam);
+  text-underline-offset: 4px;
+}
+
+.resume a:hover {
+  color: var(--accent-hover);
+}
+
+.resume strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+/*
+ * Print. This is what makes a PDF without adding a headless browser to the
+ * build: the page chrome comes off, the palette is forced light regardless of
+ * the reader's theme, and links print as text rather than as coloured words
+ * whose destination is lost on paper.
+ *
+ * The URL is NOT expanded after each link with content: attr(href). The
+ * contact line would print three full URLs and the layout would break for no
+ * gain — the addresses are already readable as text.
+ */
+@media print {
+  header,
+  footer,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  :root,
+  :root[data-theme='dark'] {
+    --bg: #ffffff;
+    --fg: #000000;
+    --fg-2: #1a1a1a;
+    --fg-muted: #444444;
+    --border: #999999;
+    --accent: #000000;
+    --accent-hover: #000000;
+    --seam: #666666;
+  }
+
+  body {
+    background: #ffffff;
+  }
+
+  .resume a {
+    text-decoration: none;
+  }
+
+  /* Never break a role's heading away from its first bullets. */
+  .resume h2,
+  .resume h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .resume li,
+  .resume h3 + p {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  @page {
+    margin: 14mm;
+  }
+}

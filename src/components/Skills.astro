@@ -1,0 +1,40 @@
+---
+/*
+ * Skills (DSI-95). Four groups, no proficiency bars — a self-scored
+ * "Python 85%" tells a reader nothing and invites the question of who scored
+ * it. The grouping is the information.
+ *
+ * The gate: every group must be evidenced elsewhere on this page. Product by
+ * the Wipro entry, analytics by the survey and the internship, engineering by
+ * the two shipped sites, process by the credential. A framework that was only
+ * studied is not a skill and does not belong here — see docs/wiki/skills.md.
+ */
+import { skills, tools } from '../data/profile';
+---
+
+<div class="mt-6 grid gap-6 sm:grid-cols-2">
+	{
+		skills.map((group) => (
+			<div class="rounded-card border border-border bg-surface p-6">
+				<h3 class="font-serif text-h3 font-normal text-fg">{group.group}</h3>
+				<ul class="mt-3 flex flex-wrap gap-2">
+					{group.items.map((item) => (
+						<li class="rounded-control bg-surface-2 px-2.5 py-1 text-meta text-fg-2">{item}</li>
+					))}
+				</ul>
+			</div>
+		))
+	}
+</div>
+
+<p class="mt-6 flex flex-wrap items-center gap-2 text-meta text-fg-muted">
+	<span>Tools —</span>
+	{
+		tools.map((tool, i) => (
+			<span class="font-mono">
+				{tool}
+				{i < tools.length - 1 && <span aria-hidden="true"> ·</span>}
+			</span>
+		))
+	}
+</p>

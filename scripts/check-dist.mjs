@@ -14,6 +14,7 @@
  *   "we'll remember not to" is not a control.
  */
 import { readFile, readdir } from 'node:fs/promises';
+import { inflateSync } from 'node:zlib';
 import { join, relative, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -58,13 +59,51 @@ for (const file of files) {
 
   if (ext === '.pdf') {
     // The resume PDF ships to public/ with the phone number stripped (DSI-97).
-    // Raw byte scan: enough to catch an uncompressed text object, and the real
-    // guarantee is that the file is regenerated without the number. Flagged
-    // here so a careless replacement is at least noisy.
+    //
+    // This branch used to scan the raw latin1 bytes of the whole file, which
+    // was wrong in both directions and measured as such against the real
+    // resume:
+    //
+    //   - **False negative.** PDF text lives in FlateDecode streams. A phone
+    //     number in normally-compressed text is simply not present in the raw
+    //     bytes, so the scan could not see it. The resume carries four
+    //     phone-shaped strings that only appear after inflating.
+    //   - **False positive flood.** Binary image and font data matched the
+    //     phone pattern 131 times on that same file. A guard that fails on
+    //     every PDF with 131 unreadable hits does not tell anyone anything,
+    //     and the one real hit would have been invisible among them.
+    //
+    // So: inflate each stream and scan the decoded text, and scan only the
+    // *non-stream* portions raw, where an uncompressed text object would sit.
+    // Binary stream payloads are never pattern-matched as bytes.
     const raw = await readFile(file, 'latin1');
-    for (const hit of raw.match(PHONE) ?? []) {
-      if (!PHONE_ALLOW.some((ok) => ok.test(hit))) fail(rel, 'phone-number', hit);
+
+    const scan = (text, where) => {
+      for (const hit of text.match(PHONE) ?? []) {
+        if (!PHONE_ALLOW.some((ok) => ok.test(hit))) fail(rel, 'phone-number', `${where}: ${hit}`);
+      }
+    };
+
+    let outsideStreams = '';
+    let cursor = 0;
+    for (const match of raw.matchAll(/stream\r?\n?([\s\S]*?)endstream/g)) {
+      outsideStreams += raw.slice(cursor, match.index);
+      cursor = match.index + match[0].length;
+      try {
+        scan(inflateSync(Buffer.from(match[1], 'latin1')).toString('latin1'), 'compressed text');
+      } catch {
+        // Not a Flate stream (an image, or already raw). Its uncompressed
+        // text, if any, is caught by the outside-streams scan below only when
+        // it sits outside a stream — so scan short non-binary payloads here
+        // rather than skipping them silently.
+        const body = match[1];
+        if (body.length < 100_000 && !/[\x00\x01\x02\x03\x04]/.test(body.slice(0, 512))) {
+          scan(body, 'uncompressed stream');
+        }
+      }
     }
+    outsideStreams += raw.slice(cursor);
+    scan(outsideStreams, 'document structure');
     continue;
   }
 

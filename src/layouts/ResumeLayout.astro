@@ -1,0 +1,47 @@
+---
+/*
+ * The /resume/ route (DSI-97).
+ *
+ * The resume is a **web page rendered from markdown**, not an embedded PDF
+ * viewer. That was a deliberate request and it is also the better default: a
+ * PDF in an iframe is unreadable on a phone, invisible to a text search, and
+ * hostile to a screen reader, and it hands the reader a viewer chrome they did
+ * not ask for.
+ *
+ * src/pages/resume.md is the single source. There is no second copy of these
+ * facts to drift — the markdown *is* the resume.
+ *
+ * Printing this page produces the PDF. The print rules in global.css drop the
+ * header, footer and page chrome, so Ctrl+P gives a clean document without a
+ * headless-browser dependency in the build.
+ */
+import BaseLayout from './BaseLayout.astro';
+import { site } from '../data/site';
+
+interface Props {
+  frontmatter: { title: string; description: string; updated: string };
+}
+
+const { frontmatter } = Astro.props;
+---
+
+<BaseLayout title={frontmatter.title} description={frontmatter.description}>
+	<div class="mx-auto max-w-[52rem] px-4 py-16 md:px-6">
+		<div class="flex flex-wrap items-baseline justify-between gap-4 print:hidden">
+			<p class="text-meta text-fg-muted">Last updated {frontmatter.updated}</p>
+			<p class="text-meta text-fg-muted">
+				Print this page to save a copy — or
+				<a
+					href={`mailto:${site.email}`}
+					class="text-accent underline decoration-seam underline-offset-4 transition-colors hover:text-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+				>
+					ask for one
+				</a>.
+			</p>
+		</div>
+
+		<article class="resume mt-8">
+			<slot />
+		</article>
+	</div>
+</BaseLayout>

@@ -147,3 +147,41 @@ One line per action, newest at the bottom.
   taken, because it uses a caching header as a feature switch.
 
   This unblocks DSI-105 and preserves DSI-106's no-third-party-request budget.
+
+- **2026-09-11** — M3 shipped: the homepage carries real content. Hero with the owner's own
+  headline (DSI-91), proof strip and About (DSI-92), experience timeline (DSI-93), education and
+  credentials (DSI-94), skills (DSI-95), contact with copy-to-clipboard (DSI-96), and a markdown
+  resume at `/resume/` (DSI-97). Copy drafted from the MBA Brain vault and corrected by the
+  owner.
+
+  **The headline changed on his instruction.** "Product and analytics leader who builds" was
+  rejected as overclaiming — his Wipro title was Project Engineer, and "leader" is a word he
+  would have had to defend in an interview for a gain the site does not need. It is now
+  "Building products with an analytical approach" / "Not afraid to get my hands dirty", his
+  wording, split across the hero's two slots. Recorded in [profile.md](profile.md).
+
+  **Repetition was the main editing problem.** The MBA appeared in the headline area, the proof
+  strip, About and education; the survey figure appeared three times. The proof strip now has no
+  MBA tile and About carries no numbers at all — every figure in it would have been its third
+  appearance on one page.
+
+  **The phone-number guard was measured and found broken in both directions** — see
+  [content-guardrails.md](content-guardrails.md). It scanned a PDF's raw bytes, so it could not
+  see text inside FlateDecode streams (the real resume carries four phone-shaped strings only
+  visible after inflating) while matching binary font data 131 times in the same file, which
+  would have made any PDF fail with unreadable noise. It now inflates streams and scans decoded
+  text. Verified by copying the unredacted resume into `dist/`, confirming exit 1 with precise
+  hits, then deleting it. Images are still not scanned and that is now written down.
+
+  **The resume is markdown, not a PDF** (DSI-97). `src/pages/resume.md` is the resume; printing
+  the page produces the document, which keeps a headless browser out of the build. The new
+  resume also drops the personal Gmail address in favour of `contact@`, and marks the three
+  self-reported Wipro figures, neither of which the original PDF did.
+
+  **Visa status and work authorization are never published** — a new guardrail. A peer site
+  reviewed for structure states all three; that is a legitimate choice and explicitly not this
+  site's.
+
+  A live peer site was reviewed for structure only and recorded in
+  [design-references.md](design-references.md): stat tiles, one-line role summaries, tool chips.
+  No copy, claims, palette or typography taken.
