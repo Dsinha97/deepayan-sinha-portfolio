@@ -16,11 +16,14 @@ import { site } from '../data/site';
 interface Props {
   title?: string;
   description?: string;
+  /* Pages that exist but must never be indexed — the 404 body, for one. */
+  noindex?: boolean;
 }
 
 const {
   title = `${site.name} — ${site.headline}`,
-  description = 'Product and analytics leader who builds — six years of AI/ML product engineering, an MBA, and shipped production work.',
+  description = site.description,
+  noindex = false,
 } = Astro.props;
 
 // `Astro.site` is the apex, hardcoded in astro.config.mjs so nothing can point
@@ -33,6 +36,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
+{/*
+	The 404 body is a real asset at /404/ and the host serves it with a 200 there,
+	so without this it is an indexable page whose content is "Page not found".
+	Found on production, not locally — `astro dev` and `wrangler dev` both return
+	404 for that path. The status cannot be fixed from here; the indexing can.
+*/}
+{noindex && <meta name="robots" content="noindex, nofollow" />}
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />

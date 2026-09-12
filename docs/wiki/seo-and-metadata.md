@@ -81,3 +81,28 @@ page, not to compete for generic terms.
   no-fake-ratings rule
 - [portfolio-website-plan.md](../sources/portfolio-website-plan.md) — the JSON-LD and OG
   recommendations, which are the sound part of it
+
+## Two defects found on production, 2026-09-11 (post-M3)
+
+Both were invisible locally and only showed up against the deployed site.
+
+**The meta description outlived the headline it described.** `site.headline` changed in M3 when
+the owner rejected the "leader" framing, and the `<title>` followed it because it is derived —
+but `Head.astro` carried the description as a **hardcoded literal**, so every page on production
+advertised the rejected positioning line in the one piece of text search engines actually
+display. The description now lives in `site.ts` beside the headline, so there is one home for
+the sentence. A derived value and a literal saying the same thing is a trap: the derived one
+moves and the literal does not, silently.
+
+**`/404` returned HTTP 200 — a soft 404.** The 404 body is a real static asset, so the host
+serves it with a 200 at its own path while correctly returning 404 for unmatched routes. That
+made "Page not found" an indexable page. Neither dev server reproduces it: `astro dev` and
+`wrangler dev` both return 404 for that path, which is why it survived to production.
+
+The status cannot be fixed from the repo — it is how static-asset hosting works. The indexing
+can, and `<meta name="robots" content="noindex, nofollow">` now ships on that page only, via a
+`noindex` prop threaded from the page through `BaseLayout` to `Head`. The sitemap already
+excluded it, so it was never advertised, only reachable.
+
+**The general lesson, and it is the same one DSI-132 taught:** a clean local run says nothing
+about what the host does with the artifact. Check metadata against the deployed site.
