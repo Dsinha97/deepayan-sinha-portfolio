@@ -49,6 +49,7 @@ gate rather than copying it into a second place where it can rot.
 | Markdown resume and the /resume/ route | DSI-97 | M3 | [site-architecture.md](wiki/site-architecture.md) |
 | Case-study content collection, schema and page template | DSI-98 | M4 | [site-architecture.md](wiki/site-architecture.md) |
 | Case study: Fort Monroe consultancy | DSI-101 | M4 | [case-study-fort-monroe.md](wiki/case-study-fort-monroe.md) |
+| Work index: bento grid | DSI-102 | M4 | [site-architecture.md](wiki/site-architecture.md) |
 | Edge-injected analytics beacon removed at source | DSI-132 | M2 | [security-headers.md](wiki/security-headers.md) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
@@ -109,13 +110,24 @@ WebP at 22KB) rather than a borrowed brand asset — the first of the three case
 genuine product screenshot exists. Same gate as DSI-100: owner review, so it's **In Review** in
 Linear, not Done.
 
+**DSI-102 shipped 2026-09-12.** The homepage's placeholder bento tiles now render the three real
+`work` entries plus a Recognition tile linking to `#education`, all as real `<a>` elements with
+`:focus-visible` outlines — verified via keyboard tab, not just class names. Reflow measured with
+the responsive-check skill's overflow probe (`scrollWidth <= innerWidth`, not eyeballed) at 375,
+768 and 1280 in both themes: clean at every width. Two things needed fixing along the way, both
+caught by measuring rather than assuming: the large tile's `xl:row-span-2` left an empty mid-grid
+cell at 1280 because 8+4 mediums+small (20 columns of content) doesn't divide evenly into 12, so
+it's full-width instead and the three smaller tiles fill the next row exactly; and Fort Monroe's
+portrait-shaped cover was cropping its own name under `object-cover`, fixed by switching the
+bento thumbnails to the same `object-contain`-on-a-plate treatment DSI-101 already used on the
+case-study page itself.
+
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
 | DSI-99 | Case study: FPL Decision | M4 | In review — [case study](wiki/case-study-fpl-decision.md) |
 | DSI-100 | Case study: Abhijit Sinha website | M4 | In review — [case study](wiki/case-study-abhijit-sinha-website.md) |
-| DSI-102 | Work index: bento grid | M4 | Reflows at 375, 768, 1280 |
 | DSI-103 | SEO: metadata, sitemap, structured data | M5 | Schema validator reports zero errors — [seo-and-metadata.md](wiki/seo-and-metadata.md) |
 | DSI-104 | Open Graph images | M5 | Each URL renders its card in a real link preview |
 | DSI-105 | Security headers audit on production | M5 | Zero CSP violations across every route; A grade externally |

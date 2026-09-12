@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import IdentityRail from '../components/IdentityRail.astro';
 import Seam from '../components/Seam.astro';
@@ -20,31 +21,27 @@ import { about } from '../data/profile';
  * rule that governs the classes header.js toggles.
  */
 /*
- * Reflow: one column, then two at `sm`, then four at `xl`. Four columns any
- * earlier is what the first pass did, and at 1024 it produced 136px tiles with
- * "Abhijit Sinha website" wrapping to three lines — the tile grid has to
- * account for the 304px identity rail beside it, so it has far less width than
- * the viewport suggests. Caught by the responsive pass (DSI-90), not by eye.
+ * Reflow (DSI-102): one column, two at `md`, the real twelve-column grid at
+ * `xl`. Two at `md` rather than `sm` because the identity rail joins the
+ * layout at `lg` (1024) and eats real width from the content column — a
+ * `sm` (640) two-up grid looked fine in isolation and cramped once the rail
+ * was there. Caught by the responsive pass (DSI-90) on the four-tile
+ * placeholder version; verified again here with real tiles and real images.
+ *
+ * `lg` takes the full twelve columns as its own row rather than a tall
+ * `row-span-2` beside the mediums: 8+4 leaves no clean way to fit two
+ * mediums plus the small recognition tile (4+4+4=12) into what's left
+ * without an empty cell, since 20 columns of content doesn't divide evenly
+ * into 12. Full-width for the large tile, then an even 4/4/4 row, tiles
+ * exactly with no gap at any width.
  */
 const SPAN = {
-  large: 'sm:col-span-2 sm:row-span-2',
-  wide: 'sm:col-span-2',
-  small: '',
+  lg: 'md:col-span-2 xl:col-span-12',
+  md: 'xl:col-span-4',
+  sm: 'xl:col-span-4',
 } as const;
 
-/*
- * Case studies are M4. Titles are real; the copy under them is not written
- * yet, so every tile says "Coming soon" and nothing else. Issue numbers belong
- * in Linear and in source comments — never in text a visitor can read.
- */
-const SOON = 'Coming soon.';
-
-const tiles: { title: string; note: string; size: keyof typeof SPAN }[] = [
-  { title: 'FPL Decision', note: SOON, size: 'large' },
-  { title: 'Abhijit Sinha website', note: SOON, size: 'small' },
-  { title: 'Fort Monroe', note: SOON, size: 'small' },
-  { title: 'Recognition', note: SOON, size: 'wide' },
-];
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <BaseLayout>
@@ -58,20 +55,40 @@ const tiles: { title: string; note: string; size: keyof typeof SPAN }[] = [
 
 			<section id="work" class="mt-12">
 				<h2 class="font-serif text-h2 font-normal text-fg">Selected work</h2>
-				<ul class="mt-6 grid auto-rows-[minmax(9rem,auto)] grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+				<ul class="mt-6 grid auto-rows-[minmax(9rem,auto)] grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-12">
 					{
-						tiles.map((tile) => (
-							<li
-								class:list={[
-									'flex flex-col justify-between rounded-card border border-border bg-surface p-6',
-									SPAN[tile.size],
-								]}
-							>
-								<h3 class="font-serif text-h3 font-normal text-fg">{tile.title}</h3>
-								<p class="mt-3 text-meta text-fg-muted">{tile.note}</p>
+						work.map((entry) => (
+							<li class:list={['flex', SPAN[entry.data.bentoSize]]}>
+								<a
+									href={`/work/${entry.id}/`}
+									class="group flex w-full flex-col overflow-hidden rounded-card border border-border bg-surface transition-colors hover:border-border-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+								>
+									<div class="flex aspect-[16/9] w-full items-center justify-center overflow-hidden bg-mark-plate">
+										<img
+											src={entry.data.cover}
+											alt=""
+											class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+										/>
+									</div>
+									<div class="flex flex-1 flex-col justify-between gap-3 p-6">
+										<h3 class="font-serif text-h3 font-normal text-fg">{entry.data.title}</h3>
+										<p class="text-meta text-fg-muted">{entry.data.tagline}</p>
+									</div>
+								</a>
 							</li>
 						))
 					}
+					<li class:list={['flex', SPAN.sm]}>
+						<a
+							href="#education"
+							class="flex w-full flex-col justify-between gap-3 rounded-card border border-border bg-surface p-6 transition-colors hover:border-border-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+						>
+							<h3 class="font-serif text-h3 font-normal text-fg">Recognition</h3>
+							<p class="text-meta text-fg-muted">
+								Beta Gamma Sigma inductee, plus a published paper on thermal comfort modelling.
+							</p>
+						</a>
+					</li>
 				</ul>
 			</section>
 

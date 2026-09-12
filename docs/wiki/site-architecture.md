@@ -18,9 +18,10 @@ status: built
 > Astro 5 with Tailwind 4, static output, six typed content collections, one page plus three
 > case studies and a resume.
 
-**Status: built, partially.** The Astro 5 + Tailwind 4 scaffold, config, `src/data/site.ts`, the
-six content collections and the `/work/<slug>/` template are up (DSI-81, DSI-98). The three case
-studies and the bento work index are still open — DSI-99 to DSI-102.
+**Status: built, mostly.** The Astro 5 + Tailwind 4 scaffold, config, `src/data/site.ts`, the six
+content collections, the `/work/<slug>/` template, all three case studies and the homepage bento
+work index are up (DSI-81, DSI-98 to DSI-102). DSI-99 and DSI-100 are written and built but filed
+in review pending the owner's sign-off on their content, not on anything left to build.
 
 ## Framework decisions
 
