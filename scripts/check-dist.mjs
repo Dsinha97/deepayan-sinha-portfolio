@@ -102,8 +102,19 @@ for (const file of files) {
         }
       }
     }
+    /*
+     * Strip the cross-reference table before scanning. Every xref entry is a
+     * zero-padded 10-digit byte offset — `0000003694 00000 n ` — which matches
+     * the bare-10-digit form of the phone pattern exactly. Leaving it in makes
+     * every generated PDF fail on its own structure, which is how a guard
+     * stops being read.
+     *
+     * This removes only the exact xref shape (10 digits, 5 digits, n or f), not
+     * digits generally. A phone number cannot be laundered through it: no real
+     * number is followed by " 00000 n ".
+     */
     outsideStreams += raw.slice(cursor);
-    scan(outsideStreams, 'document structure');
+    scan(outsideStreams.replace(/^\d{10} \d{5} [nf] ?$/gm, ''), 'document structure');
     continue;
   }
 

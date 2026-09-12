@@ -185,3 +185,28 @@ One line per action, newest at the bottom.
   A live peer site was reviewed for structure only and recorded in
   [design-references.md](design-references.md): stat tiles, one-line role summaries, tool chips.
   No copy, claims, palette or typography taken.
+
+- **2026-09-12** — The resume PDF is a real download at `/resume.pdf`, at the owner's request:
+  asking a reader to email for a copy is friction on the one artifact a recruiter actually wants.
+  `scripts/build-resume-pdf.mjs` generates it during the build from `src/pages/resume.md`, so the
+  page and the file cannot disagree — neither is a copy of the other.
+
+  **No dependency was added.** The generator emits base-14 Helvetica text objects directly. A
+  headless browser would have meant ~200MB of Chromium in a build that installs in 90 seconds,
+  and base-14 needs no font embedding, which keeps the file at ~4KB with real selectable text —
+  what an applicant tracking system needs to read it at all.
+
+  **The phone guard caught its own output**, correctly. A PDF cross-reference table is a column
+  of zero-padded 10-digit byte offsets, which match the bare-10-digit phone form exactly, so the
+  first generated PDF failed the build on its own structure. The guard now strips the exact xref
+  shape (`\d{10} \d{5} [nf]`) before scanning document structure — a narrow exclusion that a real
+  number cannot be laundered through, since none is followed by " 00000 n ". Re-verified in both
+  directions: our PDF passes, the unredacted resume still fails with precise hits.
+
+  **Rendering the PDF exposed a content bug in the markdown that also affected the web page.**
+  The two education entries put the degree and the date on consecutive lines *inside one
+  paragraph*, so both renderers merged them into a single run of metadata. Education entries now
+  follow the same shape as the experience ones — `### <award>` then a meta line carrying school,
+  dates and location. Fixed at the source, so both outputs corrected together.
+
+  Also removed a dead pass in the generator that set a `bold` flag the layout never read.

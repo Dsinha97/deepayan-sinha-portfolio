@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "astro dev",
     "check": "astro check",
-    "build": "astro check && astro build && node scripts/generate-headers.mjs && node scripts/check-dist.mjs",
+    "build": "astro check && astro build && node scripts/build-resume-pdf.mjs && node scripts/generate-headers.mjs && node scripts/check-dist.mjs",
     "preview": "wrangler dev",
     "astro": "astro"
   },

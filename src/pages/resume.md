@@ -18,18 +18,16 @@ Belt certified.
 
 ## Education
 
-### William & Mary, Raymond A. Mason School of Business
+### Master of Business Administration — Business Analytics and Supply Chain Management
 
-**Master of Business Administration — Business Analytics and Supply Chain Management**
-August 2024 – May 2026 · Williamsburg, VA
+William & Mary, Raymond A. Mason School of Business · August 2024 – May 2026 · Williamsburg, VA
 
 - Beta Gamma Sigma inductee, top 20% of the MBA cohort
 - Lean Six Sigma Green Belt (LSSGB), certificate no. A2026-129
 
-### Vellore Institute of Technology
+### Bachelor of Technology — Mechanical Engineering
 
-**Bachelor of Technology — Mechanical Engineering**
-July 2014 – April 2018 · Vellore, India
+Vellore Institute of Technology · July 2014 – April 2018 · Vellore, India
 
 - Paper published in the *International Journal of Energy, Environment and Economics*;
   presented at ICPAT-19

@@ -160,10 +160,23 @@ drift out of sync. The plan above said "a prominent PDF link"; the owner asked f
 displayed as a page rather than a PDF screen, and that is the better default anyway: a PDF in an
 iframe is unreadable on a phone, invisible to text search, and hostile to a screen reader.
 
-A PDF still exists when someone wants one — the print rules in `global.css` strip the header,
-footer and page chrome, force a light palette regardless of theme, and keep role headings with
-their bullets, so Ctrl+P produces a clean document. That keeps a headless browser out of the
-build; no PDF-generating dependency is installed and none is needed.
+**The PDF is a real download at `/resume.pdf`** (added 2026-09-12 at the owner's request —
+asking a reader to email for a copy is friction on the one artifact a recruiter actually wants).
+`scripts/build-resume-pdf.mjs` generates it during the build **from the same markdown**, so the
+two cannot disagree: neither is a copy of the other.
+
+It is written with no dependency at all — a ~350-line generator emitting base-14 Helvetica text
+objects. That is deliberate. A headless browser would have added ~200MB of Chromium to a build
+that installs in 90 seconds, and the base-14 faces need no embedding, which keeps the file at
+~4KB and the text real: selectable, searchable, and readable by the applicant tracking systems
+that open it first. Matching the site's display typography is not worth either cost.
+
+Printing the page still works too — the print rules in `global.css` strip the header, footer and
+page chrome and force a light palette regardless of theme.
+
+`/resume.pdf` is written into `dist/`, so it 404s under `astro dev`. Same arrangement as
+`dist/_headers`, same reason: it is generated rather than authored, and a copy in `public/`
+would be a second artifact free to go stale.
 
 `.resume` carries the only element selectors in `global.css`, because a markdown route produces
 bare tags with no utility classes to hang styles on.
