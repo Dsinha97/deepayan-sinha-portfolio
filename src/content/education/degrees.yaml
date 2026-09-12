@@ -1,0 +1,15 @@
+# Two degrees (DSI-94, migrated to a collection by DSI-98). No GPA is recorded
+# in any source material, so none is published. See
+# docs/wiki/education-and-credentials.md.
+
+wm-mba:
+  order: 1
+  school: "William & Mary, Raymond A. Mason School of Business"
+  award: "MBA — Business Analytics and Supply Chain Management"
+  period: "Aug 2024 – May 2026"
+
+vit-btech:
+  order: 2
+  school: "Vellore Institute of Technology"
+  award: "B.Tech — Mechanical Engineering"
+  period: "Jul 2014 – Apr 2018"

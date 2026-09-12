@@ -1,0 +1,170 @@
+---
+/*
+ * Case-study page template (DSI-98). Breadcrumb, title and metadata, links
+ * row, cover, the STAR block as four columns collapsing to a stack, the
+ * metric row, the body, the claim-scope footnote, then previous and next.
+ * No dead ends: every case study offers somewhere to go next. See
+ * docs/wiki/site-architecture.md.
+ *
+ * `claimScope: engagement-outcomes` renders a visible footnote saying the
+ * results describe deliverables and the client's response, not what the
+ * client did next — content-guardrails.md is the rule, this is only where
+ * it renders.
+ */
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Seam from '../../components/Seam.astro';
+import Contact from '../../components/Contact.astro';
+
+export async function getStaticPaths() {
+  const entries = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+
+  return entries.map((entry, index) => ({
+    params: { slug: entry.id },
+    props: {
+      entry,
+      prev: entries.length > 1 ? entries[(index - 1 + entries.length) % entries.length] : undefined,
+      next: entries.length > 1 ? entries[(index + 1) % entries.length] : undefined,
+    },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'work'>;
+  prev?: CollectionEntry<'work'>;
+  next?: CollectionEntry<'work'>;
+}
+
+const { entry, prev, next } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+
+const LINK_LABEL: Record<'live' | 'repo' | 'document', string> = {
+  live: 'Visit',
+  repo: 'Source',
+  document: 'Document',
+};
+---
+
+<BaseLayout title={`${data.title} — case study`} description={data.tagline}>
+	<div class="mx-auto max-w-[65rem] px-4 py-16 md:px-6 lg:py-24">
+		<nav aria-label="Breadcrumb" class="text-meta text-fg-muted">
+			<a href="/#work" class="underline decoration-seam underline-offset-4 hover:text-accent">
+				Selected work
+			</a>
+			<span aria-hidden="true"> / </span>
+			<span>{data.title}</span>
+		</nav>
+
+		<h1 class="mt-4 font-serif text-h1 font-normal text-fg">{data.title}</h1>
+		<p class="mt-2 max-w-[65ch] text-fg-2">{data.tagline}</p>
+		<p class="mt-3 text-meta text-fg-muted">
+			{data.role} · {data.period}
+		</p>
+
+		<ul class="mt-4 flex flex-wrap gap-2">
+			{
+				data.stack.map((tool) => (
+					<li class="rounded-control border border-border bg-surface px-2.5 py-1 font-mono text-meta text-fg-muted">
+						{tool}
+					</li>
+				))
+			}
+		</ul>
+
+		{
+			data.links && data.links.length > 0 && (
+				<ul class="mt-6 flex flex-wrap gap-x-6">
+					{data.links.map((link) => (
+						<li>
+							<a
+								href={link.href}
+								rel="noopener"
+								class="inline-flex min-h-11 items-center rounded-control text-accent underline decoration-seam underline-offset-4 transition-colors hover:text-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+							>
+								{link.label ?? LINK_LABEL[link.type]}
+							</a>
+						</li>
+					))}
+				</ul>
+			)
+		}
+
+		<div class="mt-10 flex max-h-96 items-center justify-center rounded-card border border-border bg-surface p-6">
+			<img src={data.cover} alt={`${data.title} cover`} class="max-h-80 w-auto object-contain" />
+		</div>
+
+		<dl class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+			{
+				(
+					[
+						['Situation', data.star.situation],
+						['Task', data.star.task],
+						['Action', data.star.action],
+						['Result', data.star.result],
+					] as const
+				).map(([label, value]) => (
+					<div>
+						<dt class="text-meta font-medium uppercase tracking-wide text-fg-muted">{label}</dt>
+						<dd class="mt-2 text-fg-2">{value}</dd>
+					</div>
+				))
+			}
+		</dl>
+
+		{
+			data.metrics && data.metrics.length > 0 && (
+				<dl class="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
+					{data.metrics.map((metric) => (
+						<div>
+							<dt class="font-serif text-h2 font-normal text-fg">{metric.value}</dt>
+							<dd class="mt-1 text-meta text-fg-muted">
+								{metric.label}
+								{metric.qualifier && <span class="block italic">{metric.qualifier}</span>}
+							</dd>
+						</div>
+					))}
+				</dl>
+			)
+		}
+
+		<div class="case-study-body mt-10 max-w-[65ch] text-fg-2">
+			<Content />
+		</div>
+
+		{
+			data.claimScope === 'engagement-outcomes' && (
+				<p class="mt-10 max-w-[65ch] rounded-card border border-border bg-surface p-4 text-meta text-fg-muted">
+					These results describe what was delivered and how the client responded — not what the
+					client subsequently did with the recommendations, which is not documented.
+				</p>
+			)
+		}
+
+		<Seam class="my-12" />
+
+		<div class="flex flex-wrap justify-between gap-4 text-meta">
+			{prev && (
+				<a
+					href={`/work/${prev.id}/`}
+					class="inline-flex min-h-11 items-center rounded-control text-accent underline decoration-seam underline-offset-4 hover:text-accent-hover"
+				>
+					← {prev.data.title}
+				</a>
+			)}
+			{next && (
+				<a
+					href={`/work/${next.id}/`}
+					class="ml-auto inline-flex min-h-11 items-center rounded-control text-accent underline decoration-seam underline-offset-4 hover:text-accent-hover"
+				>
+					{next.data.title} →
+				</a>
+			)}
+		</div>
+
+		<Seam class="my-12" />
+
+		<h2 class="font-serif text-h2 font-normal text-fg">Contact</h2>
+		<Contact />
+	</div>
+</BaseLayout>

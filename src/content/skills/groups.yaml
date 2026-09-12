@@ -1,0 +1,49 @@
+# Four skill groups (DSI-95, migrated to a collection by DSI-98). No
+# proficiency bars — the grouping is the information. Every group must be
+# evidenced elsewhere on the page; see docs/wiki/skills.md before adding one.
+
+product:
+  order: 1
+  group: Product
+  items:
+    - "AI/ML implementation"
+    - "Product lifecycle management"
+    - "Backlog prioritisation"
+    - "Roadmapping"
+    - "Go-to-market strategy"
+    - "Cost optimisation"
+
+analytics:
+  order: 2
+  group: Analytics
+  items:
+    - "SQL"
+    - "Python"
+    - "Power BI"
+    - "Excel"
+    - "Survey design and analysis"
+    - "Benchmarking"
+    - "Data governance"
+
+engineering:
+  order: 3
+  group: Engineering
+  items:
+    - "TypeScript"
+    - "JavaScript"
+    - "Astro"
+    - "Next.js"
+    - "React"
+    - "Tailwind CSS"
+    - "Supabase and Postgres"
+    - "Cloudflare Workers"
+
+process:
+  order: 4
+  group: "Process and strategy"
+  items:
+    - "Lean Six Sigma Green Belt"
+    - "Process optimisation"
+    - "Make-or-buy analysis"
+    - "Stakeholder and C-suite management"
+    - "Cross-functional delivery"

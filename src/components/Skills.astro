@@ -9,12 +9,15 @@
  * the two shipped sites, process by the credential. A framework that was only
  * studied is not a skill and does not belong here — see docs/wiki/skills.md.
  */
-import { skills, tools } from '../data/profile';
+import { getCollection } from 'astro:content';
+import { tools } from '../data/profile';
+
+const groups = (await getCollection('skills')).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <div class="mt-6 grid gap-6 sm:grid-cols-2">
 	{
-		skills.map((group) => (
+		groups.map(({ data: group }) => (
 			<div class="rounded-card border border-border bg-surface p-6">
 				<h3 class="font-serif text-h3 font-normal text-fg">{group.group}</h3>
 				<ul class="mt-3 flex flex-wrap gap-2">

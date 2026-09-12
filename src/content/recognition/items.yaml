@@ -1,0 +1,14 @@
+# Beta Gamma Sigma and the ICPAT-19 paper (DSI-94, migrated to a collection by
+# DSI-98). See docs/wiki/education-and-credentials.md.
+
+beta-gamma-sigma:
+  order: 1
+  kind: honor
+  title: "Beta Gamma Sigma inductee (top 20% of the MBA cohort)"
+
+icpat-19:
+  order: 2
+  kind: publication
+  title: "Design and Analysis of Thermal Comfort of a Naturally Ventilated Recreational Vehicle"
+  venue: "International Journal of Energy, Environment and Economics — presented at ICPAT-19"
+  href: "https://www.researchgate.net/publication/334469078_Analysis_of_Thermal_Comfort_of_a_naturally_ventilated_Recreational_Vehicle"

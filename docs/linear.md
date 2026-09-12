@@ -47,6 +47,8 @@ gate rather than copying it into a second place where it can rot.
 | Skills matrix | DSI-95 | M3 | [skills.md](wiki/skills.md) |
 | Contact section with copy-to-clipboard | DSI-96 | M3 | [content-guardrails.md](wiki/content-guardrails.md) |
 | Markdown resume and the /resume/ route | DSI-97 | M3 | [site-architecture.md](wiki/site-architecture.md) |
+| Case-study content collection, schema and page template | DSI-98 | M4 | [site-architecture.md](wiki/site-architecture.md) |
+| Case study: Fort Monroe consultancy | DSI-101 | M4 | [case-study-fort-monroe.md](wiki/case-study-fort-monroe.md) |
 | Edge-injected analytics beacon removed at source | DSI-132 | M2 | [security-headers.md](wiki/security-headers.md) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
@@ -73,14 +75,31 @@ the phone rule is now explicitly per-repository rather than per-page, and the PD
 `check-dist.mjs` was rewritten after being measured as broken in both directions. Visa status and
 work authorization are now explicitly never published.
 
+**DSI-98 shipped 2026-09-12.** Six Zod-validated content collections (`work` in markdown;
+`experience`, `education`, `certifications`, `skills`, `recognition` in YAML) and the
+`/work/<slug>/` page template. `experience`, `education`, `certifications` and `skills` moved out
+of `src/data/profile.ts` into collections with the same content; `proof`, `about` and the trailing
+`tools` row stay in `profile.ts` since they aren't one of the six. The gate was verified by hand:
+a required field removed from a YAML entry failed `astro check` with a precise schema error, then
+was restored. `work` has zero entries — DSI-99/100/101 add them — so the template generates no
+routes yet and the homepage's case-study links stay unshown, same as before this issue.
+
+**DSI-101 shipped 2026-09-12.** The Fort Monroe case study, written from
+[case-study-fort-monroe.md](wiki/case-study-fort-monroe.md) under `claimScope: engagement-outcomes`.
+The cover is Fort Monroe's own public logo (`images/FM square outlook.png`, copied to
+`public/work/`), plated the same way the template treats it now — `object-contain` on a bordered
+surface, not the stretch-to-fill `object-cover` DSI-98 shipped untested. The Experience timeline's
+"See the case study" link now resolves live. Verified by hand: a grep of the built page for the
+mis-migrated parking figure and the benchmark site's name returns nothing, and the STAR action
+field was rewritten shorter after the first pass produced a lopsided four-column grid — the detail
+moved into the body under "The four deliverables" instead.
+
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
-| DSI-98 | Content collections, schema, page template | M4 | `astro check` clean; a deliberately broken entry fails the build |
 | DSI-99 | Case study: FPL Decision | M4 | Owner review — [case study](wiki/case-study-fpl-decision.md) |
 | DSI-100 | Case study: Abhijit Sinha website | M4 | Owner review — [case study](wiki/case-study-abhijit-sinha-website.md) |
-| DSI-101 | Case study: Fort Monroe consultancy | M4 | **Engagement outcomes only.** Every result sentence describes a deliverable or the client's response — [case study](wiki/case-study-fort-monroe.md) |
 | DSI-102 | Work index: bento grid | M4 | Reflows at 375, 768, 1280 |
 | DSI-103 | SEO: metadata, sitemap, structured data | M5 | Schema validator reports zero errors — [seo-and-metadata.md](wiki/seo-and-metadata.md) |
 | DSI-104 | Open Graph images | M5 | Each URL renders its card in a real link preview |

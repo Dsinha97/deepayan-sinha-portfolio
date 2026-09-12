@@ -1,7 +1,7 @@
 ---
 /*
  * Experience timeline (DSI-93). One line of summary per role, then terse
- * bullets — not paragraphs. Reverse chronological by start date; the
+ * bullets — not paragraphs. Reverse chronological by `order`; the
  * overlapping MBA-period roles read as concurrent, which they were.
  *
  * Two things here are guardrails, not styling:
@@ -14,19 +14,22 @@
  *      `points`: the field is the internal record, and collapsing it would
  *      destroy the only place the distinction survives in the code.
  *   2. The "see more" link only renders when its case study actually exists.
- *      `caseStudies` in the data module is the switch, flipped in the same
- *      change that adds the page. A link to a 404 fails DSI-107.
+ *      `workSlug` names the entry; whether it's live is checked against the
+ *      `work` collection itself, not a hand-flipped switch — a case study
+ *      added later needs no second change here. A link to a 404 fails DSI-107.
  *
  * See docs/wiki/content-guardrails.md and docs/wiki/experience.md.
  */
-import { roles, caseStudies } from '../data/profile';
+import { getCollection } from 'astro:content';
+
+const roles = (await getCollection('experience')).sort((a, b) => a.data.order - b.data.order);
+const workSlugs = new Set((await getCollection('work')).map((entry) => entry.id));
 ---
 
 <ol class="mt-8 flex flex-col gap-10">
 	{
-		roles.map((role) => {
-			const href = role.more?.href as keyof typeof caseStudies | undefined;
-			const showMore = role.more && href && caseStudies[href];
+		roles.map(({ data: role }) => {
+			const showMore = role.workSlug && workSlugs.has(role.workSlug);
 
 			return (
 				<li class="relative border-l border-border pl-6">
@@ -72,10 +75,10 @@ import { roles, caseStudies } from '../data/profile';
 
 					{showMore && (
 						<a
-							href={role.more!.href}
+							href={`/work/${role.workSlug}/`}
 							class="mt-4 inline-flex min-h-11 items-center rounded-control text-accent underline decoration-seam underline-offset-4 transition-colors hover:text-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 						>
-							{role.more!.label}
+							See the case study
 						</a>
 					)}
 				</li>

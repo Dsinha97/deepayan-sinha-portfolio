@@ -1,0 +1,65 @@
+# Four roles for the experience timeline (DSI-93, migrated to a collection by
+# DSI-98). Reverse chronological by `order`. Every figure here is cleared by
+# docs/wiki/content-guardrails.md; nothing may be widened without going back
+# to that page first. See docs/wiki/experience.md.
+
+wm-teaching-assistant:
+  order: 1
+  org: "William & Mary"
+  title: "Teaching Assistant — Economics"
+  place: "Williamsburg, VA"
+  period: "Aug 2025 – May 2026"
+  summary: "Weekly review sessions for the MBA economics sequence — micro, macro, managerial."
+  points: []
+
+fort-monroe:
+  order: 2
+  org: "Fort Monroe Authority"
+  title: "MBA Corporate Field Consultancy"
+  place: "Fort Monroe, VA"
+  period: "Sept – Nov 2025"
+  summary: >-
+    Four deliverables in seven weeks, one of five consultants, for an authority mandated to
+    largely pay for itself.
+  points:
+    - "226-respondent perception survey, designed and analysed"
+    - "Parking monetisation modelled against five comparable sites"
+    - "$20K event plan structured for full cost recovery"
+    - "Central Park Conservancy benchmark against 1.5M sq ft of vacant space"
+  outcome: "Rated highly in an independent post-project review; follow-on engagement commissioned."
+  workSlug: fort-monroe-consultancy
+
+wm-it-internship:
+  order: 3
+  org: "William & Mary Information Technology"
+  title: "IT Data Strategy & Analytics Intern"
+  place: "Williamsburg, VA"
+  period: "May – Aug 2025"
+  summary: >-
+    Two-person team for the university's chief data officer, asking whether internal measures
+    pointed at anything that moves external rankings.
+  points:
+    - "U.S. News methodology decomposed into 17 metrics, each traced to source"
+    - "19 internal KPIs inventoried across 5 committees"
+    - "Governance document feeding the Workday rollout and a Fabric governance layer"
+  tools: ["Python", "Power BI", "Workday", "MS Fabric"]
+
+wipro:
+  order: 4
+  org: "Wipro"
+  title: "Project Engineer"
+  place: "Bengaluru, India"
+  period: "Aug 2018 – Aug 2024"
+  summary: >-
+    Six years on a digital health assistant for a European insurance client, after a
+    proof-of-concept I worked on converted the RFP that created it.
+  points:
+    - "Led development on a five-person team"
+    - "Took over the team mid-migration after two departures, still delivered on schedule"
+    - "\"Trail Blazers\" recognition, Q3 FY2023-24"
+  selfReported:
+    - "Migrated to a platform at half the incumbent's cost, Aug 2022 – Jan 2023, no service disruption"
+    - "AI/ML module integration cut service calls 30%"
+    - "4.4 stars across 1,000+ users"
+  tools: ["Azure", "Java", "JavaScript", "React Native"]
+  genericised: true
