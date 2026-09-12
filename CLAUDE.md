@@ -90,8 +90,12 @@ for them; these lines are the ones worth having in every session:
   fabrication however plausible it sounds.
 - **Wipro is genericized.** No client name, no vendor or platform names. The stack — Azure, Java,
   JavaScript, React Native — is cleared. Say six years, August 2018 to August 2024.
-- **Three Wipro figures are self-reported** and are marked as such wherever they appear: the
-  4.4-star rating, the ~$100K/yr platform cost, the 30% service-call reduction.
+- **Three Wipro figures are self-reported**: the 4.4-star rating, the ~$100K/yr platform cost,
+  the 30% service-call reduction. **They are no longer labelled on the published site** (owner
+  decision, 2026-09-11) — the distinction is kept internally, in `src/data/profile.ts`'s
+  `selfReported` field, in [experience.md](docs/wiki/experience.md) and in the vault. Do not
+  collapse that field into the ordinary bullets: it is the only place the provenance survives in
+  the code, and a future agent that loses it cannot tell these three from the audited numbers.
 - **Never publish the $500,000 parking figure.** It is another site's benchmark that had migrated
   into a roadmap as a local baseline, roughly double the real number. The *catch* is publishable
   and is the best credibility story on the site; the figure is not.

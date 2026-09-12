@@ -42,19 +42,16 @@ August 2018 – August 2024 · Bengaluru, India
 
 - Contributed to the demo that converted a client RFP in March 2020, then led chatbot
   development on the resulting five-person team building a digital health assistant for a
-  European insurance client — rated 4.4 stars across 1,000+ users †
-- Evaluated and selected a replacement conversational-AI platform at half the incumbent's cost †,
+  European insurance client — rated 4.4 stars across 1,000+ users
+- Evaluated and selected a replacement conversational-AI platform at half the incumbent's cost,
   planning and executing the migration from August 2022 to January 2023 with no service
   disruption
 - Assumed team leadership when two teammates departed mid-migration, onboarding replacements
   while delivering the cutover on schedule
-- Integrated an AI/ML module that cut service calls 30% †, and redesigned NLP-driven user
+- Integrated an AI/ML module that cut service calls 30%, and redesigned NLP-driven user
   workflows to reduce friction
 - Earned "Trail Blazers" recognition, Q3 FY2023-24, for the migration execution and subsequent
   client work
-
-† Self-reported. These three figures are my own recollection rather than a retained company
-record, and I cannot verify them against a source post-departure.
 
 ### William & Mary Information Technology — IT Data Strategy & Analytics Intern
 

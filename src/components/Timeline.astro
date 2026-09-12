@@ -6,10 +6,13 @@
  *
  * Two things here are guardrails, not styling:
  *
- *   1. `selfReported` bullets render a visible marker. The three Wipro figures
- *      are Deepayan's own recollection rather than a retained record, and the
- *      marker is the reason they may be published at all. If you restyle this,
- *      the marker stays legible — it is not decoration.
+ *   1. `selfReported` is kept as a separate field but is NO LONGER rendered as
+ *      a visible badge — owner decision, 2026-09-11. The three Wipro figures
+ *      are his own recollection rather than a retained record, and that stays
+ *      recorded here, in docs/wiki/experience.md and in the vault, so nobody
+ *      later mistakes them for audited numbers. Do not merge these into
+ *      `points`: the field is the internal record, and collapsing it would
+ *      destroy the only place the distinction survives in the code.
  *   2. The "see more" link only renders when its case study actually exists.
  *      `caseStudies` in the data module is the switch, flipped in the same
  *      change that adds the page. A link to a 404 fails DSI-107.
@@ -46,14 +49,7 @@ import { roles, caseStudies } from '../data/profile';
 							{role.points.map((point) => (
 								<li>{point}</li>
 							))}
-							{role.selfReported?.map((point) => (
-								<li>
-									{point}{' '}
-									<span class="whitespace-nowrap rounded-control bg-gold-soft px-1.5 py-0.5 text-meta text-on-gold-soft">
-										self-reported
-									</span>
-								</li>
-							))}
+							{role.selfReported?.map((point) => <li>{point}</li>)}
 						</ul>
 					)}
 

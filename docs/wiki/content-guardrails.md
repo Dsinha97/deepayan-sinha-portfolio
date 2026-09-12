@@ -68,6 +68,21 @@ which is the exact failure the story is about.
 Say **six years** (August 2018 – August 2024). One source says "5+"; every other says six, and
 the dates settle it.
 
+**The self-reported label was removed from the public site on 2026-09-11**, at the owner's
+direction. The figures themselves still publish; only the visible marker is gone.
+
+This is his call to make — they are his claims about his own work, and a resume carries
+unaudited numbers as a matter of course. The concern was raised once and is recorded here rather
+than re-argued: an unmarked figure reads as a verified one, and this site's credibility rests on
+a reader believing its numbers. The marker was an unusual thing to publish and it was also a
+genuine signal.
+
+What did **not** change is the provenance. `selfReported` remains a distinct field in
+`src/data/profile.ts`, [experience.md](experience.md) still marks all three, and the vault
+records why. Anyone asked to defend a figure can find out in one step which three are
+recollection rather than record. **Merging that field into the ordinary bullets would destroy
+the last trace in the code and must not be done as a tidy-up.**
+
 ## Framework fluency is not experience
 
 The vault carefully separates **applied** work from **studied** material. Five Forces, CRISP-DM,

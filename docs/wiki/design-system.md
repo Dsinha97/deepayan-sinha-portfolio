@@ -455,3 +455,27 @@ making, it needs an argument of its own — this one is not a precedent.
 - [DSI-115](https://linear.app/dsinha-org/issue/DSI-115/update-website-theme-using-elements-of-kintsugi-design)
   — the kintsugi brief in the owner's own words, and the two reference images the ceramic
   grounds were read off
+
+## `--mark-plate`: a ground for other people's logos
+
+Third-party institution marks (William & Mary, VIT, Wipro) are **dark ink on transparency**.
+Dropped straight onto the dark ceramic ground they are effectively invisible — which is how they
+first shipped, and what the owner caught on the deployed site rather than anything catching it
+here.
+
+`--mark-plate: #fbfaf7` is a near-white tile they sit on, and it is **deliberately the same
+value in both themes**. Two things follow from that, and they are the reasoning, not the
+styling:
+
+- **It does not switch with the theme.** These are someone else's brand assets. Inverting,
+  recolouring or dark-mode-adapting them is not ours to do, so the ground adapts instead of the
+  mark.
+- **It is not pure `#fff`.** A hard white chip glares against the warm paper ground in light
+  mode. `#fbfaf7` sits quietly in both.
+
+Marks inside the plate are balanced by **area, not height**. The ratios in use run from a
+near-square seal (0.95) to a wide wordmark (1.74); give them a shared `max-h` and the wordmark
+reads as roughly twice the institution. `markBox()` in `components/Education.astro` solves
+`h = sqrt(AREA / ratio)` so every mark occupies the same visual weight while keeping its own
+aspect ratio — which also means `<Image>` emits truthful intrinsic dimensions and nothing shifts
+on decode.

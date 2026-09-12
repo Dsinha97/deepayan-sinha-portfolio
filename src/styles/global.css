@@ -61,6 +61,15 @@
   --mark-letters: #3e2a68;
   --mark-arrow: #3a93a3;
 
+  /*
+   * Third-party institution marks are dark ink on transparency. They vanish on
+   * the dark ceramic ground, so they get their own near-white plate in BOTH
+   * themes rather than a colour that switches — these are someone else's brand
+   * and the only faithful ground for them is the one they were drawn for.
+   * Not pure #fff: a hard white chip glares against warm paper in light mode.
+   */
+  --mark-plate: #fbfaf7;
+
   --ring: #6b4f9a;
   --selection-bg: #3e2a68;
   --selection-fg: #ffffff;
@@ -181,6 +190,8 @@
   --color-teal-strong: var(--teal-strong);
   --color-teal-soft: var(--teal-soft);
   --color-on-teal-soft: var(--on-teal-soft);
+
+  --color-mark-plate: var(--mark-plate);
 
   --color-seam: var(--seam);
   --color-seam-soft: var(--seam-soft);
