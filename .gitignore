@@ -29,3 +29,6 @@ node_modules/
 # OS / editor
 Thumbs.db
 .DS_Store
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/

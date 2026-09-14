@@ -217,3 +217,20 @@ One line per action, newest at the bottom.
   readable as a work sample. Cloudflare Workers Builds keeps deploying `main` — the GitHub App's
   access is granted per repo and survives the change; verified by a real push, not assumed.
   `CLAUDE.md` updated; the 2026-09-10 "pushed to the public repo" line above is history and stays.
+
+- 2026-09-14 — Graft (`@nanonets/graft` 0.18.0) wired into Claude Code as a context graph:
+  `.claude/settings.json` (statusline + hooks), `.claude/helpers/*.cjs`, `.claude/skills/graft/`,
+  `.mcp.json`, and `.ignore` (re-admits the gitignored `graft/` cards to ripgrep). `graft/` itself
+  is a regenerable cache and is gitignored — run `graft build` in a fresh clone.
+
+  **Three things a future agent should know.** The graph covers **12 files, 47 nodes** — the
+  `.mjs` build scripts, `src/data/*.ts`, `src/content.config.ts`, `src/scripts/*.js` and
+  `scripts/trace-logo.py`. Graft's grammars are JS/TS/Python/Go/Java, so **no `.astro` component
+  is in it**; the components' authority stays this wiki and the source. Second, the default build
+  is deterministic tree-sitter — no key, no network, nothing leaves the machine. `--deep` would
+  send source to an LLM provider and has deliberately not been run. Third, `graft init` writes
+  **user-level hooks affecting every repo on the machine** unless you pass `--no-global`; this
+  install used `--no-global --no-agents`, so the wiring is repo-scoped and Claude Code only.
+
+  The `tree-sitter-kotlin` native binding fails to compile on this machine (no Visual Studio C++
+  workload). It is not needed and no toolchain was installed — the CLI works regardless.
