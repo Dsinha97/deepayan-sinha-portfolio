@@ -1,0 +1,46 @@
+---
+/*
+ * An icon-only social link with a hover/focus tooltip. Used for LinkedIn and
+ * GitHub in the Footer, the IdentityRail and Contact.
+ *
+ * The icon replaced the visible word, so the accessible name has to come from
+ * somewhere else: `aria-label` on the anchor carries it, and the tooltip is
+ * `aria-hidden` because it only repeats that name — without this a screen
+ * reader announces the link twice.
+ *
+ * The tooltip shows on `group-hover` *and* `peer-focus-visible`, so it is not
+ * mouse-only. It is a `<span>`, never focusable, so it cannot introduce the
+ * invisible-but-tabbable trap that motion.css warns about for the nav panel.
+ * `pointer-events-none` keeps it from eating the hover it was opened by.
+ *
+ * Opacity-only transition: the global reduced-motion block in global.css
+ * collapses it to 0.01ms on its own, so there is no media query to write here.
+ *
+ * It opens upward (`bottom-full`). In the footer there is nothing below to
+ * open into, and the rail sits at the top of a sticky column.
+ */
+interface Props {
+	href: string;
+	label: string;
+}
+
+const { href, label } = Astro.props;
+---
+
+<div class="group relative flex">
+	<a
+		href={href}
+		rel="me noopener"
+		aria-label={label}
+		class="peer inline-flex min-h-11 min-w-11 items-center justify-center rounded-control text-fg-2 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+	>
+		<slot />
+	</a>
+	<span
+		role="tooltip"
+		aria-hidden="true"
+		class="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 -translate-x-1/2 whitespace-nowrap rounded-control border border-border bg-elevated px-2 py-1 text-meta text-fg opacity-0 transition-opacity group-hover:opacity-100 peer-focus-visible:opacity-100"
+	>
+		{label}
+	</span>
+</div>

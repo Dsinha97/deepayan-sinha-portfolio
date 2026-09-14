@@ -12,6 +12,9 @@
  * on: no JS, no button.
  */
 import { site } from '../data/site';
+import IconGitHub from './IconGitHub.astro';
+import IconLinkedIn from './IconLinkedIn.astro';
+import SocialLink from './SocialLink.astro';
 ---
 
 <div class="mt-6 flex max-w-[65ch] flex-col gap-4">
@@ -27,24 +30,16 @@ import { site } from '../data/site';
 		</a>
 	</div>
 
-	<ul class="flex flex-wrap gap-x-6">
+	<ul class="flex flex-wrap gap-2">
 		<li>
-			<a
-				href={site.links.linkedin}
-				rel="me noopener"
-				class="inline-flex min-h-11 items-center rounded-control text-fg-2 underline decoration-seam underline-offset-4 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-			>
-				LinkedIn
-			</a>
+			<SocialLink href={site.links.linkedin} label="LinkedIn">
+				<IconLinkedIn class="size-6" />
+			</SocialLink>
 		</li>
 		<li>
-			<a
-				href={site.links.github}
-				rel="me noopener"
-				class="inline-flex min-h-11 items-center rounded-control text-fg-2 underline decoration-seam underline-offset-4 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-			>
-				GitHub
-			</a>
+			<SocialLink href={site.links.github} label="GitHub">
+				<IconGitHub class="size-6" />
+			</SocialLink>
 		</li>
 	</ul>
 </div>
