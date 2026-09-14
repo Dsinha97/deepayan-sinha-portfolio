@@ -28,6 +28,7 @@
 import { Image } from 'astro:assets';
 import { site } from '../data/site';
 import headshot from '../assets/headshot.jpg';
+import IconEmail from './IconEmail.astro';
 import IconGitHub from './IconGitHub.astro';
 import IconLinkedIn from './IconLinkedIn.astro';
 import SocialLink from './SocialLink.astro';
@@ -49,19 +50,18 @@ import SocialLink from './SocialLink.astro';
 	<p class="mt-3 max-w-[38ch] text-fg-2">{site.headline}</p>
 	<p class="mt-1 max-w-[38ch] text-fg-muted">{site.subline}</p>
 
-	<ul class="mt-8 flex flex-col gap-1">
+	<ul class="mt-8 flex gap-2">
 		<li>
-			<a
-				href={`mailto:${site.email}`}
-				class="inline-flex min-h-11 items-center rounded-control text-fg-2 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-			>
-				{site.email}
-			</a>
+			<SocialLink href={`mailto:${site.email}`} label={site.email}>
+				<IconEmail class="size-6" />
+			</SocialLink>
 		</li>
-		<li class="mt-1 flex gap-2">
+		<li>
 			<SocialLink href={site.links.linkedin} label="LinkedIn">
 				<IconLinkedIn class="size-6" />
 			</SocialLink>
+		</li>
+		<li>
 			<SocialLink href={site.links.github} label="GitHub">
 				<IconGitHub class="size-6" />
 			</SocialLink>

@@ -1,0 +1,42 @@
+---
+/*
+ * Envelope glyph. Same contract as IconGitHub/IconLinkedIn — decorative,
+ * `aria-hidden`, inherits `currentColor`, sized in `em`.
+ *
+ * Two differences from its neighbours, both inherited from the source art:
+ *
+ * 1. It is a *filled* path, not a 2px stroke, so at the same box it reads
+ *    heavier than the GitHub and LinkedIn glyphs beside it.
+ * 2. Its viewBox is 40x40 rather than 24x24. That is harmless — the viewBox
+ *    scales to whatever width/height is set — but it means the drawing's
+ *    optical weight is not directly comparable to the others by numbers alone.
+ *
+ * `fill="currentColor"` replaces the source's hardcoded #010101, which would
+ * have rendered near-black in both themes and ignored the link's hover colour.
+ *
+ * The source (images/email.svg, from SVG Repo's mixer export) arrived as 40KB
+ * containing 41 further icons, every one of them `display="none"` — a
+ * magnifying glass, a flag, a sitemap. Only this single path ever rendered.
+ * The archive copy has been reduced to it.
+ */
+interface Props {
+	class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	width="1.125em"
+	height="1.125em"
+	viewBox="0 0 40 40"
+	fill="currentColor"
+	aria-hidden="true"
+	focusable="false"
+	class:list={['shrink-0', className]}
+>
+	<path
+		d="M34.285,10H5.714C5.32,10,5,10.319,5,10.714v18.571C5,29.68,5.32,30,5.714,30h28.571C34.681,30,35,29.68,35,29.285V10.714 C35,10.319,34.681,10,34.285,10z M6.429,12.269l8.818,7.068l-8.818,8.124V12.269z M20,21.318l-12.335-9.89h24.671L20,21.318z M16.374,20.241l3.178,2.548c0.001,0,0.003,0.002,0.004,0.002c0.007,0.006,0.015,0.012,0.021,0.017 c0.013,0.009,0.025,0.019,0.038,0.026c0.008,0.006,0.016,0.01,0.024,0.015c0.014,0.009,0.029,0.017,0.043,0.024 c0.007,0.002,0.013,0.006,0.019,0.01c0.022,0.009,0.045,0.018,0.067,0.025c0.001,0,0.002,0,0.003,0.002 c0.021,0.006,0.044,0.014,0.066,0.017c0.006,0.002,0.011,0.004,0.017,0.004c0.019,0.005,0.037,0.007,0.056,0.009 c0.005,0.002,0.012,0.002,0.017,0.002c0.024,0.004,0.047,0.006,0.071,0.006h0l0,0c0.024,0,0.048-0.002,0.072-0.006 c0.005,0,0.011,0,0.016-0.002c0.02-0.002,0.039-0.004,0.057-0.009c0.006,0,0.012-0.002,0.017-0.004 c0.022-0.003,0.044-0.011,0.066-0.017c0.001-0.002,0.002-0.002,0.003-0.002c0.023-0.008,0.045-0.017,0.067-0.025 c0.007-0.004,0.013-0.008,0.019-0.01c0.015-0.008,0.029-0.016,0.045-0.024c0.008-0.005,0.016-0.009,0.023-0.015 c0.012-0.008,0.025-0.018,0.037-0.026c0.008-0.005,0.016-0.011,0.022-0.017c0.001,0,0.003-0.002,0.004-0.002l3.178-2.548l9.043,8.33 H7.332L16.374,20.241z M24.754,19.337l8.817-7.068v15.175L24.754,19.337z"
+	></path>
+</svg>

@@ -13,6 +13,7 @@
  */
 import { site } from '../data/site';
 import Seam from './Seam.astro';
+import IconEmail from './IconEmail.astro';
 import IconGitHub from './IconGitHub.astro';
 import IconLinkedIn from './IconLinkedIn.astro';
 import SocialLink from './SocialLink.astro';
@@ -36,19 +37,18 @@ const year = new Date().getFullYear();
 		</div>
 
 		<nav aria-label="Contact">
-			<ul class="flex flex-col gap-1 md:items-end">
+			<ul class="flex gap-2 md:justify-end">
 				<li>
-					<a
-						href={`mailto:${site.email}`}
-						class="inline-flex min-h-11 items-center rounded-control text-fg-2 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-					>
-						{site.email}
-					</a>
+					<SocialLink href={`mailto:${site.email}`} label={site.email}>
+						<IconEmail class="size-6" />
+					</SocialLink>
 				</li>
-				<li class="mt-1 flex gap-2 md:justify-end">
+				<li>
 					<SocialLink href={site.links.linkedin} label="LinkedIn">
 						<IconLinkedIn class="size-6" />
 					</SocialLink>
+				</li>
+				<li>
 					<SocialLink href={site.links.github} label="GitHub">
 						<IconGitHub class="size-6" />
 					</SocialLink>
