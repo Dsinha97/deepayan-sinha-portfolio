@@ -210,3 +210,10 @@ One line per action, newest at the bottom.
   dates and location. Fixed at the source, so both outputs corrected together.
 
   Also removed a dead pass in the generator that set a `bold` flag the layout never read.
+
+- 2026-09-14 — Repository visibility flipped to **private** (owner decision). The site itself is
+  unaffected: `src/data/site.ts` and the resume link to the GitHub *profile*, never to this repo,
+  so no published link breaks. The trade accepted is that the portfolio's own source stops being
+  readable as a work sample. Cloudflare Workers Builds keeps deploying `main` — the GitHub App's
+  access is granted per repo and survives the change; verified by a real push, not assumed.
+  `CLAUDE.md` updated; the 2026-09-10 "pushed to the public repo" line above is history and stays.

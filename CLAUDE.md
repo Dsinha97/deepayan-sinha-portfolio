@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 The personal portfolio site for **Deepayan Sinha**, at **`https://deepayansinha.com`** (domain
 registered, zone on Cloudflare, **not yet deployed**). Repo
 [`Dsinha97/deepayan-sinha-portfolio`](https://github.com/Dsinha97/deepayan-sinha-portfolio),
-public. Planning lives in the Linear project
+private. Planning lives in the Linear project
 [Deepayan-Portfolio](https://linear.app/dsinha-org/project/deepayan-portfolio-4de86f94d1f2),
 team `Dsinha Org` (`DSI`).
 
