@@ -234,3 +234,23 @@ One line per action, newest at the bottom.
 
   The `tree-sitter-kotlin` native binding fails to compile on this machine (no Visual Studio C++
   workload). It is not needed and no toolchain was installed — the CLI works regardless.
+
+- 2026-09-17 — A five-skill design audit (`/find-animation-opportunities`,
+  `/improve-animations`, `/better-interface`, `/emil-design-eng`, `/landing-page-design`) ran
+  against the M2 shell and filed 19 issues under a new Linear milestone, "Design Improvements"
+  (DSI-157–DSI-175). Nothing shipped from it yet — every issue is still in Backlog. Four motion
+  findings came with full implementation plans, moved into
+  [docs/sources/animation-plans/](../sources/animation-plans/README.md) and referenced from
+  `design-system.md`'s Motion section as planned deltas against its documented composite-only
+  rule and its one argued exception (DSI-159 proposes retiring the header-padding exception
+  itself, on the grounds that the logo's `transform` shrink already carries the cue alone).
+
+  Two of the five audits independently found the same bug: the case-study `<h1>` silently
+  renders at body size because `text-h1` is referenced in `work/[slug].astro` but never defined
+  in the `@theme` block (DSI-157) — not a wiki-documented rule, so no page needed correcting, but
+  worth recording here since it is the highest-confidence finding of the run. A second
+  independently-found bug, `bg-mark-plate` applied to the homepage's own project thumbnails
+  instead of `bg-surface-2` (DSI-165), is exactly the misuse the wiki's
+  [`--mark-plate` section](design-system.md#--mark-plate-a-ground-for-other-peoples-logos)
+  already warns against for third-party marks — the rule was already correctly stated, the code
+  just didn't follow it.

@@ -3,6 +3,26 @@
     "hash": "sha256:3fa97cd36c4e845051278d9981301ab14be2e96fce10257914e61c9f83305e54",
     "last_ingested": "2026-09-10"
   },
+  "docs/sources/animation-plans/README.md": {
+    "hash": "sha256:8cde4548e1187bc6de5ad7c33414d2c223da1bd02f2c68a1f97dc4aaf9ddc62f",
+    "last_ingested": "2026-09-17"
+  },
+  "docs/sources/animation-plans/001-press-feedback.md": {
+    "hash": "sha256:9f9322770ae3c40978605108d93625a727d70ea41f399d9e45426e542c53d3be",
+    "last_ingested": "2026-09-17"
+  },
+  "docs/sources/animation-plans/002-header-shrink-no-layout-transition.md": {
+    "hash": "sha256:42c38600dc4e013f6342c04ae8b30d4f813ac451ee457894d46829b4849486b7",
+    "last_ingested": "2026-09-17"
+  },
+  "docs/sources/animation-plans/003-tooltip-physical-entrance.md": {
+    "hash": "sha256:50e4993967c49ce775a9aaacffd502acff8eb76467ba738b19e3088f73b96a31",
+    "last_ingested": "2026-09-17"
+  },
+  "docs/sources/animation-plans/004-icon-swap-crossfade.md": {
+    "hash": "sha256:cf84c1777a6b847dab2d423025e4f064b9f3dda0d448320c7df6b2d84bc3742d",
+    "last_ingested": "2026-09-17"
+  },
   "docs/sources/design-suggestions.md": {
     "hash": "sha256:db0f9a95197d598d0f49d472dc7fa843038b54e36e8611f95ddcdeb843caca45",
     "last_ingested": "2026-09-10"

@@ -5,11 +5,12 @@ tags: [design, tokens, color, typography, kintsugi]
 sources:
   - docs/sources/design-suggestions.md
   - docs/sources/portfolio-website-plan.md
+  - docs/sources/animation-plans/README.md
   - images/logo.jpg
 related:
   - site-architecture.md
   - research-synthesis.md
-updated: 2026-09-11
+updated: 2026-09-17
 status: built
 ---
 
@@ -445,6 +446,23 @@ it lasts 150ms; and the global reduced-motion block disables it outright. The lo
 `transform` in the same gesture, which is on the fast path. If a second exception ever wants
 making, it needs an argument of its own — this one is not a precedent.
 
+**Status: planned — the exception is being reconsidered, not yet reversed.** A five-skill design
+audit run 2026-09-17 (`/find-animation-opportunities`, `/improve-animations`, `/better-interface`,
+`/emil-design-eng`, `/landing-page-design`, tracked under the Linear milestone "Design
+Improvements") flagged the same padding transition this section argues for, on the grounds that
+the logo's own `transform`-based shrink already carries the full visual cue on its own — making
+the padding animation redundant rather than load-bearing, whatever its performance cost. That
+finding is [DSI-159](https://linear.app/dsinha-org/issue/DSI-159), not yet actioned. Three more
+motion gaps from the same audit have full implementation plans in
+[docs/sources/animation-plans/](../sources/animation-plans/README.md): site-wide press/active
+feedback (`001-press-feedback.md`, no `:active` state exists anywhere in `src/`, DSI-158), a
+physical entrance for the `SocialLink` tooltip (`003-tooltip-physical-entrance.md`, DSI-161), and
+a crossfade for the theme-toggle and mobile hamburger/X icon swaps, which currently teleport via
+`display`/`.hidden` toggling instead of transitioning (`004-icon-swap-crossfade.md`, DSI-160).
+This page's composite-only rule and its one documented exception stay as written above until one
+of these plans actually ships — flip the relevant line to **built** in the same change that lands
+it, per the wiki's own convention, rather than before.
+
 ## Sources
 
 - [design-suggestions.md](../sources/design-suggestions.md) — the spatial system, type tiers
@@ -455,6 +473,9 @@ making, it needs an argument of its own — this one is not a precedent.
 - [DSI-115](https://linear.app/dsinha-org/issue/DSI-115/update-website-theme-using-elements-of-kintsugi-design)
   — the kintsugi brief in the owner's own words, and the two reference images the ceramic
   grounds were read off
+- [docs/sources/animation-plans/](../sources/animation-plans/README.md) — the 2026-09-17 design
+  audit's four implementation plans (`improve-animations`), for the Motion section's planned
+  deltas above
 
 ## `--mark-plate`: a ground for other people's logos
 
