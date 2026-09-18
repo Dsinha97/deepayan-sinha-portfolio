@@ -90,8 +90,19 @@ const LINK_LABEL: Record<'live' | 'repo' | 'document', string> = {
 			)
 		}
 
-		<div class="mt-10 flex max-h-96 items-center justify-center rounded-card border border-border bg-surface p-6">
-			<img src={data.cover} alt={`${data.title} cover`} class="max-h-80 w-auto object-contain" />
+		<div class="mt-10 flex aspect-[16/9] w-full items-center justify-center overflow-hidden rounded-card border border-border bg-surface p-6">
+			{data.coverLight && (
+				<img
+					src={data.coverLight}
+					alt={`${data.title} cover`}
+					class="theme-cover__light max-h-full max-w-full object-contain"
+				/>
+			)}
+			<img
+				src={data.cover}
+				alt={`${data.title} cover`}
+				class:list={[data.coverLight && 'theme-cover__dark', 'max-h-full max-w-full object-contain']}
+			/>
 		</div>
 
 		<dl class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -105,7 +116,7 @@ const LINK_LABEL: Record<'live' | 'repo' | 'document', string> = {
 					] as const
 				).map(([label, value]) => (
 					<div>
-						<dt class="text-meta font-medium uppercase tracking-wide text-fg-muted">{label}</dt>
+						<dt class="font-mono text-label uppercase text-fg-muted">{label}</dt>
 						<dd class="mt-2 text-fg-2">{value}</dd>
 					</div>
 				))
@@ -120,7 +131,7 @@ const LINK_LABEL: Record<'live' | 'repo' | 'document', string> = {
 							<dt class="font-serif text-h2 font-normal text-fg">{metric.value}</dt>
 							<dd class="mt-1 text-meta text-fg-muted">
 								{metric.label}
-								{metric.qualifier && <span class="block italic">{metric.qualifier}</span>}
+								{metric.qualifier && <span class="block">{metric.qualifier}</span>}
 							</dd>
 						</div>
 					))}

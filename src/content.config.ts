@@ -24,6 +24,10 @@ const work = defineCollection({
     period: z.string(),
     stack: z.array(z.string()),
     cover: z.string(),
+    /* Shown instead of `cover` in light theme, when a screenshot's own UI is
+     * theme-specific and a single image can't read correctly in both. `cover`
+     * remains the dark-theme (and no-JS/reduced-motion-irrelevant) image. */
+    coverLight: z.string().optional(),
     bentoSize: z.enum(['lg', 'md', 'sm']),
     order: z.number(),
     claimScope: z.enum(['own-outcomes', 'engagement-outcomes']),

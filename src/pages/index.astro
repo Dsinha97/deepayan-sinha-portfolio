@@ -64,13 +64,23 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
 									class="group flex w-full flex-col overflow-hidden rounded-card border border-border bg-surface transition-[border-color,transform] duration-100 hover:border-border-strong active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 								>
 									<div class="flex aspect-[16/9] w-full items-center justify-center overflow-hidden bg-surface-2">
+										{entry.data.coverLight && (
+											<img
+												src={entry.data.coverLight}
+												alt=""
+												class="theme-cover__light max-h-full max-w-full object-contain transition-transform duration-200 ease-out group-hover:scale-[1.03]"
+											/>
+										)}
 										<img
 											src={entry.data.cover}
 											alt=""
-											class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+											class:list={[
+												entry.data.coverLight && 'theme-cover__dark',
+												'max-h-full max-w-full object-contain transition-transform duration-200 ease-out group-hover:scale-[1.03]',
+											]}
 										/>
 									</div>
-									<div class="flex flex-1 flex-col justify-between gap-3 p-6">
+									<div class="flex flex-1 flex-col justify-between gap-2 p-6">
 										<h3 class="font-serif text-h3 font-normal text-fg">{entry.data.title}</h3>
 										<p class="text-meta text-fg-muted">{entry.data.tagline}</p>
 									</div>
@@ -81,12 +91,15 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
 					<li class:list={['flex', SPAN.sm]}>
 						<a
 							href="#education"
-							class="flex w-full flex-col justify-between gap-3 rounded-card border border-border bg-surface p-6 transition-[border-color,transform] duration-100 hover:border-border-strong active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+							class="flex w-full flex-col justify-between gap-3 rounded-card border border-dashed border-border bg-transparent p-6 transition-[border-color,transform] duration-100 hover:border-border-strong active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 						>
-							<h3 class="font-serif text-h3 font-normal text-fg">Recognition</h3>
-							<p class="text-meta text-fg-muted">
-								Beta Gamma Sigma inductee, plus a published paper on thermal comfort modelling.
-							</p>
+							<p class="font-mono text-label uppercase text-fg-muted">Jump to →</p>
+							<div>
+								<h3 class="font-serif text-h3 font-normal text-fg">Recognition</h3>
+								<p class="mt-3 text-meta text-fg-muted">
+									Beta Gamma Sigma inductee, plus a published paper on thermal comfort modelling.
+								</p>
+							</div>
 						</a>
 					</li>
 				</ul>

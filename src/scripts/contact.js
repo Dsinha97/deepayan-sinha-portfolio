@@ -12,6 +12,10 @@
 const BUTTON_CLASS =
   'inline-flex min-h-11 items-center gap-2 rounded-control border border-border bg-surface px-4 text-fg-2 transition-[color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
 
+// Crossfade half-duration: the label fades out, the text swaps, then fades
+// back in — each half stays inside the 100-160ms feedback budget.
+const LABEL_CLASS = 'transition-opacity duration-150 ease-out';
+const FADE_MS = 150;
 const RESET_MS = 2000;
 
 const wrap = document.querySelector('[data-contact]');
@@ -22,7 +26,13 @@ if (wrap && email && navigator.clipboard) {
   const button = document.createElement('button');
   button.type = 'button';
   button.className = BUTTON_CLASS;
-  button.textContent = 'Copy';
+
+  // The label lives in its own span so the text swap can crossfade — a
+  // direct button.textContent swap has no bridge between the two strings.
+  const label = document.createElement('span');
+  label.className = LABEL_CLASS;
+  label.textContent = 'Copy';
+  button.append(label);
 
   /*
    * The visible label changes on copy, which sighted users read. Screen
@@ -37,21 +47,29 @@ if (wrap && email && navigator.clipboard) {
 
   let timer;
 
+  const setLabel = (text) => {
+    label.classList.add('opacity-0');
+    setTimeout(() => {
+      label.textContent = text;
+      label.classList.remove('opacity-0');
+    }, FADE_MS);
+  };
+
   button.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(email);
-      button.textContent = 'Copied';
+      setLabel('Copied');
       status.textContent = `${email} copied to clipboard`;
     } catch {
       // Permission denied, or a non-secure context. Say so rather than
       // claiming success — the address is still selectable in the link.
-      button.textContent = 'Copy failed';
+      setLabel('Copy failed');
       status.textContent = 'Copy failed. The address is in the link beside this button.';
     }
 
     clearTimeout(timer);
     timer = setTimeout(() => {
-      button.textContent = 'Copy';
+      setLabel('Copy');
       status.textContent = '';
     }, RESET_MS);
   });

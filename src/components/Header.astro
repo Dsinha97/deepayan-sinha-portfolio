@@ -40,7 +40,7 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 	data-header
 >
 	<div
-		class="mx-auto flex max-w-[75rem] items-center justify-between gap-4 px-4 py-4 transition-[padding] duration-150 md:px-6"
+		class="mx-auto flex max-w-[75rem] items-center justify-between gap-4 px-4 py-4 md:px-6"
 		data-header-bar
 	>
 		<a
@@ -59,7 +59,7 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 						data-nav-link
 						data-target={item.href.startsWith('#') ? item.href.slice(1) : undefined}
 						aria-current={isCurrentRoute(item.href) ? 'page' : undefined}
-						class="inline-flex min-h-11 items-center rounded-control px-3 text-fg-2 transition-[color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-[current]:text-accent aria-[current]:font-medium"
+						class="inline-flex min-h-11 items-center rounded-control px-4 text-fg-2 transition-[color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-[current]:text-accent"
 					>
 						{item.label}
 					</a>
@@ -94,8 +94,16 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 					stroke-linecap="round"
 					aria-hidden="true"
 				>
-					<path d="M4 7h16M4 12h16M4 17h16" data-menu-icon-open />
-					<path d="M6 6l12 12M18 6L6 18" data-menu-icon-close class="hidden" />
+					<path
+						d="M4 7h16M4 12h16M4 17h16"
+						data-menu-icon-open
+						class="origin-center transition-[opacity,transform] duration-150 ease-out"
+					/>
+					<path
+						d="M6 6l12 12M18 6L6 18"
+						data-menu-icon-close
+						class="origin-center opacity-0 scale-90 transition-[opacity,transform] duration-150 ease-out"
+					/>
 				</svg>
 			</button>
 		</div>

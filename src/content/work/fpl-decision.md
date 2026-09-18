@@ -5,6 +5,7 @@ role: "Solo — model, optimiser, interface, deployment"
 period: "2025 – present"
 stack: ["Next.js", "Cloudflare Workers", "Supabase", "Postgres", "Deno"]
 cover: "/work/fpl-decision-cover.webp"
+coverLight: "/work/fpl-decision-cover-light.webp"
 bentoSize: "lg"
 order: 1
 claimScope: "own-outcomes"

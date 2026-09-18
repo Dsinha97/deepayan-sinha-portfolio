@@ -20,6 +20,7 @@ gate rather than copying it into a second place where it can rot.
 | M4 · Case studies | 2026-10-03 | Collections and schema, three case studies, work index |
 | M5 · Launch | 2026-10-08 | SEO, OG, headers audit, Lighthouse, QA, go-live |
 | M6 · Beyond launch | — | Profile README, contact form, analytics, palette, fourth case study, writing |
+| Design Improvements (closed 2026-09-18) | — | Findings from the `/better-interface`, `/landing-page-design`, `/find-animation-opportunities` and `/improve-animations` audits |
 
 ## Shipped
 
@@ -54,6 +55,23 @@ gate rather than copying it into a second place where it can rot.
 | Case-study `<h1>` fixed to use a real type token | DSI-157 | Design Improvements | [design-system.md](wiki/design-system.md) |
 | Work-card thumbnails switched off the third-party-logo plate token | DSI-165 | Design Improvements | [design-system.md](wiki/design-system.md) |
 | Press/active feedback added to every interactive element | DSI-158 | Design Improvements | `docs/sources/animation-plans/001-press-feedback.md` |
+| Update FPL Decision cover image | DSI-177 | Design Improvements | [case-study-fpl-decision.md](wiki/case-study-fpl-decision.md) |
+| Header shrink-on-scroll no longer animates `padding` | DSI-159 | Design Improvements | [design-system.md](wiki/design-system.md), `docs/sources/animation-plans/002-header-shrink-no-layout-transition.md` |
+| In-page anchors no longer land under the sticky header | DSI-174 | Design Improvements | `src/styles/global.css` |
+| Portrait case-study covers use the same 16:9 frame as landscape ones | DSI-172 | Design Improvements | `src/pages/work/[slug].astro` |
+| Theme-toggle and hamburger icon swaps cross-fade instead of teleporting | DSI-160 | Design Improvements | [design-system.md](wiki/design-system.md), `docs/sources/animation-plans/004-icon-swap-crossfade.md` |
+| Recognition bento tile reads as a jump-to-section anchor, not a project card | DSI-171 | Design Improvements | `src/pages/index.astro` |
+| Light/dark theme switch transitions colors instead of snapping | DSI-162 | Design Improvements | `src/styles/global.css` |
+| Email icon redrawn as a 24×24 stroke outline matching GitHub/LinkedIn | DSI-169 | Design Improvements | `src/components/IconEmail.astro` |
+| Bento work-card hover scale shortened to 200ms with deliberate easing | DSI-164 | Design Improvements | `src/pages/index.astro` |
+| Uppercase labels unified on the shared `text-label` token | DSI-170 | Design Improvements | `src/components/Education.astro`, `src/pages/work/[slug].astro` |
+| Spacing values snapped to the 8-point scale; chip padding documented | DSI-167 | Design Improvements | [design-system.md](wiki/design-system.md) |
+| Copy-to-clipboard button label crossfades instead of cutting | DSI-163 | Design Improvements | `src/scripts/contact.js` |
+| Case-study metric qualifier no longer uses synthesized italics | DSI-166 | Design Improvements | `src/pages/work/[slug].astro` |
+| Headings and body copy get `text-wrap: balance`/`pretty` | DSI-168 | Design Improvements | `src/styles/global.css` |
+| Social-link tooltip settles into place instead of blinking on | DSI-161 | Design Improvements | [design-system.md](wiki/design-system.md), `docs/sources/animation-plans/003-tooltip-physical-entrance.md` |
+| Resume bullet's "deliver-/deliverables" repetition rephrased | DSI-173 | Design Improvements | `src/pages/resume.md` |
+| Active nav-link no longer swaps font-weight on scroll | DSI-175 | Design Improvements | `src/components/Header.astro` |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
@@ -140,6 +158,59 @@ respect, caught while verifying with `getComputedStyle`: `transition-colors` and
 by merging into single arbitrary-value utilities per element (e.g. `transition-[color,transform]`)
 instead of stacking two `transition-*` utilities.
 
+**DSI-177 shipped 2026-09-18.** The FPL Decision case-study cover was replaced with an updated
+landing-page screenshot attached to the issue, processed the same way as the original DSI-99
+cover — resized to 1400px wide and re-encoded as WebP with `sharp` (1893×946 PNG → 35KB WebP).
+Verified live on the case-study page in the dev preview.
+
+**DSI-159/174/172 shipped 2026-09-18.** Three Medium-priority findings from the same audit.
+DSI-159 reverses a previously-argued design exception: the header's `padding` shrink transition
+is deleted from `Header.astro` per the existing implementation plan, leaving the logo's
+`transform`-based shrink as the sole animated cue — `design-system.md`'s Motion section rewritten
+to reflect the reversal rather than left "planned." DSI-174 adds `scroll-margin-top: 6rem` on
+`main section[id]` and `html { scroll-behavior: smooth; }` in `global.css`, verified by scripted
+`getBoundingClientRect()` comparison against the sticky header's bottom edge rather than
+eyeballing. DSI-172 gives the case-study cover container the same `aspect-[16/9] w-full`
+treatment the homepage bento cards already use, so the Fort Monroe portrait cover no longer
+renders narrow with empty padding. All three verified in the dev preview; `npm run check` clean.
+
+**DSI-160/171/162/169 shipped 2026-09-18.** Four more Medium-priority findings from the same
+audit. DSI-160 replaces both the theme-toggle sun/moon and the header hamburger/X `display`
+toggles with opacity+scale cross-fades, per the existing implementation plan — confirmed
+CSS-only (no `display` swap left in the diff) and the no-flash-on-first-paint guarantee still
+holds with no `data-theme` attribute set. DSI-171 gives the Recognition bento tile a dashed
+border and a "JUMP TO →" eyebrow label (the `text-label` token) so it reads as a distinct
+affordance from the solid-card project tiles beside it. DSI-162 adds a narrowly-scoped
+`background-color`/`color`/`border-color`/`fill`/`stroke` transition to `html`, `body` and the
+logo mark's three parts — not `transition: all`, which would fight per-component transitions —
+collapsed to instant by the existing reduced-motion rule. DSI-169 redraws `IconEmail.astro` from
+a 40×40 filled path to a 24×24 stroke outline envelope matching `IconGitHub`/`IconLinkedIn`'s
+optical weight. All four verified in the dev preview (including a mobile-viewport check of the
+hamburger crossfade); `npm run build` clean, including the header-hash and dist guards.
+
+**Design Improvements milestone closed 2026-09-18.** The remaining nine Low-priority findings
+from the same 2026-09-17 audit shipped in one pass: DSI-164 (hover-scale timing), DSI-170 (label
+token unification), DSI-167 (8-point spacing snap, plus documenting the `px-2.5 py-1` chip
+padding as a deliberate named exception rather than silently diverging from the scale), DSI-163
+(copy-button crossfade, verified end-to-end including the failure path — clipboard writes fail
+in the headless preview, which incidentally proved the "Copy failed" state works), DSI-166
+(dropped synthesized italics), DSI-168 (`text-wrap: balance`/`pretty`), DSI-161 (tooltip physical
+entrance per its implementation plan, confirmed via `getComputedStyle`'s `translate` property),
+DSI-173 (resume wording, no factual change) and DSI-175 (dropped the nav font-weight swap that
+could nudge sibling links). All 20 issues opened under this milestone are now Done; `npm run
+check` and `npm run build` both clean, including the header-hash and dist guards (the resume
+wording touches the PDF pipeline too).
+
+**FPL Decision cover made theme-aware, 2026-09-18 (ad hoc, not a Linear issue).** The app's own UI
+is purple-on-white in light mode, so the single dark-mode screenshot DSI-177 shipped didn't read
+correctly against the site's light theme. Added `work.coverLight` (optional, schema in
+`content.config.ts`) and a `.theme-cover__light`/`.theme-cover__dark` CSS pair in `global.css`
+mirroring the theme-toggle's existing light/dark precedence — plain `display` swap, not a
+cross-fade, since a static cover has no interaction to animate from. `fpl-decision.md` now carries
+both images; the other two case studies are unaffected since `coverLight` is optional. Verified by
+setting `data-theme` directly and checking computed `display` on both `<img>` elements, on both the
+homepage bento tile and the case-study page; `npm run build` clean.
+
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
@@ -158,6 +229,15 @@ instead of stacking two `transition-*` utilities.
 | DSI-112 | Command palette | M6 | Only if the site stays inside its JavaScript budget with it included |
 | DSI-113 | Fourth case study: Wipro | M6 | **Blocked** — owner decides whether enough survives genericization to carry a page |
 | DSI-114 | Writing or notes section | M6 | **Blocked** — owner has at least three pieces drafted |
+| DSI-164 | Bento work-card image hover scale has no deliberate easing | Design Improvements | Verified in dev preview |
+| DSI-170 | Uppercase labels use two hand-rolled sizes instead of `text-label` | Design Improvements | Verified in dev preview |
+| DSI-167 | Several spacing values fall outside the 8-point step scale | Design Improvements | Verified in dev preview |
+| DSI-163 | Copy-to-clipboard button label swaps with a hard text cut | Design Improvements | Verified in dev preview |
+| DSI-166 | Case-study metric qualifier uses `italic` with no italic face loaded | Design Improvements | Verified in dev preview |
+| DSI-168 | No `text-wrap: balance`/`pretty` — headings can orphan words | Design Improvements | Verified in dev preview |
+| DSI-161 | Social-link tooltip fades in with no physical entrance | Design Improvements | Verified in dev preview |
+| DSI-173 | Resume bullet repeats "deliver-" twice in one clause | Design Improvements | Verified in dev preview |
+| DSI-175 | Active nav-link font-weight swap on scroll can nudge sibling links | Design Improvements | Verified in dev preview |
 
 ## How to keep it true
 

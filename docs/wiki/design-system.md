@@ -420,6 +420,12 @@ and layout uses even steps only (2, 4, 6, 8, 12, 16, 20, 24, giving 8px to 96px)
 reserved for spacing inside chips. Section rhythm `py-16 md:py-24`, grid gap `gap-4 md:gap-6`,
 card padding `p-6 md:p-8`.
 
+**Chip padding is `px-2.5 py-1`** (10px/4px) — a half-step outside the list above, but a
+deliberate one: it's identical across `Timeline.astro`, `work/[slug].astro`'s stack tags,
+`Skills.astro` and `SocialLink.astro`'s tooltip (DSI-167), so it's documented here as a named
+exception rather than left to silently diverge from a rule it was never actually breaking by
+accident.
+
 Radii: chips fully round, buttons 10px, cards 14px, hero image 20px. Every interactive control
 is at least 44 by 44 pixels, carried over from the Abhijit site where it is a documented rule.
 
@@ -438,30 +444,27 @@ constraint is size, not property: a 2px cross-blur on a nav panel or a card is f
 worth it, and the same blur on a full-width section or the page ground is not. Do not reach for
 `backdrop-filter` on a large surface at all — that one samples everything behind it every frame.
 
-**One deliberate exception: the header shrinking on scroll (DSI-86)** animates `padding-block`,
-which is a layout property and therefore off the composite-only path. It is allowed because it
-breaks none of the reasons for the rule: the header is chrome rather than content, so nothing
-the reader is reading moves; it fires once per threshold crossing rather than per scroll event;
-it lasts 150ms; and the global reduced-motion block disables it outright. The logo scales with
-`transform` in the same gesture, which is on the fast path. If a second exception ever wants
-making, it needs an argument of its own — this one is not a precedent.
+**The header shrinking on scroll (DSI-86) no longer has an exception.** It used to animate
+`padding-block`, a layout property off the composite-only path, on the argument that the header
+is chrome rather than content and the transition was short, bounded and reduced-motion-safe. That
+argument was reconsidered and reversed by [DSI-159](https://linear.app/dsinha-org/issue/DSI-159)
+(shipped 2026-09-18, `docs/sources/animation-plans/002-header-shrink-no-layout-transition.md`):
+the logo's own `transform`-based shrink (`LogoMark`, `scale-90` toggle) already carries the full
+"header got smaller" cue on its own, making the padding animation redundant rather than
+load-bearing whatever its performance cost. The padding class swap is now instant — no
+`transition-*` targets it — and the logo transform is the sole animated cue for the shrink. The
+composite-only rule above now has zero exceptions.
 
-**Status: planned — the exception is being reconsidered, not yet reversed.** A five-skill design
-audit run 2026-09-17 (`/find-animation-opportunities`, `/improve-animations`, `/better-interface`,
-`/emil-design-eng`, `/landing-page-design`, tracked under the Linear milestone "Design
-Improvements") flagged the same padding transition this section argues for, on the grounds that
-the logo's own `transform`-based shrink already carries the full visual cue on its own — making
-the padding animation redundant rather than load-bearing, whatever its performance cost. That
-finding is [DSI-159](https://linear.app/dsinha-org/issue/DSI-159), not yet actioned. Three more
-motion gaps from the same audit have full implementation plans in
-[docs/sources/animation-plans/](../sources/animation-plans/README.md): site-wide press/active
-feedback (`001-press-feedback.md`, no `:active` state exists anywhere in `src/`, DSI-158), a
-physical entrance for the `SocialLink` tooltip (`003-tooltip-physical-entrance.md`, DSI-161), and
-a crossfade for the theme-toggle and mobile hamburger/X icon swaps, which currently teleport via
-`display`/`.hidden` toggling instead of transitioning (`004-icon-swap-crossfade.md`, DSI-160).
-This page's composite-only rule and its one documented exception stay as written above until one
-of these plans actually ships — flip the relevant line to **built** in the same change that lands
-it, per the wiki's own convention, rather than before.
+Motion gaps from the same 2026-09-17 audit (`/find-animation-opportunities`, `/improve-animations`,
+`/better-interface`, `/emil-design-eng`, `/landing-page-design`, tracked under the Linear milestone
+"Design Improvements") have implementation plans in
+[docs/sources/animation-plans/](../sources/animation-plans/README.md). Shipped so far: site-wide
+press/active feedback (DSI-158), the header padding reversal above (DSI-159), and a crossfade for
+the theme-toggle sun/moon and the mobile hamburger/X icon swaps, which used to teleport via
+`display`/`.hidden` toggling (`004-icon-swap-crossfade.md`, DSI-160) — both now cross-fade via
+opacity+scale instead, staying mounted at all times with visibility handled by `aria-hidden`
+rather than `display`. Still open: a physical entrance for the `SocialLink` tooltip
+(`003-tooltip-physical-entrance.md`, DSI-161).
 
 ## Sources
 

@@ -74,7 +74,7 @@ const marks: Record<string, ImageMetadata> = {
 						<p class="text-fg-2">{degree.school}</p>
 					</div>
 					{marks[degree.school] && (
-						<div class="flex h-[5.5rem] w-32 shrink-0 items-center justify-center rounded-control bg-mark-plate p-3">
+						<div class="flex h-[5.5rem] w-32 shrink-0 items-center justify-center rounded-control bg-mark-plate p-4">
 							<Image
 								src={marks[degree.school]}
 								alt={degree.school}
@@ -134,7 +134,7 @@ const marks: Record<string, ImageMetadata> = {
 	{
 		[...certGroups].map(([group, items]) => (
 			<div>
-				<h4 class="text-meta font-medium uppercase tracking-wide text-fg-muted">{group}</h4>
+				<h4 class="font-mono text-label uppercase text-fg-muted">{group}</h4>
 				<ul class="mt-2 flex flex-col gap-2">
 					{items.map((cert) => (
 						<li class="text-fg-2">

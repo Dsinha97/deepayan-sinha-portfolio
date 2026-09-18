@@ -71,7 +71,7 @@ September 2025 – November 2025 · Fort Monroe, VA
   navigation as the three strongest levers for visitation and satisfaction
 - Modelled parking monetisation against five comparable sites and built a $20,000 commemorative
   event plan structured for full cost recovery
-- Delivered 4 deliverables in a 7-week engagement as 1 of 5 consultants; the client rated the
+- Completed 4 deliverables in a 7-week engagement as 1 of 5 consultants; the client rated the
   engagement highly in an independent post-project review and commissioned a follow-on
   engagement
 

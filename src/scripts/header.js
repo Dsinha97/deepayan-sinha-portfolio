@@ -58,8 +58,10 @@ if (button && menu) {
   const setOpen = (open) => {
     button.setAttribute('aria-expanded', String(open));
     menu.dataset.open = String(open);
-    iconOpen?.classList.toggle('hidden', open);
-    iconClose?.classList.toggle('hidden', !open);
+    iconOpen?.classList.toggle('opacity-0', open);
+    iconOpen?.classList.toggle('scale-90', open);
+    iconClose?.classList.toggle('opacity-0', !open);
+    iconClose?.classList.toggle('scale-90', !open);
   };
 
   button.addEventListener('click', () => {
