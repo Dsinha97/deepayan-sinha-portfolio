@@ -45,7 +45,7 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 	>
 		<a
 			href="/"
-			class="flex min-h-11 items-center rounded-control focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+			class="flex min-h-11 items-center rounded-control active:scale-[0.97] transition-transform duration-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 			aria-label={`${site.name} — home`}
 		>
 			<LogoMark class="w-20 transition-transform duration-150 md:w-24" data-header-mark />
@@ -59,7 +59,7 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 						data-nav-link
 						data-target={item.href.startsWith('#') ? item.href.slice(1) : undefined}
 						aria-current={isCurrentRoute(item.href) ? 'page' : undefined}
-						class="inline-flex min-h-11 items-center rounded-control px-3 text-fg-2 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-[current]:text-accent aria-[current]:font-medium"
+						class="inline-flex min-h-11 items-center rounded-control px-3 text-fg-2 transition-[color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-[current]:text-accent aria-[current]:font-medium"
 					>
 						{item.label}
 					</a>
@@ -68,7 +68,7 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 			<a
 				href={site.resumePath}
 				aria-current={isCurrentRoute(site.resumePath) ? 'page' : undefined}
-				class="ml-2 inline-flex min-h-11 items-center rounded-control border border-border-strong px-4 text-fg transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+				class="ml-2 inline-flex min-h-11 items-center rounded-control border border-border-strong px-4 text-fg transition-[border-color,color,transform] duration-100 hover:border-accent hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 			>
 				Resume
 			</a>
@@ -79,7 +79,7 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 			<ThemeToggle />
 			<button
 				type="button"
-				class="inline-flex size-11 items-center justify-center rounded-control text-fg transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+				class="inline-flex size-11 items-center justify-center rounded-control text-fg transition-[color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 				aria-expanded="false"
 				aria-controls="mobile-menu"
 				data-menu-button
@@ -131,7 +131,7 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 							<a
 								href={resolve(item.href)}
 								data-menu-link
-								class="flex min-h-11 items-center rounded-control px-2 text-fg-2 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+								class="flex min-h-11 items-center rounded-control px-2 text-fg-2 transition-[color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 							>
 								{item.label}
 							</a>
@@ -142,7 +142,7 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 					<a
 						href={site.resumePath}
 						data-menu-link
-						class="flex min-h-11 items-center rounded-control px-2 text-fg-2 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+						class="flex min-h-11 items-center rounded-control px-2 text-fg-2 transition-[color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 					>
 						Resume
 					</a>

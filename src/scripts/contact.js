@@ -10,7 +10,7 @@
  * fails silently — the same rule that governs the span lookup on the homepage.
  */
 const BUTTON_CLASS =
-  'inline-flex min-h-11 items-center gap-2 rounded-control border border-border bg-surface px-4 text-fg-2 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
+  'inline-flex min-h-11 items-center gap-2 rounded-control border border-border bg-surface px-4 text-fg-2 transition-[color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
 
 const RESET_MS = 2000;
 

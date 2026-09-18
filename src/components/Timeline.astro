@@ -76,7 +76,7 @@ const workSlugs = new Set((await getCollection('work')).map((entry) => entry.id)
 					{showMore && (
 						<a
 							href={`/work/${role.workSlug}/`}
-							class="mt-4 inline-flex min-h-11 items-center rounded-control text-accent underline decoration-seam underline-offset-4 transition-colors hover:text-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+							class="mt-4 inline-flex min-h-11 items-center rounded-control text-accent underline decoration-seam underline-offset-4 transition-[color,transform] duration-100 hover:text-accent-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 						>
 							See the case study
 						</a>

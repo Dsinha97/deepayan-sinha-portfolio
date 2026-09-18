@@ -51,6 +51,9 @@ gate rather than copying it into a second place where it can rot.
 | Case study: Fort Monroe consultancy | DSI-101 | M4 | [case-study-fort-monroe.md](wiki/case-study-fort-monroe.md) |
 | Work index: bento grid | DSI-102 | M4 | [site-architecture.md](wiki/site-architecture.md) |
 | Edge-injected analytics beacon removed at source | DSI-132 | M2 | [security-headers.md](wiki/security-headers.md) |
+| Case-study `<h1>` fixed to use a real type token | DSI-157 | Design Improvements | [design-system.md](wiki/design-system.md) |
+| Work-card thumbnails switched off the third-party-logo plate token | DSI-165 | Design Improvements | [design-system.md](wiki/design-system.md) |
+| Press/active feedback added to every interactive element | DSI-158 | Design Improvements | `docs/sources/animation-plans/001-press-feedback.md` |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
@@ -121,6 +124,21 @@ it's full-width instead and the three smaller tiles fill the next row exactly; a
 portrait-shaped cover was cropping its own name under `object-cover`, fixed by switching the
 bento thumbnails to the same `object-contain`-on-a-plate treatment DSI-101 already used on the
 case-study page itself.
+
+**DSI-157/165/158 shipped 2026-09-17.** Three findings from the `/better-interface`,
+`/landing-page-design`, `/find-animation-opportunities` and `/improve-animations` audits. DSI-157:
+the case-study `<h1>` used `text-h1`, an undefined Tailwind token, and silently fell through to
+Preflight's body-size reset — swapped for the existing `text-display` token; verified live at
+68px instead of 16px. DSI-165: the homepage work-card thumbnails sat on `bg-mark-plate`, a
+deliberately theme-invariant tile reserved for third-party institution marks in
+`Education.astro` — switched to `bg-surface-2` so they follow theme like every other surface.
+DSI-158: added `active:scale-[0.97]`/`[0.98]` press feedback to all twelve files enumerated in
+`docs/sources/animation-plans/001-press-feedback.md`. That plan's own example was wrong in one
+respect, caught while verifying with `getComputedStyle`: `transition-colors` and
+`transition-transform` as separate Tailwind utilities don't compose — each sets the whole
+`transition-property` value, so the later one silently drops the earlier one's properties. Fixed
+by merging into single arbitrary-value utilities per element (e.g. `transition-[color,transform]`)
+instead of stacking two `transition-*` utilities.
 
 ## Open
 
