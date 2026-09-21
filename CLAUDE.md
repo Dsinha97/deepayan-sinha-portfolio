@@ -4,8 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-The personal portfolio site for **Deepayan Sinha**, at **`https://deepayansinha.com`** (domain
-registered, zone on Cloudflare, **not yet deployed**). Repo
+The personal portfolio site for **Deepayan Sinha**, live at **`https://deepayansinha.com`**
+(domain registered, zone on Cloudflare, deployed on Cloudflare Workers static assets with
+push-to-deploy on `main`). Repo
 [`Dsinha97/deepayan-sinha-portfolio`](https://github.com/Dsinha97/deepayan-sinha-portfolio),
 private. Planning lives in the Linear project
 [Deepayan-Portfolio](https://linear.app/dsinha-org/project/deepayan-portfolio-4de86f94d1f2),
@@ -20,13 +21,18 @@ authority is [docs/wiki/](docs/wiki/index.md); the plan-to-repo join is
 
 ## Current state
 
-**Milestone M2 — shell and design system.** M0 and M1 are closed: the repo, the wiki, the Linear
-backlog, the Astro/Tailwind scaffold, the Workers deploy with push-to-deploy on `main`, the apex
-domain and `contact@` routing are all live. M2 has the shell, the tokens, the mark, the
-typography and the CSP pipeline built; the responsive pass is what remains.
+**Milestone M4 — case studies.** M0 through M3 are closed, and so is the Design Improvements
+milestone (a five-skill design audit, 20 issues, closed 2026-09-18): the repo, the wiki, the
+Linear backlog, the Astro/Tailwind scaffold, the Workers deploy, the apex domain and `contact@`
+routing, the shell, the tokens, the mark, the typography, the CSP pipeline, the responsive pass,
+and the homepage content (hero, about, experience, education, skills, contact, resume) are all
+live. M4 is the case-study content collection, schema and bento work index — all shipped; the
+Fort Monroe case study is Done; the FPL Decision and Abhijit Sinha website case studies are
+written and awaiting owner review (DSI-99, DSI-100).
 
-**The content is still placeholder.** Every section on the homepage is a stub naming the issue
-that fills it — that is M3 and M4. See the Linear backlog for order, not a line pinned here.
+**The homepage content is real, not placeholder.** What remains is M5 (SEO, OG images, the
+security-headers production audit, Lighthouse, QA, go-live) and M6 (beyond launch). See the
+Linear backlog for order, not a line pinned here.
 
 ## Commands
 

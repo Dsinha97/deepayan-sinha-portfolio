@@ -229,15 +229,6 @@ homepage bento tile and the case-study page; `npm run build` clean.
 | DSI-112 | Command palette | M6 | Only if the site stays inside its JavaScript budget with it included |
 | DSI-113 | Fourth case study: Wipro | M6 | **Blocked** — owner decides whether enough survives genericization to carry a page |
 | DSI-114 | Writing or notes section | M6 | **Blocked** — owner has at least three pieces drafted |
-| DSI-164 | Bento work-card image hover scale has no deliberate easing | Design Improvements | Verified in dev preview |
-| DSI-170 | Uppercase labels use two hand-rolled sizes instead of `text-label` | Design Improvements | Verified in dev preview |
-| DSI-167 | Several spacing values fall outside the 8-point step scale | Design Improvements | Verified in dev preview |
-| DSI-163 | Copy-to-clipboard button label swaps with a hard text cut | Design Improvements | Verified in dev preview |
-| DSI-166 | Case-study metric qualifier uses `italic` with no italic face loaded | Design Improvements | Verified in dev preview |
-| DSI-168 | No `text-wrap: balance`/`pretty` — headings can orphan words | Design Improvements | Verified in dev preview |
-| DSI-161 | Social-link tooltip fades in with no physical entrance | Design Improvements | Verified in dev preview |
-| DSI-173 | Resume bullet repeats "deliver-" twice in one clause | Design Improvements | Verified in dev preview |
-| DSI-175 | Active nav-link font-weight swap on scroll can nudge sibling links | Design Improvements | Verified in dev preview |
 
 ## How to keep it true
 

@@ -17,7 +17,9 @@ status: built
 > A `'self'`-only Content Security Policy on a static site, with the one unavoidable inline
 > script hashed at build time so the hash can never go stale.
 
-**Status: planned.**
+**Status: built.** The build-time hash pipeline shipped with DSI-87; `dist/_headers` is generated
+from `headers.template` on every build, never hand-edited. The separate production audit
+(DSI-105 — zero CSP violations, A grade externally) is still open.
 
 ## The problem the design solves
 
