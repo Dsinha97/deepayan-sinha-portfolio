@@ -8,8 +8,6 @@ description: Reconcile the Deepayan-Portfolio Linear project against docs/linear
 Linear owns **what is planned and what its status is**; `docs/` owns **what happened and why**.
 This skill checks the two still agree, and plans from Linear when asked.
 
-Ported from the FPL App project, where the same division of authority is in use.
-
 ## 1. Read Linear
 
 ```

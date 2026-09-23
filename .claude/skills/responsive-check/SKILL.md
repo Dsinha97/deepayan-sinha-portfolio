@@ -5,8 +5,7 @@ description: Drive the preview browser through this project's breakpoint x theme
 
 # Responsive Check
 
-Ported from the FPL App project (DSI-90) with one change: that version was screenshot-only and
-left every call a visual judgement. **This one measures first and looks second.** The bug this
+**This check measures first and looks second.** The bug this
 exists to catch does not always look wrong in a screenshot — a page can scroll sideways by 12px
 without anything appearing clipped — and in this environment the browser pane often reports
 `document.hidden`, which throttles animation and makes screenshots unreliable anyway.

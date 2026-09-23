@@ -12,7 +12,7 @@ private. Planning lives in the Linear project
 [Deepayan-Portfolio](https://linear.app/dsinha-org/project/deepayan-portfolio-4de86f94d1f2),
 team `Dsinha Org` (`DSI`).
 
-Stack, once scaffolded: **Astro 5 + Tailwind CSS 4**, static output, deployed on **Cloudflare
+Stack: **Astro 5 + Tailwind CSS 4**, static output, deployed on **Cloudflare
 Workers static assets**. No server, no database, no forms in v1.
 
 Documentation index: [docs/README.md](docs/README.md). Start there. The content and design
@@ -26,9 +26,8 @@ milestone (a five-skill design audit, 20 issues, closed 2026-09-18): the repo, t
 Linear backlog, the Astro/Tailwind scaffold, the Workers deploy, the apex domain and `contact@`
 routing, the shell, the tokens, the mark, the typography, the CSP pipeline, the responsive pass,
 and the homepage content (hero, about, experience, education, skills, contact, resume) are all
-live. M4 is the case-study content collection, schema and bento work index — all shipped; the
-Fort Monroe case study is Done; the FPL Decision and Abhijit Sinha website case studies are
-written and awaiting owner review (DSI-99, DSI-100).
+live. M4 is the case-study content collection, schema and bento work index — all shipped.
+Where each case study stands is in Linear.
 
 **The homepage content is real, not placeholder.** What remains is M5 (SEO, OG images, the
 security-headers production audit, Lighthouse, QA, go-live) and M6 (beyond launch). See the
@@ -131,7 +130,12 @@ dark via system preference plus a toggle. Full token tables, both modes, with me
 ratios: [docs/wiki/design-system.md](docs/wiki/design-system.md) — read it before styling
 anything rather than re-deriving the palette from component code.
 
-Three things that will bite otherwise:
+The vendored design skills (`landing-page-design`, `tastemaker`, `web-design-engineer`) are
+general-purpose. Where one conflicts with the design system — `landing-page-design` bans Inter
+and a second typeface, both of which this site uses on purpose — the wiki wins. Use the skills
+for technique and audits, not for values.
+
+These will bite otherwise:
 
 - **The logo teal is not a text colour.** `#3A93A3` on white is 3.57:1. Teal text uses `#2E7683`
   in light mode; the logo teal is for arrows, dots and large numerals only.

@@ -135,5 +135,6 @@ Any figure tied to a moment in time gets marked inline so TIDY can find it:
   against a build or the live site before being written as fact.
 - **Nothing from `private/` gets copied into the wiki** except what `content-guardrails.md`
   permits. That page is the only gate, and it is the only place the rules are stated.
-- **Never introduce a claim the guardrails forbid**, and keep self-reported figures visibly
-  marked as self-reported.
+- **Never introduce a claim the guardrails forbid**, and keep the three self-reported Wipro
+  figures marked as self-reported in the wiki. The published site does not label them
+  (owner decision, 2026-09-11), so the mark never carries into site copy.

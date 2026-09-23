@@ -78,6 +78,7 @@ Inherited from `docs/wiki/AGENTS.md` and the root `CLAUDE.md`:
 - Plain markdown only. Every page keeps its frontmatter and its `## Sources` block.
 - Never write a behavioural claim as verified without checking it against a build or the live
   site.
-- **Never introduce a claim the content guardrails forbid**, and keep self-reported figures
-  visibly marked as self-reported.
+- **Never introduce a claim the content guardrails forbid**, and keep the three self-reported
+  Wipro figures marked as self-reported in the wiki. The published site does not label them
+  (owner decision, 2026-09-11), so the mark never carries into site copy.
 - Nothing from `private/` reaches a wiki page except what `content-guardrails.md` permits.
