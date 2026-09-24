@@ -1,0 +1,32 @@
+[
+  {
+    "date": "2026-09-24",
+    "title": "Sprint 40: latency",
+    "detail": "The latency plan's engine-splitting hypothesis was wrong: the engines were already per-route, and the shared cost was motion and root-layout imports."
+  },
+  {
+    "date": "2026-09-21",
+    "title": "Swipe-to-dismiss",
+    "detail": "SlideOver moved to motion/AnimatePresence for real exit animations, and each panel drags closed the way it opened."
+  },
+  {
+    "date": "2026-09-21",
+    "title": "Sprint 39",
+    "detail": "Player-profile bug sweep, prediction-pipeline reliability, expected-minutes cohort split."
+  },
+  {
+    "date": "2026-09-21",
+    "title": "Sprint 38: the player profile, the price reading, and a shortlist",
+    "detail": "The price-watch reading turned out to have been broken since Sprint 29 — an unpaged 1000-row-capped query, then a gameweek-counter-reset bug it had been masking, then a flat threshold that was the…"
+  },
+  {
+    "date": "2026-09-20",
+    "title": "The M6 GW5 check-in, and the coverage bug it found first",
+    "detail": "The accuracy scoreboard was counting a half-synced gameweek's unwritten fixtures as genuine blank returns (GW5 read −0.589; the truth was −0.006), fixed with a per-fixture completeness gate that…"
+  },
+  {
+    "date": "2026-09-18",
+    "title": "Sprint 37",
+    "detail": "The M9 design-audit Todo sweep: 13 independent follow-ups from the audit's better-interface/better-writing/animate/emil-design-eng scope reviews, in three phases (interface/a11y, writing, animation)."
+  }
+]

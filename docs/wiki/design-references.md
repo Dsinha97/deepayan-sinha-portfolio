@@ -7,7 +7,7 @@ sources:
 related:
   - design-system.md
   - site-architecture.md
-updated: 2026-09-11
+updated: 2026-09-24
 status: built
 ---
 
@@ -41,6 +41,11 @@ what they look like.
 | The 2px cross-blur on that transition | Transitions.dev | kept — see below |
 | Tonal elevation instead of shadow | Anthropic, Augen | already how surfaces worked — the reference confirmed it |
 | One accent reserved for the single consequential action | Anthropic, Augen | already the gold and teal rules |
+| Full-bleed covers in large-radius tiles, a two-row "tall" tile | portrait.so, bento.me | `WorkGrid.astro`, redesign 2026-09-24 |
+| Numbered label-pair section headings (small tracked eyebrow over a serif title) | Augen, dope.security | `SectionHeading.astro` |
+| Stat row divided by hairlines, unit at half size | Auros | `ProofStrip.astro`, case-study metrics |
+| Hairline-divided rows for grouped lists | contra.com, OFF+BRAND | the skills and toolkit list |
+| A closing "Let's work together" band before the footer | contra.com, Anthropic | `Contact.astro`, homepage and every case study |
 
 Two of those are worth saying plainly: the surface and accent conventions were **already** the
 system before the folder arrived. The references did not change them; they corroborated them,
@@ -99,10 +104,10 @@ renders is dead weight against a 25KB budget, so the rest wait here:
 | Primitive | Waiting for |
 |---|---|
 | `panel-reveal` | **ported** — mobile menu, DSI-86 |
-| `tooltip-hover` | DSI-93 — the footnote marking the three self-reported Wipro figures |
+| `tooltip-hover` | **pattern used** — the Certifications and courses ⓘ tooltip reuses `SocialLink`'s CSS-only version rather than porting the spec |
 | `text-state-swap` | DSI-96 — the copy-to-clipboard confirmation state |
-| `number-pop`, `spinning-counter` | DSI-92 — proof strip figures |
-| `accordion` | DSI-94 — certificates grouped by category |
+| `number-pop`, `spinning-counter` | DSI-92 — proof strip figures. Still waiting: the redesign kept the figures static |
+| `accordion` | not needed — the certificates stopped being grouped; the Recognition tile's expand is a plain disclosure (`.t-disclosure`) |
 | `tab-sliding` | DSI-102 — only if the work index needs filtering |
 | `shimmer-text`, `streaming-text`, `thinking-states`, `checkbox-check` | nothing. AI chrome |
 

@@ -1,49 +1,58 @@
 ---
 /*
- * Contact (DSI-96). Three published channels and nothing else — the phone
- * number, a home address and the personal Gmail are never published. See
+ * Contact (DSI-96), reworked in the redesign as the closing band — "Let's work
+ * together" on a deep purple ground before the footer (contra.com, Anthropic).
+ * Used at the end of the homepage and of every case study.
+ *
+ * Three published channels and nothing else — the phone number, a home
+ * address and the personal Gmail are never published. See
  * docs/wiki/content-guardrails.md.
  *
  * The gate is that this works with JavaScript disabled, so the markup is a
  * plain mailto link that is already useful on its own. The copy button is
  * added by src/scripts/contact.js at runtime and is absent without JS rather
  * than present and dead — a button that does nothing is worse than no button.
- * That is also why the button is not in this markup with a JS handler bolted
- * on: no JS, no button.
  */
 import { site } from '../data/site';
+import { lookingFor } from '../data/profile';
 import IconEmail from './IconEmail.astro';
-import IconGitHub from './IconGitHub.astro';
-import IconLinkedIn from './IconLinkedIn.astro';
-import SocialLink from './SocialLink.astro';
+import IconArrowUpRight from './IconArrowUpRight.astro';
+
+interface Props {
+	/** Heading level: h2 on the homepage, where it is a section. */
+	as?: 'h2' | 'h3';
+}
+
+const { as: Tag = 'h2' } = Astro.props;
+const pill =
+	'inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-band-line px-6 text-on-band-2 transition-[color,border-color,transform] duration-100 hover:border-on-band-2 hover:text-on-band active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-band';
 ---
 
-<div class="mt-6 flex max-w-[65ch] flex-col gap-4">
-	<p class="text-fg-2">The fastest way to reach me is email.</p>
+<div class="rounded-band bg-band px-6 py-12 md:px-12 md:py-16 lg:px-16 lg:py-20">
+	<p class="font-mono text-label uppercase tracking-[0.12em] text-band-label">Contact</p>
+	<Tag class="mt-4 font-serif text-[clamp(3rem,2rem+4vw,6rem)] font-normal leading-[0.95] tracking-[-0.035em] text-on-band">
+		Let's work together.
+	</Tag>
+	<p class="mt-5 max-w-[52ch] text-lg text-on-band-2">{lookingFor}</p>
 
-	<div class="flex flex-wrap items-center gap-4" data-contact>
+	<div class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center" data-contact="band">
 		<a
 			href={`mailto:${site.email}`}
-			class="inline-flex min-h-11 items-center gap-2 rounded-control bg-accent-fill px-6 text-on-accent transition-[background-color,transform] duration-100 hover:bg-accent-fill-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+			class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-on-band px-6 font-semibold text-purple-800 transition-[background-color,transform] duration-100 hover:bg-white active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-band"
 			data-contact-email={site.email}
 		>
 			<IconEmail class="size-5" />
 			{site.email}
 		</a>
+		<a href={site.links.linkedin} rel="me noopener" class={pill}>
+			LinkedIn
+			<IconArrowUpRight class="size-4" />
+		</a>
+		<a href={site.links.github} rel="me noopener" class={pill}>
+			GitHub
+			<IconArrowUpRight class="size-4" />
+		</a>
 	</div>
-
-	<ul class="flex flex-wrap gap-2">
-		<li>
-			<SocialLink href={site.links.linkedin} label="LinkedIn">
-				<IconLinkedIn class="size-6" />
-			</SocialLink>
-		</li>
-		<li>
-			<SocialLink href={site.links.github} label="GitHub">
-				<IconGitHub class="size-6" />
-			</SocialLink>
-		</li>
-	</ul>
 </div>
 
 <script>

@@ -10,7 +10,7 @@ sources:
 related:
   - site-architecture.md
   - research-synthesis.md
-updated: 2026-09-17
+updated: 2026-09-24
 status: built
 ---
 
@@ -421,13 +421,47 @@ reserved for spacing inside chips. Section rhythm `py-16 md:py-24`, grid gap `ga
 card padding `p-6 md:p-8`.
 
 **Chip padding is `px-2.5 py-1`** (10px/4px) — a half-step outside the list above, but a
-deliberate one: it's identical across `Timeline.astro`, `work/[slug].astro`'s stack tags,
+deliberate one: it was identical across the old `Timeline.astro`, `work/[slug].astro`'s stack tags,
 `Skills.astro` and `SocialLink.astro`'s tooltip (DSI-167), so it's documented here as a named
 exception rather than left to silently diverge from a rule it was never actually breaking by
 accident.
 
 Radii: chips fully round, buttons 10px, cards 14px, hero image 20px. Every interactive control
 is at least 44 by 44 pixels, carried over from the Abhijit site where it is a documented rule.
+
+## The 2026-09 redesign
+
+The owner asked for a redesign that pushes the reference folder further while keeping the brand
+(see [design-references.md](design-references.md)); it was mocked on a Design canvas, iterated
+through comments, and built with the rail layout. What it added to this system:
+
+**Tokens.** `--band` / `--on-band` / `--on-band-2` / `--band-label` / `--band-line` for the
+closing contact band — the one place the brand purple is a surface, `#2e1f4e` light and
+`#201538` dark, measured at 13.8:1, 9.3:1 and 6.1:1 for its three text colours. `--scrim` behind
+an open dialog. Radii `--radius-tile` 24px (work, experience and credential cards) and
+`--radius-band` 32px. Type steps `text-hero` (the rail name, to 4.75rem at 0.95 leading) and
+`text-stat` (proof and metric numerals); `text-h2` grew to `clamp(2rem, …, 3.25rem)` at 1.05
+leading, and the resume pins its own h2 at 1.75rem so the document scale did not grow with it.
+
+**Covers fill their frame.** Work covers are `astro:assets` imports (`cover: image()`), rendered
+by `WorkCover.astro` with a srcset and `object-cover`. A cover whose subject is off-centre names
+the edge to keep in `coverFocus` (Fort Monroe: `left`). On the case-study page the frame takes
+the cover's own ratio (2:1, 3:2 or 4:3), so nothing is cropped there at all.
+
+**Dialogs are popovers.** `Dialog.astro` is a `popover` element opened by `popovertarget` — no
+script: the browser handles Esc, click-outside and returning focus, and `autofocus` on the close
+button moves focus in. It is `role="dialog"` but deliberately not `aria-modal`, because a popover
+is not a focus trap. Used for the experience details and `CertDialog.astro`. Motion is
+`.t-dialog` in `motion.css`: panel-reveal's curve and travel without the blur, because a dialog
+up to 60rem wide is the large blurred area the Motion rule forbids.
+
+**Disclosure without a layout shift.** The inline theme script now also adds `js` to `<html>`
+before first paint. `.t-disclosure` panels are open by default and only collapse under
+`:root.js`, so the no-JS page shows the content and the scripted page starts closed without
+reflowing. `disclosure.js` toggles `data-open`. Used by the Recognition tile.
+
+**The header's full nav starts at `lg`, not `md`.** Five nav entries plus Resume and the toggle
+overflowed at 768px by 11px; below 1024 the hamburger menu carries them.
 
 ## Motion
 

@@ -1,0 +1,67 @@
+---
+/*
+ * A modal-looking panel on the Popover API (redesign). The experience details
+ * and the certificate viewer both use it.
+ *
+ * Why a popover rather than <dialog> + showModal(): opening needs no script.
+ * `popovertarget` on a button opens it, Esc and a click outside close it, and
+ * the browser hands focus back to the button that opened it. `autofocus` on
+ * the close button moves focus into the panel when it opens. With JavaScript
+ * off every part of that still works; with an old browser the trigger does
+ * nothing and the content it would show is also summarised on the card.
+ *
+ * `role="dialog"` + `aria-labelledby` name it for assistive technology. It is
+ * deliberately not `aria-modal`: a popover is no focus trap — Tab can leave
+ * it — and claiming modality would tell a screen reader the page behind is
+ * inert when it is not. That is the documented trade of the light-dismiss
+ * popover, and acceptable for a read-only panel.
+ *
+ * Motion: `.t-dialog` in motion.css.
+ */
+interface Props {
+	id: string;
+	/** id of the element inside the default slot that titles the panel */
+	labelledby: string;
+	/** Tailwind max-width class for the panel. */
+	width?: 'md' | 'lg';
+	closeLabel?: string;
+}
+
+const { id, labelledby, width = 'md', closeLabel = 'Close' } = Astro.props;
+
+/* Static lookup — Tailwind only generates classes it can see whole. */
+const WIDTH = {
+	md: 'w-[min(42rem,calc(100vw-2rem))]',
+	lg: 'w-[min(60rem,calc(100vw-2rem))]',
+} as const;
+---
+
+<div
+	id={id}
+	popover
+	role="dialog"
+	aria-labelledby={labelledby}
+	class:list={[
+		't-dialog m-auto max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain rounded-[1.75rem] border border-border bg-elevated p-0 text-fg',
+		WIDTH[width],
+	]}
+>
+	<div class="flex items-start gap-4 border-b border-border py-5 pl-6 pr-4 md:pl-7">
+		<div class="min-w-0 flex-1">
+			<slot name="header" />
+		</div>
+		<button
+			type="button"
+			popovertarget={id}
+			popovertargetaction="hide"
+			autofocus
+			class="flex size-11 shrink-0 items-center justify-center rounded-full bg-surface-2 text-fg transition-[background-color,transform] duration-100 hover:bg-border active:scale-[0.95] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+		>
+			<span class="sr-only">{closeLabel}</span>
+			<svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+				<path d="M6 6l12 12M18 6L6 18" />
+			</svg>
+		</button>
+	</div>
+	<slot />
+</div>

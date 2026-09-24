@@ -1,0 +1,196 @@
+---
+/*
+ * The work bento (DSI-102, reworked in the redesign after portrait.so): covers
+ * run edge to edge inside large-radius tiles, with the meta line, title,
+ * tagline and an arrow chip below.
+ *
+ * Layout: one column, two from `md`. The `lg` tile takes the full row; a `tall`
+ * tile spans two rows beside two ordinary ones — Abhijit's site and the
+ * Recognition tile — so the grid tiles with no gap.
+ *
+ * The Recognition tile expands in place (owner request, 2026-09-24): its
+ * panel spans the full row under the grid and carries the Beta Gamma Sigma
+ * certificate and the paper's abstract. It is a disclosure, not a dialog —
+ * the content belongs in the page flow, and without JavaScript it is simply
+ * shown. See .t-disclosure in motion.css.
+ *
+ * The span classes come from a static lookup, never from concatenation.
+ * Tailwind 4 scans for complete class strings.
+ */
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import WorkCover from './WorkCover.astro';
+import IconArrowUpRight from './IconArrowUpRight.astro';
+import CertDialog from './CertDialog.astro';
+
+const SPAN = {
+	lg: 'md:col-span-2',
+	md: '',
+	sm: '',
+	tall: 'md:row-span-2',
+} as const;
+
+const COVER = {
+	lg: 'aspect-[2/1]',
+	md: 'aspect-[2/1]',
+	sm: 'aspect-[2/1]',
+	tall: 'min-h-80 flex-1',
+} as const;
+
+const SIZES = {
+	lg: '(min-width: 1024px) 50rem, 100vw',
+	md: '(min-width: 1024px) 25rem, (min-width: 768px) 50vw, 100vw',
+	sm: '(min-width: 1024px) 25rem, (min-width: 768px) 50vw, 100vw',
+	tall: '(min-width: 1024px) 25rem, (min-width: 768px) 50vw, 100vw',
+} as const;
+
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+const recognition = (await getCollection('recognition')).sort((a, b) => a.data.order - b.data.order);
+const honor = recognition.find((entry) => entry.data.kind === 'honor')?.data;
+const paper = recognition.find((entry) => entry.data.kind === 'publication')?.data;
+
+const isLive = (links?: { type: string }[]) => links?.some((link) => link.type === 'live');
+---
+
+<ul class="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+	{
+		work.map(({ id, data }) => (
+			<li class:list={['flex', SPAN[data.bentoSize]]}>
+				<a
+					href={`/work/${id}/`}
+					class="group flex w-full flex-col overflow-hidden rounded-tile border border-border bg-surface transition-[border-color,transform] duration-100 hover:border-border-strong active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+				>
+					<div class:list={['relative w-full overflow-hidden bg-surface-2', COVER[data.bentoSize]]}>
+						<WorkCover
+							data={data}
+							sizes={SIZES[data.bentoSize]}
+							eager={data.bentoSize === 'lg'}
+							class="absolute inset-0 transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+						/>
+					</div>
+					<div class="flex items-start justify-between gap-4 p-6 md:p-7">
+						<div class="flex min-w-0 flex-col gap-2">
+							<p class="font-mono text-label uppercase text-fg-muted">
+								{data.kicker} · {data.period}
+								{isLive(data.links) && ' · Live'}
+							</p>
+							<h3
+								class:list={[
+									'font-serif font-normal leading-[1.1] text-fg',
+									data.bentoSize === 'lg' ? 'text-4xl' : 'text-3xl',
+								]}
+							>
+								{data.title}
+							</h3>
+							<p class="max-w-[60ch] text-fg-2">{data.tagline}</p>
+						</div>
+						<span
+							class="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent-soft text-on-accent-soft transition-transform duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+							aria-hidden="true"
+						>
+							<IconArrowUpRight class="size-4" />
+						</span>
+					</div>
+				</a>
+			</li>
+		))
+	}
+
+	{
+		honor && (
+			<li class="relative flex flex-col justify-between gap-6 rounded-tile bg-surface-2 p-6 md:p-7">
+				<p class="flex items-center justify-between font-mono text-label uppercase tracking-[0.12em] text-gold">
+					Recognition
+				</p>
+				<div>
+					<h3 class="font-serif text-3xl font-normal leading-[1.1] text-fg">Beta Gamma Sigma inductee</h3>
+					<p class="mt-3 text-fg-2">
+						Top 20% of the MBA cohort, plus a published paper on thermal-comfort modelling.
+					</p>
+					<button
+						type="button"
+						hidden
+						data-disclosure
+						aria-expanded="false"
+						aria-controls="recognition-panel"
+						data-open-text="Hide details"
+						data-closed-text="Show certificate and paper"
+						class="mt-4 inline-flex min-h-11 items-center gap-2 rounded-control text-accent transition-[color,transform] duration-100 after:absolute after:inset-0 after:rounded-tile hover:text-accent-hover active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-expanded:[&_svg]:rotate-45"
+					>
+						<span data-disclosure-label>Show certificate and paper</span>
+						<svg viewBox="0 0 24 24" class="size-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+							<path d="M12 5v14M5 12h14" />
+						</svg>
+					</button>
+				</div>
+			</li>
+		)
+	}
+
+	{
+		(honor || paper) && (
+			<li
+				id="recognition-panel"
+				class="t-disclosure grid gap-8 rounded-tile border border-border bg-surface p-6 md:col-span-2 md:grid-cols-2 md:p-8"
+			>
+				{honor && (
+					<div class="flex flex-col gap-4">
+						<p class="font-mono text-label uppercase tracking-[0.12em] text-gold">
+							Honor{honor.date && ` · ${honor.date}`}
+						</p>
+						<h4 class="font-serif text-3xl font-normal leading-[1.1] text-fg">Beta Gamma Sigma</h4>
+						{honor.summary && <p class="text-fg-2">{honor.summary} Membership is open to the top 20% of the MBA cohort.</p>}
+						{honor.image && (
+							<button
+								type="button"
+								popovertarget="cert-bgs"
+								class="overflow-hidden rounded-card border border-border bg-white transition-[border-color,transform] duration-100 hover:border-border-strong active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+								aria-label="View the Beta Gamma Sigma certificate"
+							>
+								<Image
+									src={honor.image}
+									alt=""
+									widths={[480, 800, 1000]}
+									sizes="(min-width: 1024px) 24rem, (min-width: 768px) 45vw, 100vw"
+									class="h-auto w-full"
+								/>
+							</button>
+						)}
+						{honor.image && (
+							<CertDialog id="cert-bgs" title="Beta Gamma Sigma" meta={`William & Mary chapter · ${honor.date ?? ''}`} image={honor.image} />
+						)}
+					</div>
+				)}
+				{paper && (
+					<div class="flex flex-col gap-4 md:border-l md:border-border md:pl-8">
+						<p class="font-mono text-label uppercase tracking-[0.12em] text-gold">Publication · ICPAT-19</p>
+						<h4 class="font-serif text-3xl font-normal leading-[1.1] text-fg">{paper.title}</h4>
+						{paper.venue && <p class="text-meta text-fg-muted">{paper.venue}</p>}
+						{paper.abstract && (
+							<div class="rounded-card bg-surface-2 p-5">
+								<p class="font-mono text-label uppercase tracking-[0.12em] text-fg-muted">Abstract</p>
+								<p class="mt-2 text-fg-2">{paper.abstract}</p>
+							</div>
+						)}
+						{paper.href && (
+							<a
+								href={paper.href}
+								rel="noopener"
+								target="_blank"
+								class="inline-flex min-h-11 items-center gap-2 self-start rounded-full bg-accent-fill px-5 text-on-accent transition-[background-color,transform] duration-100 hover:bg-accent-fill-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+							>
+								Read on ResearchGate
+								<IconArrowUpRight class="size-4" />
+								<span class="sr-only">(opens in a new tab)</span>
+							</a>
+						)}
+					</div>
+				)}
+			</li>
+		)
+	}
+</ul>
+
+<script>
+	import '../scripts/disclosure.js';
+</script>

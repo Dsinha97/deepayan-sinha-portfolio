@@ -8,7 +8,7 @@ sources:
 related:
   - content-guardrails.md
   - experience.md
-updated: 2026-09-10
+updated: 2026-09-24
 ---
 
 # Skills and Capabilities
@@ -27,17 +27,40 @@ domain-separated matrix instead; that part of them survives. Grouping is the inf
 **Product** — AI/ML implementation, product lifecycle management, backlog prioritisation,
 roadmapping, go-to-market strategy, cost optimisation.
 
-**Analytics** — SQL, Python, Power BI, Excel, survey design and analysis, benchmarking,
-data governance.
-
-**Engineering** — TypeScript, JavaScript, Astro, Next.js, React, Tailwind CSS, Supabase and
-Postgres, Cloudflare Workers. Earlier: Azure, Java, React Native.
+**Analytics** — survey design and analysis, benchmarking, data governance.
 
 **Process and strategy** — Lean Six Sigma Green Belt, process optimisation, make-or-buy
 analysis, stakeholder and C-suite management, cross-functional delivery.
 
-Tools that are tools rather than skills — JIRA, Confluence, Tableau, Microsoft Fabric,
-Workday — go in a smaller trailing row, not the main groups.
+## The toolkit
+
+Named software is a separate list since the redesign (2026-09-24), in `src/data/tools.ts`, each
+entry rendered as a chip with its logo. The owner confirmed on 2026-09-24 that **every tool in
+`images/Platforms/` is his own working experience**, so all of them are listed — the applied /
+studied line below still governs anything added later.
+
+- **Product & delivery** — JIRA, Confluence, Linear, Trello, Slack, Discord, Workday
+- **Data & analytics** — SQL, MySQL, Python, NumPy, pandas, Power BI, Tableau, Microsoft Fabric,
+  Excel, JASP
+- **Build** — HTML, CSS, JavaScript, TypeScript, React, Next.js, Astro, Tailwind CSS, Supabase,
+  Cloudflare, Vercel, GitHub, Postman, APIs
+- **AI** — Claude, ChatGPT, Gemini, Perplexity, NotebookLM, prompt engineering
+- **Design** — Canva
+
+The Analytics and Engineering skill groups used to name products (SQL, Python, Power BI, Excel,
+TypeScript, React…); those moved here so nothing is listed twice, and the Engineering group went
+with them. Wipro-era Azure, Java and React Native stay on the Wipro role, where they are dated.
+
+Postgres, Deno and Telegram have logos too, but only as case-study stack chips — they are
+project stack, not toolkit, and stay off the homepage by the owner's call (2026-09-24). They
+live in `projectLogos` in the same file and resolve through `logoFor`. pg_cron has no logo and
+renders as a plain chip.
+
+The logos are optimised copies of the originals (`src/assets/tools/`: rasters trimmed and capped
+at 128px; SVG coordinates rounded to three decimals, one decimal for Claude's 1200-unit mark,
+because long decimal runs in path data tripped the phone-number guard). They are other
+companies' marks, used only to name the tool, and sit on the fixed `--mark-plate` in both
+themes — several are black and would vanish on the dark ground.
 
 ## The applied / studied line
 

@@ -1,0 +1,52 @@
+---
+/*
+ * The certificate viewer (redesign): a Dialog holding page 1 of a certificate,
+ * rendered from the PDF in private/ by scripts/render-certs.py. Only the image
+ * ships; the PDFs never leave private/. "Open full size" links the largest
+ * generated width, so the viewer also works as a plain link with no popover
+ * support.
+ */
+import { Image, getImage } from 'astro:assets';
+import Dialog from './Dialog.astro';
+import IconArrowUpRight from './IconArrowUpRight.astro';
+
+interface Props {
+	id: string;
+	title: string;
+	meta: string;
+	image: ImageMetadata;
+}
+
+const { id, title, meta, image } = Astro.props;
+const full = await getImage({ src: image, width: Math.min(image.width, 2000), format: 'webp' });
+---
+
+<Dialog id={id} labelledby={`${id}-title`} width="lg">
+	<Fragment slot="header">
+		<h3 id={`${id}-title`} class="font-serif text-3xl font-normal leading-[1.1] text-fg">{title}</h3>
+		<p class="mt-1 font-mono text-meta text-fg-muted">{meta}</p>
+	</Fragment>
+	<div class="bg-surface-2 p-4 md:p-8">
+		<Image
+			src={image}
+			alt={`${title} certificate`}
+			widths={[640, 960, 1400]}
+			sizes="(min-width: 1024px) 54rem, calc(100vw - 4rem)"
+			loading="lazy"
+			class="mx-auto h-auto max-h-[70dvh] w-auto max-w-full rounded-sm border border-border"
+		/>
+	</div>
+	<div class="flex items-center justify-between gap-4 px-6 py-3 text-meta text-fg-muted md:px-7">
+		<span>Esc to close</span>
+		<a
+			href={full.src}
+			target="_blank"
+			rel="noopener"
+			class="inline-flex min-h-11 items-center gap-1.5 rounded-control text-accent underline decoration-seam underline-offset-4 hover:text-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+		>
+			Open full size
+			<IconArrowUpRight class="size-3.5" />
+			<span class="sr-only">(opens in a new tab)</span>
+		</a>
+	</div>
+</Dialog>

@@ -21,6 +21,7 @@ gate rather than copying it into a second place where it can rot.
 | M5 · Launch | 2026-10-08 | SEO, OG, headers audit, Lighthouse, QA, go-live |
 | M6 · Beyond launch | — | Profile README, contact form, analytics, palette, fourth case study, writing |
 | Design Improvements (closed 2026-09-18) | — | Findings from the `/better-interface`, `/landing-page-design`, `/find-animation-opportunities` and `/improve-animations` audits |
+| Redesign (closed 2026-09-24) | 2026-09-24 | The reference-folder redesign (rail layout) and six owner-requested fixes: covers, FPL case study and synced updates, Fort Monroe cover, certificate images, tool logos, crisp university marks |
 
 ## Shipped
 
@@ -72,6 +73,15 @@ gate rather than copying it into a second place where it can rot.
 | Social-link tooltip settles into place instead of blinking on | DSI-161 | Design Improvements | [design-system.md](wiki/design-system.md), `docs/sources/animation-plans/003-tooltip-physical-entrance.md` |
 | Resume bullet's "deliver-/deliverables" repetition rephrased | DSI-173 | Design Improvements | `src/pages/resume.md` |
 | Active nav-link no longer swaps font-weight on scroll | DSI-175 | Design Improvements | `src/components/Header.astro` |
+| Redesign: homepage and case-study layout from the reference folder | DSI-188 | Redesign | [design-system.md](wiki/design-system.md), [site-architecture.md](wiki/site-architecture.md) |
+| Covers fill their frames edge to edge | DSI-189 | Redesign | [design-system.md](wiki/design-system.md) |
+| FPL Decision corrected, with a synced Recent Updates panel | DSI-190 | Redesign | [case-study-fpl-decision.md](wiki/case-study-fpl-decision.md) |
+| Fort Monroe: new cover image | DSI-191 | Redesign | [log.md](wiki/log.md) |
+| Certificates as images with a viewer; courses as preview cards | DSI-192 | Redesign | [content-guardrails.md](wiki/content-guardrails.md), [education-and-credentials.md](wiki/education-and-credentials.md) |
+| Tool logos: toolkit and case-study stack chips | DSI-193 | Redesign | [skills.md](wiki/skills.md) |
+| University logos crisp on high-density screens | DSI-194 | Redesign | [education-and-credentials.md](wiki/education-and-credentials.md) |
+| Experience as cards with employer logos and detail dialogs | DSI-195 | Redesign | [site-architecture.md](wiki/site-architecture.md) |
+| Recognition tile expands to the BGS certificate and the paper | DSI-196 | Redesign | [education-and-credentials.md](wiki/education-and-credentials.md) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.

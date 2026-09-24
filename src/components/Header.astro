@@ -51,7 +51,7 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 			<LogoMark class="w-20 transition-transform duration-150 md:w-24" data-header-mark />
 		</a>
 
-		<nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
+		<nav class="hidden items-center gap-1 lg:flex" aria-label="Primary">
 			{
 				nav.map((item) => (
 					<a
@@ -75,7 +75,7 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 			<ThemeToggle class="ml-1" />
 		</nav>
 
-		<div class="flex items-center gap-1 md:hidden">
+		<div class="flex items-center gap-1 lg:hidden">
 			<ThemeToggle />
 			<button
 				type="button"
@@ -127,7 +127,7 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 	*/}
 	<div
 		id="mobile-menu"
-		class="t-panel absolute left-0 top-full w-full border-t border-border bg-elevated md:hidden"
+		class="t-panel absolute left-0 top-full w-full border-t border-border bg-elevated lg:hidden"
 		data-open="false"
 		data-menu
 	>

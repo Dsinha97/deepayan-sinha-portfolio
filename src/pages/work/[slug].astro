@@ -1,10 +1,12 @@
 ---
 /*
- * Case-study page template (DSI-98). Breadcrumb, title and metadata, links
- * row, cover, the STAR block as four columns collapsing to a stack, the
- * metric row, the body, the claim-scope footnote, then previous and next.
- * No dead ends: every case study offers somewhere to go next. See
- * docs/wiki/site-architecture.md.
+ * Case-study page template (DSI-98, redesigned 2026-09). Breadcrumb; a large
+ * serif title with the tagline, beside a role / period / links list; the cover
+ * edge to edge in its frame; the stack as logo chips; the metric row; the STAR
+ * block; the body, with a synced "Recent updates" panel beside it where the
+ * project has one; the claim-scope footnote; previous and next; the closing
+ * contact band. No dead ends: every case study offers somewhere to go next.
+ * See docs/wiki/site-architecture.md.
  *
  * `claimScope: engagement-outcomes` renders a visible footnote saying the
  * results describe deliverables and the client's response, not what the
@@ -12,9 +14,14 @@
  * it renders.
  */
 import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Seam from '../../components/Seam.astro';
 import Contact from '../../components/Contact.astro';
+import WorkCover from '../../components/WorkCover.astro';
+import IconArrowUpRight from '../../components/IconArrowUpRight.astro';
+import { logoFor } from '../../data/tools';
+import { FPL_TIMELINE_SOURCE, formatUpdateDate, getFplUpdates } from '../../lib/fpl-updates';
 
 export async function getStaticPaths() {
   const entries = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
@@ -38,74 +45,114 @@ interface Props {
 const { entry, prev, next } = Astro.props;
 const { data } = entry;
 const { Content } = await render(entry);
+const { updates, live } =
+  data.updates === 'fpl-timeline' ? await getFplUpdates() : { updates: [], live: false };
 
 const LINK_LABEL: Record<'live' | 'repo' | 'document', string> = {
   live: 'Visit',
   repo: 'Source',
   document: 'Document',
 };
+
+/*
+ * The case-study frame takes the cover's own proportions (to the nearest of
+ * three), so the full image fills it edge to edge with nothing cropped — the
+ * Fort Monroe cover is 4:3 and a 2:1 frame cut its logo in half. Phones get
+ * 4:3 regardless. Static lookup: Tailwind only sees whole class strings.
+ */
+const ratio = data.cover.width / data.cover.height;
+const FRAME = ratio >= 1.8 ? 'md:aspect-[2/1]' : ratio >= 1.45 ? 'md:aspect-[3/2]' : 'md:aspect-[4/3]';
+
+const link =
+  'inline-flex min-h-11 items-center gap-1.5 rounded-control text-accent underline decoration-seam underline-offset-4 transition-[color,transform] duration-100 hover:text-accent-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
 ---
 
 <BaseLayout title={`${data.title} — case study`} description={data.tagline}>
-	<div class="mx-auto max-w-[65rem] px-4 py-16 md:px-6 lg:py-24">
+	<article class="mx-auto max-w-[75rem] px-4 pb-8 pt-10 md:px-6 lg:pt-16">
 		<nav aria-label="Breadcrumb" class="text-meta text-fg-muted">
-			<a href="/#work" class="underline decoration-seam underline-offset-4 hover:text-accent">
-				Selected work
+			<a href="/#work" class={link}>
+				<span aria-hidden="true">←</span> Selected work
 			</a>
-			<span aria-hidden="true"> / </span>
-			<span>{data.title}</span>
 		</nav>
 
-		<h1 class="mt-4 font-serif text-display font-normal text-fg">{data.title}</h1>
-		<p class="mt-2 max-w-[65ch] text-fg-2">{data.tagline}</p>
-		<p class="mt-3 text-meta text-fg-muted">
-			{data.role} · {data.period}
-		</p>
+		<header class="mt-6 grid gap-10 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-end lg:gap-16">
+			<div>
+				<p class="font-mono text-label uppercase tracking-[0.12em] text-teal">Case study · {data.kicker}</p>
+				<h1 class="mt-4 font-serif text-[clamp(3rem,1.8rem+5vw,7.5rem)] font-normal leading-[0.9] tracking-[-0.04em] text-fg">
+					{data.title}
+				</h1>
+				<p class="mt-6 max-w-[56ch] text-lg text-fg-2 md:text-xl">{data.tagline}</p>
+			</div>
 
-		<ul class="mt-4 flex flex-wrap gap-2">
+			<dl class="grid grid-cols-[6rem_minmax(0,1fr)] gap-x-4 gap-y-3 border-t border-border pt-5 text-meta">
+				<dt class="font-mono text-label uppercase text-fg-muted">Role</dt>
+				<dd class="text-fg">{data.role}</dd>
+				<dt class="font-mono text-label uppercase text-fg-muted">Period</dt>
+				<dd class="text-fg">{data.period}</dd>
+				{
+					data.links && data.links.length > 0 && (
+						<>
+							<dt class="pt-3 font-mono text-label uppercase text-fg-muted">Links</dt>
+							<dd class="flex flex-wrap gap-x-5">
+								{data.links.map((item) => (
+									<a href={item.href} rel="noopener" class={link}>
+										{item.label ?? LINK_LABEL[item.type]}
+										<IconArrowUpRight class="size-3.5" />
+									</a>
+								))}
+							</dd>
+						</>
+					)
+				}
+			</dl>
+		</header>
+
+		<div class:list={['relative mt-12 aspect-[4/3] w-full overflow-hidden rounded-[1.75rem] border border-border bg-surface-2', FRAME]}>
+			<WorkCover data={data} sizes="(min-width: 1200px) 72rem, 100vw" alt={`${data.title} cover`} eager class="absolute inset-0" />
+		</div>
+
+		<ul class="mt-5 flex flex-wrap gap-2" aria-label="Stack and methods">
 			{
-				data.stack.map((tool) => (
-					<li class="rounded-control border border-border bg-surface px-2.5 py-1 font-mono text-meta text-fg-muted">
-						{tool}
-					</li>
-				))
+				data.stack.map((tool) => {
+					const logo = logoFor(tool);
+					return (
+						<li class:list={['inline-flex min-h-9 items-center gap-2 rounded-full border border-border bg-surface pr-3.5 text-meta text-fg', logo ? 'pl-1' : 'pl-3.5']}>
+							{logo && (
+								<span class="flex size-7 items-center justify-center rounded-full bg-mark-plate">
+									<Image src={logo} alt="" width={24} densities={[1, 2]} class="size-[1.125rem] object-contain" />
+								</span>
+							)}
+							{tool}
+						</li>
+					);
+				})
 			}
 		</ul>
 
 		{
-			data.links && data.links.length > 0 && (
-				<ul class="mt-6 flex flex-wrap gap-x-6">
-					{data.links.map((link) => (
-						<li>
-							<a
-								href={link.href}
-								rel="noopener"
-								class="inline-flex min-h-11 items-center rounded-control text-accent underline decoration-seam underline-offset-4 transition-[color,transform] duration-100 hover:text-accent-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-							>
-								{link.label ?? LINK_LABEL[link.type]}
-							</a>
-						</li>
+			data.metrics && data.metrics.length > 0 && (
+				<dl class="mt-16 grid grid-cols-2 border-y border-border md:grid-cols-4">
+					{data.metrics.map((metric, i) => (
+						<div
+							class:list={[
+								'flex flex-col gap-2 py-7 md:px-6 md:first:pl-0',
+								i % 2 === 1 && 'border-l border-border pl-6',
+								i >= 2 && 'border-t border-border md:border-t-0',
+								i === 2 && 'md:border-l',
+							]}
+						>
+							<dt class="text-meta text-fg-muted">
+								{metric.label}
+								{metric.qualifier && <span class="block">{metric.qualifier}</span>}
+							</dt>
+							<dd class="order-first font-serif text-stat font-normal text-gold">{metric.value}</dd>
+						</div>
 					))}
-				</ul>
+				</dl>
 			)
 		}
 
-		<div class="mt-10 flex aspect-[16/9] w-full items-center justify-center overflow-hidden rounded-card border border-border bg-surface p-6">
-			{data.coverLight && (
-				<img
-					src={data.coverLight}
-					alt={`${data.title} cover`}
-					class="theme-cover__light max-h-full max-w-full object-contain"
-				/>
-			)}
-			<img
-				src={data.cover}
-				alt={`${data.title} cover`}
-				class:list={[data.coverLight && 'theme-cover__dark', 'max-h-full max-w-full object-contain']}
-			/>
-		</div>
-
-		<dl class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+		<dl class="mt-16 grid gap-x-8 gap-y-8 border-t border-border pt-8 sm:grid-cols-2 lg:grid-cols-4">
 			{
 				(
 					[
@@ -116,66 +163,83 @@ const LINK_LABEL: Record<'live' | 'repo' | 'document', string> = {
 					] as const
 				).map(([label, value]) => (
 					<div>
-						<dt class="font-mono text-label uppercase text-fg-muted">{label}</dt>
-						<dd class="mt-2 text-fg-2">{value}</dd>
+						<dt class="font-mono text-label uppercase tracking-[0.12em] text-teal">{label}</dt>
+						<dd class="mt-3 text-fg-2">{value}</dd>
 					</div>
 				))
 			}
 		</dl>
 
-		{
-			data.metrics && data.metrics.length > 0 && (
-				<dl class="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
-					{data.metrics.map((metric) => (
-						<div>
-							<dt class="font-serif text-h2 font-normal text-fg">{metric.value}</dt>
-							<dd class="mt-1 text-meta text-fg-muted">
-								{metric.label}
-								{metric.qualifier && <span class="block">{metric.qualifier}</span>}
-							</dd>
-						</div>
-					))}
-				</dl>
-			)
-		}
+		<div class:list={['mt-16 grid gap-12', updates.length > 0 && 'lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-start lg:gap-16']}>
+			<div class="case-study-body max-w-[65ch] text-lg text-fg-2">
+				<Content />
+			</div>
 
-		<div class="case-study-body mt-10 max-w-[65ch] text-fg-2">
-			<Content />
+			{
+				updates.length > 0 && (
+					<aside aria-labelledby="updates-title" class="rounded-tile border border-border bg-surface p-6 md:p-7 lg:sticky lg:top-28">
+						<div class="flex items-center justify-between gap-4">
+							<h2 id="updates-title" class="font-serif text-3xl font-normal text-fg">Recent updates</h2>
+							<span class="inline-flex items-center gap-1.5 font-mono text-label uppercase text-teal">
+								<span class="size-1.5 rounded-full bg-teal-500" aria-hidden="true" />
+								{live ? 'Synced' : 'Snapshot'}
+							</span>
+						</div>
+						<p class="mt-2 text-meta text-fg-muted">From the project's public changelog, refreshed on every deploy.</p>
+						<ol class="mt-5">
+							{updates.map((update) => (
+								<li class="flex flex-col gap-1 border-t border-border py-4">
+									<time datetime={update.date} class="font-mono text-meta text-fg-muted">
+										{formatUpdateDate(update.date)}
+									</time>
+									<span class="font-semibold leading-snug text-fg">{update.title}</span>
+									{update.detail && <span class="text-meta text-fg-2">{update.detail}</span>}
+								</li>
+							))}
+						</ol>
+						<a href={FPL_TIMELINE_SOURCE} rel="noopener" class={link}>
+							Full timeline on GitHub
+							<IconArrowUpRight class="size-3.5" />
+						</a>
+					</aside>
+				)
+			}
 		</div>
 
 		{
 			data.claimScope === 'engagement-outcomes' && (
-				<p class="mt-10 max-w-[65ch] rounded-card border border-border bg-surface p-4 text-meta text-fg-muted">
+				<p class="mt-12 max-w-[65ch] rounded-card border border-border bg-surface p-4 text-meta text-fg-muted">
 					These results describe what was delivered and how the client responded — not what the
 					client subsequently did with the recommendations, which is not documented.
 				</p>
 			)
 		}
 
-		<Seam class="my-12" />
+		<Seam class="my-16" />
 
-		<div class="flex flex-wrap justify-between gap-4 text-meta">
+		<nav aria-label="More case studies" class="grid gap-4 sm:grid-cols-2">
 			{prev && (
 				<a
 					href={`/work/${prev.id}/`}
-					class="inline-flex min-h-11 items-center rounded-control text-accent underline decoration-seam underline-offset-4 transition-[color,transform] duration-100 hover:text-accent-hover active:scale-[0.97]"
+					class="group flex flex-col gap-1 rounded-tile border border-border bg-surface p-6 transition-[border-color,transform] duration-100 hover:border-border-strong active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 				>
-					← {prev.data.title}
+					<span class="font-mono text-label uppercase text-fg-muted">← Previous</span>
+					<span class="font-serif text-2xl text-fg group-hover:text-accent">{prev.data.title}</span>
 				</a>
 			)}
 			{next && (
 				<a
 					href={`/work/${next.id}/`}
-					class="ml-auto inline-flex min-h-11 items-center rounded-control text-accent underline decoration-seam underline-offset-4 transition-[color,transform] duration-100 hover:text-accent-hover active:scale-[0.97]"
+					class="group flex flex-col items-end gap-1 rounded-tile border border-border bg-surface p-6 text-right transition-[border-color,transform] duration-100 hover:border-border-strong active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:col-start-2"
 				>
-					{next.data.title} →
+					<span class="font-mono text-label uppercase text-fg-muted">Next →</span>
+					<span class="font-serif text-2xl text-fg group-hover:text-accent">{next.data.title}</span>
 				</a>
 			)}
-		</div>
+		</nav>
+	</article>
 
-		<Seam class="my-12" />
-
-		<h2 class="font-serif text-h2 font-normal text-fg">Contact</h2>
+	<section id="contact" class="mx-auto mt-8 max-w-[75rem] px-4 md:px-6">
 		<Contact />
-	</div>
+	</section>
 </BaseLayout>

@@ -82,3 +82,83 @@
     transition: visibility 0s !important;
   }
 }
+
+/*
+ * Dialog — the experience details and the certificate viewer (redesign).
+ *
+ * Built on the Popover API (`popover` + `popovertarget`), not a script: the
+ * browser opens and closes it, dismisses it on Esc or a click outside, and
+ * returns focus to the button that opened it — all with JavaScript off.
+ *
+ * The entrance is panel-reveal's curve and travel without the blur. The rule in
+ * the header comment is about blurred *area*, and a dialog up to 60rem wide
+ * over the whole viewport is the large surface that rule warns about.
+ *
+ * `display` and `overlay` transition with allow-discrete so the exit animates
+ * too; @starting-style is the state it enters from. A browser without those
+ * features simply shows and hides it instantly, which is the correct fallback.
+ */
+.t-dialog {
+  opacity: 0;
+  transform: translateY(var(--panel-travel)) scale(0.98);
+  transition:
+    opacity var(--panel-close-dur) var(--panel-ease),
+    transform var(--panel-close-dur) var(--panel-ease),
+    overlay var(--panel-close-dur) allow-discrete,
+    display var(--panel-close-dur) allow-discrete;
+}
+
+.t-dialog:popover-open {
+  opacity: 1;
+  transform: none;
+  transition-duration: var(--panel-open-dur);
+}
+
+@starting-style {
+  .t-dialog:popover-open {
+    opacity: 0;
+    transform: translateY(var(--panel-travel)) scale(0.98);
+  }
+}
+
+.t-dialog::backdrop {
+  background-color: var(--scrim);
+  opacity: 0;
+  transition:
+    opacity var(--panel-close-dur) var(--panel-ease),
+    overlay var(--panel-close-dur) allow-discrete,
+    display var(--panel-close-dur) allow-discrete;
+}
+
+.t-dialog:popover-open::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  .t-dialog:popover-open::backdrop {
+    opacity: 0;
+  }
+}
+
+/*
+ * Disclosure — the Recognition tile's panel.
+ *
+ * With JavaScript off the panel is simply open: the content is on the page and
+ * the tile is a plain card. The inline theme script adds `js` to <html> before
+ * first paint, so a scripted page starts collapsed without a layout shift, and
+ * disclosure.js toggles `data-open` from there.
+ */
+:root.js .t-disclosure:not([data-open='true']) {
+  display: none;
+}
+
+.t-disclosure[data-open='true'] {
+  animation: t-disclosure-in var(--panel-open-dur) var(--panel-ease);
+}
+
+@keyframes t-disclosure-in {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--panel-travel) * -1));
+  }
+}

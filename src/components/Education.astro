@@ -1,55 +1,53 @@
 ---
 /*
- * Education, credentials and recognition (DSI-94). Degrees, recognition and
- * certifications now come from content collections (DSI-98) rather than
- * `src/data/profile.ts` — see docs/wiki/site-architecture.md.
+ * Education and credentials (DSI-94, reworked in the redesign). Two degree
+ * cards, then one grid of certifications and courses.
  *
  * Certificate dates were read off the files in private/Certificates/ or the
  * issuer's own verification page. The three Anthropic certificates print no
  * date on the certificate itself; those came from the owner. Titles here are
  * the issuers' exact titles, not the shorthand the wiki carried.
  *
- * The certificate *files* stay in private/ and are never committed. What
- * ships is the issuer, the date and a verification URL where one exists.
+ * Certificates vs courses. An entry with no `href` is a certificate whose
+ * page 1 was rendered to an image by scripts/render-certs.py — the card opens
+ * it in a viewer (CertDialog). An entry with an `href` is a course whose
+ * issuer hosts the verification; the card links there, previewed with the
+ * image that page publishes. The certificate PDFs themselves stay in private/
+ * and are never committed; only the rendered images ship, for the professional
+ * certificates the owner cleared (2026-09-24). Transcripts, marksheets and
+ * degree certificates are never published. See
+ * docs/wiki/content-guardrails.md.
+ *
+ * Recognition — Beta Gamma Sigma and the paper — moved to the homepage bento's
+ * Recognition tile in the redesign, which expands to show both.
  *
  * No GPA appears in any source material, so none is published.
  */
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
+import CertDialog from './CertDialog.astro';
+import IconArrowUpRight from './IconArrowUpRight.astro';
 import wmMark from '../../images/WM_Business_School_Internal_Logo.png';
 import vitMark from '../../images/Vellore_Institute_of_Technology_seal_2017.svg.webp';
 
 const degrees = (await getCollection('education')).sort((a, b) => a.data.order - b.data.order);
-const recognition = (await getCollection('recognition')).sort((a, b) => a.data.order - b.data.order);
-const honors = recognition.filter((entry) => entry.data.kind === 'honor');
-const publications = recognition.filter((entry) => entry.data.kind === 'publication');
-
-const certEntries = (await getCollection('certifications')).sort(
-  (a, b) => a.data.order - b.data.order,
-);
-const certGroups = new Map<string, (typeof certEntries)[number]['data'][]>();
-for (const entry of certEntries) {
-  const group = certGroups.get(entry.data.group) ?? [];
-  group.push(entry.data);
-  certGroups.set(entry.data.group, group);
-}
+const certs = (await getCollection('certifications')).sort((a, b) => a.data.order - b.data.order);
 
 /*
  * Institution marks are balanced by AREA, not by height. The ratios here run
- * from a near-square seal (0.95) to a wide wordmark (2.25); give them a common
- * max-height and the wordmark is visually more than twice the seal, which
- * reads as the university being twice as important. Equal area reads as equal.
+ * from a near-square seal (0.95) to a wide wordmark (1.74); give them a common
+ * max-height and the wordmark is visually far larger than the seal, which
+ * reads as one university being more important. Equal area reads as equal.
  *
- * Each mark keeps its own aspect ratio, so `<Image>` emits truthful intrinsic
- * dimensions and nothing shifts on decode.
+ * They were blurry: one 1x file at exactly the display size shipped, and a 2x
+ * or 3x screen upscaled it. Now `densities` ships 1x/2x/3x and `format="png"`
+ * keeps the line art lossless (a lossy WebP softened the fine seal strokes).
  *
- * Both sit on a `bg-mark-plate` tile. Without it they are dark ink on a dark
- * ceramic ground and effectively invisible — which is how they shipped, and
- * what the owner caught. The plate is the same in both themes deliberately:
- * these are other people's marks, and inverting or recolouring them to suit
- * our background is not ours to do.
+ * Both sit on a `bg-mark-plate` tile in both themes: these are other people's
+ * marks, and inverting or recolouring them to suit our background is not ours
+ * to do.
  */
-const MARK_AREA = 3400;
+const MARK_AREA = 4200;
 
 function markBox(img: ImageMetadata) {
   const ratio = img.width / img.height;
@@ -63,99 +61,121 @@ const marks: Record<string, ImageMetadata> = {
 };
 ---
 
-<ul class="mt-6 flex flex-col gap-6">
+<ul class="mt-10 grid gap-5 md:grid-cols-2 md:gap-6">
 	{
 		degrees.map(({ data: degree }) => (
-			<li class="rounded-card border border-border bg-surface p-6">
-				<div class="flex items-start justify-between gap-6">
-					<div class="min-w-0">
-						<p class="text-meta text-fg-muted">{degree.period}</p>
-						<h3 class="mt-1 font-serif text-h3 font-normal text-fg">{degree.award}</h3>
-						<p class="text-fg-2">{degree.school}</p>
+			<li class="flex items-center gap-5 rounded-tile border border-border bg-surface p-6 md:p-7">
+				{marks[degree.school] && (
+					<div class="flex h-24 w-32 shrink-0 items-center justify-center rounded-card bg-mark-plate p-3">
+						<Image
+							src={marks[degree.school]}
+							alt={degree.school}
+							{...markBox(marks[degree.school])}
+							densities={[1, 2, 3]}
+							format="png"
+							class="object-contain"
+						/>
 					</div>
-					{marks[degree.school] && (
-						<div class="flex h-[5.5rem] w-32 shrink-0 items-center justify-center rounded-control bg-mark-plate p-4">
-							<Image
-								src={marks[degree.school]}
-								alt={degree.school}
-								{...markBox(marks[degree.school])}
-								class="object-contain"
-							/>
-						</div>
+				)}
+				<div class="min-w-0">
+					<h3 class="font-semibold text-fg">{degree.school}</h3>
+					<p class="mt-1 text-fg-2">{degree.award}</p>
+					<p class="mt-1 font-mono text-meta text-fg-muted">{degree.period}</p>
+					{degree.notes && (
+						<ul class="mt-2 flex flex-col gap-1 text-meta text-fg-2">
+							{degree.notes.map((note) => (
+								<li>{note}</li>
+							))}
+						</ul>
 					)}
 				</div>
-				{degree.notes && (
-					<ul class="mt-3 flex flex-col gap-1 text-meta text-fg-2">
-						{degree.notes.map((note) => (
-							<li>{note}</li>
-						))}
-					</ul>
-				)}
 			</li>
 		))
 	}
 </ul>
 
-{
-	honors.length > 0 && (
-		<>
-			<h3 class="mt-10 font-serif text-h3 font-normal text-fg">Recognition</h3>
-			<ul class="mt-3 flex flex-col gap-1 text-fg-2">
-				{honors.map((entry) => (
-					<li>{entry.data.title}</li>
-				))}
-			</ul>
-		</>
-	)
-}
-
-{
-	publications.map((entry) => (
-		<>
-			<h3 class="mt-10 font-serif text-h3 font-normal text-fg">Publication</h3>
-			<p class="mt-3 max-w-[65ch] text-fg-2">
-				<a
-					href={entry.data.href}
-					rel="noopener"
-					class="text-accent underline decoration-seam underline-offset-4 transition-[color,transform] duration-100 hover:text-accent-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-				>
-					{entry.data.title}
-				</a>
-				{entry.data.venue && (
-					<span class="mt-1 block text-meta text-fg-muted">{entry.data.venue}</span>
-				)}
-			</p>
-		</>
-	))
-}
-
-<h3 class="mt-10 font-serif text-h3 font-normal text-fg">Certificates</h3>
-<div class="mt-4 grid gap-6 sm:grid-cols-2">
-	{
-		[...certGroups].map(([group, items]) => (
-			<div>
-				<h4 class="font-mono text-label uppercase text-fg-muted">{group}</h4>
-				<ul class="mt-2 flex flex-col gap-2">
-					{items.map((cert) => (
-						<li class="text-fg-2">
-							{cert.href ? (
-								<a
-									href={cert.href}
-									rel="noopener"
-									class="underline decoration-seam underline-offset-4 transition-[color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-								>
-									{cert.name}
-								</a>
-							) : (
-								cert.name
-							)}
-							<span class="block text-meta text-fg-muted">
-								{cert.issuer} · {cert.date}
-							</span>
-						</li>
-					))}
-				</ul>
-			</div>
-		))
-	}
+<div class="mt-14 flex items-center justify-between gap-4">
+	<h3 class="font-serif text-3xl font-normal leading-[1.1] text-fg">Certifications and courses</h3>
+	<div class="group relative flex">
+		<button
+			type="button"
+			aria-label="How these cards work"
+			aria-describedby="credentials-tip"
+			class="peer flex size-11 items-center justify-center rounded-full border border-border text-fg-muted transition-[color,border-color] duration-100 hover:border-border-strong hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+		>
+			<svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+				<circle cx="12" cy="12" r="9" />
+				<path d="M12 11v5M12 8v.01" />
+			</svg>
+		</button>
+		<span
+			id="credentials-tip"
+			role="tooltip"
+			class="pointer-events-none absolute bottom-full right-0 z-10 mb-2 w-64 translate-y-1 rounded-control bg-fg px-3 py-2 text-meta text-bg opacity-0 transition-[opacity,transform] duration-150 ease-out group-hover:translate-y-0 group-hover:opacity-100 peer-focus-visible:translate-y-0 peer-focus-visible:opacity-100"
+		>
+			Certificates open in a viewer. Courses open the issuer's verification page.
+		</span>
+	</div>
 </div>
+
+<ul class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+	{
+		certs.map(({ id, data: cert }) => {
+			const card =
+				'group flex h-full w-full flex-col overflow-hidden rounded-tile border border-border bg-surface text-left transition-[border-color,transform] duration-100 hover:border-border-strong active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
+			const isCourse = Boolean(cert.href);
+			const preview = cert.image && (
+				<span
+					class:list={[
+						'flex aspect-[4/3] w-full items-center justify-center overflow-hidden',
+						isCourse && cert.image.width < 400 ? 'bg-mark-plate p-10' : 'bg-surface-2',
+					]}
+				>
+					<Image
+						src={cert.image}
+						alt=""
+						widths={[400, 640]}
+						sizes="(min-width: 1024px) 18rem, (min-width: 640px) 45vw, 100vw"
+						class:list={[
+							isCourse && cert.image.width < 400 ? 'h-auto w-3/5 object-contain' : 'size-full object-cover object-top',
+						]}
+					/>
+				</span>
+			);
+			const body = (
+				<span class="flex flex-1 flex-col gap-1 p-5">
+					<span class="font-semibold leading-snug text-fg">{cert.name}</span>
+					<span class="font-mono text-meta text-fg-muted">
+						{cert.issuer} · {cert.date}
+					</span>
+					<span class="mt-auto inline-flex items-center gap-1.5 pt-3 text-meta text-accent group-hover:text-accent-hover">
+						{isCourse ? 'Verify' : 'View certificate'}
+						{isCourse && <IconArrowUpRight class="size-3.5" />}
+					</span>
+				</span>
+			);
+
+			return (
+				<li>
+					{isCourse ? (
+						<a href={cert.href} target="_blank" rel="noopener" class={card}>
+							{preview}
+							{body}
+							<span class="sr-only">(opens the issuer's verification page in a new tab)</span>
+						</a>
+					) : (
+						<>
+							<button type="button" popovertarget={`cert-${id}`} class={card}>
+								{preview}
+								{body}
+							</button>
+							{cert.image && (
+								<CertDialog id={`cert-${id}`} title={cert.name} meta={`${cert.issuer} · ${cert.date}`} image={cert.image} />
+							)}
+						</>
+					)}
+				</li>
+			);
+		})
+	}
+</ul>

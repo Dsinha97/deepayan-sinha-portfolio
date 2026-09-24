@@ -81,9 +81,10 @@ if (button && menu) {
     link.addEventListener('click', () => setOpen(false));
   });
 
-  // A resize past the breakpoint leaves the panel hidden by CSS but still
-  // marked open, so the button would lie to a screen reader.
-  matchMedia('(min-width: 48rem)').addEventListener('change', (event) => {
+  // A resize past the breakpoint (lg, where the full nav appears) leaves the
+  // panel hidden by CSS but still marked open, so the button would lie to a
+  // screen reader. Five nav entries plus Resume and the toggle need 1024px.
+  matchMedia('(min-width: 64rem)').addEventListener('change', (event) => {
     if (event.matches) setOpen(false);
   });
 }

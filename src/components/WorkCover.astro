@@ -1,0 +1,47 @@
+---
+/*
+ * A case study's cover, filling its frame edge to edge (redesign). Used by the
+ * homepage bento and the case-study page.
+ *
+ * `object-cover` crops, which is the point — the old `object-contain` left
+ * letterbox bands around any cover whose ratio differed from the frame. The
+ * entry's `coverFocus` names the edge that must survive the crop.
+ *
+ * When `coverLight` exists both images are in the markup and the theme picks
+ * one with the `.theme-cover__*` classes in global.css; it is a display swap,
+ * so only the visible one is fetched once the page settles on a theme.
+ */
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	data: CollectionEntry<'work'>['data'];
+	/** Rendered width hint for the srcset, as a `sizes` value. */
+	sizes: string;
+	alt?: string;
+	class?: string;
+	eager?: boolean;
+}
+
+const { data, sizes, alt = '', class: className, eager = false } = Astro.props;
+
+/* Static lookup — Tailwind only generates classes it can see whole. */
+const FOCUS = {
+	center: 'object-center',
+	left: 'object-left',
+	right: 'object-right',
+	top: 'object-top',
+} as const;
+
+const widths = [480, 800, 1200, 1600];
+const common = {
+	widths,
+	sizes,
+	alt,
+	loading: eager ? ('eager' as const) : ('lazy' as const),
+};
+const cls = ['size-full object-cover', FOCUS[data.coverFocus], className];
+---
+
+{data.coverLight && <Image src={data.coverLight} {...common} class:list={['theme-cover__light', ...cls]} />}
+<Image src={data.cover} {...common} class:list={[data.coverLight && 'theme-cover__dark', ...cls]} />

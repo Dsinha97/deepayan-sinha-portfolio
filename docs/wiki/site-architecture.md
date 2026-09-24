@@ -9,7 +9,7 @@ related:
   - design-system.md
   - deployment-domain.md
   - content-guardrails.md
-updated: 2026-09-10
+updated: 2026-09-24
 status: built
 ---
 
@@ -191,19 +191,27 @@ Restructured in DSI-131 from the bento.me and portrait.so references: a **sticky
 beside a scrolling content column, rather than a hero the reader scrolls past and loses.
 
 **Left rail** (`components/IdentityRail.astro`) — sticky from `lg` up, stacked and static below
-it. Mark, name, positioning line, the three published channels, resume. Identity stays on screen
-while the work scrolls past it.
+it. Headshot, an availability line, the name at `text-hero`, positioning line, the three
+published channels. Identity stays on screen while the work scrolls past it. (Redesigned
+2026-09-24; the owner chose the rail over a full-width header row.)
 
-**Right column**, in order:
+**Right column**, in order, each section opening with a numbered `SectionHeading` and joined by
+the seam:
 
-1. **Selected work** — asymmetric bento tiles, size carrying hierarchy. FPL Decision large, the
-   Abhijit site and Fort Monroe medium, a recognition tile alongside.
-2. **Proof strip** — the four facts from [profile](profile.md), as mono-labelled tiles.
-3. **Capabilities** — the four skill groups as chips, no proficiency bars.
-4. **Experience** — the timeline, reverse chronological.
-5. **Education and credentials** — degrees, certificates grouped by category, recognition.
-6. **About** — three short first-person paragraphs.
-7. **Contact** — email with a copy button, LinkedIn, GitHub, resume.
+1. **Proof strip** — the four facts from [profile](profile.md), hairline-divided.
+2. **01 Selected work** (`WorkGrid.astro`) — FPL Decision full width; Fort Monroe as a `tall`
+   tile beside the Abhijit site and the Recognition tile, which expands to show the Beta Gamma
+   Sigma certificate and the paper's abstract.
+3. **02 Experience** (`Experience.astro`) — a card per role with the employer's logo, each
+   opening a dialog with the detail; a role with a case study gets the short version and a link.
+4. **03 Skills** (`Skills.astro`) — method groups as chips, then the toolkit with logos
+   (`src/data/tools.ts`).
+5. **04 Credentials** (`Education.astro`) — degree cards, then one grid of certifications
+   (open in a viewer) and courses (link to the issuer).
+6. **05 About** — the lead paragraph in the serif, the rest in body.
+
+**Then, full container width, the closing band** (`Contact.astro`) — "Let's work together",
+email with a copy button, LinkedIn, GitHub. The same band ends every case study.
 
 Work now comes first in the column because the rail already answers "who is this" before the
 reader scrolls at all — which is what the hero used to do with a whole screen.
@@ -217,10 +225,13 @@ nor a column: a sticky rail on a 375px screen eats half the viewport.
 
 
 
-Breadcrumb, then title, tagline, role, period and stack chips, then the links row, cover image,
-the STAR block as four columns collapsing to a stack, the metric row, the long-form body, the
-claim-scope footnote where applicable, then previous and next, then a contact call to action.
-No dead ends: every case study offers somewhere to go next.
+Breadcrumb; a large serif title and tagline beside a role / period / links list; the cover
+edge to edge in a frame of its own ratio; the stack as chips, with logos where
+`src/data/tools.ts` has one; the metric row; the STAR block as four columns collapsing to a
+stack; the long-form body, with a synced **Recent updates** panel beside it where the entry sets
+`updates` (FPL Decision only — `src/lib/fpl-updates.ts`); the claim-scope footnote where
+applicable; previous and next as cards; the closing contact band. No dead ends: every case
+study offers somewhere to go next.
 
 ## What is deliberately not built
 

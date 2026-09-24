@@ -23,9 +23,11 @@
 interface Props {
 	href: string;
 	label: string;
+	/** A hairline box around the icon — the rail's contact row (redesign). */
+	bordered?: boolean;
 }
 
-const { href, label } = Astro.props;
+const { href, label, bordered = false } = Astro.props;
 ---
 
 <div class="group relative flex">
@@ -33,7 +35,10 @@ const { href, label } = Astro.props;
 		href={href}
 		rel="me noopener"
 		aria-label={label}
-		class="peer inline-flex min-h-11 min-w-11 items-center justify-center rounded-control text-fg-2 transition-[color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+		class:list={[
+			'peer inline-flex min-h-11 min-w-11 items-center justify-center rounded-control text-fg-2 transition-[color,border-color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+			bordered && 'border border-border hover:border-border-strong',
+		]}
 	>
 		<slot />
 	</a>

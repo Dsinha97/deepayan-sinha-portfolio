@@ -1,8 +1,13 @@
-# Nine certificates (DSI-94, migrated to a collection by DSI-98), grouped on
-# the page by `group`. Dates read off the certificate files or the issuer's
-# own verification page — see docs/wiki/education-and-credentials.md for
-# provenance per entry. The three Anthropic certificates print no date at
-# all; those dates are the owner's.
+# Nine certificates and courses (DSI-94, migrated to a collection by DSI-98).
+# Dates read off the certificate files or the issuer's own verification page —
+# see docs/wiki/education-and-credentials.md for provenance per entry. The
+# three Anthropic certificates print no date at all; those dates are the
+# owner's.
+#
+# `image` is one of two things. With no `href`, it is page 1 of the
+# certificate, rendered from private/ by scripts/render-certs.py, and the card
+# opens it in a viewer. With an `href`, it is the preview the issuer's
+# verification page publishes, and the card links out to that page.
 
 lssgb:
   order: 1
@@ -10,6 +15,7 @@ lssgb:
   name: "Lean Six Sigma Green Belt (A2026-129)"
   issuer: "William & Mary"
   date: "May 2026"
+  image: "../../assets/certs/lssgb.webp"
 
 aha-pmp:
   order: 2
@@ -17,6 +23,7 @@ aha-pmp:
   name: "Aha! Product Management Professional"
   issuer: "Aha!"
   date: "Mar 2025"
+  image: "../../assets/certs/aha-pmp.webp"
 
 claude-code-101:
   order: 3
@@ -24,6 +31,7 @@ claude-code-101:
   name: "Claude Code 101"
   issuer: "Anthropic"
   date: "Jun 2026"
+  image: "../../assets/certs/claude-code-101.webp"
 
 ai-fluency:
   order: 4
@@ -31,6 +39,7 @@ ai-fluency:
   name: "AI Fluency: Framework & Foundations"
   issuer: "Anthropic"
   date: "May 2026"
+  image: "../../assets/certs/ai-fluency.webp"
 
 ai-capabilities:
   order: 5
@@ -38,6 +47,7 @@ ai-capabilities:
   name: "AI Capabilities and Limitations"
   issuer: "Anthropic"
   date: "May 2026"
+  image: "../../assets/certs/ai-capabilities.webp"
 
 power-bi-dax:
   order: 6
@@ -45,6 +55,7 @@ power-bi-dax:
   name: "Power BI Data Modeling with DAX"
   issuer: "LinkedIn Learning"
   date: "Aug 2025"
+  image: "../../assets/certs/power-bi-dax.webp"
   href: "https://www.linkedin.com/learning/certificates/88e165371499c5e946bb363e6d6a18e9ea60984fea90b9f38059a034cbe25ee3?u=51086953"
 
 power-bi-essential:
@@ -53,6 +64,7 @@ power-bi-essential:
   name: "Power BI Essential Training"
   issuer: "LinkedIn Learning"
   date: "Jul 2025"
+  image: "../../assets/certs/power-bi-essential.webp"
   href: "https://www.linkedin.com/learning/certificates/fc6fe15ae3a6ba6e0d049b94956bd86cb375e7a6bcb66ee9cac458607287243d?u=51086953"
 
 sql-essential:
@@ -61,6 +73,7 @@ sql-essential:
   name: "SQL Essential Training"
   issuer: "LinkedIn Learning"
   date: "Jun 2025"
+  image: "../../assets/certs/sql-essential.webp"
   href: "https://www.linkedin.com/learning/certificates/3d2e06df96914e928a9405d59467cf20aca13089e5e554fca2b0731cabd374e8?u=51086953"
 
 mba-math:
@@ -70,3 +83,4 @@ mba-math:
   issuer: "MBA Math"
   date: "Jul 2024"
   href: "https://www.mbamath.com/Certificate.aspx?id=93t8lyrdThg%3d"
+  image: "../../assets/certs/mba-math-logo.png"

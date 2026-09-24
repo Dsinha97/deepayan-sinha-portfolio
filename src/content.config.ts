@@ -17,20 +17,34 @@ import { file, glob } from 'astro/loaders';
 
 const work = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/work' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     tagline: z.string(),
     role: z.string(),
     period: z.string(),
     stack: z.array(z.string()),
-    cover: z.string(),
+    /* Imported through astro:assets, not served from public/, so every cover
+     * ships resized with a srcset and truthful width and height. Covers fill
+     * their frame edge to edge (object-cover), which crops. */
+    cover: image(),
     /* Shown instead of `cover` in light theme, when a screenshot's own UI is
      * theme-specific and a single image can't read correctly in both. `cover`
      * remains the dark-theme (and no-JS/reduced-motion-irrelevant) image. */
-    coverLight: z.string().optional(),
-    bentoSize: z.enum(['lg', 'md', 'sm']),
+    coverLight: image().optional(),
+    /* Which edge survives the crop. A cover whose subject sits off-centre (the
+     * Fort Monroe title panel is on the left) names that edge here, or the
+     * crop cuts through it. */
+    coverFocus: z.enum(['center', 'left', 'right', 'top']).default('center'),
+    /* The kind of work, first in the card's meta line: "Solo build", "Consulting". */
+    kicker: z.string(),
+    /* `tall` spans two rows beside two ordinary tiles — the portrait-photo
+     * tile in the portrait.so reference. */
+    bentoSize: z.enum(['lg', 'md', 'sm', 'tall']),
     order: z.number(),
     claimScope: z.enum(['own-outcomes', 'engagement-outcomes']),
+    /* A "Recent updates" panel synced at build time from the project's own
+     * changelog. Only FPL Decision has one — see src/lib/fpl-updates.ts. */
+    updates: z.enum(['fpl-timeline']).optional(),
     star: z.object({
       situation: z.string(),
       task: z.string(),
@@ -93,11 +107,15 @@ const education = defineCollection({
 
 const certifications = defineCollection({
   loader: file('src/content/certifications/certificates.yaml'),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     name: z.string(),
     issuer: z.string(),
     date: z.string(),
+    /* Where the card goes. With an href the card is a link to the issuer's
+     * verification page and `image` is its preview; without one, `image` is
+     * the certificate itself and the card opens it in a viewer. */
     href: z.string().url().optional(),
+    image: image().optional(),
     group: z.string(),
     order: z.number(),
   }),
@@ -114,11 +132,15 @@ const skills = defineCollection({
 
 const recognition = defineCollection({
   loader: file('src/content/recognition/items.yaml'),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     kind: z.enum(['honor', 'publication']),
     title: z.string(),
+    date: z.string().optional(),
     venue: z.string().optional(),
     href: z.string().url().optional(),
+    summary: z.string().optional(),
+    abstract: z.string().optional(),
+    image: image().optional(),
     order: z.number(),
   }),
 });

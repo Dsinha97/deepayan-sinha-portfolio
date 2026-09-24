@@ -1,0 +1,22 @@
+---
+/* The ↗ used on cards and outbound links. Decorative: the link text names the destination. */
+interface Props {
+	class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<svg
+	viewBox="0 0 24 24"
+	class={className}
+	fill="none"
+	stroke="currentColor"
+	stroke-width="2"
+	stroke-linecap="round"
+	stroke-linejoin="round"
+	aria-hidden="true"
+	focusable="false"
+>
+	<path d="M7 17 17 7M8 7h9v9" />
+</svg>

@@ -1,0 +1,149 @@
+---
+/*
+ * Experience (DSI-93, reworked as cards in the redesign). Each role is a card —
+ * logo, dates, organisation, title, the one-line summary — that opens a Dialog
+ * with the rest: the bullets, the outcome, the tools, and the case-study link.
+ *
+ * A role with a case study gets the short version in its dialog (owner
+ * request, 2026-09-24): one paragraph, the outcome and a link to the case
+ * study, because the case study is where the detail lives and repeating its
+ * bullets here would be the third copy of them on the site.
+ *
+ * Two things here are guardrails, not styling — carried over from Timeline:
+ *
+ *   1. `selfReported` is kept as a separate field but is NOT rendered as a
+ *      visible badge — owner decision, 2026-09-11. The three Wipro figures are
+ *      his own recollection rather than a retained record, and that stays
+ *      recorded in the data, in docs/wiki/experience.md and in the vault, so
+ *      nobody later mistakes them for audited numbers. Do not merge them into
+ *      `points`: the field is the internal record.
+ *   2. The case-study link only renders when its case study actually exists —
+ *      `workSlug` is checked against the `work` collection, not a hand-flipped
+ *      switch. A link to a 404 fails DSI-107.
+ *
+ * Wipro stays genericised: no client, vendor or platform names, in the card or
+ * the dialog. See docs/wiki/content-guardrails.md.
+ *
+ * The employer marks are other organisations' logos and sit on a fixed plate
+ * in both themes, like the institution marks in Education. Fort Monroe's mark
+ * is cropped from the case-study cover and keeps its own navy ground.
+ */
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Dialog from './Dialog.astro';
+import wmBusiness from '../../images/WM_Business_School_Internal_Logo.png';
+import wmFull from '../../images/wm_logo_full.png';
+import wipro from '../../images/Wipro_Primary_Logo_Color_RGB.svg.webp';
+import fortMonroe from '../assets/logos/fort-monroe.png';
+
+const roles = (await getCollection('experience')).sort((a, b) => a.data.order - b.data.order);
+const workSlugs = new Set((await getCollection('work')).map((entry) => entry.id));
+
+/* Keyed by the role's id in roles.yaml. `plate` is a static class string. */
+const LOGOS: Record<string, { src: ImageMetadata; plate: string; pad: string }> = {
+	'wm-teaching-assistant': { src: wmBusiness, plate: 'bg-mark-plate', pad: 'p-2.5' },
+	'fort-monroe': { src: fortMonroe, plate: 'bg-[#06253a]', pad: 'p-1' },
+	'wm-it-internship': { src: wmFull, plate: 'bg-mark-plate', pad: 'p-2' },
+	wipro: { src: wipro, plate: 'bg-mark-plate', pad: 'p-2.5' },
+};
+---
+
+<ol class="mt-10 grid gap-5 md:grid-cols-2 md:gap-6">
+	{
+		roles.map(({ id, data: role }) => {
+			const logo = LOGOS[id];
+			const caseStudy = role.workSlug && workSlugs.has(role.workSlug) ? role.workSlug : undefined;
+			const bullets = caseStudy ? [] : [...role.points, ...(role.selfReported ?? [])];
+			const dialogId = `role-${id}`;
+
+			return (
+				<li class="flex">
+					<button
+						type="button"
+						popovertarget={dialogId}
+						class="group flex w-full flex-col gap-4 rounded-tile border border-border bg-surface p-6 text-left transition-[border-color,transform] duration-100 hover:border-border-strong active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring md:p-7"
+					>
+						<span class="flex w-full items-center justify-between gap-4">
+							{logo && (
+								<span class:list={['flex h-16 w-24 items-center justify-center overflow-hidden rounded-card border border-border', logo.plate, logo.pad]}>
+									<Image src={logo.src} alt="" height={56} densities={[1, 2, 3]} format="png" class="max-h-full w-auto max-w-full object-contain" />
+								</span>
+							)}
+							<span class="font-mono text-meta text-fg-muted">{role.period}</span>
+						</span>
+						<span class="flex flex-col gap-1">
+							<span class="text-xl font-semibold tracking-[-0.01em] text-fg">{role.org}</span>
+							<span class="text-fg-2">{role.title}</span>
+						</span>
+						<span class="text-fg-2">{role.summary}</span>
+						<span class="mt-auto inline-flex items-center gap-1.5 text-meta font-medium text-accent group-hover:text-accent-hover">
+							Read more
+							<svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+								<path d="M12 5v14M5 12h14" />
+							</svg>
+						</span>
+					</button>
+
+					<Dialog id={dialogId} labelledby={`${dialogId}-title`}>
+						<Fragment slot="header">
+							<div class="flex items-center gap-4">
+								{logo && (
+									<span class:list={['hidden h-14 w-20 shrink-0 items-center justify-center overflow-hidden rounded-card border border-border sm:flex', logo.plate, logo.pad]}>
+										<Image src={logo.src} alt="" height={48} densities={[1, 2, 3]} format="png" class="max-h-full w-auto max-w-full object-contain" />
+									</span>
+								)}
+								<div class="min-w-0">
+									<h3 id={`${dialogId}-title`} class="font-serif text-3xl font-normal leading-[1.1] text-fg">{role.org}</h3>
+									<p class="mt-1 text-fg-2">{role.title}</p>
+									<p class="mt-1 font-mono text-meta text-fg-muted">
+										{role.period} · {role.place}
+									</p>
+								</div>
+							</div>
+						</Fragment>
+
+						<div class="flex flex-col gap-5 px-6 py-6 md:px-7">
+							<p class="text-fg-2">{role.summary}</p>
+
+							{bullets.length > 0 && (
+								<ul class="flex flex-col border-t border-border">
+									{bullets.map((point) => (
+										<li class="flex gap-3 border-b border-border py-3 text-fg">
+											<span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-seam" aria-hidden="true" />
+											{point}
+										</li>
+									))}
+								</ul>
+							)}
+
+							{role.outcome && (
+								<div class="rounded-card bg-surface p-4">
+									<p class="font-mono text-label uppercase tracking-[0.12em] text-gold">Outcome</p>
+									<p class="mt-1 text-fg">{role.outcome}</p>
+								</div>
+							)}
+
+							{role.tools && !caseStudy && (
+								<ul class="flex flex-wrap gap-2" aria-label="Tools">
+									{role.tools.map((tool) => (
+										<li class="rounded-full bg-accent-soft px-3 py-1 text-meta text-on-accent-soft">{tool}</li>
+									))}
+								</ul>
+							)}
+
+							{caseStudy && (
+								<a
+									href={`/work/${caseStudy}/`}
+									class="inline-flex min-h-12 items-center gap-2 self-start rounded-full bg-accent-fill px-6 text-on-accent transition-[background-color,transform] duration-100 hover:bg-accent-fill-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+								>
+									Read the case study
+									<span aria-hidden="true">→</span>
+								</a>
+							)}
+						</div>
+					</Dialog>
+				</li>
+			);
+		})
+	}
+</ol>

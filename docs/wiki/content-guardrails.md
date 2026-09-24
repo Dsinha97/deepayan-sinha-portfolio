@@ -10,7 +10,7 @@ related:
   - experience.md
   - case-study-fort-monroe.md
   - profile.md
-updated: 2026-09-10
+updated: 2026-09-24
 ---
 
 # Content Guardrails
@@ -134,6 +134,19 @@ experience entries: data-driven decision making (the Wipro AI/ML work) and gover
   degree certificates, MBA coursework files, the original resume, and the vault snapshot all
   live there. Their factual *contents* — a certificate's name, issuer and public verification
   URL — may be published; the files themselves stay local.
+- **One exception, decided by the owner on 2026-09-24: rendered images of professional
+  certificates.** Page 1 of the five professional certificates (LSSGB, Aha!, the three Anthropic
+  ones) and the Beta Gamma Sigma certificate is rendered to WebP by `scripts/render-certs.py`
+  into `src/assets/certs/`, and those images ship; the PDFs never leave `private/`. Every render
+  is reviewed by eye before commit, because the dist guard does not scan images. Two carry an ID
+  (LSSGB's A2026-129, already in its published title; Aha!'s LinkedIn verification hash) and
+  three carry an official's printed name or signature — accepted as ordinary for a certificate.
+  **Academic records stay private without exception**: transcripts, marksheets and degree
+  certificates are not rendered and not published.
+- The three LinkedIn Learning course cards use the preview image each verification page
+  publishes as its own share image, downloaded once and served from the site (the CSP allows
+  no third-party image host). MBA Math publishes no such image — its page is a per-module
+  score chart, deliberately not reproduced — so its card shows the issuer's logo.
 - MBA course projects appear **by title and skill only**. No client deliverables, no team
   documents, no downloads.
 

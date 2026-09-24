@@ -1,6 +1,8 @@
-# Four skill groups (DSI-95, migrated to a collection by DSI-98). No
-# proficiency bars — the grouping is the information. Every group must be
-# evidenced elsewhere on the page; see docs/wiki/skills.md before adding one.
+# Skill groups (DSI-95, migrated to a collection by DSI-98). Methods and
+# practices only. Named software lives in src/data/tools.ts, which renders with
+# logos; the Analytics and Engineering items that were products (SQL, Python,
+# Power BI, Excel, TypeScript, React…) moved there in the redesign, so nothing
+# is listed twice. See docs/wiki/skills.md.
 
 product:
   order: 1
@@ -17,29 +19,12 @@ analytics:
   order: 2
   group: Analytics
   items:
-    - "SQL"
-    - "Python"
-    - "Power BI"
-    - "Excel"
     - "Survey design and analysis"
     - "Benchmarking"
     - "Data governance"
 
-engineering:
-  order: 3
-  group: Engineering
-  items:
-    - "TypeScript"
-    - "JavaScript"
-    - "Astro"
-    - "Next.js"
-    - "React"
-    - "Tailwind CSS"
-    - "Supabase and Postgres"
-    - "Cloudflare Workers"
-
 process:
-  order: 4
+  order: 3
   group: "Process and strategy"
   items:
     - "Lean Six Sigma Green Belt"

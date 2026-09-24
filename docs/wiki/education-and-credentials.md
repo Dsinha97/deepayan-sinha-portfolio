@@ -9,7 +9,7 @@ sources:
 related:
   - experience.md
   - content-guardrails.md
-updated: 2026-09-10
+updated: 2026-09-24
 ---
 
 # Education and Credentials
@@ -46,9 +46,16 @@ modelling that predates and is independent of the MBA.
 
 ## Certificates
 
-Published with issuer, date and a verification URL where one exists. The certificate **files**
-stay in `private/Certificates/` and are never committed — see
-[content-guardrails](content-guardrails.md#files).
+Published with issuer, date and either the certificate itself or a verification URL. Since the
+redesign (2026-09-24) every entry is a card with a picture, in one "Certifications and courses"
+grid:
+
+- **Certificates** (no verification URL) show page 1 of the certificate, rendered from the PDF
+  by `scripts/render-certs.py`; the card opens it in a viewer. The PDFs stay in
+  `private/Certificates/` — only the rendered image ships. See
+  [content-guardrails](content-guardrails.md#files) for the rule and its limits.
+- **Courses** (with a verification URL) link out to the issuer's page, previewed with the image
+  that page publishes.
 
 | Certificate | Issuer | Date | Verification |
 |---|---|---|---|
@@ -62,7 +69,8 @@ stay in `private/Certificates/` and are never committed — see
 | Aha! Product Management Professional | Aha! | Mar 2025 | certificate on file |
 | MBA Math | MBA Math | Jul 2024 | [verify](https://www.mbamath.com/Certificate.aspx?id=93t8lyrdThg%3d) |
 
-Grouped on the page by category — process, product, AI, analytics — rather than listed flat.
+Ordered certificates first, then courses. The `group` field (process, product, AI, analytics)
+is kept in the data but no longer splits the page.
 
 **Where the dates came from (DSI-94, 2026-09-11).** Three titles in the earlier version of this
 table were wrong and are corrected above: the LinkedIn courses are *Power BI Data Modeling with
@@ -90,6 +98,18 @@ management, macroeconomics, cybersecurity strategy, case competition.
 Third-party marks need the treatment the `abhijitsinha.in` design system documents: a fixed
 tile, `object-contain`, alt text equal to the institution's name, and area balanced rather
 than height — wide marks otherwise dwarf compact ones at the same `max-h`.
+
+**They were blurry until the redesign.** Only a 1x file at exactly the display size shipped, so
+any 2x or 3x screen upscaled it, and the lossy WebP conversion softened the seal's fine strokes.
+They now ship `densities={[1, 2, 3]}` as lossless PNG. Checked at 2x after the change.
+
+## Recognition on the homepage
+
+Beta Gamma Sigma and the ICPAT-19 paper moved out of this section into the homepage bento's
+Recognition tile, which expands in place to show the BGS certificate (openable in the same
+viewer as the others) and the paper's title, venue, full abstract and ResearchGate link. The
+abstract is the paper's own, from `research-paper-details.md`; the data lives in
+`src/content/recognition/items.yaml`.
 
 ## Sources
 

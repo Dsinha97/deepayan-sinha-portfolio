@@ -4,8 +4,10 @@ tagline: "Seven weeks, four deliverables, one of five consultants, for a histori
 role: "MBA Corporate Field Consultancy — one of five consultants"
 period: "Sept – Nov 2025"
 stack: ["Survey design & analysis", "Comparative benchmarking", "Make-or-buy analysis", "Financial modelling"]
-cover: "/work/fort-monroe-cover.png"
-bentoSize: "md"
+cover: "../../assets/work/fort-monroe-cover.jpg"
+coverFocus: "left"
+kicker: "Consulting"
+bentoSize: "tall"
 order: 3
 claimScope: "engagement-outcomes"
 star:

@@ -254,3 +254,24 @@ One line per action, newest at the bottom.
   [`--mark-plate` section](design-system.md#--mark-plate-a-ground-for-other-peoples-logos)
   already warns against for third-party marks — the rule was already correctly stated, the code
   just didn't follow it.
+
+- 2026-09-24 — **The redesign.** The owner asked for a redesign from the reference folder plus
+  six fixes. It was mocked on a Design canvas (rail and top-row hero variants, light and dark, the
+  case study, the certificate viewer), revised through a dozen canvas comments, and built with
+  the rail. The six fixes: covers fill their frames (`object-cover`, `coverFocus`, `image()`
+  covers); the FPL case study corrected against the FPL repo and given a build-time synced
+  Recent updates panel; the Fort Monroe cover replaced with `fort-monroe-cover.jpg`;
+  certificates shown as images with a viewer (rendered from `private/` by
+  `scripts/render-certs.py`, an owner-approved exception now in content-guardrails); tool logos
+  for every tool in `images/Platforms/`; the university marks made crisp with 1x/2x/3x lossless
+  output. Canvas comments added employer logos, experience cards with dialogs, course cards with
+  previews, one merged certifications grid, an expandable Recognition tile with the BGS
+  certificate and the paper's abstract, and the gold seam under the header.
+
+  Found on the way: long decimal runs in logo SVG path data tripped the phone-number guard,
+  fixed by rounding coordinates (the guard stays strict); the snapshot fallback silently
+  rendered nothing because a path relative to `import.meta.url` points nowhere once bundled,
+  fixed by importing the JSON; and the header overflowed at 768px once the nav had five
+  entries, so the full nav now starts at `lg`. Pages updated: design-system, design-references,
+  content-guardrails, education-and-credentials, skills, site-architecture,
+  case-study-fpl-decision.

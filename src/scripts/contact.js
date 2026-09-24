@@ -11,6 +11,9 @@
  */
 const BUTTON_CLASS =
   'inline-flex min-h-11 items-center gap-2 rounded-control border border-border bg-surface px-4 text-fg-2 transition-[color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
+// On the closing band's purple ground (redesign): an outlined pill.
+const BAND_BUTTON_CLASS =
+  'inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-band-line px-6 text-on-band-2 transition-[color,border-color,transform] duration-100 hover:border-on-band-2 hover:text-on-band active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-band';
 
 // Crossfade half-duration: the label fades out, the text swaps, then fades
 // back in — each half stays inside the 100-160ms feedback budget.
@@ -25,7 +28,7 @@ const email = link?.dataset.contactEmail;
 if (wrap && email && navigator.clipboard) {
   const button = document.createElement('button');
   button.type = 'button';
-  button.className = BUTTON_CLASS;
+  button.className = wrap.dataset.contact === 'band' ? BAND_BUTTON_CLASS : BUTTON_CLASS;
 
   // The label lives in its own span so the text swap can crossfade — a
   // direct button.textContent swap has no bridge between the two strings.

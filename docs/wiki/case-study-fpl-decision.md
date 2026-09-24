@@ -8,7 +8,7 @@ sources:
 related:
   - case-study-abhijit-sinha-website.md
   - content-guardrails.md
-updated: 2026-09-10
+updated: 2026-09-24
 ---
 
 # Case Study — FPL Decision
@@ -18,8 +18,34 @@ updated: 2026-09-10
 > [fpldecision.com](https://fpldecision.com/). `claimScope: own-outcomes`.
 
 His own project, so the ordinary claim rules apply — anything true and checkable may be
-published. The repository is private, which makes the case study itself the artefact a reader
-can evaluate.
+published. **The repository is public** (github.com/Dsinha97/fpl-app, corrected 2026-09-24 —
+it was private when this page was first written), so the case study now links the source.
+
+**Corrected 2026-09-24 against `C:/FPL App` (roadmap, linear.md, wiki timeline).** Four claims
+here and in the shipped case study were wrong, and the case study was rewritten:
+
+| Was | Is |
+|---|---|
+| Period "2025 – present" | Aug 2026 – present; first commit 2026-08-02 |
+| "A full season of in-season use" | The opening weeks of the 2026-27 season (GW1 was ~2026-08-21) |
+| "Thirty-six shipped sprints" | Forty, by the roadmap's numbering (which has gaps); Sprint 40 shipped 2026-09-24 |
+| "Validated by walk-forward backtesting" | **Held to** a walk-forward gate it **does not yet pass**: out of sample it trails a naive last-5-gameweeks baseline in every season tested (Sprint 17a), and no accuracy claim may be made until it beats it |
+| "Two engine bugs caught in a data harness before release" | Two engine bugs (knapsack fill order, pruned funding move), fixed in the engine — the pre-release framing is not supported by the sprint docs |
+| Three documented negatives | Seven: the xP baseline, the results FDR, FPL login, the price-fall classifier (and its withdrawn false pass), the cancelled calibration refit, the cancelled cold-start phase 2, the latency plan's wrong hypothesis |
+
+The stack gained React, TypeScript, Tailwind, pg_cron and Telegram, and the case study gained a
+paragraph on what else shipped (matchday hub, chips, mini-league and top-1k EO, news, Telegram
+bot, price-watch, player profile, shortlist, decision analytics, 20 club tactical profiles).
+
+**Recent updates are synced, not written.** `src/lib/fpl-updates.ts` fetches
+`docs/wiki/timeline.md` from the public repo at build time and shows the latest six rows,
+reduced to a title and one sentence, with tracker ids scrubbed. It falls back to the committed
+`src/data/fpl-updates.snapshot.json` when offline (refresh it with
+`SYNC_FPL_SNAPSHOT=1 npm run build`), and the panel says "Snapshot" instead of "Synced" when it
+does. Build-time only, so the CSP is unchanged.
+
+The Situation / Task / Action / Result below is the original write-up, kept for its reasoning;
+where it disagrees with the table above, the table wins.
 
 ## Situation
 

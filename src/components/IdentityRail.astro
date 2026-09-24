@@ -19,11 +19,16 @@
  * image decodes — that is the gate on this issue, not a nicety.
  *
  * The height here must match the source's own aspect ratio (2001x3000, so
- * 224x336). Astro preserves that ratio and ignores a height that contradicts
- * it: ask for 224x280 and you still get a 336px-tall file, while the width and
- * height attributes promise 280 and the page jumps 56px when it decodes. That
- * is the exact failure this component is supposed to prevent. Changing the
- * width means recomputing the height, not guessing it.
+ * 240x360). Astro preserves that ratio and ignores a height that contradicts
+ * it: ask for 240x320 and you still get a 360px-tall file, while the width and
+ * height attributes promise 320 and the page jumps when it decodes. That is the
+ * exact failure this component is supposed to prevent. Changing the width means
+ * recomputing the height, not guessing it. The 3:4 frame is a CSS crop
+ * (aspect-ratio + object-cover) on top of truthful intrinsic dimensions.
+ *
+ * Redesign: a larger name, an availability line above it, and bordered 44px
+ * contact buttons. The Resume button moved to the header, where it already
+ * was, so the rail no longer carries it twice.
  */
 import { Image } from 'astro:assets';
 import { site } from '../data/site';
@@ -32,46 +37,44 @@ import IconEmail from './IconEmail.astro';
 import IconGitHub from './IconGitHub.astro';
 import IconLinkedIn from './IconLinkedIn.astro';
 import SocialLink from './SocialLink.astro';
+import { status } from '../data/profile';
 ---
 
 <aside class="lg:sticky lg:top-28 lg:self-start">
 	<Image
 		src={headshot}
 		alt={site.name}
-		width={224}
-		height={336}
+		width={240}
+		height={360}
 		densities={[1, 2]}
 		loading="eager"
 		fetchpriority="high"
-		class="w-56 rounded-media border border-border"
+		class="aspect-[3/4] w-48 rounded-media object-cover object-top lg:w-60"
 	/>
 
-	<h1 class="mt-8 font-serif text-display font-normal text-fg">{site.name}</h1>
-	<p class="mt-3 max-w-[38ch] text-fg-2">{site.headline}</p>
+	<p class="mt-8 flex items-center gap-2 font-mono text-label uppercase text-fg-muted">
+		<span class="size-2 rounded-full bg-teal-500" aria-hidden="true"></span>
+		{status}
+	</p>
+	<h1 class="mt-4 font-serif text-hero font-normal text-fg">{site.name}</h1>
+	<p class="mt-5 max-w-[38ch] text-lg text-fg-2">{site.headline}.</p>
 	<p class="mt-1 max-w-[38ch] text-fg-muted">{site.subline}</p>
 
-	<ul class="mt-8 flex gap-2">
+	<ul class="mt-7 flex gap-2">
 		<li>
-			<SocialLink href={`mailto:${site.email}`} label={site.email}>
-				<IconEmail class="size-6" />
+			<SocialLink href={`mailto:${site.email}`} label={site.email} bordered>
+				<IconEmail class="size-5" />
 			</SocialLink>
 		</li>
 		<li>
-			<SocialLink href={site.links.linkedin} label="LinkedIn">
-				<IconLinkedIn class="size-6" />
+			<SocialLink href={site.links.linkedin} label="LinkedIn" bordered>
+				<IconLinkedIn class="size-5" />
 			</SocialLink>
 		</li>
 		<li>
-			<SocialLink href={site.links.github} label="GitHub">
-				<IconGitHub class="size-6" />
+			<SocialLink href={site.links.github} label="GitHub" bordered>
+				<IconGitHub class="size-5" />
 			</SocialLink>
 		</li>
 	</ul>
-
-	<a
-		href={site.resumePath}
-		class="mt-4 inline-flex min-h-11 items-center rounded-control bg-accent-fill px-6 text-on-accent transition-[background-color,transform] duration-100 hover:bg-accent-fill-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-	>
-		Resume
-	</a>
 </aside>

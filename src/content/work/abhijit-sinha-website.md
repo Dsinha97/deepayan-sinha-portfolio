@@ -4,7 +4,8 @@ tagline: "A regulated-content marketing site for an AMFI-registered mutual fund 
 role: "Solo developer & maintainer"
 period: "2026 – present"
 stack: ["Astro", "Tailwind CSS", "Supabase", "Postgres", "Vercel"]
-cover: "/work/abhijit-sinha-website-cover.webp"
+cover: "../../assets/work/abhijit-sinha-website-cover.webp"
+kicker: "Solo build"
 bentoSize: "md"
 order: 2
 claimScope: "own-outcomes"

@@ -5,17 +5,31 @@
  * in the reference teardown recorded in docs/wiki/design-references.md — the
  * shape only, none of that site's copy, claims or colour.
  *
+ * Redesign: hairline-divided columns rather than boxed tiles (Auros), and the
+ * number at display size with its unit at half size, so "4 in 7 wks" keeps to
+ * one line in a quarter-width column.
+ *
  * No MBA tile on purpose. It is already in the headline's vicinity and in the
  * education section, and the strip exists to add facts rather than repeat them.
  */
 import { proof } from '../data/profile';
 ---
 
-<ul class="grid grid-cols-2 gap-px overflow-hidden rounded-card border border-border bg-border md:grid-cols-4">
+<ul class="grid grid-cols-2 border-y border-border md:grid-cols-4">
 	{
-		proof.map((stat) => (
-			<li class="flex flex-col gap-1 bg-surface p-6">
-				<span class="font-serif text-h3 font-normal leading-none text-gold">{stat.value}</span>
+		proof.map((stat, i) => (
+			<li
+				class:list={[
+					'flex flex-col gap-2 py-6 md:px-6 md:first:pl-0',
+					i % 2 === 1 && 'border-l border-border pl-6',
+					i >= 2 && 'border-t border-border md:border-t-0',
+					i === 2 && 'md:border-l',
+				]}
+			>
+				<span class="whitespace-nowrap font-serif text-stat font-normal text-gold">
+					{stat.value}
+					{stat.unit && <span class="text-[0.5em] tracking-normal">{stat.unit}</span>}
+				</span>
 				<span class="text-meta text-fg-muted">{stat.label}</span>
 			</li>
 		))

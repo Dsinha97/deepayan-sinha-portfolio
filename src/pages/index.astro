@@ -1,141 +1,81 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import IdentityRail from '../components/IdentityRail.astro';
 import Seam from '../components/Seam.astro';
+import SectionHeading from '../components/SectionHeading.astro';
 import ProofStrip from '../components/ProofStrip.astro';
-import Timeline from '../components/Timeline.astro';
+import WorkGrid from '../components/WorkGrid.astro';
+import Experience from '../components/Experience.astro';
 import Skills from '../components/Skills.astro';
 import Education from '../components/Education.astro';
 import Contact from '../components/Contact.astro';
 import { about } from '../data/profile';
 
 /*
- * Homepage structure (DSI-131): a sticky identity rail beside a scrolling
- * content column, rather than a hero the reader scrolls past and loses. Taken
- * from the bento.me and portrait.so references.
+ * Homepage structure (DSI-131, redesigned 2026-09): a sticky identity rail
+ * beside a scrolling content column, rather than a hero the reader scrolls past
+ * and loses — taken from the bento.me and portrait.so references and kept when
+ * the owner chose the rail over a full-width header row.
  *
- * The span classes come from a static lookup, never from concatenation.
- * Tailwind 4 scans for complete class strings: build `col-span-${n}` and it
- * emits no rule at all, and the grid silently collapses to one column. Same
- * rule that governs the classes header.js toggles.
- */
-/*
- * Reflow (DSI-102): one column, two at `md`, the real twelve-column grid at
- * `xl`. Two at `md` rather than `sm` because the identity rail joins the
- * layout at `lg` (1024) and eats real width from the content column — a
- * `sm` (640) two-up grid looked fine in isolation and cramped once the rail
- * was there. Caught by the responsive pass (DSI-90) on the four-tile
- * placeholder version; verified again here with real tiles and real images.
+ * Each section opens with a numbered label pair (SectionHeading) and is joined
+ * to the next by the kintsugi seam. The closing band sits outside the column,
+ * full container width, so the page ends on one strong call to action.
  *
- * `lg` takes the full twelve columns as its own row rather than a tall
- * `row-span-2` beside the mediums: 8+4 leaves no clean way to fit two
- * mediums plus the small recognition tile (4+4+4=12) into what's left
- * without an empty cell, since 20 columns of content doesn't divide evenly
- * into 12. Full-width for the large tile, then an even 4/4/4 row, tiles
- * exactly with no gap at any width.
+ * The rail joins the layout at `lg` (1024). Below that it stacks above the
+ * content as an ordinary block — a sticky rail on a 375px screen would eat half
+ * the viewport.
  */
-const SPAN = {
-  lg: 'md:col-span-2 xl:col-span-12',
-  md: 'xl:col-span-4',
-  sm: 'xl:col-span-4',
-} as const;
-
-const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+const [lead, ...rest] = about;
 ---
 
 <BaseLayout>
 	<div
-		class="mx-auto grid max-w-[75rem] gap-12 px-4 py-16 md:px-6 lg:grid-cols-[minmax(0,19rem)_minmax(0,1fr)] lg:gap-16 lg:py-24"
+		class="mx-auto grid max-w-[75rem] gap-12 px-4 pb-8 pt-12 md:px-6 lg:grid-cols-[minmax(0,17.5rem)_minmax(0,1fr)] lg:gap-16 lg:pt-20"
 	>
 		<IdentityRail />
 
 		<div class="min-w-0">
 			<ProofStrip />
 
-			<section id="work" class="mt-12">
-				<h2 class="font-serif text-h2 font-normal text-fg">Selected work</h2>
-				<ul class="mt-6 grid auto-rows-[minmax(9rem,auto)] grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-12">
-					{
-						work.map((entry) => (
-							<li class:list={['flex', SPAN[entry.data.bentoSize]]}>
-								<a
-									href={`/work/${entry.id}/`}
-									class="group flex w-full flex-col overflow-hidden rounded-card border border-border bg-surface transition-[border-color,transform] duration-100 hover:border-border-strong active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-								>
-									<div class="flex aspect-[16/9] w-full items-center justify-center overflow-hidden bg-surface-2">
-										{entry.data.coverLight && (
-											<img
-												src={entry.data.coverLight}
-												alt=""
-												class="theme-cover__light max-h-full max-w-full object-contain transition-transform duration-200 ease-out group-hover:scale-[1.03]"
-											/>
-										)}
-										<img
-											src={entry.data.cover}
-											alt=""
-											class:list={[
-												entry.data.coverLight && 'theme-cover__dark',
-												'max-h-full max-w-full object-contain transition-transform duration-200 ease-out group-hover:scale-[1.03]',
-											]}
-										/>
-									</div>
-									<div class="flex flex-1 flex-col justify-between gap-2 p-6">
-										<h3 class="font-serif text-h3 font-normal text-fg">{entry.data.title}</h3>
-										<p class="text-meta text-fg-muted">{entry.data.tagline}</p>
-									</div>
-								</a>
-							</li>
-						))
-					}
-					<li class:list={['flex', SPAN.sm]}>
-						<a
-							href="#education"
-							class="flex w-full flex-col justify-between gap-3 rounded-card border border-dashed border-border bg-transparent p-6 transition-[border-color,transform] duration-100 hover:border-border-strong active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-						>
-							<p class="font-mono text-label uppercase text-fg-muted">Jump to →</p>
-							<div>
-								<h3 class="font-serif text-h3 font-normal text-fg">Recognition</h3>
-								<p class="mt-3 text-meta text-fg-muted">
-									Beta Gamma Sigma inductee, plus a published paper on thermal comfort modelling.
-								</p>
-							</div>
-						</a>
-					</li>
-				</ul>
+			<section id="work" class="mt-20 md:mt-28">
+				<SectionHeading eyebrow="01 · Selected work" title="Things I've built and delivered" />
+				<WorkGrid />
 			</section>
+
+			<Seam class="my-16 md:my-24" />
 
 			<section id="experience">
-				<Seam class="my-12" />
-				<h2 class="font-serif text-h2 font-normal text-fg">Experience</h2>
-				<Timeline />
+				<SectionHeading eyebrow="02 · Experience" title="Where the work happened" />
+				<Experience />
 			</section>
 
+			<Seam class="my-16 md:my-24" />
+
 			<section id="skills">
-				<Seam class="my-12" />
-				<h2 class="font-serif text-h2 font-normal text-fg">Skills</h2>
+				<SectionHeading eyebrow="03 · Skills" title="What I work with" />
 				<Skills />
 			</section>
 
+			<Seam class="my-16 md:my-24" />
+
 			<section id="education">
-				<Seam class="my-12" />
-				<h2 class="font-serif text-h2 font-normal text-fg">Education and credentials</h2>
+				<SectionHeading eyebrow="04 · Credentials" title="Education and certificates" />
 				<Education />
 			</section>
 
-			<section id="about">
-				<Seam class="my-12" />
-				<h2 class="font-serif text-h2 font-normal text-fg">About</h2>
-				<div class="mt-6 flex max-w-[65ch] flex-col gap-4 text-fg-2">
-					{about.map((paragraph) => <p>{paragraph}</p>)}
-				</div>
-			</section>
+			<Seam class="my-16 md:my-24" />
 
-			<section id="contact">
-				<Seam class="my-12" />
-				<h2 class="font-serif text-h2 font-normal text-fg">Contact</h2>
-				<Contact />
+			<section id="about" class="grid gap-4 md:grid-cols-[11rem_minmax(0,1fr)] md:gap-8">
+				<h2 class="font-mono text-label font-normal uppercase tracking-[0.12em] text-teal md:pt-3">05 · About</h2>
+				<div class="flex max-w-[62ch] flex-col gap-5">
+					<p class="font-serif text-[clamp(1.75rem,1.4rem+1.2vw,2.25rem)] leading-[1.2] text-fg">{lead}</p>
+					{rest.map((paragraph) => <p class="text-lg text-fg-2">{paragraph}</p>)}
+				</div>
 			</section>
 		</div>
 	</div>
+
+	<section id="contact" class="mx-auto mt-16 max-w-[75rem] px-4 md:mt-24 md:px-6">
+		<Contact />
+	</section>
 </BaseLayout>
