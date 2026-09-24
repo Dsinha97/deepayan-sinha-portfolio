@@ -51,6 +51,8 @@ gate rather than copying it into a second place where it can rot.
 | Markdown resume and the /resume/ route | DSI-97 | M3 | [site-architecture.md](wiki/site-architecture.md) |
 | Case-study content collection, schema and page template | DSI-98 | M4 | [site-architecture.md](wiki/site-architecture.md) |
 | Case study: Fort Monroe consultancy | DSI-101 | M4 | [case-study-fort-monroe.md](wiki/case-study-fort-monroe.md) |
+| Case study: FPL Decision (owner review closed 2026-09-24; revised in DSI-190) | DSI-99 | M4 | [case-study-fpl-decision.md](wiki/case-study-fpl-decision.md) |
+| Case study: Abhijit Sinha website (owner review closed 2026-09-24) | DSI-100 | M4 | [case-study-abhijit-sinha-website.md](wiki/case-study-abhijit-sinha-website.md) |
 | Work index: bento grid | DSI-102 | M4 | [site-architecture.md](wiki/site-architecture.md) |
 | Edge-injected analytics beacon removed at source | DSI-132 | M2 | [security-headers.md](wiki/security-headers.md) |
 | Case-study `<h1>` fixed to use a real type token | DSI-157 | Design Improvements | [design-system.md](wiki/design-system.md) |
@@ -225,8 +227,6 @@ homepage bento tile and the case-study page; `npm run build` clean.
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
-| DSI-99 | Case study: FPL Decision | M4 | In review — [case study](wiki/case-study-fpl-decision.md) |
-| DSI-100 | Case study: Abhijit Sinha website | M4 | In review — [case study](wiki/case-study-abhijit-sinha-website.md) |
 | DSI-103 | SEO: metadata, sitemap, structured data | M5 | Schema validator reports zero errors — [seo-and-metadata.md](wiki/seo-and-metadata.md) |
 | DSI-104 | Open Graph images | M5 | Each URL renders its card in a real link preview |
 | DSI-105 | Security headers audit on production | M5 | Zero CSP violations across every route; A grade externally |
