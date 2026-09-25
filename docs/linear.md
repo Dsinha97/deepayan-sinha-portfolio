@@ -96,6 +96,7 @@ gate rather than copying it into a second place where it can rot.
 | Contact band: copy icon inside the email pill | DSI-200 | M6 | `src/components/Contact.astro`, `src/scripts/contact.js` |
 | Cloudflare Web Analytics, CSP widened in the same change | DSI-111 | M6 | [security-headers.md](wiki/security-headers.md#cloudflare-web-analytics-2026-09-25-dsi-111) |
 | Command palette | DSI-112 | M6 | [site-architecture.md](wiki/site-architecture.md#command-palette-dsi-112) |
+| GitHub profile README, repos curated | DSI-109 | M6 | [github.com/Dsinha97](https://github.com/Dsinha97) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
@@ -320,11 +321,18 @@ Verified in the dev preview by script: opens from both shortcuts and the header 
 resolves section links to `/#…` off the homepage, and leaves the header without overflow at
 1024px. `npm run build` clean.
 
+**DSI-109 closed 2026-09-25.** A profile README at `Dsinha97/Dsinha97`, laid out after a peer's
+profile at the owner's request: static label badges only (no stats widgets), featured work for
+FPL Decision, the Abhijit Sinha site, this portfolio and Fort Monroe, each linking its case study.
+Every claim is taken from the case studies or the resume; the three self-reported Wipro figures,
+the client name and platform names are left out. The three live projects' repos gained
+descriptions, homepages and topics; the five 2019–20 tutorial forks and `LPC-Team-3` were
+archived at the owner's direction.
+
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
-| DSI-109 | GitHub profile README | M6 | None. Owner decision on scope |
 | DSI-110 | Contact form | M6 | **Blocked** — owner decides the form is worth a backend, a database and a CSP widening |
 | DSI-113 | Fourth case study: Wipro | M6 | **Blocked** — owner decides whether enough survives genericization to carry a page |
 | DSI-114 | Writing or notes section | M6 | **Blocked** — owner has at least three pieces drafted |
