@@ -32,3 +32,9 @@ Thumbs.db
 
 # graft's local graph cache — regenerable, not committed (run `graft build`).
 /graft/
+
+# Working images kept locally, not committed — source photos and the tool-logo
+# originals. What ships is the resized copy under src/assets/, not these.
+images/Fort_Monroe_Aerial.jpg
+images/fort-monroe-cover.jpg
+images/Platforms/
