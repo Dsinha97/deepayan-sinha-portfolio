@@ -86,6 +86,7 @@ gate rather than copying it into a second place where it can rot.
 | Recognition tile expands to the BGS certificate and the paper | DSI-196 | Redesign | [education-and-credentials.md](wiki/education-and-credentials.md) |
 | SEO: metadata, canonical, sitemap, robots, structured data | DSI-103 | M5 | [seo-and-metadata.md](wiki/seo-and-metadata.md) |
 | Security headers audit on production | DSI-105 | M5 | [security-headers.md](wiki/security-headers.md#production-audit-2026-09-24-dsi-105) |
+| Lighthouse and accessibility audit | DSI-106 | M5 | [design-system.md](wiki/design-system.md) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
@@ -239,12 +240,21 @@ securityheaders.com, zero CSP violations across every route with every popover o
 image forced to load, and all seven security headers on all sixteen URLs checked, assets
 included. No change to the policy or the headers was needed.
 
+**DSI-106 closed 2026-09-24.** Lighthouse mobile on production, both themes: every page at
+95+/100/100/100 after `c587af1`. The homepage started at 93/94; its LCP was gated on total bytes,
+fixed by making theme-paired covers lazy (both FPL variants had been downloading), a
+width-based headshot srcset, and a static weight-400 JetBrains Mono (40KB to 21KB — see
+[design-system.md](wiki/design-system.md)). Hover transforms are now `motion-safe:` so reduced
+motion turns them off rather than making them instant. Two things recorded on the issue rather
+than fixed: LCP is 2.2–2.7s under simulated slow 4G against a 1.5s target that is not part of
+the gate, and the keyboard pass was checked by tab order and stylesheet rather than visually,
+because the browser pane was not painting.
+
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
 | DSI-104 | Open Graph images | M5 | Each URL renders its card in a real link preview |
-| DSI-106 | Lighthouse and accessibility audit | M5 | 95+/100/100/100 on the deployed site, both themes, no third-party requests |
 | DSI-107 | Cross-device QA and link check | M5 | Zero broken links |
 | DSI-108 | Go-live | M5 | Full checklist green on production in one sitting; wiki `status` flipped to `built` |
 | DSI-109 | GitHub profile README | M6 | None. Owner decision on scope |
