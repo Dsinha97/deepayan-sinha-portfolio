@@ -275,3 +275,14 @@ One line per action, newest at the bottom.
   entries, so the full nav now starts at `lg`. Pages updated: design-system, design-references,
   content-guardrails, education-and-credentials, skills, site-architecture,
   case-study-fpl-decision.
+- 2026-09-24 — M5 closed; the site is launched. DSI-103 (Open Graph/Twitter tags, a `Person`
+  node referenced by `@id` from each case study's `Article`, `robots.txt`) and DSI-104 (build-time
+  social cards from the site's own fonts and tokens) passed on production — the LinkedIn Post
+  Inspector pass found LinkedIn's own blurry 160px thumbnails and no author or date, fixed with a
+  content-hashed `?v=` on every card and git-sourced `published`/`updated` dates. DSI-105: A+
+  headers, zero CSP violations. DSI-106: homepage LCP was gated on bytes, so theme-paired covers
+  went lazy and the mono face became a static weight-400 instance (40KB to 21KB) — the mono now
+  has one weight. DSI-107: zero broken links. DSI-108: 51 gate checks against production in one
+  sitting, all passing; homepage dark-mode Lighthouse reads 93–96 around the 95 line, accepted by
+  the owner as noise. Pages updated: seo-and-metadata (now `built`), security-headers,
+  design-system.

@@ -18,7 +18,7 @@ gate rather than copying it into a second place where it can rot.
 | M2 · Shell and design system | 2026-09-22 | Layout, theme toggle and CSP pipeline, fonts, logo, responsive pass |
 | M3 · Content | 2026-09-29 | Hero, about, experience, education, skills, contact, resume |
 | M4 · Case studies | 2026-10-03 | Collections and schema, three case studies, work index |
-| M5 · Launch | 2026-10-08 | SEO, OG, headers audit, Lighthouse, QA, go-live |
+| M5 · Launch (closed 2026-09-24) | 2026-10-08 | SEO, OG, headers audit, Lighthouse, QA, go-live |
 | M6 · Beyond launch | — | Profile README, contact form, analytics, palette, fourth case study, writing |
 | Design Improvements (closed 2026-09-18) | — | Findings from the `/better-interface`, `/landing-page-design`, `/find-animation-opportunities` and `/improve-animations` audits |
 | Redesign (closed 2026-09-24) | 2026-09-24 | The reference-folder redesign (rail layout) and six owner-requested fixes: covers, FPL case study and synced updates, Fort Monroe cover, certificate images, tool logos, crisp university marks |
@@ -89,6 +89,7 @@ gate rather than copying it into a second place where it can rot.
 | Lighthouse and accessibility audit | DSI-106 | M5 | [design-system.md](wiki/design-system.md) |
 | Open Graph images | DSI-104 | M5 | [seo-and-metadata.md](wiki/seo-and-metadata.md) |
 | Cross-device QA and link check | DSI-107 | M5 | this file |
+| Go-live: final checklist, docs refresh, profile links | DSI-108 | M5 | [log.md](wiki/log.md) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
@@ -266,11 +267,22 @@ MBA Math verification page renders no recipient name — kept at the owner's dec
 persists across pages, Escape closes the mobile menu, slash-less URLs redirect and load, and the
 owner checked Firefox, Safari and a real phone.
 
+**DSI-108 closed and M5 closed 2026-09-24 — the site is launched.** Every earlier milestone gate
+re-run against production in one sitting: 51 automated checks across M1–M5 (redirects, HSTS, 404
+status, MX, all seven headers and the CSP on every page, 73 immutable assets, no third-party
+origin, the content guardrails over every page *and* the resume PDF, the case studies, JSON-LD,
+cards, sitemap), all passing. Lighthouse on the homepage in dark mode read 94, 93, 96, 95 across
+four runs against a 95 target; the owner accepted it as noise at the threshold rather than a
+regression — nothing byte-affecting had changed since DSI-106's 95–96. `private/` confirmed
+absent from all history. README and CLAUDE.md now describe a launched site; the resume leads with
+the site URL; the owner added it to LinkedIn and confirmed a test message to `contact@` arrives.
+Still to do, deliberately not on launch day: the HSTS preload submission, after a week of clean
+HTTPS (on or after 2026-10-01).
+
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
-| DSI-108 | Go-live | M5 | Full checklist green on production in one sitting; wiki `status` flipped to `built` |
 | DSI-109 | GitHub profile README | M6 | None. Owner decision on scope |
 | DSI-110 | Contact form | M6 | **Blocked** — owner decides the form is worth a backend, a database and a CSP widening |
 | DSI-111 | Privacy-preserving analytics | M6 | CSP widened in the same change; beacon confirmed reaching its endpoint |
