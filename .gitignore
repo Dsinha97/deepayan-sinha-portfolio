@@ -38,3 +38,5 @@ Thumbs.db
 images/Fort_Monroe_Aerial.jpg
 images/fort-monroe-cover.jpg
 images/Platforms/
+# Traced into src/components/IconCopy.astro (DSI-200); the component is what ships.
+images/copy.svg
