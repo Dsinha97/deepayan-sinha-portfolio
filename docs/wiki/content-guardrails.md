@@ -44,7 +44,7 @@ Case studies declare which rule they are under in frontmatter (`claimScope`), an
 | Rule | Why |
 |---|---|
 | Engagement outcomes only | Above. The independent post-project review and the commissioned follow-on are the documented results |
-| **Never use the $500,000 parking figure** | It is an Ocean Isle Beach, NC benchmark that migrated into the team roadmap as if it were a Fort Monroe baseline. Fort Monroe's own figure is ~$257K/yr (FMA, 2013) — roughly half. Publishing it would repeat the error the work itself caught |
+| **Never use the mis-migrated parking figure** | A benchmark from another site migrated into the team roadmap as if it were a Fort Monroe baseline. Publishing it — or anything from which it can be reconstructed, such as its ratio to the real figure — would repeat the error the work itself caught. The value and its source stay in the private vault, not in this public repo |
 | No SEO figures | Site health, visitor counts, broken pages, toxic domains: teammates' work, and stale |
 | Claim only his four deliverables | The survey, the parking monetization analysis, the 15th-anniversary event plan, the Central Park Conservancy comparative. The Theory of Constraints diagnosis, four other benchmarks, the SEO audit and the ten-year roadmap were teammates' |
 | Central Park Conservancy figures carry "as reported in source" | Dated third-party financials |
@@ -155,6 +155,6 @@ experience entries: data-driven decision making (the Wipro AI/ML work) and gover
 - [job-search-brief.md](../../private/sources/mba-brain/job-search-brief.md) — "What this pack
   is not", the Fort Monroe constraint section, and the Wipro withholding notice
 - [fort-monroe-engagement.md](../../private/sources/mba-brain/fort-monroe-engagement.md) —
-  attribution of deliverables, the $500K correction
+  attribution of deliverables, the parking-figure correction
 - [wipro-digital-health-assistant.md](../../private/sources/mba-brain/wipro-digital-health-assistant.md)
   — the withheld names and the self-reported figures

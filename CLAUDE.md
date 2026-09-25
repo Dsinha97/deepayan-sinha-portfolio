@@ -5,10 +5,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project
 
 The personal portfolio site for **Deepayan Sinha**, live at **`https://deepayansinha.com`**
-(domain registered, zone on Cloudflare, deployed on Cloudflare Workers static assets with
-push-to-deploy on `main`). Repo
+(domain registered, zone on Cloudflare, deployed on Cloudflare Workers static assets; a merge to
+`main` deploys). Repo
 [`Dsinha97/deepayan-sinha-portfolio`](https://github.com/Dsinha97/deepayan-sinha-portfolio),
-private. Planning lives in the Linear project
+**public**. Planning lives in the Linear project
 [Deepayan-Portfolio](https://linear.app/dsinha-org/project/deepayan-portfolio-4de86f94d1f2),
 team `Dsinha Org` (`DSI`).
 
@@ -78,6 +78,13 @@ of the MBA Brain vault (which names real people). Their factual contents may be 
 the guardrails allow; the files themselves stay local. `private/sources/mba-brain/` is a
 **read-only copy** of an external vault — fix things in the vault and re-copy, never edit here.
 
+**The repo is public, and `main` only changes through a pull request.** A ruleset blocks direct
+pushes, force-pushes and deletion, requires the CI `build` check (which runs `npm run build`, so
+every guard), and has **no bypass, the owner included**. Work on a branch, open a PR, merge when
+green. Anything committed is readable by anyone forever — history included — so the content
+guardrails apply to docs, commit messages and PR text, not just to the site. How it was set up
+and why: [docs/wiki/deployment-domain.md](docs/wiki/deployment-domain.md#repository-safety).
+
 **Git identity is local to this repo.** The global identity is a work account. This repo is
 `Deepayan Sinha <deepayansinha@gmail.com>`, GitHub `Dsinha97`. Check `git config user.email`
 before the first commit in a fresh clone.
@@ -99,9 +106,11 @@ for them; these lines are the ones worth having in every session:
   `selfReported` field, in [experience.md](docs/wiki/experience.md) and in the vault. Do not
   collapse that field into the ordinary bullets: it is the only place the provenance survives in
   the code, and a future agent that loses it cannot tell these three from the audited numbers.
-- **Never publish the $500,000 parking figure.** It is another site's benchmark that had migrated
-  into a roadmap as a local baseline, roughly double the real number. The *catch* is publishable
-  and is the best credibility story on the site; the figure is not.
+- **Never publish the mis-migrated parking figure.** A benchmark from another site had migrated
+  into a roadmap as if it were Fort Monroe's own baseline. The *catch* is publishable and is the
+  best credibility story on the site; the figure is not — not in copy, and not in this repo,
+  which is public. The value and its source are in the private vault
+  (`fort-monroe-engagement.md`), never written here.
 - **Fort Monroe claims cover only his four deliverables** — the survey, the parking analysis, the
   event plan, the Central Park Conservancy comparative. No teammate, faculty or client names, no
   SEO figures.

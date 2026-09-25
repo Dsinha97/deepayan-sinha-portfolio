@@ -1,0 +1,14 @@
+# Code owners for Dsinha97/deepayan-sinha-portfolio — mirrors fpl-app.
+#
+# On its own this changes nothing: ownership is enforced only once "Require
+# review from Code Owners" is on in the `main` ruleset, and that rule is
+# deliberately off. GitHub does not let a pull request author approve their own
+# pull request, so on a one-person repo a Code-Owner review requirement, paired
+# with the ruleset's no-bypass rule, would block every merge including the
+# owner's. Enable it when a second maintainer exists — that is the trigger, not
+# a date.
+#
+# What it does today: make ownership explicit, and auto-request review from the
+# owner on any pull request, including one from an outside contributor's fork.
+
+* @Dsinha97

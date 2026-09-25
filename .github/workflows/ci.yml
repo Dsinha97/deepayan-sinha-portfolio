@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Least privilege for GITHUB_TOKEN: this workflow only ever reads the repo. It
+# matters more on a public repo, as a backstop behind "require approval for all
+# external contributors" on fork pull requests. Mirrors fpl-app.
+permissions:
+  contents: read
+
+jobs:
+  # The job id `build` is the status check the `main` ruleset requires. Rename
+  # it and every pull request blocks on a check that never reports.
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      # The whole gate in one command: astro check, the static build, the resume
+      # PDF, the CSP-hash header generation, and check-dist (inline scripts,
+      # style attributes, phone numbers anywhere in dist/). Each exits non-zero.
+      - run: npm run build
