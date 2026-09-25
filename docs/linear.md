@@ -95,6 +95,7 @@ gate rather than copying it into a second place where it can rot.
 | Contact band: LinkedIn and GitHub logos in the pills | DSI-199 | M6 | `src/components/Contact.astro` |
 | Contact band: copy icon inside the email pill | DSI-200 | M6 | `src/components/Contact.astro`, `src/scripts/contact.js` |
 | Cloudflare Web Analytics, CSP widened in the same change | DSI-111 | M6 | [security-headers.md](wiki/security-headers.md#cloudflare-web-analytics-2026-09-25-dsi-111) |
+| Command palette | DSI-112 | M6 | [site-architecture.md](wiki/site-architecture.md#command-palette-dsi-112) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
@@ -311,13 +312,20 @@ endpoint's CORS preflight answers 200 with `Access-Control-Allow-Origin: https:/
 Locally the same POST is CORS-refused, which is what a correct setup looks like off the
 registered host. The launch audits' "zero third-party requests" result no longer holds.
 
+**DSI-112 shipped 2026-09-25.** A Ctrl/⌘+K (or `/`) command palette. Gate met: 1.2KB gzipped
+for the palette, 3.4KB for all first-party JavaScript, about 13.5KB for the whole site including
+DSI-111's 10.1KB beacon — inside the ~15KB budget, with the beacon now the largest single cost.
+Verified in the dev preview by script: opens from both shortcuts and the header trigger, filters
+(multi-word), shows an empty state, wraps with the arrow keys, runs navigation, copy and theme,
+resolves section links to `/#…` off the homepage, and leaves the header without overflow at
+1024px. `npm run build` clean.
+
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
 | DSI-109 | GitHub profile README | M6 | None. Owner decision on scope |
 | DSI-110 | Contact form | M6 | **Blocked** — owner decides the form is worth a backend, a database and a CSP widening |
-| DSI-112 | Command palette | M6 | Only if the site stays inside its JavaScript budget with it included |
 | DSI-113 | Fourth case study: Wipro | M6 | **Blocked** — owner decides whether enough survives genericization to carry a page |
 | DSI-114 | Writing or notes section | M6 | **Blocked** — owner has at least three pieces drafted |
 | DSI-201 | HSTS preload submission | M6 | On or after 2026-10-01, hstspreload.org reports eligible — see [deployment-domain.md](wiki/deployment-domain.md) |

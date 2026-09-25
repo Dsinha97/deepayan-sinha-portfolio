@@ -72,7 +72,22 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 			>
 				Resume
 			</a>
-			<ThemeToggle class="ml-1" />
+			{/* Command palette trigger (DSI-112): hidden until palette.js can run it. */}
+			<button
+				type="button"
+				hidden
+				popovertarget="command-palette"
+				aria-label="Open command palette"
+				data-palette-trigger
+				class="ml-1 inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-control px-3 text-fg-2 transition-[color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+			>
+				<svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+					<circle cx="11" cy="11" r="6.5"></circle>
+					<path d="M16 16l4.5 4.5"></path>
+				</svg>
+				<kbd class="rounded-md border border-border px-1.5 py-0.5 font-mono text-label text-fg-muted" aria-hidden="true" data-palette-key>Ctrl K</kbd>
+			</button>
+			<ThemeToggle />
 		</nav>
 
 		<div class="flex items-center gap-1 lg:hidden">

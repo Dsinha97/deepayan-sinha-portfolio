@@ -233,6 +233,23 @@ stack; the long-form body, with a synced **Recent updates** panel beside it wher
 applicable; previous and next as cards; the closing contact band. No dead ends: every case
 study offers somewhere to go next.
 
+## Command palette (DSI-112)
+
+Ctrl/⌘+K or `/` opens a filterable list of every destination and the two site-wide actions —
+sections, case studies, the resume and its PDF, copy the email, switch theme, the external
+profiles. `src/components/CommandPalette.astro` renders the list at build time from `nav` and the
+`work` collection, so a new case study appears in it with no edit; `src/scripts/palette.js` only
+filters, moves the highlight and runs the chosen item. It is a popover (Esc, light dismiss and
+focus return come from the browser) with the combobox-and-listbox ARIA pattern: focus stays in
+the input and `aria-activedescendant` names the highlighted option. The header trigger, desktop
+only, ships `hidden` and is revealed by the script, because without JavaScript the palette has
+nothing to offer.
+
+Measured against the ~15KB gzipped budget when it shipped: the palette is 1.2KB, all
+first-party JavaScript 3.4KB, and with the Cloudflare beacon (10.1KB, DSI-111) the site's total
+is about 13.5KB. The beacon, not the palette, is what uses up the headroom — any further script
+should be measured against that.
+
 ## What is deliberately not built
 
 No contact form, no database, no analytics in the first version. Each would add a backend, a
