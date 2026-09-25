@@ -65,7 +65,7 @@ const isLive = (links?: { type: string }[]) => links?.some((link) => link.type =
 							data={data}
 							sizes={SIZES[data.bentoSize]}
 							eager={data.bentoSize === 'lg'}
-							class="absolute inset-0 transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+							class="absolute inset-0 transition-transform duration-300 ease-out motion-safe:group-hover:scale-[1.02]"
 						/>
 					</div>
 					<div class="flex items-start justify-between gap-4 p-6 md:p-7">
@@ -85,7 +85,7 @@ const isLive = (links?: { type: string }[]) => links?.some((link) => link.type =
 							<p class="max-w-[60ch] text-fg-2">{data.tagline}</p>
 						</div>
 						<span
-							class="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent-soft text-on-accent-soft transition-transform duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+							class="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent-soft text-on-accent-soft transition-transform duration-150 motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5"
 							aria-hidden="true"
 						>
 							<IconArrowUpRight class="size-4" />

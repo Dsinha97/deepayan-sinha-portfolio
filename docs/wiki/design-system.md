@@ -345,7 +345,8 @@ Three tiers, three self-hosted faces:
   weight, latin subset, 21KB. Added in DSI-131 from the editorial references; see
   [design-references.md](design-references.md).
 - **Inter Variable** for body and UI. Weight axis 400 to 800, latin subset, one woff2.
-- **JetBrains Mono Variable** for metadata, chips, dates and metric numerals.
+- **JetBrains Mono** for metadata, chips, dates and metric numerals — a **static weight-400
+  instance** of the variable file, 21KB (DSI-106).
 
 **The serif is display-only and the face has one weight, deliberately.** A serif body would make
 the site read as a research publication rather than a portfolio, and having no second weight
@@ -354,7 +355,14 @@ available is the cheapest guard against it drifting into body copy later.
 That makes three font files, not two. The budget in DSI-106 was written for two, and this is the
 change to it: **three files, two preloaded.** Inter and the serif are both on the critical path —
 the serif sets the largest contentful paint on every page — and the mono is `font-display:
-optional` and never preloaded. Total 109KB of font, all first-party.
+optional` and never preloaded. Total 109KB of font at M2, **90KB since DSI-106**, all first-party.
+
+**The mono was pinned to weight 400 in DSI-106**, halving it (40KB to 21KB, every glyph kept).
+The Lighthouse audit showed the homepage's LCP gated on bytes rather than on the headshot, and
+every mono element on every route, in both themes, computed to weight 400, so the weight axis was
+shipping for nothing. The consequence is a rule: **the mono has one weight now.** A heavier mono
+would render as faux bold; if the design ever needs one, restore the variable file rather than
+accept it. How to regenerate the instance is in `fonts.css`.
 
 Self-hosting is a CSP decision, not an aesthetic one: Google Fonts would need two external
 origins in the policy, add a third-party connection before first paint, and send every visitor

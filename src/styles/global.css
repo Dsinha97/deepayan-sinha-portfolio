@@ -598,6 +598,14 @@ samp {
   color: var(--accent-hover);
 }
 
+/* Markdown links carry no utility classes, so they would otherwise get the
+ * browser's default ring rather than the one every other control uses. */
+.resume a:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 .resume strong {
   color: var(--fg);
   font-weight: 600;

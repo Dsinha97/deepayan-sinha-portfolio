@@ -45,8 +45,9 @@ import { status } from '../data/profile';
 		src={headshot}
 		alt={site.name}
 		width={240}
-		height={360}
-		densities={[1, 2]}
+		height={320}
+		widths={[192, 240, 336, 384, 480]}
+		sizes="(min-width: 1024px) 240px, 192px"
 		loading="eager"
 		fetchpriority="high"
 		class="aspect-[3/4] w-48 rounded-media object-cover object-top lg:w-60"

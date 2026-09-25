@@ -8,8 +8,11 @@
  * entry's `coverFocus` names the edge that must survive the crop.
  *
  * When `coverLight` exists both images are in the markup and the theme picks
- * one with the `.theme-cover__*` classes in global.css; it is a display swap,
- * so only the visible one is fetched once the page settles on a theme.
+ * one with the `.theme-cover__*` classes in global.css. A pair is always
+ * lazy, even when `eager` is asked for: an eager image is fetched by the
+ * preload scanner before any CSS applies, so both variants downloaded on every
+ * view. A lazy image that is `display: none` is never fetched, so lazy is what
+ * makes the swap cost one image rather than two (found in DSI-106).
  */
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
@@ -38,7 +41,7 @@ const common = {
 	widths,
 	sizes,
 	alt,
-	loading: eager ? ('eager' as const) : ('lazy' as const),
+	loading: eager && !data.coverLight ? ('eager' as const) : ('lazy' as const),
 };
 const cls = ['size-full object-cover', FOCUS[data.coverFocus], className];
 ---
