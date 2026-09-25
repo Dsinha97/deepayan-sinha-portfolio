@@ -90,6 +90,7 @@ gate rather than copying it into a second place where it can rot.
 | Open Graph images | DSI-104 | M5 | [seo-and-metadata.md](wiki/seo-and-metadata.md) |
 | Cross-device QA and link check | DSI-107 | M5 | this file |
 | Go-live: final checklist, docs refresh, profile links | DSI-108 | M5 | [log.md](wiki/log.md) |
+| Repo made public with fpl-app's safety rules | DSI-197 | M6 | [deployment-domain.md](wiki/deployment-domain.md#repository-safety) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
@@ -278,6 +279,13 @@ absent from all history. README and CLAUDE.md now describe a launched site; the 
 the site URL; the owner added it to LinkedIn and confirmed a test message to `contact@` arrives.
 Still to do, deliberately not on launch day: the HSTS preload submission, after a week of clean
 HTTPS (on or after 2026-10-01).
+
+**DSI-197 closed 2026-09-24 — the repo is public.** Ruleset on `main` (no deletion, no
+force-push, PR plus the `build` check required, no bypass) applied while still private, then the
+flip, then fork-PR approval and secret scanning with push protection. A CI workflow runs
+`npm run build`, so every build guard now also guards merges. Pre-flight swept all 47 commits,
+not just the tree. Verified by a direct push to `main` being rejected and this change landing
+through a PR. From here on, `main` changes only through a pull request.
 
 ## Open
 
