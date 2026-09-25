@@ -1,0 +1,136 @@
+---
+/*
+ * Command palette (DSI-112): Ctrl/⌘+K or "/" opens a filterable list of every
+ * destination and the two site-wide actions — jump to a section, open a case
+ * study, the resume, copy the email, switch theme.
+ *
+ * Mounted once by BaseLayout. The list is rendered here at build time from the
+ * same sources the header and the work grid read (`nav`, the `work`
+ * collection), so a new case study appears in the palette with no edit to it.
+ * palette.js only filters, moves the highlight and runs the chosen item.
+ *
+ * A popover like Dialog.astro, and for the same reasons: the browser handles
+ * Esc, light dismiss and returning focus. Unlike Dialog it is useless without
+ * JavaScript — the filter is the feature — so its trigger ships `hidden` and
+ * the script reveals it. No script, no trigger, no dead control.
+ *
+ * ARIA is the combobox-with-listbox pattern: focus stays in the input and
+ * `aria-activedescendant` names the highlighted option, so arrow keys move a
+ * highlight rather than focus. Options are therefore plain elements carrying
+ * `data-href` / `data-action`, not links — an interactive element inside
+ * `role="option"` is invalid and announced twice.
+ *
+ * Motion is `.t-dialog`, shared with the other panels.
+ */
+import { getCollection } from 'astro:content';
+import { site, nav } from '../data/site';
+
+const pathname = Astro.url.pathname;
+const isHome = pathname === '/' || pathname === '';
+// Same rule as Header.astro: a hash only works bare on the page that owns it.
+const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` : href);
+
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+
+type Item = { label: string; hint: string; href?: string; action?: 'copy' | 'theme'; keywords?: string };
+
+const groups: { heading: string; items: Item[] }[] = [
+	{
+		heading: 'Go to',
+		items: [
+			{ label: 'Home', hint: 'Page', href: '/', keywords: 'top start' },
+			...nav.map((item) => ({ label: item.label, hint: 'Section', href: resolve(item.href) })),
+			{ label: 'Resume', hint: 'Page', href: site.resumePath, keywords: 'cv' },
+			{ label: 'Resume PDF', hint: 'Download', href: '/resume.pdf', keywords: 'cv download' },
+		],
+	},
+	{
+		heading: 'Case studies',
+		items: work.map(({ id, data }) => ({
+			label: data.title,
+			hint: data.kicker,
+			href: `/work/${id}/`,
+			keywords: `case study ${data.tagline}`,
+		})),
+	},
+	{
+		heading: 'Actions',
+		items: [
+			{ label: 'Copy email address', hint: site.email, action: 'copy', keywords: 'contact mail' },
+			{ label: 'Switch theme', hint: 'Light / dark', action: 'theme', keywords: 'dark light mode' },
+		],
+	},
+	{
+		heading: 'Elsewhere',
+		items: [
+			{ label: 'Email', hint: site.email, href: `mailto:${site.email}`, keywords: 'contact' },
+			{ label: 'LinkedIn', hint: 'Profile', href: site.links.linkedin },
+			{ label: 'GitHub', hint: 'Profile', href: site.links.github, keywords: 'code' },
+		],
+	},
+];
+
+let n = 0;
+---
+
+<div
+	id="command-palette"
+	popover
+	role="dialog"
+	aria-label="Command palette"
+	class="t-dialog mx-auto mt-[12vh] mb-auto max-h-[min(34rem,calc(100dvh-24vh))] w-[min(36rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-[1.25rem] border border-border bg-elevated p-0 text-fg open:flex"
+	data-palette
+	data-email={site.email}
+>
+	<div class="flex items-center gap-3 border-b border-border px-5">
+		<svg viewBox="0 0 24 24" class="size-5 shrink-0 text-fg-muted" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+			<circle cx="11" cy="11" r="6.5"></circle>
+			<path d="M16 16l4.5 4.5"></path>
+		</svg>
+		<input
+			type="text"
+			role="combobox"
+			aria-expanded="true"
+			aria-controls="command-palette-list"
+			aria-autocomplete="list"
+			aria-label="Search the site"
+			placeholder="Jump to, open or copy…"
+			autocomplete="off"
+			spellcheck="false"
+			class="min-h-14 w-full bg-transparent text-base text-fg placeholder:text-fg-muted focus:outline-none"
+			data-palette-input
+		/>
+		<kbd class="shrink-0 rounded-md border border-border px-1.5 py-0.5 font-mono text-label text-fg-muted">Esc</kbd>
+	</div>
+
+	<div id="command-palette-list" role="listbox" aria-label="Results" class="overflow-y-auto overscroll-contain p-2">
+		{
+			groups.map((group) => (
+				<div role="group" aria-label={group.heading} data-palette-group>
+					<p class="px-3 pt-3 pb-1 font-mono text-label uppercase tracking-[0.12em] text-fg-muted" aria-hidden="true">
+						{group.heading}
+					</p>
+					{group.items.map((item) => (
+						<div
+							id={`palette-option-${n++}`}
+							role="option"
+							aria-selected="false"
+							data-href={item.href}
+							data-action={item.action}
+							data-search={`${item.label} ${item.hint} ${item.keywords ?? ''}`.toLowerCase()}
+							class="flex min-h-11 cursor-pointer items-center justify-between gap-4 rounded-control px-3 text-fg aria-selected:bg-surface-2 aria-selected:text-accent"
+						>
+							<span data-palette-label>{item.label}</span>
+							<span class="truncate text-meta text-fg-muted">{item.hint}</span>
+						</div>
+					))}
+				</div>
+			))
+		}
+		<p class="px-3 py-6 text-center text-fg-muted" hidden data-palette-empty>No matches.</p>
+	</div>
+</div>
+
+<script>
+	import '../scripts/palette.js';
+</script>

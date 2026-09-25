@@ -19,6 +19,7 @@ import Head from '../components/Head.astro';
 import themeInit from '../scripts/theme-init.js?raw';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import CommandPalette from '../components/CommandPalette.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -71,5 +72,6 @@ const { title, description, noindex, type, image, jsonLd, published, modified } 
 		</main>
 
 		<Footer />
+		<CommandPalette />
 	</body>
 </html>
