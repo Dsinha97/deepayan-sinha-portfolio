@@ -8,7 +8,7 @@ sources:
 related:
   - deployment-domain.md
   - site-architecture.md
-updated: 2026-09-10
+updated: 2026-09-24
 status: built
 ---
 
@@ -163,6 +163,41 @@ Two things worth keeping from the verification:
 
 The deliberate-adoption path remains **DSI-111**, which would need `script-src` *and*
 `connect-src` widened in the same change — the beacon fetches as well as loads.
+
+## Production audit, 2026-09-24 (DSI-105)
+
+Run against `https://deepayansinha.com` once all the real content, the JSON-LD and the social
+cards were deployed. **Gate met: zero violations on every route, A+ from securityheaders.com.**
+
+**Headers, by `curl -I`, on every route and every kind of asset** — the five pages, an unmatched
+path, a hashed stylesheet, a hashed script, a hashed image, a font, an OG card, `resume.pdf`,
+`robots.txt`, the sitemap and the favicon. All sixteen carry all seven security headers, and the
+live `script-src` hash is byte-identical to the one in `dist/_headers`. Cache rules as intended:
+`/_astro/*` and `/fonts/*` a year and `immutable`; HTML and every unhashed file (`/og/*`,
+`resume.pdf`, `robots.txt`) `max-age=0, must-revalidate`, which is right for files whose URL does
+not change when their content does. `http://` and `www` both 301 to the https apex, path kept.
+
+**Violations, in a real browser, on every route** — `/`, `/resume/`, the three case studies and
+an unmatched path. A `securitypolicyviolation` listener on each page, every button clicked
+(theme toggle, disclosure, all ten popovers — certificate viewers and experience details),
+every image forced to load, and the console read for load-time reports: **zero violations, zero
+broken images, zero third-party requests.** The only console error is the 404 page's own 404.
+
+Three things worth keeping:
+
+- **Clicking is part of the walk.** Half the site's images sit in popovers — certificate scans,
+  employer logos — and never request until opened. A load-and-scroll pass does not exercise them.
+- **A lazy image in a pane that isn't painting never loads.** The first pass reported every
+  employer logo broken. Each returned 200 by `fetch`; the browser pane was not drawing, so
+  `loading="lazy"` never fired. Forcing `loading="eager"` loaded all four. Check a "broken" lazy
+  image by fetching it before believing it.
+- **Cloudflare adds `nel` and `report-to` headers** pointing at `a.nel.cloudflare.com`. That is
+  Network Error Logging, sent by the browser outside the page, so `connect-src` does not govern it
+  and it is not a CSP gap. The scanner lists it as informational.
+
+Not done, and not needed for the gate: `Cross-Origin-Embedder-Policy` and
+`Cross-Origin-Resource-Policy`, which the scanner lists as "upcoming". COEP would isolate the page
+for features it does not use.
 
 ## Testing locally
 

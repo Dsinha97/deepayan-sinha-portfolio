@@ -157,6 +157,9 @@ serves it with a 200 at its own path while correctly returning 404 for unmatched
 made "Page not found" an indexable page. Neither dev server reproduces it: `astro dev` and
 `wrangler dev` both return 404 for that path, which is why it survived to production.
 
+*Since then (seen 2026-09-24 in DSI-105):* the host now 307s `/404/` to `/404`, which still
+answers 200 with the `noindex` meta. Same soft 404, one hop later; the fix below still holds.
+
 The status cannot be fixed from the repo — it is how static-asset hosting works. The indexing
 can, and `<meta name="robots" content="noindex, nofollow">` now ships on that page only, via a
 `noindex` prop threaded from the page through `BaseLayout` to `Head`. The sitemap already

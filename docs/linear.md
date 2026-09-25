@@ -84,6 +84,8 @@ gate rather than copying it into a second place where it can rot.
 | University logos crisp on high-density screens | DSI-194 | Redesign | [education-and-credentials.md](wiki/education-and-credentials.md) |
 | Experience as cards with employer logos and detail dialogs | DSI-195 | Redesign | [site-architecture.md](wiki/site-architecture.md) |
 | Recognition tile expands to the BGS certificate and the paper | DSI-196 | Redesign | [education-and-credentials.md](wiki/education-and-credentials.md) |
+| SEO: metadata, canonical, sitemap, robots, structured data | DSI-103 | M5 | [seo-and-metadata.md](wiki/seo-and-metadata.md) |
+| Security headers audit on production | DSI-105 | M5 | [security-headers.md](wiki/security-headers.md#production-audit-2026-09-24-dsi-105) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
@@ -223,13 +225,25 @@ both images; the other two case studies are unaffected since `coverLight` is opt
 setting `data-theme` directly and checking computed `display` on both `<img>` elements, on both the
 homepage bento tile and the case-study page; `npm run build` clean.
 
+**DSI-103 shipped 2026-09-24.** Open Graph and Twitter tags on every page, a `Person` node in a
+`ProfilePage` on the homepage and an `Article` per case study referencing it by `@id`, and a
+`robots.txt` pointing at the sitemap. Gate met on production: validator.schema.org reports 0
+errors and 0 warnings on all four pages that carry JSON-LD. Both build guards gained a narrow,
+parse-checked exemption for `application/ld+json` — see
+[security-headers.md](wiki/security-headers.md#what-building-it-changed). The resume page's title
+became "Resume — Deepayan Sinha" in the same commit. DSI-104's cards are built and deployed;
+it stays open until the LinkedIn Post Inspector check.
+
+**DSI-105 closed 2026-09-24.** Production audit after DSI-103/104 deployed: A+ from
+securityheaders.com, zero CSP violations across every route with every popover opened and every
+image forced to load, and all seven security headers on all sixteen URLs checked, assets
+included. No change to the policy or the headers was needed.
+
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
-| DSI-103 | SEO: metadata, sitemap, structured data | M5 | Schema validator reports zero errors — [seo-and-metadata.md](wiki/seo-and-metadata.md) |
 | DSI-104 | Open Graph images | M5 | Each URL renders its card in a real link preview |
-| DSI-105 | Security headers audit on production | M5 | Zero CSP violations across every route; A grade externally |
 | DSI-106 | Lighthouse and accessibility audit | M5 | 95+/100/100/100 on the deployed site, both themes, no third-party requests |
 | DSI-107 | Cross-device QA and link check | M5 | Zero broken links |
 | DSI-108 | Go-live | M5 | Full checklist green on production in one sitting; wiki `status` flipped to `built` |
