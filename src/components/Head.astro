@@ -124,3 +124,18 @@ const imageUrl = new URL(image, Astro.site).href;
 	crossorigin
 />
 <meta name="generator" content={Astro.generator} />
+
+{/*
+	Cloudflare Web Analytics (DSI-111): cookieless, no fingerprinting. The manual
+	snippet, not the edge auto-injection DSI-132 switched off — this way the
+	script is in our HTML, where the build and the CSP can see it. External and
+	`defer`, so it never blocks render and needs no hash; `is:inline` stops Astro
+	from trying to bundle a remote URL. Its origin is in `script-src` and its
+	reporting endpoint in `connect-src` in headers.template.
+*/}
+<script
+	is:inline
+	defer
+	src="https://static.cloudflareinsights.com/beacon.min.js"
+	data-cf-beacon={JSON.stringify({ token: site.cloudflareAnalyticsToken })}
+></script>

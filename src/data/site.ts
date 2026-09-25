@@ -22,6 +22,13 @@ export const site = {
     github: 'https://github.com/Dsinha97',
   },
   resumePath: '/resume/',
+  /*
+   * Cloudflare Web Analytics site token (DSI-111). Public by design — it ships
+   * in every page's source — so it is not a secret and belongs here. The
+   * beacon's two origins are allowed in headers.template; change one without
+   * the other and the beacon is blocked silently.
+   */
+  cloudflareAnalyticsToken: '88a11f334b424bce94ef2b412c5332fb',
 } as const;
 
 export const nav = [

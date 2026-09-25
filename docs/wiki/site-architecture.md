@@ -239,6 +239,10 @@ No contact form, no database, no analytics in the first version. Each would add 
 secret to manage and a CSP widening, for a personal site whose entire contact need is an email
 address. They are recorded as later work rather than dropped.
 
+Analytics has since been added without a backend: Cloudflare Web Analytics' manual snippet
+(DSI-111), cookieless, with the CSP widened for its two origins — see
+[security-headers](security-headers.md#cloudflare-web-analytics-2026-09-25-dsi-111).
+
 ## Sources
 
 - [portfolio-website-plan.md](../sources/portfolio-website-plan.md) — the bento grid, progressive

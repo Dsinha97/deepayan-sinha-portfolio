@@ -8,7 +8,7 @@ sources:
 related:
   - deployment-domain.md
   - site-architecture.md
-updated: 2026-09-24
+updated: 2026-09-25
 status: built
 ---
 
@@ -55,9 +55,10 @@ The last check is not a security control; it enforces
 
 ```
 Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none';
-  frame-ancestors 'none'; form-action 'none'; script-src 'self' 'sha256-...';
-  style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self';
-  upgrade-insecure-requests
+  frame-ancestors 'none'; form-action 'none';
+  script-src 'self' 'sha256-...' https://static.cloudflareinsights.com;
+  style-src 'self'; font-src 'self'; img-src 'self' data:;
+  connect-src 'self' https://cloudflareinsights.com; upgrade-insecure-requests
 Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
 X-Content-Type-Options: nosniff
 Referrer-Policy: strict-origin-when-cross-origin
@@ -77,15 +78,16 @@ blocked silently and the icon set stops applying.
 
 ## Why the policy can be this strict
 
-Because nothing on the site is third-party. Fonts are self-hosted, there is no analytics, no
-embedded video, no map, no CDN. Every one of those would require widening the policy, and under
+Because almost nothing on the site is third-party. Fonts are self-hosted, there is no embedded
+video, no map, no CDN. The one exception is the Cloudflare Web Analytics beacon, adopted
+deliberately in DSI-111 — see [below](#cloudflare-web-analytics-2026-09-25-dsi-111). Every one of those would require widening the policy, and under
 an enforcing CSP a blocked resource fails **silently** — it simply never loads. So the rule is:
 adding any third-party script, style, font, image host or fetch target requires a matching
 header edit in the same change, or the feature will appear to work locally and be invisible in
 production.
 
-If analytics is added later, it needs its script origin in `script-src` and its reporting
-endpoint in `connect-src`.
+Analytics shows the rule in practice: it needed its script origin in `script-src` and its
+reporting endpoint in `connect-src`, both in the same change.
 
 ## What building it changed
 
@@ -198,6 +200,28 @@ Three things worth keeping:
 Not done, and not needed for the gate: `Cross-Origin-Embedder-Policy` and
 `Cross-Origin-Resource-Policy`, which the scanner lists as "upcoming". COEP would isolate the page
 for features it does not use.
+
+## Cloudflare Web Analytics, 2026-09-25 (DSI-111)
+
+The site's first and only third-party origin, adopted on purpose after DSI-132 had removed the
+uninvited version. Cookieless, no fingerprinting, no backend on our side.
+
+- **Manual snippet, not edge injection.** Automatic injection stays off in the dashboard. The
+  `<script>` lives in `Head.astro`, so it is in the built HTML where `check-dist.mjs` and a local
+  `wrangler dev` run can see it — the DSI-132 failure was precisely a script that existed only
+  at the edge. It is external and `defer`, so it needs no hash and never blocks render.
+- **Two origins, one change.** `https://static.cloudflareinsights.com` in `script-src` (the
+  loader) and `https://cloudflareinsights.com` in `connect-src` (the beacon POSTs to
+  `/cdn-cgi/rum` there). Either alone and the beacon fails silently.
+- **The token is public.** It sits in `src/data/site.ts` as `cloudflareAnalyticsToken`; every
+  visitor receives it in page source.
+- **What the local check proved, and what it cannot.** Under `wrangler dev` there were zero CSP
+  violations: the script loaded and the beacon's POST left the page. That POST then failed CORS,
+  as it should — Cloudflare accepts reports only from the registered hostname. So locally proves
+  the policy; only production proves collection, which is the issue's gate.
+
+This supersedes the launch audits' "zero third-party requests" result (DSI-105, DSI-108); every
+other directive is unchanged.
 
 ## Testing locally
 
