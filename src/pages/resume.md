@@ -7,7 +7,7 @@ updated: September 2026
 
 # Deepayan Sinha
 
-[contact@deepayansinha.com](mailto:contact@deepayansinha.com) · [linkedin.com/in/dsinha97](https://www.linkedin.com/in/dsinha97/) · [github.com/Dsinha97](https://github.com/Dsinha97)
+[deepayansinha.com](https://deepayansinha.com/) · [contact@deepayansinha.com](mailto:contact@deepayansinha.com) · [linkedin.com/in/dsinha97](https://www.linkedin.com/in/dsinha97/) · [github.com/Dsinha97](https://github.com/Dsinha97)
 
 ## Summary
 

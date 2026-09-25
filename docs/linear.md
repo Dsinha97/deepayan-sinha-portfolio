@@ -88,6 +88,7 @@ gate rather than copying it into a second place where it can rot.
 | Security headers audit on production | DSI-105 | M5 | [security-headers.md](wiki/security-headers.md#production-audit-2026-09-24-dsi-105) |
 | Lighthouse and accessibility audit | DSI-106 | M5 | [design-system.md](wiki/design-system.md) |
 | Open Graph images | DSI-104 | M5 | [seo-and-metadata.md](wiki/seo-and-metadata.md) |
+| Cross-device QA and link check | DSI-107 | M5 | this file |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
@@ -258,11 +259,17 @@ with a content-hashed `?v=` on every `og:image`, `<meta name="author">`, and cas
 `published`/`updated` dates from git. Re-inspected clean on all five URLs. The SEO wiki page is
 now `status: built`.
 
+**DSI-107 closed 2026-09-24.** Zero broken internal references (463, fragments included) after
+dropping the 404 page's canonical, which named a path with no file behind it. Every external link
+loads; the three LinkedIn Learning certificates name the owner and match their listed course. The
+MBA Math verification page renders no recipient name — kept at the owner's decision. Theme
+persists across pages, Escape closes the mobile menu, slash-less URLs redirect and load, and the
+owner checked Firefox, Safari and a real phone.
+
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
-| DSI-107 | Cross-device QA and link check | M5 | Zero broken links |
 | DSI-108 | Go-live | M5 | Full checklist green on production in one sitting; wiki `status` flipped to `built` |
 | DSI-109 | GitHub profile README | M6 | None. Owner decision on scope |
 | DSI-110 | Contact form | M6 | **Blocked** — owner decides the form is worth a backend, a database and a CSP widening |

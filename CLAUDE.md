@@ -21,16 +21,14 @@ authority is [docs/wiki/](docs/wiki/index.md); the plan-to-repo join is
 
 ## Current state
 
-**Milestone M4 — case studies.** M0 through M3 are closed, and so is the Design Improvements
-milestone (a five-skill design audit, 20 issues, closed 2026-09-18): the repo, the wiki, the
-Linear backlog, the Astro/Tailwind scaffold, the Workers deploy, the apex domain and `contact@`
-routing, the shell, the tokens, the mark, the typography, the CSP pipeline, the responsive pass,
-and the homepage content (hero, about, experience, education, skills, contact, resume) are all
-live. M4 is the case-study content collection, schema and bento work index — all shipped.
-Where each case study stands is in Linear.
+**Launched.** M0 through M5 are closed, along with the Design Improvements and Redesign
+milestones. The site is live on the apex: homepage, three case studies, a resume page and PDF,
+social cards and JSON-LD, an enforcing CSP, and every milestone gate re-checked against
+production at go-live. What each launch audit measured is in the wiki (`security-headers.md`,
+`seo-and-metadata.md`, `design-system.md`) and in `docs/linear.md`.
 
-**The homepage content is real, not placeholder.** What remains is M5 (SEO, OG images, the
-security-headers production audit, Lighthouse, QA, go-live) and M6 (beyond launch). See the
+**What remains is M6 (beyond launch)**, several items of which are owner decisions rather than
+engineering, plus the HSTS preload submission, which waits for a week of clean HTTPS. See the
 Linear backlog for order, not a line pinned here.
 
 ## Commands

@@ -3,9 +3,9 @@
 Personal portfolio site for Deepayan Sinha — MBA (William & Mary, 2026), six years of AI/ML
 product engineering, and a habit of shipping the tools himself.
 
-**Status: in development.** The domain is registered, planning and content work is done, and the
-Astro scaffold is up. Layout, theming and content still ship in later milestones — see
-[docs/linear.md](docs/linear.md).
+**Status: live** at [deepayansinha.com](https://deepayansinha.com/) since 2026-09-24. The homepage,
+three case studies and a resume (web page and PDF) are built and deployed; later work is tracked
+in Linear — see [docs/linear.md](docs/linear.md).
 
 ## Stack
 
@@ -18,8 +18,12 @@ Astro scaffold is up. Layout, theming and content still ship in later milestones
 
 ```bash
 npm install
-npm run dev
+npm run dev      # astro dev on :4321
+npm run build    # astro check, static build, then the CSP-header and dist guards
+npm run preview  # wrangler dev over dist/, with the real security headers applied
 ```
+
+Pushing to `main` deploys to production through Cloudflare's Git integration.
 
 ## Documentation
 
