@@ -94,6 +94,7 @@ gate rather than copying it into a second place where it can rot.
 | Recognition tile: the whole card toggles the disclosure | DSI-198 | M6 | `src/components/WorkGrid.astro` |
 | Contact band: LinkedIn and GitHub logos in the pills | DSI-199 | M6 | `src/components/Contact.astro` |
 | Contact band: copy icon inside the email pill | DSI-200 | M6 | `src/components/Contact.astro`, `src/scripts/contact.js` |
+| Cloudflare Web Analytics, CSP widened in the same change | DSI-111 | M6 | [security-headers.md](wiki/security-headers.md#cloudflare-web-analytics-2026-09-25-dsi-111) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
@@ -302,13 +303,20 @@ one row at 360px with 22px spare. The button now ships `hidden` in markup and `c
 it only when the Clipboard API exists. Verified by computed style and DOM measurement in the dev
 preview (the pane was not painting, so no screenshot); `npm run build` clean.
 
+**DSI-111 closed 2026-09-25.** Cloudflare Web Analytics via the manual snippet (edge injection
+stays off), with `script-src` and `connect-src` widened in the same PR. Gate met on production
+about 80s after merge: the served CSP carries both origins, the beacon loads and POSTs to
+`cloudflareinsights.com/cdn-cgi/rum` on `/` and a case study with a clean console, and the
+endpoint's CORS preflight answers 200 with `Access-Control-Allow-Origin: https://deepayansinha.com`.
+Locally the same POST is CORS-refused, which is what a correct setup looks like off the
+registered host. The launch audits' "zero third-party requests" result no longer holds.
+
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
 | DSI-109 | GitHub profile README | M6 | None. Owner decision on scope |
 | DSI-110 | Contact form | M6 | **Blocked** — owner decides the form is worth a backend, a database and a CSP widening |
-| DSI-111 | Privacy-preserving analytics | M6 | CSP widened in the same change; beacon confirmed reaching its endpoint |
 | DSI-112 | Command palette | M6 | Only if the site stays inside its JavaScript budget with it included |
 | DSI-113 | Fourth case study: Wipro | M6 | **Blocked** — owner decides whether enough survives genericization to carry a page |
 | DSI-114 | Writing or notes section | M6 | **Blocked** — owner has at least three pieces drafted |
