@@ -91,6 +91,9 @@ gate rather than copying it into a second place where it can rot.
 | Cross-device QA and link check | DSI-107 | M5 | this file |
 | Go-live: final checklist, docs refresh, profile links | DSI-108 | M5 | [log.md](wiki/log.md) |
 | Repo made public with fpl-app's safety rules | DSI-197 | M6 | [deployment-domain.md](wiki/deployment-domain.md#repository-safety) |
+| Recognition tile: the whole card toggles the disclosure | DSI-198 | M6 | `src/components/WorkGrid.astro` |
+| Contact band: LinkedIn and GitHub logos in the pills | DSI-199 | M6 | `src/components/Contact.astro` |
+| Contact band: copy icon inside the email pill | DSI-200 | M6 | `src/components/Contact.astro`, `src/scripts/contact.js` |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
@@ -287,6 +290,18 @@ flip, then fork-PR approval and secret scanning with push protection. A CI workf
 not just the tree. Verified by a direct push to `main` being rejected and this change landing
 through a PR. From here on, `main` changes only through a pull request.
 
+**DSI-198/199/200 shipped 2026-09-25 (owner requests).** The Recognition tile's disclosure button
+already stretched its `::after` over the whole card, but a click away from the button never
+fired: `active:scale` made the button the overlay's containing block mid-press, the overlay shrank
+to the button, and mouseup landed outside it. Press feedback moved to the `<li>` via `has-[…]`,
+with a hover border so the card reads as one target. The Contact band's LinkedIn and GitHub pills
+gained their logos. The "Copy" pill became an icon button from the owner's `copy.svg`, placed
+*inside* the email pill: as a separate pill it wrapped below the address on a 375px phone
+(address 231px at 16px), so below `sm` the envelope drops and the text is `text-sm` — measured on
+one row at 360px with 22px spare. The button now ships `hidden` in markup and `contact.js` reveals
+it only when the Clipboard API exists. Verified by computed style and DOM measurement in the dev
+preview (the pane was not painting, so no screenshot); `npm run build` clean.
+
 ## Open
 
 | Issue | Item | Milestone | Gate / blocker |
@@ -297,6 +312,7 @@ through a PR. From here on, `main` changes only through a pull request.
 | DSI-112 | Command palette | M6 | Only if the site stays inside its JavaScript budget with it included |
 | DSI-113 | Fourth case study: Wipro | M6 | **Blocked** — owner decides whether enough survives genericization to carry a page |
 | DSI-114 | Writing or notes section | M6 | **Blocked** — owner has at least three pieces drafted |
+| DSI-201 | HSTS preload submission | M6 | On or after 2026-10-01, hstspreload.org reports eligible — see [deployment-domain.md](wiki/deployment-domain.md) |
 
 ## How to keep it true
 

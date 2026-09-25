@@ -9,14 +9,18 @@
  * docs/wiki/content-guardrails.md.
  *
  * The gate is that this works with JavaScript disabled, so the markup is a
- * plain mailto link that is already useful on its own. The copy button is
- * added by src/scripts/contact.js at runtime and is absent without JS rather
- * than present and dead — a button that does nothing is worse than no button.
+ * plain mailto link that is already useful on its own. The copy button sits
+ * beside it (DSI-200) but ships `hidden`; src/scripts/contact.js reveals it only
+ * when the Clipboard API exists, so without JS it is absent rather than present
+ * and dead — a button that does nothing is worse than no button.
  */
 import { site } from '../data/site';
 import { lookingFor } from '../data/profile';
 import IconEmail from './IconEmail.astro';
 import IconArrowUpRight from './IconArrowUpRight.astro';
+import IconCopy from './IconCopy.astro';
+import IconGitHub from './IconGitHub.astro';
+import IconLinkedIn from './IconLinkedIn.astro';
 
 interface Props {
 	/** Heading level: h2 on the homepage, where it is a section. */
@@ -28,7 +32,7 @@ const pill =
 	'inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-band-line px-6 text-on-band-2 transition-[color,border-color,transform] duration-100 hover:border-on-band-2 hover:text-on-band active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-band';
 ---
 
-<div class="rounded-band bg-band px-6 py-12 md:px-12 md:py-16 lg:px-16 lg:py-20">
+<div class="rounded-band bg-band px-5 py-12 sm:px-6 md:px-12 md:py-16 lg:px-16 lg:py-20">
 	<p class="font-mono text-label uppercase tracking-[0.12em] text-band-label">Contact</p>
 	<Tag class="mt-4 font-serif text-[clamp(3rem,2rem+4vw,6rem)] font-normal leading-[0.95] tracking-[-0.035em] text-on-band">
 		Let's work together.
@@ -36,22 +40,53 @@ const pill =
 	<p class="mt-5 max-w-[52ch] text-lg text-on-band-2">{lookingFor}</p>
 
 	<div class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center" data-contact="band">
-		<a
-			href={`mailto:${site.email}`}
-			class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-on-band px-6 font-semibold text-purple-800 transition-[background-color,transform] duration-100 hover:bg-white active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-band"
-			data-contact-email={site.email}
-		>
-			<IconEmail class="size-5" />
-			{site.email}
-		</a>
+		{/*
+			The copy button sits inside the email pill, at its right end (DSI-200), so
+			the two read as one control and stay on one row on a phone. The address
+			alone is ~231px at 16px; below `sm` the envelope drops and the text steps
+			down to `text-sm`, which with the band's `px-5` fits a 360px screen.
+		*/}
+		<div class="flex min-h-12 items-center rounded-full bg-on-band p-1 text-purple-800">
+			<a
+				href={`mailto:${site.email}`}
+				class="inline-flex min-h-10 flex-1 items-center justify-center gap-2 rounded-full px-3 text-sm font-semibold transition-[background-color,transform] duration-100 hover:bg-white active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-band sm:pr-3 sm:pl-5 sm:text-base"
+				data-contact-email={site.email}
+			>
+				<IconEmail class="size-5 max-sm:hidden" />
+				{site.email}
+			</a>
+			<button
+				type="button"
+				hidden
+				data-contact-copy
+				aria-label="Copy email address"
+				title="Copy email address"
+				class="grid size-10 shrink-0 cursor-pointer place-items-center rounded-full transition-[background-color,transform] duration-100 hover:bg-white active:scale-[0.94] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-band [&>span]:col-start-1 [&>span]:row-start-1 [&>span]:transition-opacity [&>span]:duration-150 [&>span]:ease-out"
+			>
+				<span data-copy-icon="idle"><IconCopy class="size-5" /></span>
+				<span data-copy-icon="done" class="opacity-0">
+					<svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M5 12.5l4.5 4.5L19 7.5" />
+					</svg>
+				</span>
+				<span data-copy-icon="failed" class="opacity-0">
+					<svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+						<path d="M6 6l12 12M18 6L6 18" />
+					</svg>
+				</span>
+			</button>
+		</div>
 		<a href={site.links.linkedin} rel="me noopener" class={pill}>
+			<IconLinkedIn class="size-5" />
 			LinkedIn
 			<IconArrowUpRight class="size-4" />
 		</a>
 		<a href={site.links.github} rel="me noopener" class={pill}>
+			<IconGitHub class="size-5" />
 			GitHub
 			<IconArrowUpRight class="size-4" />
 		</a>
+		<span class="sr-only" role="status" aria-live="polite" data-contact-status></span>
 	</div>
 </div>
 
