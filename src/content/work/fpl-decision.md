@@ -9,6 +9,8 @@ coverLight: "../../assets/work/fpl-decision-cover-light.webp"
 kicker: "Solo build"
 bentoSize: "lg"
 order: 1
+published: 2026-09-12
+updated: 2026-09-24
 claimScope: "own-outcomes"
 updates: "fpl-timeline"
 star:

@@ -9,6 +9,8 @@ coverFocus: "left"
 kicker: "Consulting"
 bentoSize: "tall"
 order: 3
+published: 2026-09-12
+updated: 2026-09-24
 claimScope: "engagement-outcomes"
 star:
   situation: >-

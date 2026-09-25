@@ -4,23 +4,19 @@
 // shared link shows the case study's own title. Head.astro points at these.
 import type { APIRoute, GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
-import { renderCard, type CardContent } from '../../lib/og-card';
-import { site } from '../../data/site';
+import { renderCard } from '../../lib/og-card';
+import { defaultCard, workCard, type CardContent } from '../../lib/og-cards';
 
 export const getStaticPaths = (async () => {
   const work = await getCollection('work');
   return [
     {
       params: { card: 'default' },
-      props: { eyebrow: 'Portfolio', title: site.name, body: site.headline } satisfies CardContent,
+      props: defaultCard(),
     },
     ...work.map((entry) => ({
       params: { card: `work/${entry.id}` },
-      props: {
-        eyebrow: `Case study · ${entry.data.kicker}`,
-        title: entry.data.title,
-        body: entry.data.tagline,
-      } satisfies CardContent,
+      props: workCard(entry),
     })),
   ];
 }) satisfies GetStaticPaths;

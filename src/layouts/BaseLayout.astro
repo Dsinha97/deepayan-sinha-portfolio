@@ -28,9 +28,11 @@ interface Props {
   type?: 'website' | 'profile' | 'article';
   image?: string;
   jsonLd?: Record<string, unknown>;
+  published?: Date;
+  modified?: Date;
 }
 
-const { title, description, noindex, type, image, jsonLd } = Astro.props;
+const { title, description, noindex, type, image, jsonLd, published, modified } = Astro.props;
 ---
 
 <html lang="en">
@@ -50,6 +52,8 @@ const { title, description, noindex, type, image, jsonLd } = Astro.props;
 			type={type}
 			image={image}
 			jsonLd={jsonLd}
+			published={published}
+			modified={modified}
 		/>
 	</head>
 	<body class="flex min-h-dvh flex-col bg-bg text-fg">

@@ -41,6 +41,13 @@ const work = defineCollection({
      * tile in the portrait.so reference. */
     bentoSize: z.enum(['lg', 'md', 'sm', 'tall']),
     order: z.number(),
+    /* The day this case study went live on the site, and the day it last
+     * changed materially — from git history, never estimated. They feed
+     * article:published_time / modified_time and the Article's JSON-LD, which
+     * link previews (LinkedIn) read; without them a preview guesses a date
+     * from whatever is on the page. */
+    published: z.coerce.date(),
+    updated: z.coerce.date().optional(),
     claimScope: z.enum(['own-outcomes', 'engagement-outcomes']),
     /* A "Recent updates" panel synced at build time from the project's own
      * changelog. Only FPL Decision has one — see src/lib/fpl-updates.ts. */

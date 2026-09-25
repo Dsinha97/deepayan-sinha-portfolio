@@ -12,6 +12,7 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import satori from 'satori';
 import sharp from 'sharp';
+import type { CardContent } from './og-cards';
 
 // From the project root, not import.meta.url: Astro bundles this file into a
 // chunk under dist/, so a path relative to the module would point there.
@@ -20,12 +21,6 @@ const fromRoot = (...parts: string[]) => join(process.cwd(), ...parts);
 export const OG_WIDTH = 1200;
 export const OG_HEIGHT = 630;
 
-export interface CardContent {
-  /* Small uppercase line above the title — "Case study · Solo build". */
-  eyebrow: string;
-  title: string;
-  body: string;
-}
 
 const fontFile = (pkg: string, file: string) =>
   readFile(fromRoot('node_modules', pkg, 'files', file));

@@ -8,6 +8,8 @@ cover: "../../assets/work/abhijit-sinha-website-cover.webp"
 kicker: "Solo build"
 bentoSize: "md"
 order: 2
+published: 2026-09-12
+updated: 2026-09-24
 claimScope: "own-outcomes"
 star:
   situation: >-

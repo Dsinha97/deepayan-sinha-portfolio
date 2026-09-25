@@ -22,6 +22,7 @@ import WorkCover from '../../components/WorkCover.astro';
 import IconArrowUpRight from '../../components/IconArrowUpRight.astro';
 import { logoFor } from '../../data/tools';
 import { caseStudyArticle } from '../../data/schema';
+import { cardUrl, workCard } from '../../lib/og-cards';
 import { FPL_TIMELINE_SOURCE, formatUpdateDate, getFplUpdates } from '../../lib/fpl-updates';
 
 export async function getStaticPaths() {
@@ -73,7 +74,9 @@ const link =
 	title={`${data.title} — case study`}
 	description={data.tagline}
 	type="article"
-	image={`/og/work/${entry.id}.png`}
+	image={cardUrl(`work/${entry.id}`, workCard(entry))}
+	published={data.published}
+	modified={data.updated}
 	jsonLd={jsonLd}
 >
 	<article class="mx-auto max-w-[75rem] px-4 pb-8 pt-10 md:px-6 lg:pt-16">

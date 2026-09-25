@@ -61,5 +61,7 @@ export async function caseStudyArticle(entry: CollectionEntry<'work'>, pageUrl: 
     // doesn't follow references (Google's Article checks) needs to see an
     // author at all. The full node lives on the homepage only.
     author: { '@type': 'Person', '@id': PERSON_ID, name: site.name, url: `${site.url}/` },
+    datePublished: entry.data.published.toISOString().slice(0, 10),
+    ...(entry.data.updated && { dateModified: entry.data.updated.toISOString().slice(0, 10) }),
   };
 }

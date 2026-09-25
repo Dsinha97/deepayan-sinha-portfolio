@@ -127,6 +127,25 @@ page, not to compete for generic terms.
 - `public/og-default.png` (DSI-89) is no longer referenced by any page. It stays, since
   `scripts/trace-logo.py` regenerates it with the rest of the logo set.
 
+**What the LinkedIn Post Inspector found (2026-09-24), and what changed.**
+
+- **Three of five previews were blurry** — resume, Fort Monroe, Abhijit. LinkedIn had stored an
+  `articleshare-shrink_160` thumbnail for them and a `shrink_480` for the other two, from
+  identical 1200×630 PNGs: the homepage and the resume share *the same file* and came out sharp and
+  blurry respectively. Nothing in the image caused it; LinkedIn's first scrape did, and it caches
+  the processed image by URL, so re-inspecting reused the bad one. The fix is on our side of that
+  cache: every `og:image` now carries `?v=`, a hash of the card's text, `og-card.ts` and
+  `global.css` (`src/lib/og-cards.ts`). A card that changes gets a new URL automatically, and this
+  deploy gives all five new ones, forcing a fresh fetch.
+- **"No author found" on every page.** LinkedIn does not read JSON-LD. Every page now carries
+  `<meta name="author">`, and case studies add `article:author`.
+- **"No publication date found"** on four pages — and on the fifth, FPL, a date LinkedIn had
+  *guessed*, apparently from the Recent Updates panel. Case studies now carry `published` (required)
+  and `updated` in their frontmatter, emitted as `article:published_time` / `modified_time` and as
+  `datePublished` / `dateModified` in the Article JSON-LD. The dates come from git — the day each
+  went live (2026-09-12) and the redesign (2026-09-24) — never estimated.
+- LinkedIn labels every URL "Article" whatever `og:type` says; that is its display, not our tag.
+
 The DSI-104 gate is a real link preview (a preview tool and the LinkedIn post inspector) on each
 of the five URLs after deploy — valid tags can still render wrong.
 
