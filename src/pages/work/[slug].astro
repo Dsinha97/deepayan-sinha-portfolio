@@ -21,6 +21,7 @@ import Contact from '../../components/Contact.astro';
 import WorkCover from '../../components/WorkCover.astro';
 import IconArrowUpRight from '../../components/IconArrowUpRight.astro';
 import { logoFor } from '../../data/tools';
+import { caseStudyArticle } from '../../data/schema';
 import { FPL_TIMELINE_SOURCE, formatUpdateDate, getFplUpdates } from '../../lib/fpl-updates';
 
 export async function getStaticPaths() {
@@ -45,6 +46,7 @@ interface Props {
 const { entry, prev, next } = Astro.props;
 const { data } = entry;
 const { Content } = await render(entry);
+const jsonLd = await caseStudyArticle(entry, new URL(Astro.url.pathname, Astro.site).href);
 const { updates, live } =
   data.updates === 'fpl-timeline' ? await getFplUpdates() : { updates: [], live: false };
 
@@ -67,7 +69,12 @@ const link =
   'inline-flex min-h-11 items-center gap-1.5 rounded-control text-accent underline decoration-seam underline-offset-4 transition-[color,transform] duration-100 hover:text-accent-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
 ---
 
-<BaseLayout title={`${data.title} — case study`} description={data.tagline}>
+<BaseLayout
+	title={`${data.title} — case study`}
+	description={data.tagline}
+	type="article"
+	jsonLd={jsonLd}
+>
 	<article class="mx-auto max-w-[75rem] px-4 pb-8 pt-10 md:px-6 lg:pt-16">
 		<nav aria-label="Breadcrumb" class="text-meta text-fg-muted">
 			<a href="/#work" class={link}>

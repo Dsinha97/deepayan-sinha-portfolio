@@ -25,9 +25,15 @@ const SOURCE = join(ROOT, 'src/scripts/theme-init.js');
 
 const sha256 = (buf) => `sha256-${createHash('sha256').update(buf).digest('base64')}`;
 
-/** Every inline <script>…</script> body in a page, without its tag. */
+/**
+ * Every inline <script>…</script> body in a page, without its tag. JSON-LD
+ * blocks (DSI-103) are skipped: they are data, never executed, so script-src
+ * does not govern them and they need no hash. check-dist.mjs checks they parse.
+ */
 const inlineScripts = (html) =>
-  [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)].map((m) => m[1]);
+  [...html.matchAll(/<script(?![^>]*\bsrc=)([^>]*)>([\s\S]*?)<\/script>/gi)]
+    .filter((m) => !/\btype="application\/ld\+json"/.test(m[1]))
+    .map((m) => m[2]);
 
 async function htmlFiles(dir) {
   const out = [];

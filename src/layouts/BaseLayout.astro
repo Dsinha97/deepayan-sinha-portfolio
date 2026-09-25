@@ -25,9 +25,12 @@ interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  type?: 'website' | 'profile' | 'article';
+  image?: string;
+  jsonLd?: Record<string, unknown>;
 }
 
-const { title, description, noindex } = Astro.props;
+const { title, description, noindex, type, image, jsonLd } = Astro.props;
 ---
 
 <html lang="en">
@@ -40,7 +43,14 @@ const { title, description, noindex } = Astro.props;
 			it async and reintroduce the flash.
 		*/}
 		<script is:inline set:html={themeInit} />
-		<Head title={title} description={description} noindex={noindex} />
+		<Head
+			title={title}
+			description={description}
+			noindex={noindex}
+			type={type}
+			image={image}
+			jsonLd={jsonLd}
+		/>
 	</head>
 	<body class="flex min-h-dvh flex-col bg-bg text-fg">
 		<a

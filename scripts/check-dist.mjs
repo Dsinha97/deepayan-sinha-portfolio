@@ -124,8 +124,21 @@ for (const file of files) {
   if (ext === '.html') {
     // Inline scripts. The theme init is expected and hashed; anything else
     // needs a hash of its own, which means it needs a decision, not a default.
-    const inline = [...text.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)];
-    for (const [, body] of inline) {
+    //
+    // JSON-LD (DSI-103) is the one other exemption, and only by exact type: a
+    // data block is never executed, so script-src does not apply to it. It
+    // still has to parse — an exemption that skipped the body entirely would
+    // be a hole any inline script could walk through by borrowing the type.
+    const inline = [...text.matchAll(/<script(?![^>]*\bsrc=)([^>]*)>([\s\S]*?)<\/script>/gi)];
+    for (const [, attrs, body] of inline) {
+      if (/\btype="application\/ld\+json"/.test(attrs)) {
+        try {
+          JSON.parse(body);
+        } catch {
+          fail(rel, 'json-ld-invalid', body.trim().slice(0, 80));
+        }
+        continue;
+      }
       if (!body.includes('localStorage.getItem("theme")')) {
         fail(rel, 'inline-script', body.trim().slice(0, 80));
       }

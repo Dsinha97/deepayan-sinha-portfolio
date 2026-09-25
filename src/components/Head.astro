@@ -7,9 +7,10 @@
  * with the homepage's description because someone forgot a prop — which is why
  * `description` has a default here rather than being required and forgotten.
  *
- * This is the minimum that has to be right from the first render. Open Graph,
- * Twitter cards, JSON-LD and the canonical rules are DSI-103 and DSI-104; they
- * extend this component rather than adding a second one.
+ * DSI-103 added Open Graph and Twitter tags and the JSON-LD slot. Every page
+ * gets the tags with site defaults; a page passes `jsonLd` built by
+ * src/data/schema.ts. DSI-104's generated cards replace the `image` default
+ * here rather than adding a second head component.
  */
 import { site } from '../data/site';
 
@@ -18,17 +19,27 @@ interface Props {
   description?: string;
   /* Pages that exist but must never be indexed — the 404 body, for one. */
   noindex?: boolean;
+  /* Root-relative path to the social card; resolved to an absolute URL below. */
+  image?: string;
+  type?: 'website' | 'profile' | 'article';
+  /* A schema.org object from src/data/schema.ts. */
+  jsonLd?: Record<string, unknown>;
 }
 
 const {
   title = `${site.name} — ${site.headline}`,
   description = site.description,
   noindex = false,
+  image = '/og-default.png',
+  type = 'website',
+  jsonLd,
 } = Astro.props;
 
 // `Astro.site` is the apex, hardcoded in astro.config.mjs so nothing can point
 // a canonical URL at a preview host by accident.
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+// Crawlers don't resolve relative og:image URLs.
+const imageUrl = new URL(image, Astro.site).href;
 ---
 
 <meta charset="utf-8" />
@@ -43,6 +54,23 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
 	404 for that path. The status cannot be fixed from here; the indexing can.
 */}
 {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={imageUrl} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+{/*
+	A data block, not a script: the browser never executes it, so the CSP's
+	script-src does not apply and no hash is needed. check-dist.mjs exempts this
+	type only, and fails the build if the body isn't valid JSON.
+*/}
+{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />

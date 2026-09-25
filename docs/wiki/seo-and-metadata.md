@@ -8,7 +8,7 @@ sources:
 related:
   - site-architecture.md
   - profile.md
-updated: 2026-09-10
+updated: 2026-09-24
 status: planned
 ---
 
@@ -17,7 +17,8 @@ status: planned
 > One head component, a `Person` entity that every page references, and social cards that
 > actually render.
 
-**Status: planned.**
+**Status: planned.** DSI-103's half is built (2026-09-24) and awaiting its gate — see
+[What DSI-103 built](#what-dsi-103-built). The Open Graph images are DSI-104.
 
 ## The head component
 
@@ -74,6 +75,31 @@ No keyword optimisation, no blog, no backlink work. This is a personal site whos
 from people who already have the URL — from a resume, a LinkedIn profile, or an application. The
 metadata exists so those links render properly and so a search for the name finds the right
 page, not to compete for generic terms.
+
+## What DSI-103 built
+
+- **`Head.astro`** takes `type`, `image` and `jsonLd` props beside the existing `title`,
+  `description` and `noindex`, and emits Open Graph and Twitter tags on every page. `og:image`
+  defaults to `/og-default.png` and is always absolute, since crawlers do not resolve relative
+  URLs. `BaseLayout` forwards the props; no page carries a tag of its own.
+- **`src/data/schema.ts`** builds the JSON-LD. The `Person` node (`@id`
+  `https://deepayansinha.com/#person`) appears in full on the homepage only, inside a
+  `ProfilePage`. Each case study's `Article` carries `author` as the `@id` plus name and url —
+  the reference ties the pages together; the name is there because Google's Article checks don't
+  follow references and would otherwise see no author.
+- **No `jobTitle`.** He is looking for a role; any title in the markup would be a claim the page
+  does not make. `alumniOf` reads the `education` collection, so it cannot disagree with the
+  Credentials section.
+- **Images in the JSON-LD are real built files**, run through `getImage()` to JPEG — the headshot
+  at 512px, each cover at 1200px — not the hashed source import, which has no stable URL.
+- **`public/robots.txt`** allows everything and names `sitemap-index.xml`. The sitemap was
+  measured, not assumed: exactly the five expected URLs, trailing slashes, no `/404/`, so no
+  `filter` was needed.
+- **JSON-LD is an inline `<script>`**, which both build guards rejected. The exemption and why it
+  is not a hole: [security-headers](security-headers.md#what-building-it-changed).
+
+The gate — zero errors from the schema validator — is checked against the deployed site, per the
+lesson below.
 
 ## Sources
 

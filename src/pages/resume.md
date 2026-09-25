@@ -1,6 +1,6 @@
 ---
 layout: ../layouts/ResumeLayout.astro
-title: Resume
+title: Resume — Deepayan Sinha
 description: Deepayan Sinha — MBA graduate, six years in AI/ML product engineering, analytics and applied strategy consulting.
 updated: September 2026
 ---

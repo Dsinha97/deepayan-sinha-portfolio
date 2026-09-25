@@ -101,6 +101,15 @@ the two ever disagree, the build stops and says so, rather than shipping a polic
 own script. It also fails if it finds more than one distinct inline script, since the policy
 carries exactly one hash.
 
+**The JSON-LD exemption in step 5 was written before it was built (DSI-103).** Neither guard
+actually exempted it, so the first build with structured data failed in `generate-headers.mjs`
+with five distinct inline scripts. Both scripts now skip `<script type="application/ld+json">`
+by exact type — a data block is never executed, so `script-src` does not govern it and it needs
+no hash. `check-dist.mjs` does not skip the body, though: it `JSON.parse`s it and fails the
+build if it doesn't parse. Without that, the exemption would be a hole any inline script could
+walk through by borrowing the type. Tested with three tampered builds: a stray inline script, a
+broken JSON-LD body, and `alert(1)` wearing the JSON-LD type — each fails the build.
+
 **`_headers` rules append; they do not override.** A `Cache-Control` in the `/*` block combined
 with the immutable rules below it into
 `public, max-age=0, must-revalidate, public, max-age=31536000, immutable` — and a browser takes

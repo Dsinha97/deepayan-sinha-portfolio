@@ -10,6 +10,7 @@ import Skills from '../components/Skills.astro';
 import Education from '../components/Education.astro';
 import Contact from '../components/Contact.astro';
 import { about } from '../data/profile';
+import { profilePage } from '../data/schema';
 
 /*
  * Homepage structure (DSI-131, redesigned 2026-09): a sticky identity rail
@@ -26,9 +27,10 @@ import { about } from '../data/profile';
  * the viewport.
  */
 const [lead, ...rest] = about;
+const jsonLd = await profilePage();
 ---
 
-<BaseLayout>
+<BaseLayout type="profile" jsonLd={jsonLd}>
 	<div
 		class="mx-auto grid max-w-[75rem] gap-12 px-4 pb-8 pt-12 md:px-6 lg:grid-cols-[minmax(0,17.5rem)_minmax(0,1fr)] lg:gap-16 lg:pt-20"
 	>
