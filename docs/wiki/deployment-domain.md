@@ -117,6 +117,40 @@ The Gmail address is a routing destination, never a published one. See
 - A bad path returns a styled 404 with a 404 status, not a 200.
 - A test message to `contact@` arrives in Gmail.
 
+## Repository safety
+
+Made public 2026-09-24, with the same rules as fpl-app and in fpl-app's order — the ruleset went
+on while the repo was still private, so there was no window where it was public and `main` was
+open.
+
+| Control | Setting | Why |
+|---|---|---|
+| `main` ruleset (`main protection`, id 23974689) | Blocks deletion and force-push; requires a pull request (0 approvals) and the `build` check, up to date with `main`; **no bypass actors** | A rule an admin can wave through is documentation, not a control. Zero approvals is deliberate: GitHub will not let a PR's author approve it, so on a one-person repo a count of 1 means nothing can merge |
+| `.github/workflows/ci.yml` | Job `build` runs `npm ci` then `npm run build` — `astro check`, the build, the resume PDF, the CSP header generation and `check-dist` | CI enforces exactly what a local build does, so a phone number or a stray inline script cannot merge. `permissions: contents: read` |
+| `.github/CODEOWNERS` | `* @Dsinha97` | Auto-requests the owner's review on any PR, forks included. The *rule* requiring code-owner review stays off until a second maintainer exists |
+| Fork pull request workflows | Approval required for all external contributors | A fork PR cannot run a workflow until the owner approves it |
+| Secret scanning + push protection | Enabled | A commit containing a recognised secret is refused at push time |
+
+**Consequence: nothing pushes to `main` directly — the owner and any agent included.** Branch,
+open a PR, merge once `build` is green; the merge is what deploys. Renaming the CI job breaks
+every PR, since the ruleset waits for a check called `build` that would never report.
+
+**What was checked before the flip, against all history rather than the working tree** (fpl-app
+learned that history is what publishing exposes): 47 commits, every one authored as
+`Deepayan Sinha <deepayansinha@gmail.com>`; no secret-shaped string, no phone number, no path
+under `private/` or `References/` in any version of any file; no Wipro client or vendor name and
+no individual named — tested by searching every commit for each proper name in the private vault
+notes. Three things were changed rather than accepted:
+
+- `docs/sources/` keeps its two research documents, which are false about Deepayan, and now opens
+  with a README saying so in its first line. The owner chose that over deleting them.
+- The mis-migrated parking figure and the site it came from are no longer written anywhere in the
+  tree — the rule stays, the value lives only in the private vault. **Earlier commits still
+  contain both**, reachable with `git log -p`; accepted, like fpl-app's email, over rewriting
+  history.
+- `LICENSE` now exists: MIT for the code only, content and brand assets reserved. The four
+  vendored skills carry their upstream MIT notices (sources in `skills-lock.json`).
+
 ## Sources
 
 - FPL App `docs/wiki/deployment.md` — the migration landmines and the apex/www arrangement
