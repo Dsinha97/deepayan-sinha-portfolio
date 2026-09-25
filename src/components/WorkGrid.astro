@@ -14,6 +14,11 @@
  * the content belongs in the page flow, and without JavaScript it is simply
  * shown. See .t-disclosure in motion.css.
  *
+ * The whole tile is the button's hit area, via its stretched `::after` (DSI-198).
+ * Press feedback therefore lives on the <li>, never on the button: a `scale` on
+ * the button makes it the overlay's containing block mid-press, the overlay
+ * shrinks to the button, mouseup lands outside it and the click never fires.
+ *
  * The span classes come from a static lookup, never from concatenation.
  * Tailwind 4 scans for complete class strings.
  */
@@ -98,7 +103,7 @@ const isLive = (links?: { type: string }[]) => links?.some((link) => link.type =
 
 	{
 		honor && (
-			<li class="relative flex flex-col justify-between gap-6 rounded-tile bg-surface-2 p-6 md:p-7">
+			<li class="relative flex flex-col justify-between gap-6 rounded-tile border border-transparent bg-surface-2 p-6 transition-[border-color,transform] duration-100 has-[[data-disclosure]:hover]:border-border-strong has-[[data-disclosure]:active]:scale-[0.99] md:p-7">
 				<p class="flex items-center justify-between font-mono text-label uppercase tracking-[0.12em] text-gold">
 					Recognition
 				</p>
@@ -115,7 +120,7 @@ const isLive = (links?: { type: string }[]) => links?.some((link) => link.type =
 						aria-controls="recognition-panel"
 						data-open-text="Hide details"
 						data-closed-text="Show certificate and paper"
-						class="mt-4 inline-flex min-h-11 items-center gap-2 rounded-control text-accent transition-[color,transform] duration-100 after:absolute after:inset-0 after:rounded-tile hover:text-accent-hover active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-expanded:[&_svg]:rotate-45"
+						class="mt-4 inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-control text-accent transition-colors duration-100 after:absolute after:inset-0 after:rounded-tile hover:text-accent-hoverfocus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-expanded:[&_svg]:rotate-45"
 					>
 						<span data-disclosure-label>Show certificate and paper</span>
 						<svg viewBox="0 0 24 24" class="size-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
