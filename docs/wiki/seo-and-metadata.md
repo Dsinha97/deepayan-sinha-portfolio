@@ -17,8 +17,9 @@ status: planned
 > One head component, a `Person` entity that every page references, and social cards that
 > actually render.
 
-**Status: planned.** DSI-103's half is built (2026-09-24) and awaiting its gate — see
-[What DSI-103 built](#what-dsi-103-built). The Open Graph images are DSI-104.
+**Status: planned.** DSI-103 and DSI-104 are built (2026-09-24) and awaiting their gates,
+both of which are checked against the deployed site — see
+[What DSI-103 built](#what-dsi-103-built) and [What DSI-104 built](#what-dsi-104-built).
 
 ## The head component
 
@@ -80,7 +81,7 @@ page, not to compete for generic terms.
 
 - **`Head.astro`** takes `type`, `image` and `jsonLd` props beside the existing `title`,
   `description` and `noindex`, and emits Open Graph and Twitter tags on every page. `og:image`
-  defaults to `/og-default.png` and is always absolute, since crawlers do not resolve relative
+  defaults to the generated `/og/default.png` (DSI-104) and is always absolute, since crawlers do not resolve relative
   URLs. `BaseLayout` forwards the props; no page carries a tag of its own.
 - **`src/data/schema.ts`** builds the JSON-LD. The `Person` node (`@id`
   `https://deepayansinha.com/#person`) appears in full on the homepage only, inside a
@@ -97,6 +98,37 @@ page, not to compete for generic terms.
   `filter` was needed.
 - **JSON-LD is an inline `<script>`**, which both build guards rejected. The exemption and why it
   is not a hole: [security-headers](security-headers.md#what-building-it-changed).
+
+## What DSI-104 built
+
+- **Cards are prerendered by an Astro endpoint**, `src/pages/og/[...card].png.ts`: `/og/default.png`
+  for the homepage and the resume, and `/og/work/<slug>.png` per case study, carrying its kicker,
+  title and tagline. They are ordinary static files in `dist/og/` — no runtime, nothing for the CSP
+  to allow — and the sitemap was re-measured to confirm endpoints don't enter it.
+- **`src/lib/og-card.ts` renders them with satori, then sharp.** satori lays out the card in the
+  site's own faces (Instrument Serif title, Inter body) and emits text as glyph outlines, so sharp
+  rasterises it without consulting any system font. The card is the same on Windows and on the
+  Linux build host, which is the whole reason for not drawing text through sharp's SVG renderer
+  directly.
+- **satori cannot read WOFF2.** The site's Inter is the variable WOFF2, so `@fontsource/inter`
+  (static WOFF, 400 and 600) is a devDependency used only here. Instrument Serif's package already
+  ships WOFF.
+- **Colours are read from `global.css` at build time** — the first declaration of each token,
+  which is the light theme — so a palette change reaches the cards on the next build. A missing
+  token fails the build rather than falling back to a guessed hex.
+- **The mark is rasterised before layout**, with its `prefers-color-scheme` block stripped and the
+  light colours pinned. A nested SVG with clip paths and a `<style>` is the input two renderers are
+  most likely to disagree about.
+- **satori only honours `lineClamp` on `display: block`.** The first render let the Abhijit
+  tagline run to three lines past a two-line clamp; titles now clamp at two and taglines at three.
+- `sharp` was already installed as Astro's optional dependency; it is now a direct devDependency so
+  the card generator isn't relying on a transitive install. satori brings `fflate` 0.7.3, which has
+  a moderate advisory; it only ever inflates our own font files at build time.
+- `public/og-default.png` (DSI-89) is no longer referenced by any page. It stays, since
+  `scripts/trace-logo.py` regenerates it with the rest of the logo set.
+
+The DSI-104 gate is a real link preview (a preview tool and the LinkedIn post inspector) on each
+of the five URLs after deploy — valid tags can still render wrong.
 
 The gate — zero errors from the schema validator — is checked against the deployed site, per the
 lesson below.
