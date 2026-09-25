@@ -9,7 +9,7 @@ related:
   - site-architecture.md
   - profile.md
 updated: 2026-09-24
-status: planned
+status: built
 ---
 
 # SEO and Metadata
@@ -17,8 +17,8 @@ status: planned
 > One head component, a `Person` entity that every page references, and social cards that
 > actually render.
 
-**Status: planned.** DSI-103 and DSI-104 are built (2026-09-24) and awaiting their gates,
-both of which are checked against the deployed site — see
+**Status: built.** DSI-103 and DSI-104 both closed 2026-09-24, their gates checked against the
+deployed site — see
 [What DSI-103 built](#what-dsi-103-built) and [What DSI-104 built](#what-dsi-104-built).
 
 ## The head component
