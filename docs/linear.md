@@ -97,6 +97,10 @@ gate rather than copying it into a second place where it can rot.
 | Cloudflare Web Analytics, CSP widened in the same change | DSI-111 | M6 | [security-headers.md](wiki/security-headers.md#cloudflare-web-analytics-2026-09-25-dsi-111) |
 | Command palette | DSI-112 | M6 | [site-architecture.md](wiki/site-architecture.md#command-palette-dsi-112) |
 | GitHub profile README, repos curated | DSI-109 | M6 | [github.com/Dsinha97](https://github.com/Dsinha97) |
+| fpldecision.com linked from the homepage and the FPL case study | DSI-204 | M6 | `src/components/InlineLinks.astro` |
+| Google Search Console and Bing registration; Crawler Hints on | DSI-205 | M6 | [seo-and-metadata.md](wiki/seo-and-metadata.md#search-engine-registration-2026-09-26) |
+| /wiki-ingest required before every PR (hook) | DSI-206 | M6 | [CLAUDE.md](../CLAUDE.md), `.claude/helpers/require-wiki-ingest.cjs` |
+| Portfolio rebuilds when fpl-app's timeline changes | DSI-207 | M6 | [case-study-fpl-decision.md](wiki/case-study-fpl-decision.md) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
@@ -328,6 +332,10 @@ Every claim is taken from the case studies or the resume; the three self-reporte
 the client name and platform names are left out. The three live projects' repos gained
 descriptions, homepages and topics; the five 2019–20 tutorial forks and `LPC-Team-3` were
 archived at the owner's direction.
+
+**DSI-204 to 207 filed after the fact, 2026-09-26.** Four changes shipped as ad hoc PRs (#8, #9, #10
+and fpl-app#41) were given Done issues at the owner's request, so Linear holds every shipped
+change. What happened and why is in the wiki log's 2026-09-26 entries.
 
 ## Open
 
