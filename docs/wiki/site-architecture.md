@@ -9,7 +9,7 @@ related:
   - design-system.md
   - deployment-domain.md
   - content-guardrails.md
-updated: 2026-09-24
+updated: 2026-09-25
 status: built
 ---
 
@@ -212,6 +212,17 @@ the seam:
 
 **Then, full container width, the closing band** (`Contact.astro`) — "Let's work together",
 email with a copy button, LinkedIn, GitHub. The same band ends every case study.
+
+Reworked 2026-09-25 (DSI-199, DSI-200). The LinkedIn and GitHub pills carry their logos
+(`IconLinkedIn`/`IconGitHub`, the footer's glyphs). The copy control is an icon button from the
+owner's copy glyph (`IconCopy.astro`), sitting **inside** the email pill at its right end rather
+than as a pill of its own: as a separate pill it wrapped under the address on a 375px phone,
+because the address alone is ~231px at 16px. Below `sm` the envelope drops and the address steps
+to `text-sm`, and the band's side padding is `px-5`, which keeps address and button on one row
+down to 360px (22px spare, measured). The button ships `hidden` in the markup and
+`contact.js` reveals it only when the Clipboard API exists; three stacked icons (copy, check,
+cross) crossfade on opacity, the tooltip follows the state, the accessible name stays fixed and
+a polite live region announces the outcome.
 
 Work now comes first in the column because the rail already answers "who is this" before the
 reader scrolls at all — which is what the hero used to do with a whole screen.

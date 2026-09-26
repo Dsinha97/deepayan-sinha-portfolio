@@ -85,6 +85,13 @@ green. Anything committed is readable by anyone forever — history included —
 guardrails apply to docs, commit messages and PR text, not just to the site. How it was set up
 and why: [docs/wiki/deployment-domain.md](docs/wiki/deployment-domain.md#repository-safety).
 
+**Every PR is ingested first.** A `PreToolUse` hook
+(`.claude/helpers/require-wiki-ingest.cjs`) refuses `gh pr create` while the branch changes files
+outside `docs/` without touching `docs/wiki/log.md`. Run `/wiki-ingest` and commit it to the
+branch; docs-only branches pass, and `[skip-ingest]` in a commit message is the deliberate
+override — say why when you use it. The same hook guards fpl-app, whose wiki timeline feeds the
+FPL case study's Recent Updates panel.
+
 **Git identity is local to this repo.** The global identity is a work account. This repo is
 `Deepayan Sinha <deepayansinha@gmail.com>`, GitHub `Dsinha97`. Check `git config user.email`
 before the first commit in a fresh clone.
