@@ -8,7 +8,7 @@ sources:
 related:
   - case-study-abhijit-sinha-website.md
   - content-guardrails.md
-updated: 2026-09-24
+updated: 2026-09-26
 ---
 
 # Case Study — FPL Decision
@@ -43,6 +43,16 @@ reduced to a title and one sentence, with tracker ids scrubbed. It falls back to
 `src/data/fpl-updates.snapshot.json` when offline (refresh it with
 `SYNC_FPL_SNAPSHOT=1 npm run build`), and the panel says "Snapshot" instead of "Synced" when it
 does. Build-time only, so the CSP is unchanged.
+
+**What makes it rebuild (2026-09-26).** Build-time sync means the panel is only as fresh as the
+portfolio's last deploy. That went wrong once: fpl-app's 09-26 ingest landed six minutes after
+the portfolio deployed, and the panel sat on 24 Sep. fpl-app now runs
+`.github/workflows/rebuild-portfolio.yml`, which POSTs this Worker's Workers Builds **deploy
+hook** whenever `timeline.md` changes on its `main` (or on a manual run). The hook URL is the
+credential, so it exists only as fpl-app's `PORTFOLIO_DEPLOY_HOOK` secret, never in either repo;
+it is created under Workers & Pages → deepayansinha-com → Settings → Builds → Deploy Hooks,
+branch `main`. If it is ever rotated, update that secret. The hook only rebuilds, so the worst
+a leaked URL can do is start builds, rate-limited to 10 a minute.
 
 The Situation / Task / Action / Result below is the original write-up, kept for its reasoning;
 where it disagrees with the table above, the table wins.

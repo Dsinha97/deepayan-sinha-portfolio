@@ -312,3 +312,7 @@ One line per action, newest at the bottom.
   for IndexNow. The homepage About and the FPL case study's STAR Result now link fpldecision.com
   instead of naming it as text, through a small `InlineLinks.astro` that renders only
   `[label](href)` inside data-file copy strings. Page updated: seo-and-metadata.
+- 2026-09-26 — The FPL Recent Updates panel now rebuilds when fpl-app's timeline changes: a
+  workflow in fpl-app POSTs this Worker's Workers Builds deploy hook (secret
+  `PORTFOLIO_DEPLOY_HOOK` there). Found when the day's fpl-app ingest missed the last portfolio
+  deploy by six minutes. Page updated: case-study-fpl-decision.
