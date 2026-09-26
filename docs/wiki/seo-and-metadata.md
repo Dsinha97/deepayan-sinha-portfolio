@@ -8,7 +8,7 @@ sources:
 related:
   - site-architecture.md
   - profile.md
-updated: 2026-09-24
+updated: 2026-09-26
 status: built
 ---
 
@@ -69,6 +69,29 @@ has to be edited by hand if the domain ever changes.
 
 Expected sitemap contents: the homepage, the resume, and the three case studies, all with
 trailing slashes to match the route configuration. Anything else in there is a bug.
+
+## Search engine registration, 2026-09-26
+
+Registered by the owner after launch. None of it lives in the repo, so this is the only record.
+
+- **Google Search Console**: property for `https://deepayansinha.com/`. Both
+  `sitemap-index.xml` and `sitemap-0.xml` are submitted. `sitemap-0.xml` read **Success, 5
+  pages** the same day; the index sat at "Couldn't fetch" with a blank *Last read*, which is
+  Search Console queueing a new submission, not a fetch failure — its live URL test passed. All
+  five pages were already indexed before either sitemap was read. If the index is still failing
+  after a week it can be removed; the child sitemap is sufficient on its own, and its name is
+  stable (Astro only adds `sitemap-1.xml` past 45,000 URLs).
+- **"Invalid sitemap address"** on the first attempt was a property mismatch: the sitemap was
+  being submitted in a different domain's property. The error fires before any fetch, so it
+  never says anything about the file.
+- **Bing Webmaster Tools**: imported from Search Console. Bing's index also serves DuckDuckGo,
+  Yahoo, Ecosia and ChatGPT search.
+- **Cloudflare Crawler Hints** is on (Caching → Configuration), so Cloudflare sends IndexNow
+  pings when content changes. It acts at the edge and adds nothing to the page, so the CSP is
+  unaffected.
+
+Nothing needs re-submitting when a case study is added: it enters the sitemap on the next build,
+and Crawler Hints announces the change.
 
 ## What is not done
 
