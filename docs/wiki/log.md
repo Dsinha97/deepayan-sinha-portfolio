@@ -306,3 +306,9 @@ One line per action, newest at the bottom.
   changes files outside `docs/` without touching this log. Added because two fpl-app PRs merged
   without a timeline row, leaving the FPL case study's Recent Updates panel stale. Rule added to
   CLAUDE.md.
+- 2026-09-26 — Search registration recorded, since it lives only in dashboards: Google Search
+  Console (sitemap-0.xml read Success with 5 pages; the index lagged at "Couldn't fetch" with a
+  blank Last read, which is queueing, not failure), Bing via import, and Cloudflare Crawler Hints
+  for IndexNow. The homepage About and the FPL case study's STAR Result now link fpldecision.com
+  instead of naming it as text, through a small `InlineLinks.astro` that renders only
+  `[label](href)` inside data-file copy strings. Page updated: seo-and-metadata.

@@ -32,7 +32,7 @@ star:
     ranking problem. An interface that keeps costs and assumptions as separate terms instead of a
     bare net figure.
   result: >-
-    Live at fpldecision.com since August 2026 and in use through the opening weeks of the
+    Live at [fpldecision.com](https://fpldecision.com/) since August 2026 and in use through the opening weeks of the
     2026-27 season, across forty numbered sprints. The model does not yet beat its baseline, and
     the project documents that rather than claiming accuracy. Seven findings came back negative and stayed
     documented as negative rather than quietly dropped.

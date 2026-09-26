@@ -1,0 +1,48 @@
+---
+/*
+ * Renders a plain copy string with `[label](href)` links in it, and nothing
+ * else — no emphasis, no HTML. Used where copy lives in a data file as a string
+ * (the About paragraphs in profile.ts, the case-study STAR fields) but names a
+ * live site that ought to be a link rather than text a reader has to retype.
+ *
+ * Deliberately not `set:html` or a markdown renderer: the strings stay escaped
+ * text, so a stray `<` in copy can never become markup, and the only syntax
+ * that does anything is the one pattern below.
+ *
+ * Inline links carry the same underline-on-seam treatment as the case-study
+ * links, without their `min-h-11`: a 44px-tall box inside a line of body copy
+ * would push the line apart. Same tab, like every other link on the site
+ * except the paper.
+ */
+interface Props {
+	text: string;
+}
+
+const { text } = Astro.props;
+const LINK = /\[([^\]]+)\]\(([^)\s]+)\)/g;
+
+const parts: ({ text: string } | { label: string; href: string })[] = [];
+let last = 0;
+for (const match of text.matchAll(LINK)) {
+	if (match.index > last) parts.push({ text: text.slice(last, match.index) });
+	parts.push({ label: match[1], href: match[2] });
+	last = match.index + match[0].length;
+}
+if (last < text.length) parts.push({ text: text.slice(last) });
+---
+
+{
+	parts.map((part) =>
+		'href' in part ? (
+			<a
+				href={part.href}
+				rel={part.href.startsWith('http') ? 'noopener' : undefined}
+				class="rounded-control text-accent underline decoration-seam underline-offset-4 transition-colors duration-100 hover:text-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+			>
+				{part.label}
+			</a>
+		) : (
+			part.text
+		),
+	)
+}

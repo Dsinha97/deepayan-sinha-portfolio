@@ -10,6 +10,7 @@ import Skills from '../components/Skills.astro';
 import Education from '../components/Education.astro';
 import Contact from '../components/Contact.astro';
 import { about } from '../data/profile';
+import InlineLinks from '../components/InlineLinks.astro';
 import { profilePage } from '../data/schema';
 
 /*
@@ -70,8 +71,8 @@ const jsonLd = await profilePage();
 			<section id="about" class="grid gap-4 md:grid-cols-[11rem_minmax(0,1fr)] md:gap-8">
 				<h2 class="font-mono text-label font-normal uppercase tracking-[0.12em] text-teal md:pt-3">05 · About</h2>
 				<div class="flex max-w-[62ch] flex-col gap-5">
-					<p class="font-serif text-[clamp(1.75rem,1.4rem+1.2vw,2.25rem)] leading-[1.2] text-fg">{lead}</p>
-					{rest.map((paragraph) => <p class="text-lg text-fg-2">{paragraph}</p>)}
+					<p class="font-serif text-[clamp(1.75rem,1.4rem+1.2vw,2.25rem)] leading-[1.2] text-fg"><InlineLinks text={lead} /></p>
+					{rest.map((paragraph) => <p class="text-lg text-fg-2"><InlineLinks text={paragraph} /></p>)}
 				</div>
 			</section>
 		</div>

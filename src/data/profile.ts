@@ -31,7 +31,7 @@ export const proof: Stat[] = [
 export const about: string[] = [
   "I'm an MBA graduate from William & Mary, concentrating in Business Analytics and Supply Chain Management.",
   'Before that, six years at Wipro building AI/ML products — leading development on a small team, then running a platform migration and picking up the team when two people left mid-way.',
-  'I still build. This site and fpldecision.com are mine end to end.',
+  'I still build. This site and [fpldecision.com](https://fpldecision.com/) are mine end to end.',
 ];
 
 /* The one line the rail carries above the name, and the closing band's pitch. */
