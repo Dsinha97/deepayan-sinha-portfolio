@@ -10,7 +10,7 @@ sources:
 related:
   - site-architecture.md
   - research-synthesis.md
-updated: 2026-09-24
+updated: 2026-09-25
 status: built
 ---
 
@@ -467,6 +467,17 @@ up to 60rem wide is the large blurred area the Motion rule forbids.
 before first paint. `.t-disclosure` panels are open by default and only collapse under
 `:root.js`, so the no-JS page shows the content and the scripted page starts closed without
 reflowing. `disclosure.js` toggles `data-open`. Used by the Recognition tile.
+
+**A stretched hit area must not scale mid-press (DSI-198, 2026-09-25).** The Recognition tile's
+disclosure button covers the whole card with an `after:absolute after:inset-0` overlay, anchored
+to the `relative` tile. It originally also carried `active:scale-[0.98]`. A non-`none` `scale`
+makes the element a containing block for its absolutely positioned descendants, so on mousedown
+the overlay collapsed to the button's own box, mouseup landed outside it, and the click fired on
+the tile instead of the button — every click away from the label silently did nothing. Press
+feedback now lives on the tile via `has-[[data-disclosure]:active]:scale-[0.99]`, with a
+`has-[…:hover]` border so the card reads as one target. The rule generalises: on any stretched
+link or button, put `transform`/`scale` feedback on the anchor ancestor, never on the element
+that owns the overlay.
 
 **The header's full nav starts at `lg`, not `md`.** Five nav entries plus Resume and the toggle
 overflowed at 768px by 11px; below 1024 the hamburger menu carries them.

@@ -286,3 +286,23 @@ One line per action, newest at the bottom.
   sitting, all passing; homepage dark-mode Lighthouse reads 93–96 around the 95 line, accepted by
   the owner as noise. Pages updated: seo-and-metadata (now `built`), security-headers,
   design-system.
+- 2026-09-25 — Owner polish, DSI-198/199/200. The Recognition tile's click-anywhere overlay was
+  defeated by `active:scale` on its own button (a scaled element becomes the overlay's containing
+  block mid-press); press feedback moved to the tile. Contact band pills gained LinkedIn and GitHub
+  logos, and the copy control became an icon inside the email pill, sized to fit one row at 360px.
+  Pages updated: design-system, site-architecture.
+- 2026-09-25 — DSI-111: Cloudflare Web Analytics via the manual snippet, with `script-src` and
+  `connect-src` widened in the same change; gate confirmed on production by the beacon's POST and a
+  200 CORS preflight for the apex. The launch audits' "zero third-party requests" no longer holds.
+  Pages updated (in the PR itself): security-headers, site-architecture.
+- 2026-09-25 — DSI-112: command palette (Ctrl/⌘+K or `/`), 1.2KB gzipped; whole-site JavaScript
+  about 13.5KB against the ~15KB budget, of which the analytics beacon is 10.1KB. Page updated (in
+  the PR itself): site-architecture.
+- 2026-09-25 — DSI-109: GitHub profile README published under the same content guardrails as the
+  site (no self-reported Wipro figures, no client or platform names); three repos given
+  descriptions and topics, six old repos archived. No page change — the profile lives outside this
+  repo; recorded in docs/linear.md.
+- 2026-09-26 — PRs now require an ingest: a `PreToolUse` hook blocks `gh pr create` when a branch
+  changes files outside `docs/` without touching this log. Added because two fpl-app PRs merged
+  without a timeline row, leaving the FPL case study's Recent Updates panel stale. Rule added to
+  CLAUDE.md.
