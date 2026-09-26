@@ -16,6 +16,12 @@
             "type": "command",
             "command": "node \"${CLAUDE_PROJECT_DIR:-.}/.claude/helpers/noisy-command-filter.cjs\"",
             "timeout": 5000
+          },
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR:-.}/.claude/helpers/require-wiki-ingest.cjs\"",
+            "timeout": 15,
+            "statusMessage": "Checking the wiki was ingested"
           }
         ]
       }
