@@ -503,16 +503,46 @@ samp {
   transition: stroke 200ms ease;
 }
 
+/* Set by theme.js for the single frame of a theme flip — see the comment there. */
+.theme-switching,
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+  transition: none !important;
+}
+
+/*
+ * Reduced motion removes movement, not every transition (animation review,
+ * 2026-09-27). The old blanket `transition-duration: 0.01ms` also cut the
+ * dialog and scrim fades and every colour change to a hard jump, which is
+ * less comprehensible rather than gentler. Now:
+ *   - panels and dialogs keep their fade but lose their travel, scale and blur;
+ *   - tooltips keep their fade but lose the 4px settle (the y translate only —
+ *     x stays, because some tooltips centre with -translate-x-1/2);
+ *   - keyframe animations still collapse, as there are none that only fade.
+ * `.t-panel` has its own reduced block in motion.css, and utilities that move
+ * things on hover are already `motion-safe:` or `motion-reduce:transition-none`.
+ */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  :root {
+    --panel-travel: 0px;
+    --panel-blur: 0px;
+  }
+  .t-dialog,
+  .t-disclosure {
+    transform: none !important;
+  }
+  [role='tooltip'] {
+    --tw-translate-y: 0 !important;
   }
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
   }
 }
 

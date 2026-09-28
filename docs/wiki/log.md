@@ -330,3 +330,20 @@ One line per action, newest at the bottom.
   lane item now names the Leagues screen; off-scale sizes moved onto the scale plus a new
   `text-h3-display` token; JumpLink matches the page's 100ms timing and 0.97 press feedback.
   Page updated: design-system.
+- 2026-09-27 — Site-wide interface review (better-interface) across `/`, `/resume/`, `/404` and
+  the other two case studies. Seven findings, all fixed:
+  - The nav's current state no longer relies on colour alone.
+  - The email tooltip is no longer clipped at the viewport edge.
+  - The credentials tooltip, which a tap could not open, is replaced by visible text.
+  - The palette input has a focus indicator.
+  - Theme switches snap instead of smearing.
+  - The About heading's number is hidden from screen readers.
+  - The palette's empty state names the query.
+
+  Page updated: design-system.
+- 2026-09-27 — Animation review (review-animations): six fixes. Presses and tooltip settles
+  were dead transitions under Tailwind 4 (`transform` listed, but `scale`/`translate` set), so
+  the lists now name those properties, across 11 files. The command palette no longer animates,
+  since it is keyboard-triggered. `.t-disclosure` uses transitions, not keyframes. Reduced
+  motion drops movement but keeps fades. The copy button presses to 0.97. The theme-switch
+  class is cleared by a timer. Page updated: design-system.

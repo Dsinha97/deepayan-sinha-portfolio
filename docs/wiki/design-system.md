@@ -510,11 +510,57 @@ showcase, and general enough to reuse:
   outside it, escape the clip, and the whole page scrolls sideways (708px of content in a
   567px viewport). A `relative` wrapper keeps them inside.
 
+**Site-wide interface review (2026-09-27).** Seven findings, all fixed:
+
+- **The current nav item carries an underline, not just a colour.** `fg-2` and `accent` differ
+  by 1.25:1, so `aria-[current]:text-accent` alone was state by colour. Now:
+  - Current items get a 2px `seam` underline.
+  - The Resume link, which had `aria-current` and no visual state at all, also takes the
+    accent border.
+- **SocialLink tooltips anchor at the icon's left edge.** Centred, the email tip began 65px
+  off-screen at 320px, and 57px off-screen in the rail even at 1024. The footer centres from
+  `md` (`tip="center-md"`).
+- **The credentials info button is gone.** It only responded to hover or keyboard focus, so a tap did nothing. Its
+  sentence is now visible text under the heading.
+- **The command palette's search row has a focus indicator.** It uses a 2px bottom border in
+  `ring` via `focus-within`, rather than `:focus-visible`, which does not match when the
+  palette is opened by mouse.
+- **Theme switches snap.** `theme.js` adds `.theme-switching` (`transition: none !important`)
+  for one frame. It is a class and not an injected `<style>`, because the CSP forbids inline
+  styles.
+- **The About h2 hides its "05 ·" number from screen readers**, like the other sections' eyebrows.
+- **An empty palette search names the query and the way out.**
+
 ## Motion
 
 Composite-only properties: **transform, opacity and filter**. Everything respects
 `prefers-reduced-motion: reduce`, which also disables smooth scrolling. No animation that moves
 content the reader is trying to read.
+
+**Animation review, 2026-09-27.** Six fixes, and three rules that come out of them:
+
+- **Name the property Tailwind 4 actually sets.** `scale-*`, `translate-*` and `rotate-*`
+  write the separate `scale`, `translate` and `rotate` properties, not `transform`. Every
+  `transition-[…,transform]` paired with them was a dead transition: presses and tooltip
+  settles snapped. Write `transition-[color,scale]`, `transition-[opacity,translate]`.
+  `transition-transform` is fine, because Tailwind expands it to all four.
+- **Keyboard-triggered UI does not animate.** The command palette (Ctrl/⌘+K, `/`) opens and
+  closes instantly. It sets its scrim with `backdrop:bg-(--scrim)` instead of using `.t-dialog`.
+- **Reduced motion removes movement, not fades.** The old blanket
+  `transition-duration: 0.01ms` is gone. Under `reduce`:
+  - `--panel-travel` and `--panel-blur` go to 0.
+  - `.t-dialog` and `.t-disclosure` lose their transform.
+  - Tooltips lose their y settle.
+  - Opacity and colour transitions stay.
+
+The other three fixes:
+
+- `.t-disclosure` now uses transitions, with `display … allow-discrete`, instead of keyframes.
+  Re-toggling retargets instead of restarting, and closing fades out.
+- The copy button's press is 0.97, like every other control.
+- The theme-switch class is cleared by a timer, not `requestAnimationFrame`. rAF never fires in
+  a hidden document, and the class stuck there during testing, switching off every transition
+  on the site.
 
 `filter` is on that list for a reason worth stating, because it was briefly left off and the
 omission cost a real effect. Filter animations are **compositor-animated in every engine this

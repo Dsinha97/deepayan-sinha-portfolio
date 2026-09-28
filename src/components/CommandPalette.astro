@@ -20,7 +20,10 @@
  * `data-href` / `data-action`, not links — an interactive element inside
  * `role="option"` is invalid and announced twice.
  *
- * Motion is `.t-dialog`, shared with the other panels.
+ * No open or close animation, deliberately: it is a keyboard shortcut (Ctrl/⌘+K,
+ * `/`) that can fire many times a day, and any motion makes it feel slow. The
+ * scrim is set here directly because `.t-dialog` (which supplies it for the
+ * other dialogs) is not used.
  */
 import { getCollection } from 'astro:content';
 import { site, nav } from '../data/site';
@@ -78,11 +81,11 @@ let n = 0;
 	popover
 	role="dialog"
 	aria-label="Command palette"
-	class="t-dialog mx-auto mt-[12vh] mb-auto max-h-[min(34rem,calc(100dvh-24vh))] w-[min(36rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-[1.25rem] border border-border bg-elevated p-0 text-fg open:flex"
+	class="mx-auto mt-[12vh] backdrop:bg-(--scrim) mb-auto max-h-[min(34rem,calc(100dvh-24vh))] w-[min(36rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-[1.25rem] border border-border bg-elevated p-0 text-fg open:flex"
 	data-palette
 	data-email={site.email}
 >
-	<div class="flex items-center gap-3 border-b border-border px-5">
+	<div class="flex items-center gap-3 border-b-2 border-border px-5 focus-within:border-ring">
 		<svg viewBox="0 0 24 24" class="size-5 shrink-0 text-fg-muted" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
 			<circle cx="11" cy="11" r="6.5"></circle>
 			<path d="M16 16l4.5 4.5"></path>

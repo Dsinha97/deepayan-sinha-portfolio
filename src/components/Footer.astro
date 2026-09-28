@@ -39,17 +39,17 @@ const year = new Date().getFullYear();
 		<nav aria-label="Contact">
 			<ul class="flex gap-2 md:justify-end">
 				<li>
-					<SocialLink href={`mailto:${site.email}`} label={site.email}>
+					<SocialLink href={`mailto:${site.email}`} label={site.email} tip="center-md">
 						<IconEmail class="size-6" />
 					</SocialLink>
 				</li>
 				<li>
-					<SocialLink href={site.links.linkedin} label="LinkedIn">
+					<SocialLink href={site.links.linkedin} label="LinkedIn" tip="center-md">
 						<IconLinkedIn class="size-6" />
 					</SocialLink>
 				</li>
 				<li>
-					<SocialLink href={site.links.github} label="GitHub">
+					<SocialLink href={site.links.github} label="GitHub" tip="center-md">
 						<IconGitHub class="size-6" />
 					</SocialLink>
 				</li>

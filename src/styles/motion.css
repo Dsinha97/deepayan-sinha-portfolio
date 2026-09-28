@@ -70,9 +70,9 @@
 }
 
 /*
- * The global reduced-motion block in global.css already collapses every
- * transition to 0.01ms, which would take the visibility delay with it and let
- * the panel flash. Pinning it here keeps the open/close instant *and* correct.
+ * Reduced motion: the menu opens and closes instantly. Only the visibility
+ * flip is kept, and its delay on close is pinned so the links leave the tab
+ * order after the panel is gone rather than before.
  */
 @media (prefers-reduced-motion: reduce) {
   .t-panel {
@@ -147,17 +147,34 @@
  * the tile is a plain card. The inline theme script adds `js` to <html> before
  * first paint, so a scripted page starts collapsed without a layout shift, and
  * disclosure.js toggles `data-open` from there.
+ *
+ * Transitions, not keyframes (animation review, 2026-09-27): a toggle can be
+ * re-pressed mid-motion, and a keyframe restarts from zero where a transition
+ * retargets. `display … allow-discrete` keeps the panel rendered through its
+ * exit, so closing fades out on the shorter close duration instead of
+ * vanishing — the same shape as `.t-dialog`.
  */
+.t-disclosure {
+  transition:
+    opacity var(--panel-close-dur) var(--panel-ease),
+    transform var(--panel-close-dur) var(--panel-ease),
+    display var(--panel-close-dur) allow-discrete;
+}
+
 :root.js .t-disclosure:not([data-open='true']) {
   display: none;
+  opacity: 0;
+  transform: translateY(calc(var(--panel-travel) * -1));
 }
 
 .t-disclosure[data-open='true'] {
-  animation: t-disclosure-in var(--panel-open-dur) var(--panel-ease);
+  opacity: 1;
+  transform: none;
+  transition-duration: var(--panel-open-dur);
 }
 
-@keyframes t-disclosure-in {
-  from {
+@starting-style {
+  .t-disclosure[data-open='true'] {
     opacity: 0;
     transform: translateY(calc(var(--panel-travel) * -1));
   }

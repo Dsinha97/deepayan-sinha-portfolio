@@ -13,21 +13,36 @@
  * invisible-but-tabbable trap that motion.css warns about for the nav panel.
  * `pointer-events-none` keeps it from eating the hover it was opened by.
  *
- * Opacity + a small settle-in translate: the global reduced-motion block in
- * global.css collapses both to 0.01ms on its own, so there is no media
- * query to write here.
+ * Opacity + a small settle-in translate: under reduced motion the global block
+ * in global.css zeroes the y translate on every `[role=tooltip]`, so the tip
+ * still fades but no longer moves. No media query to write here.
  *
  * It opens upward (`bottom-full`). In the footer there is nothing below to
  * open into, and the rail sits at the top of a sticky column.
+ *
+ * It starts at the icon's left edge rather than centring on it. Centred, the
+ * email tooltip (~210px, no wrap) began 65px off-screen at 320px, and 57px
+ * off-screen in the rail even at 1024 — the first icon sits at the page's
+ * leading edge. The footer centres from `md`, where its icons are pushed to
+ * the trailing edge and a start-aligned email tip would overflow the other
+ * way. `left-*` only, never `right-*` — see the responsive-check skill.
  */
 interface Props {
 	href: string;
 	label: string;
 	/** A hairline box around the icon — the rail's contact row (redesign). */
 	bordered?: boolean;
+	/** Where the tooltip anchors: the icon's left edge, or centred from `md` (footer). */
+	tip?: 'start' | 'center-md';
 }
 
-const { href, label, bordered = false } = Astro.props;
+const { href, label, bordered = false, tip = 'start' } = Astro.props;
+
+/* Static lookup — Tailwind only generates classes it can see whole. */
+const TIP = {
+	start: 'left-0',
+	'center-md': 'left-0 md:left-1/2 md:-translate-x-1/2',
+} as const;
 ---
 
 <div class="group relative flex">
@@ -36,7 +51,7 @@ const { href, label, bordered = false } = Astro.props;
 		rel="me noopener"
 		aria-label={label}
 		class:list={[
-			'peer inline-flex min-h-11 min-w-11 items-center justify-center rounded-control text-fg-2 transition-[color,border-color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+			'peer inline-flex min-h-11 min-w-11 items-center justify-center rounded-control text-fg-2 transition-[color,border-color,scale] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
 			bordered && 'border border-border hover:border-border-strong',
 		]}
 	>
@@ -45,7 +60,7 @@ const { href, label, bordered = false } = Astro.props;
 	<span
 		role="tooltip"
 		aria-hidden="true"
-		class="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-control border border-border bg-elevated px-2 py-1 text-meta text-fg opacity-0 transition-[opacity,transform] duration-150 ease-out group-hover:translate-y-0 group-hover:opacity-100 peer-focus-visible:translate-y-0 peer-focus-visible:opacity-100"
+		class:list={[TIP[tip], 'pointer-events-none absolute bottom-full z-10 mb-1 translate-y-1 whitespace-nowrap rounded-control border border-border bg-elevated px-2 py-1 text-meta text-fg opacity-0 transition-[opacity,translate] duration-150 ease-out group-hover:translate-y-0 group-hover:opacity-100 peer-focus-visible:translate-y-0 peer-focus-visible:opacity-100']}
 	>
 		{label}
 	</span>

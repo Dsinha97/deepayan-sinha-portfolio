@@ -94,35 +94,16 @@ const marks: Record<string, ImageMetadata> = {
 	}
 </ul>
 
-<div class="mt-14 flex items-center justify-between gap-4">
+<div class="mt-14">
 	<h3 class="font-serif text-3xl font-normal leading-[1.1] text-fg">Certifications and courses</h3>
-	<div class="group relative flex">
-		<button
-			type="button"
-			aria-label="How these cards work"
-			aria-describedby="credentials-tip"
-			class="peer flex size-11 items-center justify-center rounded-full border border-border text-fg-muted transition-[color,border-color] duration-100 hover:border-border-strong hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-		>
-			<svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-				<circle cx="12" cy="12" r="9" />
-				<path d="M12 11v5M12 8v.01" />
-			</svg>
-		</button>
-		<span
-			id="credentials-tip"
-			role="tooltip"
-			class="pointer-events-none absolute bottom-full right-0 z-10 mb-2 w-64 translate-y-1 rounded-control bg-fg px-3 py-2 text-meta text-bg opacity-0 transition-[opacity,transform] duration-150 ease-out group-hover:translate-y-0 group-hover:opacity-100 peer-focus-visible:translate-y-0 peer-focus-visible:opacity-100"
-		>
-			Certificates open in a viewer. Courses open the issuer's verification page.
-		</span>
-	</div>
+	<p class="mt-2 text-meta text-fg-muted">Certificates open in a viewer. Courses open the issuer's verification page.</p>
 </div>
 
 <ul class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 	{
 		certs.map(({ id, data: cert }) => {
 			const card =
-				'group flex h-full w-full flex-col overflow-hidden rounded-tile border border-border bg-surface text-left transition-[border-color,transform] duration-100 hover:border-border-strong active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
+				'group flex h-full w-full flex-col overflow-hidden rounded-tile border border-border bg-surface text-left transition-[border-color,scale] duration-100 hover:border-border-strong active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
 			const isCourse = Boolean(cert.href);
 			const preview = cert.image && (
 				<span

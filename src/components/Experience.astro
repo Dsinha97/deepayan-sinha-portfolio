@@ -61,7 +61,7 @@ const LOGOS: Record<string, { src: ImageMetadata; plate: string; pad: string }> 
 					<button
 						type="button"
 						popovertarget={dialogId}
-						class="group flex w-full flex-col gap-4 rounded-tile border border-border bg-surface p-6 text-left transition-[border-color,transform] duration-100 hover:border-border-strong active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring md:p-7"
+						class="group flex w-full flex-col gap-4 rounded-tile border border-border bg-surface p-6 text-left transition-[border-color,scale] duration-100 hover:border-border-strong active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring md:p-7"
 					>
 						<span class="flex w-full items-center justify-between gap-4">
 							{logo && (
@@ -134,7 +134,7 @@ const LOGOS: Record<string, { src: ImageMetadata; plate: string; pad: string }> 
 							{caseStudy && (
 								<a
 									href={`/work/${caseStudy}/`}
-									class="inline-flex min-h-12 items-center gap-2 self-start rounded-full bg-accent-fill px-6 text-on-accent transition-[background-color,transform] duration-100 hover:bg-accent-fill-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+									class="inline-flex min-h-12 items-center gap-2 self-start rounded-full bg-accent-fill px-6 text-on-accent transition-[background-color,scale] duration-100 hover:bg-accent-fill-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 								>
 									Read the case study
 									<span aria-hidden="true">→</span>

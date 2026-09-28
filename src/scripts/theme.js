@@ -53,7 +53,17 @@ for (const button of buttons()) {
     // Setting the attribute is what actually repaints: every colour token is
     // defined against [data-theme] as well as the media query, so the explicit
     // choice wins in both directions.
+    //
+    // Transitions are switched off for the one frame of the flip. Otherwise every
+    // element with its own colour or border transition (100–200ms) animates on
+    // its own clock and the switch smears instead of snapping. A class rather
+    // than an injected <style>: the CSP allows no inline styles.
+    root.classList.add('theme-switching');
     root.dataset.theme = next;
+    void root.offsetHeight;
+    // A timer, not requestAnimationFrame: rAF never fires in a hidden document,
+    // and a stuck class would switch off every transition on the site.
+    setTimeout(() => root.classList.remove('theme-switching'));
     syncLabels();
   });
 }
