@@ -324,3 +324,9 @@ One line per action, newest at the bottom.
   pieces: `ThemeImage.astro`, `JumpLink.astro`. Also found that `sr-only` text inside a
   horizontal scroller escapes it unless the wrapper is `relative`. Pages updated:
   case-study-fpl-decision, design-system, site-architecture.
+- 2026-09-27 — Interface review of the FPL page (better-interface). All five findings are fixed:
+  short accessible names and per-screenshot dialog titles (a `label` on each shot); one
+  zoom control per screenshot instead of an `aria-hidden` duplicate; the Effective ownership
+  lane item now names the Leagues screen; off-scale sizes moved onto the scale plus a new
+  `text-h3-display` token; JumpLink matches the page's 100ms timing and 0.97 press feedback.
+  Page updated: design-system.

@@ -97,14 +97,8 @@ const number = (entry: (typeof tour)[number]) => String(tour.indexOf(entry) + 1)
 									{entry.shots.map((shot, j) => {
 										const dialogId = `shot-${entry.id}-${j}`;
 										return (
-											<figure>
-												<button
-													type="button"
-													popovertarget={dialogId}
-													tabindex="-1"
-													aria-hidden="true"
-													class="block w-full cursor-zoom-in overflow-hidden rounded-media border border-border bg-surface-2 transition-[border-color] duration-200 hover:border-border-strong"
-												>
+											<figure class="relative transition-[scale] duration-100 has-[[data-zoom]:active]:scale-[0.99] motion-reduce:transition-none">
+												<div class="overflow-hidden rounded-media border border-border bg-surface-2 transition-[border-color] duration-200 has-[+figcaption_[data-zoom]:hover]:border-border-strong">
 													<ThemeImage
 														light={shot.light}
 														dark={shot.dark}
@@ -112,15 +106,16 @@ const number = (entry: (typeof tour)[number]) => String(tour.indexOf(entry) + 1)
 														sizes={paired ? '(min-width: 768px) 36rem, 100vw' : '(min-width: 1024px) 42rem, 100vw'}
 														class="h-auto w-full align-top"
 													/>
-												</button>
+												</div>
 												<figcaption class="mt-2 flex items-center justify-between gap-4">
 													<span class="font-mono text-meta text-fg-muted">{shot.route}</span>
 													<button
 														type="button"
 														popovertarget={dialogId}
-														class="inline-flex min-h-11 items-center gap-1.5 rounded-control px-2 text-sm text-accent transition-[color,transform] duration-100 hover:text-accent-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+														data-zoom
+														class="inline-flex min-h-11 cursor-zoom-in items-center gap-1.5 rounded-control px-2 text-sm text-accent transition-[color] duration-100 after:absolute after:inset-0 after:rounded-media hover:text-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 													>
-														View full size<span class="sr-only">: {shot.alt}</span>
+														View full size<span class="sr-only">: {shot.label}</span>
 														<svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
 															<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
 														</svg>
@@ -128,7 +123,7 @@ const number = (entry: (typeof tour)[number]) => String(tour.indexOf(entry) + 1)
 												</figcaption>
 												<Dialog id={dialogId} labelledby={`${dialogId}-title`} width="lg">
 													<Fragment slot="header">
-														<h3 id={`${dialogId}-title`} class="font-serif text-3xl font-normal leading-[1.1] text-fg">{entry.title}</h3>
+														<h3 id={`${dialogId}-title`} class="font-serif text-3xl font-normal leading-[1.1] text-fg">{shot.label}</h3>
 														<p class="mt-1 font-mono text-meta text-fg-muted">{shot.route}</p>
 													</Fragment>
 													<div class="bg-surface-2 p-3 md:p-6">
@@ -151,13 +146,13 @@ const number = (entry: (typeof tour)[number]) => String(tour.indexOf(entry) + 1)
 										<p class={eyebrow}>
 											{number(entry)} · {entry.eyebrow}
 										</p>
-										<h3 id={`tour-${entry.id}`} class="mt-2 font-serif text-[clamp(2rem,1.6rem+1.2vw,2.5rem)] font-normal leading-[1.1] text-fg">
+										<h3 id={`tour-${entry.id}`} class="mt-2 font-serif text-h3-display font-normal text-fg">
 											{entry.title}
 										</h3>
 									</div>
 									<div class:list={[paired && 'lg:col-span-7']}>
 										{entry.body.map((para, k) => (
-											<p class:list={['text-fg-2 md:text-[1.0625rem]', k === 0 ? (paired ? '' : 'mt-4') : 'mt-3']}>{para}</p>
+											<p class:list={['text-fg-2 md:text-lg', k === 0 ? (paired ? '' : 'mt-4') : 'mt-3']}>{para}</p>
 										))}
 										<p class="mt-6 font-mono text-label uppercase tracking-[0.1em] text-fg-muted">Analytics on this screen</p>
 										<ul class="mt-2.5 flex flex-wrap gap-2">
@@ -206,7 +201,7 @@ const number = (entry: (typeof tour)[number]) => String(tour.indexOf(entry) + 1)
 			<div class="grid gap-4 lg:grid-cols-[minmax(0,1.5fr)_repeat(3,minmax(0,1fr))] lg:items-start">
 				<div class="rounded-card bg-accent-soft p-4 text-on-accent-soft">
 					<p class="font-mono text-label">Deno · pg_cron · twice an hour</p>
-					<p class="mt-1 font-serif text-[1.625rem] leading-[1.1]">Expected-points model</p>
+					<p class="mt-1 font-serif text-2xl leading-[1.1]">Expected-points model</p>
 					<p class="mt-1.5 text-meta">
 						Per player, per fixture: rates shrunk towards a prior where evidence is thin, adjusted for opponent, venue
 						and availability, each scoring component kept separate.
@@ -264,7 +259,7 @@ const number = (entry: (typeof tour)[number]) => String(tour.indexOf(entry) + 1)
 		</li>
 	</ol>
 
-	<h3 class="mt-14 font-serif text-[2rem] font-normal leading-[1.15] text-fg md:mt-16">Which engine answers on which screen</h3>
+	<h3 class="mt-14 font-serif text-3xl font-normal leading-[1.15] text-fg md:mt-16">Which engine answers on which screen</h3>
 	<div class="relative mt-5 overflow-x-auto rounded-media border border-border bg-elevated" tabindex="0" role="region" aria-label="Engine by screen table, scrolls sideways">
 		<table class="w-full min-w-[44rem] border-collapse text-sm">
 			<caption class="caption-bottom border-t border-border px-5 py-3.5 text-left text-meta text-fg-muted">

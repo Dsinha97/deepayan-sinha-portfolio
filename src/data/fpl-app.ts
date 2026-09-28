@@ -71,7 +71,9 @@ export const engineChip: Record<EngineId, string> = {
   compare: 'Player comparison',
 };
 
-export type Shot = { light: ImageMetadata; dark: ImageMetadata; alt: string; route: string };
+/* `label` names the screen in a few words — the trigger's accessible name and
+ * the dialog title; `alt` is the full description, read once, on the image. */
+export type Shot = { light: ImageMetadata; dark: ImageMetadata; label: string; alt: string; route: string };
 
 /* A matrix column: one surface of the app and the engines it shows. */
 export type Surface = { id: string; short: string; engines: EngineId[] };
@@ -120,6 +122,7 @@ export const tour: TourEntry[] = [
     shots: [
       {
         light: deadlineLight,
+        label: 'Deadline Hub',
         dark: deadlineDark,
         route: '/deadline',
         alt: 'Deadline Hub: countdown to the gameweek 6 deadline, the imported squad on a pitch, an availability flag, and the recommended captain with its reasons',
@@ -139,6 +142,7 @@ export const tour: TourEntry[] = [
     shots: [
       {
         light: builderLight,
+        label: 'Team Builder',
         dark: builderDark,
         route: '/builder',
         alt: 'Team Builder: a five-gameweek projection of 274.4 expected points, the budget bar, the squad on a pitch, and the gameweek lineup with the recommended captain',
@@ -158,6 +162,7 @@ export const tour: TourEntry[] = [
     shots: [
       {
         light: transfersLight,
+        label: 'Transfers',
         dark: transfersDark,
         route: '/transfers',
         alt: 'Transfers: a four-gameweek transfer path — wildcard, bench boost, roll, free hit — each line a sum of named terms',
@@ -177,6 +182,7 @@ export const tour: TourEntry[] = [
     shots: [
       {
         light: chipsLight,
+        label: 'Chip Strategy',
         dark: chipsDark,
         route: '/transfers?tab=chips',
         alt: 'Chip Strategy: the best gameweek for each chip with its gain over holding it, chip sequences, and a schedule for gameweeks 1 to 19',
@@ -196,6 +202,7 @@ export const tour: TourEntry[] = [
     shots: [
       {
         light: scenariosLight,
+        label: 'Scenario Lab',
         dark: scenariosDark,
         route: '/scenarios',
         alt: 'Scenario Lab: three saved drafts ranked by SquadScore, each with its expected points, legality and captain',
@@ -215,6 +222,7 @@ export const tour: TourEntry[] = [
     shots: [
       {
         light: playersLight,
+        label: 'Player Explorer',
         dark: playersDark,
         route: '/players',
         alt: 'Player Explorer: a sortable table of players with price watch, expected points for the next gameweek and the next five with a range, and season statistics',
@@ -233,12 +241,14 @@ export const tour: TourEntry[] = [
     shots: [
       {
         light: cardLight,
+        label: 'Player card',
         dark: cardDark,
         route: 'Player card · opens from every page',
         alt: 'Player card: a snapshot of points, ownership, next-gameweek expected points, form, minutes and price, each ranked within position',
       },
       {
         light: compareLight,
+        label: 'Compare',
         dark: compareDark,
         route: '/players?panel=compare',
         alt: 'Player comparison: two players ranked over five gameweeks, with the categories each one wins and a metric-by-metric table',
@@ -276,5 +286,5 @@ export const browserEngines: { name: string; detail: string }[] = [
   { name: 'SquadScore', detail: 'every term in points' },
   { name: 'Risk', detail: 'rotation, injury, minutes, fixtures' },
   { name: 'Price watch', detail: 'distance to a fitted threshold' },
-  { name: 'Effective ownership', detail: 'mini-league and top-1k' },
+  { name: 'Effective ownership', detail: 'mini-league and top-1k, on the Leagues screen' },
 ];

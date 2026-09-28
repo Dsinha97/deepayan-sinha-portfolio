@@ -495,6 +495,15 @@ showcase, and general enough to reuse:
   measured pairing, so no new contrast check was needed. The label scales to 1.12 and the arrow
   nudges down. It is transform only and switches off under reduced motion. The owner chose the
   colours on the design canvas.
+- **One control per screenshot.** The "View full size" button is the only trigger. An
+  `after:absolute after:inset-0` overlay, positioned against a `relative` `<figure>`, stretches
+  its hit area over the image. Press feedback sits on the figure through
+  `has-[[data-zoom]:active]`, never on the button, per the DSI-198 rule. An earlier second
+  trigger (an `aria-hidden`, `tabindex="-1"` button around the image) was removed after the
+  interface review: `aria-hidden` must not sit on anything focusable. The button's accessible
+  name is the short `label` ("View full size: Compare"), not the 150-character alt text.
+- `text-h3-display` (`clamp(2rem, …, 2.5rem)`, leading 1.1) is the serif h3 under `text-h2`.
+  `text-h3` is the 1.375rem sans UI heading and too small for the display face.
 - **A horizontal scroller must be `relative`.** The engine × screen table sits in an
   `overflow-x-auto` wrapper with `sr-only` "Yes/No" text in each cell. `sr-only` is `absolute`.
   With no positioned ancestor inside the scroller, those spans resolve against something
