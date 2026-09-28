@@ -102,6 +102,7 @@ gate rather than copying it into a second place where it can rot.
 | /wiki-ingest required before every PR (hook) | DSI-206 | M6 | [CLAUDE.md](../CLAUDE.md), `.claude/helpers/require-wiki-ingest.cjs` |
 | Portfolio rebuilds when fpl-app's timeline changes | DSI-207 | M6 | [case-study-fpl-decision.md](wiki/case-study-fpl-decision.md) |
 | FPL case study: screen tour and analytics map | DSI-208 | M6 | [case-study-fpl-decision.md](wiki/case-study-fpl-decision.md) |
+| Site-wide interface and animation review fixes | DSI-209 | M6 | [design-system.md](wiki/design-system.md) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
