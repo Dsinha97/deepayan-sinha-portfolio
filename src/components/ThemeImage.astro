@@ -1,0 +1,27 @@
+---
+/*
+ * A light/dark image pair that follows the site theme, for screenshots whose
+ * own UI is baked into one theme. Same `.theme-cover__*` swap as WorkCover
+ * (global.css), and the same rule: both images are always lazy, because an
+ * eager image is fetched by the preload scanner before CSS hides it, while a
+ * lazy `display: none` image is never fetched — so the swap costs one image,
+ * not two (DSI-106).
+ */
+import { Image } from 'astro:assets';
+
+interface Props {
+	light: ImageMetadata;
+	dark: ImageMetadata;
+	alt: string;
+	/** Rendered width hint for the srcset, as a `sizes` value. */
+	sizes: string;
+	widths?: number[];
+	class?: string;
+}
+
+const { light, dark, alt, sizes, widths = [480, 800, 1200, 1600], class: className } = Astro.props;
+const common = { alt, sizes, widths, loading: 'lazy' as const, decoding: 'async' as const };
+---
+
+<Image src={light} {...common} class:list={['theme-cover__light', className]} />
+<Image src={dark} {...common} class:list={['theme-cover__dark', className]} />

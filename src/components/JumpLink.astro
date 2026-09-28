@@ -1,0 +1,35 @@
+---
+/*
+ * An in-page jump pill: purple at rest, the deeper band purple with gold text
+ * on hover or keyboard focus, and the label grows a little while the arrow
+ * nudges down. Gold on the band is the band's own measured pairing
+ * (--band-label on --band, design-system.md), so the hover state needs no new
+ * contrast check. Motion is transform only and switches off under reduced
+ * motion.
+ */
+interface Props {
+	href: string;
+	size?: 'md' | 'lg';
+}
+
+const { href, size = 'md' } = Astro.props;
+
+/* Static lookup — Tailwind only generates classes it can see whole. */
+const SIZE = {
+	md: 'min-h-11 gap-2 px-5 text-sm',
+	lg: 'min-h-14 gap-3 px-6 text-base',
+} as const;
+---
+
+<a
+	href={href}
+	class:list={[
+		'group inline-flex items-center rounded-full border border-accent-fill bg-accent-fill font-medium text-on-accent transition-[background-color,border-color,color] duration-200 hover:border-band hover:bg-band hover:text-band-label focus-visible:border-band focus-visible:bg-band focus-visible:text-band-label focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none',
+		SIZE[size],
+	]}
+>
+	<span class="inline-block transition-transform duration-200 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-[1.12] group-focus-visible:scale-[1.12] motion-reduce:transition-none"><slot /></span>
+	<svg viewBox="0 0 24 24" class="size-3.5 transition-transform duration-200 group-hover:translate-y-0.5 motion-reduce:transition-none" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+		<path d="M12 4v15M5 12l7 7 7-7" />
+	</svg>
+</a>
