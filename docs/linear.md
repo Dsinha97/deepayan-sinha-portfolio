@@ -13,11 +13,11 @@ gate rather than copying it into a second place where it can rot.
 
 | Milestone | Target | Covers |
 |---|---|---|
-| M0 · Foundation | 2026-09-12 | Repo, private boundary, wiki, Linear setup |
-| M1 · Scaffold and deploy | 2026-09-17 | Astro and Tailwind skeleton, tokens, Workers deploy, apex domain, email |
-| M2 · Shell and design system | 2026-09-22 | Layout, theme toggle and CSP pipeline, fonts, logo, responsive pass |
-| M3 · Content | 2026-09-29 | Hero, about, experience, education, skills, contact, resume |
-| M4 · Case studies | 2026-10-03 | Collections and schema, three case studies, work index |
+| M0 · Foundation (closed 2026-09-10) | 2026-09-12 | Repo, private boundary, wiki, Linear setup |
+| M1 · Scaffold and deploy (closed 2026-09-10) | 2026-09-17 | Astro and Tailwind skeleton, tokens, Workers deploy, apex domain, email |
+| M2 · Shell and design system (closed 2026-09-11) | 2026-09-22 | Layout, theme toggle and CSP pipeline, fonts, logo, responsive pass |
+| M3 · Content (closed 2026-09-11) | 2026-09-29 | Hero, about, experience, education, skills, contact, resume |
+| M4 · Case studies (closed 2026-09-24) | 2026-10-03 | Collections and schema, three case studies, work index |
 | M5 · Launch (closed 2026-09-24) | 2026-10-08 | SEO, OG, headers audit, Lighthouse, QA, go-live |
 | M6 · Beyond launch | — | Profile README, contact form, analytics, palette, fourth case study, writing |
 | Design Improvements (closed 2026-09-18) | — | Findings from the `/better-interface`, `/landing-page-design`, `/find-animation-opportunities` and `/improve-animations` audits |
@@ -364,6 +364,10 @@ change. What happened and why is in the wiki log's 2026-09-26 entries.
   `linear-export/DSI.md`, and is deliberately not committed here — issue descriptions were never
   written against the content guardrails. Archived issues keep their URLs, so the links above
   still resolve, and `/linear-sync` reads them with `includeArchived`.
+- **A finished milestone reads 0% once its issues are archived.** Linear milestones have no
+  closed state — progress is computed from issues, and archived ones don't count. So a finished
+  milestone's description opens with "**Complete — all issues archived <date>.**", as fpl-app's
+  do, and its close date is recorded in the Milestones table above. Target dates stay as planned.
 - **The drift check runs itself.** A scheduled task fires `/linear-sync` every Monday morning and
   stays silent when the two sides agree. A report from it is a signal, not noise.
 - **The wiki's `status` field is checked too.** A page marked `planned` whose issue is closed, or
