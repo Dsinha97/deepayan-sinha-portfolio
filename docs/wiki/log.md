@@ -347,3 +347,9 @@ One line per action, newest at the bottom.
   since it is keyboard-triggered. `.t-disclosure` uses transitions, not keyframes. Reduced
   motion drops movement but keeps fades. The copy button presses to 0.97. The theme-switch
   class is cleared by a timer. Page updated: design-system.
+- 2026-09-28 — Closed Linear issues are now archived, run from fpl-app's
+  `scripts/linear-archive.ts`, which sweeps the whole workspace to stay under the free plan's
+  250-issue cap. This project's Done issues went in the first sweep. `/linear-sync` now lists
+  with `includeArchived`, since without it every Shipped row reads as drift, and
+  `docs/linear.md` records where the pre-archive export lives (fpl-app's gitignored
+  `linear-export/`, deliberately not committed here). No wiki page changed.
