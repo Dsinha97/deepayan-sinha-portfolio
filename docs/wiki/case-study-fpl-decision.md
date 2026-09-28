@@ -5,10 +5,16 @@ tags: [product, engineering, modelling]
 sources:
   - "C:/FPL App/CLAUDE.md"
   - "C:/FPL App/docs/wiki/index.md"
+  - "C:/FPL App/README.md"
+  - "C:/FPL App/docs/architecture.md"
+  - "C:/FPL App/lib/"
+  - "Referernces/Screens/FPL-App/ (local-only screenshots)"
 related:
   - case-study-abhijit-sinha-website.md
   - content-guardrails.md
-updated: 2026-09-26
+  - design-system.md
+  - site-architecture.md
+updated: 2026-09-27
 ---
 
 # Case Study — FPL Decision
@@ -53,6 +59,46 @@ credential, so it exists only as fpl-app's `PORTFOLIO_DEPLOY_HOOK` secret, never
 it is created under Workers & Pages → deepayansinha-com → Settings → Builds → Deploy Hooks,
 branch `main`. If it is ever rotated, update that secret. The hook only rebuilds, so the worst
 a leaked URL can do is start builds, rate-limited to 10 a minute.
+
+**The app showcase (DSI-208, 2026-09-27).** The page now shows the app instead of only
+describing it. It was designed on a Design canvas and revised through the owner's comments
+before it was built. Three parts sit between the STAR block and the body:
+
+- **"On this page"** jump pills link to the app overview and the analytics overview.
+- **"The app, screen by screen"** follows the app's own navigation: Live (Deadline Hub),
+  Strategy (Team Builder, Transfers, Chip Strategy, Scenario Lab) and Statistics (Player
+  Explorer, Player card and Compare). Each entry has a light/dark screenshot pair, a short
+  write-up, and an "Analytics on this screen" chip row.
+- **"Where the analytics fits"** runs from sources, to the server-side xP model on pg_cron,
+  to the browser decision engines, to the screens. An engine × screen matrix follows it.
+
+The one-sentence "More than a model" feature list is gone, because the tour replaces it. "The
+interface doesn't collapse the math" gains the Transfers screen's `+21.9 xP + 1.7 risk = +23.6`,
+set as text.
+
+How it is built:
+
+- All copy and the engine mapping live in `src/data/fpl-app.ts`. The chips and the matrix are
+  both derived from its `surfaces` list, so they cannot disagree.
+- The screenshots are the owner's 16 captures from `Referernces/Screens/FPL-App/`, converted to
+  1600px WebP in `src/assets/work/fpl/`. Each was checked by eye for personal data: the only
+  identifiers visible are the squad name "DS United" and the "DS" avatar. The build does not
+  scan images, so a replacement screenshot needs the same look.
+
+Sourcing rules for the showcase copy:
+
+- **The engine mapping was read from the code** (`lib/*.ts`, which screens import which
+  engine), not from fpl-app's own docs.
+- **Three claims in fpl-app's docs are stale, so they were not repeated:**
+  - `docs/site-explainer.md` still describes a transfer call on `/deadline`; it was removed on
+    2026-09-20.
+  - `docs/architecture.md` says predictions stop at an 8-gameweek horizon; they now run to the
+    season's end.
+  - `docs/architecture.md` calls the repo private; it is public.
+- **No accuracy claim.** Figures inside a screenshot (69% captain confidence, projected xP) are
+  the app's outputs, not claims the site makes. The copy states none of them as a result.
+- **Player counts are left out of the copy.** The pool changes across the season (661 in the
+  Player Explorer screenshot, 651 in fpl-app's docs), so a number in the copy would go stale.
 
 The Situation / Task / Action / Result below is the original write-up, kept for its reasoning;
 where it disagrees with the table above, the table wins.
@@ -120,5 +166,9 @@ through the consulting work shows up in software.
 ## Sources
 
 - FPL App project root `CLAUDE.md` — architecture, ground rules, the gotchas list
+- FPL App `README.md`, `docs/architecture.md` and `lib/` — the screens, the engines and which
+  screen uses which (read 2026-09-27 for the showcase)
+- `Referernces/Screens/FPL-App/` — the owner's screenshots (local-only; the shipped copies are
+  in `src/assets/work/fpl/`)
 - FPL App `docs/wiki/` — particularly the expected-points model, transfer engine, deployment
   and blocked-data pages

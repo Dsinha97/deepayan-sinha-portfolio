@@ -316,3 +316,11 @@ One line per action, newest at the bottom.
   workflow in fpl-app POSTs this Worker's Workers Builds deploy hook (secret
   `PORTFOLIO_DEPLOY_HOOK` there). Found when the day's fpl-app ingest missed the last portfolio
   deploy by six minutes. Page updated: case-study-fpl-decision.
+- 2026-09-27 — The FPL Decision case study gained an app showcase (DSI-208): a screen-by-screen
+  tour with theme-matched screenshots, a "where the analytics fits" pipeline, and an engine ×
+  screen matrix, all driven by `src/data/fpl-app.ts` through a new `showcase` schema field. It
+  was designed on a Design canvas and revised through the owner's comments first. Copy was
+  sourced from fpl-app's code rather than its docs, three of which are stale. New reusable
+  pieces: `ThemeImage.astro`, `JumpLink.astro`. Also found that `sr-only` text inside a
+  horizontal scroller escapes it unless the wrapper is `relative`. Pages updated:
+  case-study-fpl-decision, design-system, site-architecture.

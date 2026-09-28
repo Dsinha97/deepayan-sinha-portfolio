@@ -101,6 +101,7 @@ gate rather than copying it into a second place where it can rot.
 | Google Search Console and Bing registration; Crawler Hints on | DSI-205 | M6 | [seo-and-metadata.md](wiki/seo-and-metadata.md#search-engine-registration-2026-09-26) |
 | /wiki-ingest required before every PR (hook) | DSI-206 | M6 | [CLAUDE.md](../CLAUDE.md), `.claude/helpers/require-wiki-ingest.cjs` |
 | Portfolio rebuilds when fpl-app's timeline changes | DSI-207 | M6 | [case-study-fpl-decision.md](wiki/case-study-fpl-decision.md) |
+| FPL case study: screen tour and analytics map | DSI-208 | M6 | [case-study-fpl-decision.md](wiki/case-study-fpl-decision.md) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
