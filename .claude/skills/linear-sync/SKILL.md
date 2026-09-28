@@ -11,9 +11,13 @@ This skill checks the two still agree, and plans from Linear when asked.
 ## 1. Read Linear
 
 ```
-list_issues  project: "Deepayan-Portfolio", limit: 250,
-             fields: ["id","title","status","statusType","priority","projectMilestone","labels","updatedAt"]
+list_issues  project: "Deepayan-Portfolio", limit: 250, includeArchived: true,
+             fields: ["id","title","status","statusType","priority","projectMilestone","labels","updatedAt","archivedAt"]
 ```
+
+`includeArchived` matters: closed issues are archived to stay under the free plan's 250-issue cap
+(fpl-app's `scripts/linear-archive.ts`, which archives across the whole workspace), and without
+it every Shipped row reads as "doc item with no issue". An archived issue is closed, not drift.
 
 Add `get_project` with `includeMilestones: true` when milestone dates matter.
 

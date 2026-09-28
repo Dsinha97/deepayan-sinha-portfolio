@@ -357,6 +357,13 @@ change. What happened and why is in the wiki log's 2026-09-26 entries.
   reports both directions; it does not silently fix either.
 - **Don't copy a gate into Linear.** Link the doc that states it — a gate has exactly one home,
   and it isn't here.
+- **Closed issues get archived, not deleted.** The free plan caps the workspace at 250
+  non-archived issues, and the archiving is run from fpl-app (`scripts/linear-archive.ts`), which
+  sweeps every team's Done and Canceled issues — this project's included, first on 2026-09-28.
+  It exports everything before archiving; this project's full text lands in fpl-app's gitignored
+  `linear-export/DSI.md`, and is deliberately not committed here — issue descriptions were never
+  written against the content guardrails. Archived issues keep their URLs, so the links above
+  still resolve, and `/linear-sync` reads them with `includeArchived`.
 - **The drift check runs itself.** A scheduled task fires `/linear-sync` every Monday morning and
   stays silent when the two sides agree. A report from it is a signal, not noise.
 - **The wiki's `status` field is checked too.** A page marked `planned` whose issue is closed, or
