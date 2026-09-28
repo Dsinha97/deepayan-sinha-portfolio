@@ -316,3 +316,14 @@ One line per action, newest at the bottom.
   workflow in fpl-app POSTs this Worker's Workers Builds deploy hook (secret
   `PORTFOLIO_DEPLOY_HOOK` there). Found when the day's fpl-app ingest missed the last portfolio
   deploy by six minutes. Page updated: case-study-fpl-decision.
+- 2026-09-27 — Site-wide interface review (better-interface) across `/`, `/resume/`, `/404` and
+  the other two case studies. Seven findings, all fixed:
+  - The nav's current state no longer relies on colour alone.
+  - The email tooltip is no longer clipped at the viewport edge.
+  - The credentials tooltip, which a tap could not open, is replaced by visible text.
+  - The palette input has a focus indicator.
+  - Theme switches snap instead of smearing.
+  - The About heading's number is hidden from screen readers.
+  - The palette's empty state names the query.
+
+  Page updated: design-system.

@@ -499,6 +499,14 @@ samp {
   transition: stroke 200ms ease;
 }
 
+/* Set by theme.js for the single frame of a theme flip — see the comment there. */
+.theme-switching,
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+  transition: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

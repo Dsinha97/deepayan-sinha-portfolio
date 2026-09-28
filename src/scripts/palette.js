@@ -41,6 +41,7 @@ if (palette && input && 'showPopover' in palette) {
     });
     for (const group of groups) group.hidden = !group.querySelector('[role="option"]:not([hidden])');
     empty.hidden = visible.length > 0;
+    if (!empty.hidden) empty.textContent = `No matches for "${input.value.trim()}". Clear the search or press Esc.`;
     highlight(0);
   };
 

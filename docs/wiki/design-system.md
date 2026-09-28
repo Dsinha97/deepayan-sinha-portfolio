@@ -482,6 +482,27 @@ that owns the overlay.
 **The header's full nav starts at `lg`, not `md`.** Five nav entries plus Resume and the toggle
 overflowed at 768px by 11px; below 1024 the hamburger menu carries them.
 
+**Site-wide interface review (2026-09-27).** Seven findings, all fixed:
+
+- **The current nav item carries an underline, not just a colour.** `fg-2` and `accent` differ
+  by 1.25:1, so `aria-[current]:text-accent` alone was state by colour. Now:
+  - Current items get a 2px `seam` underline.
+  - The Resume link, which had `aria-current` and no visual state at all, also takes the
+    accent border.
+- **SocialLink tooltips anchor at the icon's left edge.** Centred, the email tip began 65px
+  off-screen at 320px, and 57px off-screen in the rail even at 1024. The footer centres from
+  `md` (`tip="center-md"`).
+- **The credentials info button is gone.** It only responded to hover or keyboard focus, so a tap did nothing. Its
+  sentence is now visible text under the heading.
+- **The command palette's search row has a focus indicator.** It uses a 2px bottom border in
+  `ring` via `focus-within`, rather than `:focus-visible`, which does not match when the
+  palette is opened by mouse.
+- **Theme switches snap.** `theme.js` adds `.theme-switching` (`transition: none !important`)
+  for one frame. It is a class and not an injected `<style>`, because the CSP forbids inline
+  styles.
+- **The About h2 hides its "05 ·" number from screen readers**, like the other sections' eyebrows.
+- **An empty palette search names the query and the way out.**
+
 ## Motion
 
 Composite-only properties: **transform, opacity and filter**. Everything respects
