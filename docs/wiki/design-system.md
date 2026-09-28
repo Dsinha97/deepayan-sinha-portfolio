@@ -9,8 +9,9 @@ sources:
   - images/logo.jpg
 related:
   - site-architecture.md
+  - case-study-fpl-decision.md
   - research-synthesis.md
-updated: 2026-09-25
+updated: 2026-09-27
 status: built
 ---
 
@@ -481,6 +482,33 @@ that owns the overlay.
 
 **The header's full nav starts at `lg`, not `md`.** Five nav entries plus Resume and the toggle
 overflowed at 768px by 11px; below 1024 the hamburger menu carries them.
+
+**Theme-matched screenshots and jump pills (DSI-208, 2026-09-27).** Added for the FPL Decision
+showcase, and general enough to reuse:
+
+- `ThemeImage.astro` takes any light/dark pair. It uses the covers' `.theme-cover__*` swap and
+  their rule that both images are always lazy, so a view downloads only the visible theme's
+  image. Do not give either image a display utility such as `block`: that competes with the
+  swap's `display: none`. Use `align-top` to remove the inline gap instead.
+- `JumpLink.astro` is the in-page jump pill. At rest it is `accent-fill` with `on-accent` text.
+  On hover and focus it switches to `band` with `band-label` gold text: the band's already
+  measured pairing, so no new contrast check was needed. The label scales to 1.12 and the arrow
+  nudges down. It is transform only and switches off under reduced motion. The owner chose the
+  colours on the design canvas.
+- **One control per screenshot.** The "View full size" button is the only trigger. An
+  `after:absolute after:inset-0` overlay, positioned against a `relative` `<figure>`, stretches
+  its hit area over the image. Press feedback sits on the figure through
+  `has-[[data-zoom]:active]`, never on the button, per the DSI-198 rule. An earlier second
+  trigger (an `aria-hidden`, `tabindex="-1"` button around the image) was removed after the
+  interface review: `aria-hidden` must not sit on anything focusable. The button's accessible
+  name is the short `label` ("View full size: Compare"), not the 150-character alt text.
+- `text-h3-display` (`clamp(2rem, …, 2.5rem)`, leading 1.1) is the serif h3 under `text-h2`.
+  `text-h3` is the 1.375rem sans UI heading and too small for the display face.
+- **A horizontal scroller must be `relative`.** The engine × screen table sits in an
+  `overflow-x-auto` wrapper with `sr-only` "Yes/No" text in each cell. `sr-only` is `absolute`.
+  With no positioned ancestor inside the scroller, those spans resolve against something
+  outside it, escape the clip, and the whole page scrolls sideways (708px of content in a
+  567px viewport). A `relative` wrapper keeps them inside.
 
 ## Motion
 

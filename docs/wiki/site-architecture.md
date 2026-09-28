@@ -9,7 +9,7 @@ related:
   - design-system.md
   - deployment-domain.md
   - content-guardrails.md
-updated: 2026-09-25
+updated: 2026-09-27
 status: built
 ---
 
@@ -239,7 +239,9 @@ nor a column: a sticky rail on a 375px screen eats half the viewport.
 Breadcrumb; a large serif title and tagline beside a role / period / links list; the cover
 edge to edge in a frame of its own ratio; the stack as chips, with logos where
 `src/data/tools.ts` has one; the metric row; the STAR block as four columns collapsing to a
-stack; the long-form body, with a synced **Recent updates** panel beside it where the entry sets
+stack; an app showcase where the entry sets `showcase` (FPL Decision only, `"fpl-app"`, which
+renders `FplShowcase.astro` from `src/data/fpl-app.ts`: see
+[case-study-fpl-decision.md](case-study-fpl-decision.md)); the long-form body, with a synced **Recent updates** panel beside it where the entry sets
 `updates` (FPL Decision only — `src/lib/fpl-updates.ts`); the claim-scope footnote where
 applicable; previous and next as cards; the closing contact band. No dead ends: every case
 study offers somewhere to go next.

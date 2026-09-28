@@ -10,9 +10,10 @@ kicker: "Solo build"
 bentoSize: "lg"
 order: 1
 published: 2026-09-12
-updated: 2026-09-24
+updated: 2026-09-27
 claimScope: "own-outcomes"
 updates: "fpl-timeline"
+showcase: "fpl-app"
 star:
   situation: >-
     Fantasy Premier League decisions are cheap to make badly and expensive to unwind: a
@@ -66,13 +67,6 @@ Today the model does not clear it. Out of sample, at the level of a single gamew
 trails a naive average of each player's last five gameweeks, in every season tested. So no
 accuracy claim is made for it — not in the app, not here — until the model beats that baseline.
 
-## More than a model
-
-What a manager actually opens the app for: a live matchday hub on deadline day, chip planning,
-mini-league and top-1k ownership with effective ownership, a news feed, price-watch, a player
-profile reachable from every page, a shortlist, historical decision analytics, tactical profiles
-for all twenty clubs, and a two-way Telegram bot that pushes alerts and answers commands.
-
 ## Squad construction is a knapsack problem
 
 Filling a squad greedily by raw score under a budget produces a legal squad that is quietly bad
@@ -84,7 +78,15 @@ started as bugs, and were fixed in the engine rather than patched over in the in
 ## The interface doesn't collapse the math
 
 A headline shows the expected-points gain, the transfer hit and the risk charge as separate
-numbers that sum to the net — never a bare net figure. Downgrades are labelled as downgrades. An
+numbers that sum to the net — never a bare net figure.
+
+<figure>
+<p class="equation-label">From the transfer path · GW6 wildcard</p>
+<p class="equation"><span class="term-gain">+21.9</span> xP <span class="term-op">+</span> <span class="term-risk">1.7</span> risk <span class="term-op">=</span> <span class="term-net">+23.6</span></p>
+<figcaption>Each term is its own number. The note beneath it in the app adds that the armband wasn't re-optimised, so the gain is understated.</figcaption>
+</figure>
+
+Downgrades are labelled as downgrades. An
 empty result set says so rather than ranking worse options anyway. Where upstream data is
 missing between seasons, the term is dropped and the remaining weights renormalised, with a
 visible note next to the number — never multiplied by zero and shipped as if intact.
