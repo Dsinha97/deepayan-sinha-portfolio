@@ -68,7 +68,7 @@ const ratio = data.cover.width / data.cover.height;
 const FRAME = ratio >= 1.8 ? 'md:aspect-[2/1]' : ratio >= 1.45 ? 'md:aspect-[3/2]' : 'md:aspect-[4/3]';
 
 const link =
-  'inline-flex min-h-11 items-center gap-1.5 rounded-control text-accent underline decoration-seam underline-offset-4 transition-[color,transform] duration-100 hover:text-accent-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
+  'inline-flex min-h-11 items-center gap-1.5 rounded-control text-accent underline decoration-seam underline-offset-4 transition-[color,scale] duration-100 hover:text-accent-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
 ---
 
 <BaseLayout
@@ -233,7 +233,7 @@ const link =
 			{prev && (
 				<a
 					href={`/work/${prev.id}/`}
-					class="group flex flex-col gap-1 rounded-tile border border-border bg-surface p-6 transition-[border-color,transform] duration-100 hover:border-border-strong active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+					class="group flex flex-col gap-1 rounded-tile border border-border bg-surface p-6 transition-[border-color,scale] duration-100 hover:border-border-strong active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 				>
 					<span class="font-mono text-label uppercase text-fg-muted">← Previous</span>
 					<span class="font-serif text-2xl text-fg group-hover:text-accent">{prev.data.title}</span>
@@ -242,7 +242,7 @@ const link =
 			{next && (
 				<a
 					href={`/work/${next.id}/`}
-					class="group flex flex-col items-end gap-1 rounded-tile border border-border bg-surface p-6 text-right transition-[border-color,transform] duration-100 hover:border-border-strong active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:col-start-2"
+					class="group flex flex-col items-end gap-1 rounded-tile border border-border bg-surface p-6 text-right transition-[border-color,scale] duration-100 hover:border-border-strong active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:col-start-2"
 				>
 					<span class="font-mono text-label uppercase text-fg-muted">Next →</span>
 					<span class="font-serif text-2xl text-fg group-hover:text-accent">{next.data.title}</span>

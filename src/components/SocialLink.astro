@@ -13,9 +13,9 @@
  * invisible-but-tabbable trap that motion.css warns about for the nav panel.
  * `pointer-events-none` keeps it from eating the hover it was opened by.
  *
- * Opacity + a small settle-in translate: the global reduced-motion block in
- * global.css collapses both to 0.01ms on its own, so there is no media
- * query to write here.
+ * Opacity + a small settle-in translate: under reduced motion the global block
+ * in global.css zeroes the y translate on every `[role=tooltip]`, so the tip
+ * still fades but no longer moves. No media query to write here.
  *
  * It opens upward (`bottom-full`). In the footer there is nothing below to
  * open into, and the rail sits at the top of a sticky column.
@@ -51,7 +51,7 @@ const TIP = {
 		rel="me noopener"
 		aria-label={label}
 		class:list={[
-			'peer inline-flex min-h-11 min-w-11 items-center justify-center rounded-control text-fg-2 transition-[color,border-color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+			'peer inline-flex min-h-11 min-w-11 items-center justify-center rounded-control text-fg-2 transition-[color,border-color,scale] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
 			bordered && 'border border-border hover:border-border-strong',
 		]}
 	>
@@ -60,7 +60,7 @@ const TIP = {
 	<span
 		role="tooltip"
 		aria-hidden="true"
-		class:list={[TIP[tip], 'pointer-events-none absolute bottom-full z-10 mb-1 translate-y-1 whitespace-nowrap rounded-control border border-border bg-elevated px-2 py-1 text-meta text-fg opacity-0 transition-[opacity,transform] duration-150 ease-out group-hover:translate-y-0 group-hover:opacity-100 peer-focus-visible:translate-y-0 peer-focus-visible:opacity-100']}
+		class:list={[TIP[tip], 'pointer-events-none absolute bottom-full z-10 mb-1 translate-y-1 whitespace-nowrap rounded-control border border-border bg-elevated px-2 py-1 text-meta text-fg opacity-0 transition-[opacity,translate] duration-150 ease-out group-hover:translate-y-0 group-hover:opacity-100 peer-focus-visible:translate-y-0 peer-focus-visible:opacity-100']}
 	>
 		{label}
 	</span>

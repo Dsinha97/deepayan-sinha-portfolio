@@ -509,6 +509,31 @@ Composite-only properties: **transform, opacity and filter**. Everything respect
 `prefers-reduced-motion: reduce`, which also disables smooth scrolling. No animation that moves
 content the reader is trying to read.
 
+**Animation review, 2026-09-27.** Six fixes, and three rules that come out of them:
+
+- **Name the property Tailwind 4 actually sets.** `scale-*`, `translate-*` and `rotate-*`
+  write the separate `scale`, `translate` and `rotate` properties, not `transform`. Every
+  `transition-[…,transform]` paired with them was a dead transition: presses and tooltip
+  settles snapped. Write `transition-[color,scale]`, `transition-[opacity,translate]`.
+  `transition-transform` is fine, because Tailwind expands it to all four.
+- **Keyboard-triggered UI does not animate.** The command palette (Ctrl/⌘+K, `/`) opens and
+  closes instantly. It sets its scrim with `backdrop:bg-(--scrim)` instead of using `.t-dialog`.
+- **Reduced motion removes movement, not fades.** The old blanket
+  `transition-duration: 0.01ms` is gone. Under `reduce`:
+  - `--panel-travel` and `--panel-blur` go to 0.
+  - `.t-dialog` and `.t-disclosure` lose their transform.
+  - Tooltips lose their y settle.
+  - Opacity and colour transitions stay.
+
+The other three fixes:
+
+- `.t-disclosure` now uses transitions, with `display … allow-discrete`, instead of keyframes.
+  Re-toggling retargets instead of restarting, and closing fades out.
+- The copy button's press is 0.97, like every other control.
+- The theme-switch class is cleared by a timer, not `requestAnimationFrame`. rAF never fires in
+  a hidden document, and the class stuck there during testing, switching off every transition
+  on the site.
+
 `filter` is on that list for a reason worth stating, because it was briefly left off and the
 omission cost a real effect. Filter animations are **compositor-animated in every engine this
 site targets** — the same fast path as transform and opacity, off the main thread, with no

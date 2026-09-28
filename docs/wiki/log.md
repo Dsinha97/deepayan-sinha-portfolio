@@ -327,3 +327,9 @@ One line per action, newest at the bottom.
   - The palette's empty state names the query.
 
   Page updated: design-system.
+- 2026-09-27 — Animation review (review-animations): six fixes. Presses and tooltip settles
+  were dead transitions under Tailwind 4 (`transform` listed, but `scale`/`translate` set), so
+  the lists now name those properties, across 11 files. The command palette no longer animates,
+  since it is keyboard-triggered. `.t-disclosure` uses transitions, not keyframes. Reduced
+  motion drops movement but keeps fades. The copy button presses to 0.97. The theme-switch
+  class is cleared by a timer. Page updated: design-system.

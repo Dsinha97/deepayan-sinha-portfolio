@@ -59,7 +59,7 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 						data-nav-link
 						data-target={item.href.startsWith('#') ? item.href.slice(1) : undefined}
 						aria-current={isCurrentRoute(item.href) ? 'page' : undefined}
-						class="inline-flex min-h-11 items-center rounded-control px-4 text-fg-2 transition-[color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-[current]:text-accent aria-[current]:underline aria-[current]:decoration-seam aria-[current]:decoration-2 aria-[current]:underline-offset-8"
+						class="inline-flex min-h-11 items-center rounded-control px-4 text-fg-2 transition-[color,scale] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-[current]:text-accent aria-[current]:underline aria-[current]:decoration-seam aria-[current]:decoration-2 aria-[current]:underline-offset-8"
 					>
 						{item.label}
 					</a>
@@ -68,7 +68,7 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 			<a
 				href={site.resumePath}
 				aria-current={isCurrentRoute(site.resumePath) ? 'page' : undefined}
-				class="ml-2 inline-flex min-h-11 items-center rounded-control border border-border-strong px-4 text-fg transition-[border-color,color,transform] duration-100 hover:border-accent hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-[current]:border-accent aria-[current]:text-accent aria-[current]:underline aria-[current]:decoration-seam aria-[current]:decoration-2 aria-[current]:underline-offset-8"
+				class="ml-2 inline-flex min-h-11 items-center rounded-control border border-border-strong px-4 text-fg transition-[border-color,color,scale] duration-100 hover:border-accent hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-[current]:border-accent aria-[current]:text-accent aria-[current]:underline aria-[current]:decoration-seam aria-[current]:decoration-2 aria-[current]:underline-offset-8"
 			>
 				Resume
 			</a>
@@ -79,7 +79,7 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 				popovertarget="command-palette"
 				aria-label="Open command palette"
 				data-palette-trigger
-				class="ml-1 inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-control px-3 text-fg-2 transition-[color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+				class="ml-1 inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-control px-3 text-fg-2 transition-[color,scale] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 			>
 				<svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
 					<circle cx="11" cy="11" r="6.5"></circle>
@@ -94,7 +94,7 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 			<ThemeToggle />
 			<button
 				type="button"
-				class="inline-flex size-11 items-center justify-center rounded-control text-fg transition-[color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+				class="inline-flex size-11 items-center justify-center rounded-control text-fg transition-[color,scale] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 				aria-expanded="false"
 				aria-controls="mobile-menu"
 				data-menu-button
@@ -112,12 +112,12 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 					<path
 						d="M4 7h16M4 12h16M4 17h16"
 						data-menu-icon-open
-						class="origin-center transition-[opacity,transform] duration-150 ease-out"
+						class="origin-center transition-[opacity,scale] duration-150 ease-out"
 					/>
 					<path
 						d="M6 6l12 12M18 6L6 18"
 						data-menu-icon-close
-						class="origin-center opacity-0 scale-90 transition-[opacity,transform] duration-150 ease-out"
+						class="origin-center opacity-0 scale-90 transition-[opacity,scale] duration-150 ease-out"
 					/>
 				</svg>
 			</button>
@@ -154,7 +154,7 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 							<a
 								href={resolve(item.href)}
 								data-menu-link
-								class="flex min-h-11 items-center rounded-control px-2 text-fg-2 transition-[color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+								class="flex min-h-11 items-center rounded-control px-2 text-fg-2 transition-[color,scale] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 							>
 								{item.label}
 							</a>
@@ -165,7 +165,7 @@ const resolve = (href: string) => (href.startsWith('#') && !isHome ? `/${href}` 
 					<a
 						href={site.resumePath}
 						data-menu-link
-						class="flex min-h-11 items-center rounded-control px-2 text-fg-2 transition-[color,transform] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+						class="flex min-h-11 items-center rounded-control px-2 text-fg-2 transition-[color,scale] duration-100 hover:text-accent active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 					>
 						Resume
 					</a>

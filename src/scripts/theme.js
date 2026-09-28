@@ -61,7 +61,9 @@ for (const button of buttons()) {
     root.classList.add('theme-switching');
     root.dataset.theme = next;
     void root.offsetHeight;
-    requestAnimationFrame(() => root.classList.remove('theme-switching'));
+    // A timer, not requestAnimationFrame: rAF never fires in a hidden document,
+    // and a stuck class would switch off every transition on the site.
+    setTimeout(() => root.classList.remove('theme-switching'));
     syncLabels();
   });
 }
