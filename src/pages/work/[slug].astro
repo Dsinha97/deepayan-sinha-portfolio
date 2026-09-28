@@ -3,7 +3,8 @@
  * Case-study page template (DSI-98, redesigned 2026-09). Breadcrumb; a large
  * serif title with the tagline, beside a role / period / links list; the cover
  * edge to edge in its frame; the stack as logo chips; the metric row; the STAR
- * block; the body, with a synced "Recent updates" panel beside it where the
+ * block; the app showcase where the entry names one (FPL Decision's screen
+ * tour and analytics map); the body, with a synced "Recent updates" panel beside it where the
  * project has one; the claim-scope footnote; previous and next; the closing
  * contact band. No dead ends: every case study offers somewhere to go next.
  * See docs/wiki/site-architecture.md.
@@ -25,6 +26,7 @@ import { caseStudyArticle } from '../../data/schema';
 import { cardUrl, workCard } from '../../lib/og-cards';
 import { FPL_TIMELINE_SOURCE, formatUpdateDate, getFplUpdates } from '../../lib/fpl-updates';
 import InlineLinks from '../../components/InlineLinks.astro';
+import FplShowcase from '../../components/FplShowcase.astro';
 
 export async function getStaticPaths() {
   const entries = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
@@ -182,7 +184,9 @@ const link =
 			}
 		</dl>
 
-		<div class:list={['mt-16 grid gap-12', updates.length > 0 && 'lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-start lg:gap-16']}>
+		{data.showcase === 'fpl-app' && <FplShowcase />}
+
+		<div class:list={[data.showcase ? 'mt-24 grid gap-12 md:mt-32' : 'mt-16 grid gap-12', updates.length > 0 && 'lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-start lg:gap-16']}>
 			<div class="case-study-body max-w-[65ch] text-lg text-fg-2">
 				<Content />
 			</div>

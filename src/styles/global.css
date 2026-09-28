@@ -307,6 +307,10 @@
   --text-stat: clamp(2.5rem, 2rem + 1.6vw, 3.5rem);
   --text-stat--line-height: 1;
   --text-stat--letter-spacing: -0.02em;
+  /* A serif h3 that sits under text-h2 in a showcase or tour (DSI-208);
+   * text-h3 is the sans UI heading and too small for the display face. */
+  --text-h3-display: clamp(2rem, 1.6rem + 1.2vw, 2.5rem);
+  --text-h3-display--line-height: 1.1;
   --text-h3: 1.375rem;
   --text-h3--line-height: 1.25;
   --text-h3--letter-spacing: -0.01em;
@@ -690,6 +694,48 @@ samp {
 .case-study-body strong {
   color: var(--fg);
   font-weight: 600;
+}
+
+/*
+ * A worked example lifted from a screenshot, set as text so it reads at any
+ * width and in either theme: FPL Decision's "the interface doesn't collapse
+ * the math" callout. Each term keeps its own colour, and the net figure is
+ * the only gold — decorative gold, at display size, per design-system.md.
+ */
+.case-study-body figure {
+  margin-top: 1.75rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-media);
+  background: var(--surface);
+}
+
+.case-study-body figure .equation-label {
+  margin-top: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.case-study-body figure .equation {
+  margin-top: 0.875rem;
+  font-family: var(--font-mono);
+  font-size: clamp(1.125rem, 0.9rem + 1vw, 1.625rem);
+  line-height: 1.3;
+  color: var(--fg);
+}
+
+.case-study-body .equation .term-gain { color: var(--accent); }
+.case-study-body .equation .term-risk { color: var(--teal); }
+.case-study-body .equation .term-op { color: var(--fg-muted); }
+.case-study-body .equation .term-net { color: var(--gold); }
+
+.case-study-body figcaption {
+  margin-top: 0.75rem;
+  font-size: var(--text-meta);
+  color: var(--fg-muted);
 }
 
 /*

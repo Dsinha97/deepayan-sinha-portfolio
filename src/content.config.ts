@@ -52,6 +52,10 @@ const work = defineCollection({
     /* A "Recent updates" panel synced at build time from the project's own
      * changelog. Only FPL Decision has one — see src/lib/fpl-updates.ts. */
     updates: z.enum(['fpl-timeline']).optional(),
+    /* An app showcase between the STAR block and the body: a screen-by-screen
+     * tour and the analytics map. Only FPL Decision has one — see
+     * src/components/FplShowcase.astro and src/data/fpl-app.ts. */
+    showcase: z.enum(['fpl-app']).optional(),
     star: z.object({
       situation: z.string(),
       task: z.string(),

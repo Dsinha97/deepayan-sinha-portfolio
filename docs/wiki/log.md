@@ -316,6 +316,20 @@ One line per action, newest at the bottom.
   workflow in fpl-app POSTs this Worker's Workers Builds deploy hook (secret
   `PORTFOLIO_DEPLOY_HOOK` there). Found when the day's fpl-app ingest missed the last portfolio
   deploy by six minutes. Page updated: case-study-fpl-decision.
+- 2026-09-27 — The FPL Decision case study gained an app showcase (DSI-208): a screen-by-screen
+  tour with theme-matched screenshots, a "where the analytics fits" pipeline, and an engine ×
+  screen matrix, all driven by `src/data/fpl-app.ts` through a new `showcase` schema field. It
+  was designed on a Design canvas and revised through the owner's comments first. Copy was
+  sourced from fpl-app's code rather than its docs, three of which are stale. New reusable
+  pieces: `ThemeImage.astro`, `JumpLink.astro`. Also found that `sr-only` text inside a
+  horizontal scroller escapes it unless the wrapper is `relative`. Pages updated:
+  case-study-fpl-decision, design-system, site-architecture.
+- 2026-09-27 — Interface review of the FPL page (better-interface). All five findings are fixed:
+  short accessible names and per-screenshot dialog titles (a `label` on each shot); one
+  zoom control per screenshot instead of an `aria-hidden` duplicate; the Effective ownership
+  lane item now names the Leagues screen; off-scale sizes moved onto the scale plus a new
+  `text-h3-display` token; JumpLink matches the page's 100ms timing and 0.97 press feedback.
+  Page updated: design-system.
 - 2026-09-27 — Site-wide interface review (better-interface) across `/`, `/resume/`, `/404` and
   the other two case studies. Seven findings, all fixed:
   - The nav's current state no longer relies on colour alone.
