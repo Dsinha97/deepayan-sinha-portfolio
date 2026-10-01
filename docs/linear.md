@@ -103,6 +103,7 @@ gate rather than copying it into a second place where it can rot.
 | Portfolio rebuilds when fpl-app's timeline changes | DSI-207 | M6 | [case-study-fpl-decision.md](wiki/case-study-fpl-decision.md) |
 | FPL case study: screen tour and analytics map | DSI-208 | M6 | [case-study-fpl-decision.md](wiki/case-study-fpl-decision.md) |
 | Site-wide interface and animation review fixes | DSI-209 | M6 | [design-system.md](wiki/design-system.md) |
+| Apex submitted to the HSTS preload list | DSI-201 | M6 | [deployment-domain.md](wiki/deployment-domain.md#hsts-preload) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
@@ -346,7 +347,6 @@ change. What happened and why is in the wiki log's 2026-09-26 entries.
 | DSI-110 | Contact form | M6 | **Blocked** — owner decides the form is worth a backend, a database and a CSP widening |
 | DSI-113 | Fourth case study: Wipro | M6 | **Blocked** — owner decides whether enough survives genericization to carry a page |
 | DSI-114 | Writing or notes section | M6 | **Blocked** — owner has at least three pieces drafted |
-| DSI-201 | HSTS preload submission | M6 | On or after 2026-10-01, hstspreload.org reports eligible — see [deployment-domain.md](wiki/deployment-domain.md) |
 
 ## How to keep it true
 

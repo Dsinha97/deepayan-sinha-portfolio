@@ -92,8 +92,17 @@ The zone exists; these are the records the site needs.
 
 Edge certificates: Always Use HTTPS on, minimum TLS 1.2, TLS 1.3 enabled. The HSTS header ships
 from the generated `_headers` file rather than the Cloudflare toggle, so it lives in version
-control. Preload submission waits until the site has served cleanly over HTTPS for a week —
-preload is difficult to reverse.
+control.
+
+### HSTS preload
+
+`deepayansinha.com` was submitted at hstspreload.org on 2026-10-01 (DSI-201), after a week of
+clean HTTPS and an "eligible, no errors" check; the site then read "pending submission". The
+owner confirmed first, since preload is difficult to reverse. It now binds every subdomain and
+nested subdomain, so each must serve valid HTTPS. Keep `preload` in the header
+(`headers.template`) and the HTTP-to-HTTPS and `www` redirects as they are; removal takes months
+to reach users. New entries reach stable Chrome after a few months. Re-check status at
+`hstspreload.org/?domain=deepayansinha.com`.
 
 ## Email
 
