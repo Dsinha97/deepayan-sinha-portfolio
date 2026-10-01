@@ -353,3 +353,8 @@ One line per action, newest at the bottom.
   with `includeArchived`, since without it every Shipped row reads as drift, and
   `docs/linear.md` records where the pre-archive export lives (fpl-app's gitignored
   `linear-export/`, deliberately not committed here). No wiki page changed.
+- 2026-10-01 — Apex submitted to the HSTS preload list (DSI-201 closed). hstspreload.org
+  reported eligible with no errors, then "pending submission" after the owner submitted.
+  `deployment-domain.md` gains an HSTS preload section: what is now binding (every subdomain
+  must serve HTTPS, keep the header's `preload`) and where to re-check. `linear.md` moves the
+  item from Open to Shipped. Page updated: deployment-domain.

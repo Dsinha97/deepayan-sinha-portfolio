@@ -28,8 +28,8 @@ production at go-live. What each launch audit measured is in the wiki (`security
 `seo-and-metadata.md`, `design-system.md`) and in `docs/linear.md`.
 
 **What remains is M6 (beyond launch)**, several items of which are owner decisions rather than
-engineering, plus the HSTS preload submission, which waits for a week of clean HTTPS. See the
-Linear backlog for order, not a line pinned here.
+engineering. The apex was submitted to the HSTS preload list on 2026-10-01, so every subdomain
+must keep serving HTTPS. See the Linear backlog for order, not a line pinned here.
 
 ## Commands
 
