@@ -40,3 +40,6 @@ images/fort-monroe-cover.jpg
 images/Platforms/
 # Traced into src/components/IconCopy.astro (DSI-200); the component is what ships.
 images/copy.svg
+
+# Obsidian vault settings from opening the repo in Obsidian
+.obsidian/

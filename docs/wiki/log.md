@@ -363,3 +363,5 @@ One line per action, newest at the bottom.
   vault's 11, so no module count is shown), a skills item, and a resume certifications line. Wording is
   "completed", never applied; note content stays unpublished. Pages updated:
   education-and-credentials, skills.
+- 2026-10-20 — Fort Monroe case study: the mis-migrated benchmark catch is now worded as surfacing
+  after the engagement, not before delivery (owner correction). Page updated: case-study-fort-monroe.
