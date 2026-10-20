@@ -103,6 +103,7 @@ gate rather than copying it into a second place where it can rot.
 | Portfolio rebuilds when fpl-app's timeline changes | DSI-207 | M6 | [case-study-fpl-decision.md](wiki/case-study-fpl-decision.md) |
 | FPL case study: screen tour and analytics map | DSI-208 | M6 | [case-study-fpl-decision.md](wiki/case-study-fpl-decision.md) |
 | Site-wide interface and animation review fixes | DSI-209 | M6 | [design-system.md](wiki/design-system.md) |
+| Google Machine Learning Crash Course credential (studied, not applied) | DSI-220 | M6 | [education-and-credentials.md](wiki/education-and-credentials.md) |
 | Apex submitted to the HSTS preload list | DSI-201 | M6 | [deployment-domain.md](wiki/deployment-domain.md#hsts-preload) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
