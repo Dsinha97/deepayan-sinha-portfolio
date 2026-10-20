@@ -346,7 +346,11 @@ change. What happened and why is in the wiki log's 2026-09-26 entries.
 |---|---|---|---|
 | DSI-110 | Contact form | M6 | **Blocked** — owner decides the form is worth a backend, a database and a CSP widening |
 | DSI-113 | Fourth case study: Wipro | M6 | **Blocked** — owner decides whether enough survives genericization to carry a page |
-| DSI-114 | Writing or notes section | M6 | **Blocked** — owner has at least three pieces drafted |
+| DSI-114 | Writing or notes section | M6 | **Blocked** — launch set of four pieces (owner decision, 2026-10-01), each drafted by Claude and rewritten by the owner; the section waits on those rewrites |
+| DSI-210 | Draft: Linear workflow | M6 | **Blocked** — owner rewrite; drafted first, least guardrail risk. Sources: this file, `.claude/skills/linear-sync` |
+| DSI-211 | Draft: Building and shipping the site | M6 | **Blocked** — owner rewrite. Sources: [site-architecture.md](wiki/site-architecture.md), [deployment-domain.md](wiki/deployment-domain.md), [security-headers.md](wiki/security-headers.md) |
+| DSI-212 | Draft: Designing the site | M6 | **Blocked** — owner rewrite. Sources: [design-system.md](wiki/design-system.md), [design-references.md](wiki/design-references.md) |
+| DSI-213 | Draft: Second brain | M6 | **Blocked** — owner rewrite; drafted last, highest guardrail risk. See [content-guardrails.md](wiki/content-guardrails.md) |
 
 ## How to keep it true
 
