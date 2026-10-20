@@ -63,7 +63,7 @@ grid:
 | Claude Code 101 | Anthropic | Jun 2026 | certificate on file |
 | AI Fluency: Framework & Foundations | Anthropic | May 2026 | certificate on file |
 | AI Capabilities and Limitations | Anthropic | May 2026 | certificate on file |
-| Machine Learning Crash Course (11 modules) | Google | Oct 2026 | [badge page](https://me.developers.google.com/badges/playlists/machine-learning-crash-course/fairness) |
+| Machine Learning Crash Course | Google | Oct 2026 | [public profile](https://g.dev/deepayansinha) |
 | Power BI Data Modeling with DAX | LinkedIn Learning | Aug 2025 | [verify](https://www.linkedin.com/learning/certificates/88e165371499c5e946bb363e6d6a18e9ea60984fea90b9f38059a034cbe25ee3?u=51086953) |
 | Power BI Essential Training | LinkedIn Learning | Jul 2025 | [verify](https://www.linkedin.com/learning/certificates/fc6fe15ae3a6ba6e0d049b94956bd86cb375e7a6bcb66ee9cac458607287243d?u=51086953) |
 | SQL Essential Training | LinkedIn Learning | Jun 2025 | [verify](https://www.linkedin.com/learning/certificates/3d2e06df96914e928a9405d59467cf20aca13089e5e554fca2b0731cabd374e8?u=51086953) |
@@ -87,10 +87,9 @@ Foundations***, not "Foundation and Frameworks". Titles now match what the issue
 
 **Machine Learning Crash Course (2026-10-20).** Eleven Google Developer Program badges earned
 8 Sep – 20 Oct 2026 (dates as shown on the badge pages, per the vault). It is **studied, not
-applied**: published as a completed course, text-only card, never as project experience. The card
-links the final module's (fairness) public badge page, which is the course's generic badge page
-and does not itself prove who earned it. The eleven per-module URLs are
-`me.developers.google.com/badges/playlists/machine-learning-crash-course/<module>`. Note
+applied**: published as a completed course, text-only card, never as project experience. The card links his public Google Developer Program profile (`g.dev/deepayansinha`, checked
+logged-out 2026-10-20: it lists the badges, but showed 10 where the vault records 11, so the card
+states no module count). Note
 content (second-hand Gemini readings of handwritten pages, unchecked) is not published.
 
 ## MBA coursework

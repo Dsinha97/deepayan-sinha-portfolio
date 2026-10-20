@@ -52,10 +52,10 @@ ai-capabilities:
 ml-crash-course:
   order: 6
   group: AI
-  name: "Machine Learning Crash Course (11 modules)"
+  name: "Machine Learning Crash Course"
   issuer: "Google"
   date: "Oct 2026"
-  href: "https://me.developers.google.com/badges/playlists/machine-learning-crash-course/fairness"
+  href: "https://g.dev/deepayansinha"
 
 power-bi-dax:
   order: 7
