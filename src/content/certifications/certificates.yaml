@@ -1,4 +1,4 @@
-# Nine certificates and courses (DSI-94, migrated to a collection by DSI-98).
+# Ten certificates and courses (DSI-94, migrated to a collection by DSI-98).
 # Dates read off the certificate files or the issuer's own verification page —
 # see docs/wiki/education-and-credentials.md for provenance per entry. The
 # three Anthropic certificates print no date at all; those dates are the
@@ -49,8 +49,16 @@ ai-capabilities:
   date: "May 2026"
   image: "../../assets/certs/ai-capabilities.webp"
 
-power-bi-dax:
+ml-crash-course:
   order: 6
+  group: AI
+  name: "Machine Learning Crash Course (11 modules)"
+  issuer: "Google"
+  date: "Oct 2026"
+  href: "https://me.developers.google.com/badges/playlists/machine-learning-crash-course/fairness"
+
+power-bi-dax:
+  order: 7
   group: Analytics
   name: "Power BI Data Modeling with DAX"
   issuer: "LinkedIn Learning"
@@ -59,7 +67,7 @@ power-bi-dax:
   href: "https://www.linkedin.com/learning/certificates/88e165371499c5e946bb363e6d6a18e9ea60984fea90b9f38059a034cbe25ee3?u=51086953"
 
 power-bi-essential:
-  order: 7
+  order: 8
   group: Analytics
   name: "Power BI Essential Training"
   issuer: "LinkedIn Learning"
@@ -68,7 +76,7 @@ power-bi-essential:
   href: "https://www.linkedin.com/learning/certificates/fc6fe15ae3a6ba6e0d049b94956bd86cb375e7a6bcb66ee9cac458607287243d?u=51086953"
 
 sql-essential:
-  order: 8
+  order: 9
   group: Analytics
   name: "SQL Essential Training"
   issuer: "LinkedIn Learning"
@@ -77,7 +85,7 @@ sql-essential:
   href: "https://www.linkedin.com/learning/certificates/3d2e06df96914e928a9405d59467cf20aca13089e5e554fca2b0731cabd374e8?u=51086953"
 
 mba-math:
-  order: 9
+  order: 10
   group: Analytics
   name: "MBA Math"
   issuer: "MBA Math"
