@@ -3,10 +3,6 @@
     "hash": "sha256:3fa97cd36c4e845051278d9981301ab14be2e96fce10257914e61c9f83305e54",
     "last_ingested": "2026-09-10"
   },
-  "docs/sources/animation-plans/README.md": {
-    "hash": "sha256:8cde4548e1187bc6de5ad7c33414d2c223da1bd02f2c68a1f97dc4aaf9ddc62f",
-    "last_ingested": "2026-09-17"
-  },
   "docs/sources/animation-plans/001-press-feedback.md": {
     "hash": "sha256:9f9322770ae3c40978605108d93625a727d70ea41f399d9e45426e542c53d3be",
     "last_ingested": "2026-09-17"
@@ -21,6 +17,10 @@
   },
   "docs/sources/animation-plans/004-icon-swap-crossfade.md": {
     "hash": "sha256:cf84c1777a6b847dab2d423025e4f064b9f3dda0d448320c7df6b2d84bc3742d",
+    "last_ingested": "2026-09-17"
+  },
+  "docs/sources/animation-plans/README.md": {
+    "hash": "sha256:8cde4548e1187bc6de5ad7c33414d2c223da1bd02f2c68a1f97dc4aaf9ddc62f",
     "last_ingested": "2026-09-17"
   },
   "docs/sources/design-suggestions.md": {
@@ -44,8 +44,8 @@
     "last_ingested": "2026-09-10"
   },
   "private/sources/mba-brain/deepayan-sinha.md": {
-    "hash": "sha256:d5a4ee97aa13bc57123969bb6d17412c21b7565710283a8fa9661436f1634389",
-    "last_ingested": "2026-09-10"
+    "hash": "sha256:5c1f735c093f777bffb999970a6952afe349932971bda4786ed9c44f52ef6f74",
+    "last_ingested": "2026-10-20"
   },
   "private/sources/mba-brain/fort-monroe-15th-anniversary-event.md": {
     "hash": "sha256:c15f136ad415e46051dbb9caa3fe0eb8284a98a0bed85171a5f0bdab5881d764",
@@ -64,8 +64,12 @@
     "last_ingested": "2026-09-10"
   },
   "private/sources/mba-brain/job-search-brief.md": {
-    "hash": "sha256:f0e006cd9b259b7b14cb2b05aa2937148855ec466536af2bedfdb751d7b604f2",
-    "last_ingested": "2026-09-10"
+    "hash": "sha256:4a47a8f6662ce2d0cd6a017aaf38956dff9d9f7776ca04a7d8d289540b349061",
+    "last_ingested": "2026-10-20"
+  },
+  "private/sources/mba-brain/machine-learning-fundamentals.md": {
+    "hash": "sha256:cefac791192ac7878259fcd59833f15f7d354d6ab1afc92af3af8ebaf548d692",
+    "last_ingested": "2026-10-20"
   },
   "private/sources/mba-brain/profile-source.md": {
     "hash": "sha256:eb67bb415a9d513fcc8e13e87d458ba5fd5b4720bd5418cbbfd0573738ddd972",

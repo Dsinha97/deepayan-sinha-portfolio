@@ -366,3 +366,4 @@ One line per action, newest at the bottom.
 - 2026-10-20 — Fort Monroe case study: the mis-migrated benchmark catch is now worded as surfacing
   after the engagement, not before delivery (owner correction). Page updated: case-study-fort-monroe.
 - 2026-10-20 — ML Crash Course card gains the Neural networks badge artwork from the public Google profile (gstatic badge SVG rasterised to a 360px PNG, because check-dist rejects the SVG's inline <style>). Page updated: education-and-credentials.
+- 2026-10-20 — ML Crash Course filed after the fact as DSI-220 (PRs #19, #20, #21) and added to `linear.md`'s Shipped table. The private vault snapshot gained the vault's updated `deepayan-sinha.md` and `job-search-brief.md` and a new `machine-learning-fundamentals.md`; manifest hashes refreshed. No wiki page changed.
