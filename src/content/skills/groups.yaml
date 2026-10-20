@@ -9,6 +9,7 @@ product:
   group: Product
   items:
     - "AI/ML implementation"
+    - "Machine learning fundamentals"
     - "Product lifecycle management"
     - "Backlog prioritisation"
     - "Roadmapping"

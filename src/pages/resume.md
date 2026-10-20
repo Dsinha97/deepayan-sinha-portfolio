@@ -87,7 +87,7 @@ August 2025 – May 2026 · Williamsburg, VA
 **Technical and tools** — SQL, Python, Power BI, Excel, JavaScript, TypeScript, Astro, Next.js,
 Cloudflare Workers
 
-**Domains and methodologies** — AI/ML implementation, product lifecycle management, go-to-market
+**Domains and methodologies** — AI/ML implementation, machine learning fundamentals, product lifecycle management, go-to-market
 strategy, Lean Six Sigma, process optimisation, data governance, benchmarking, survey design and
 analysis
 
@@ -99,4 +99,5 @@ Lean Six Sigma Green Belt (William & Mary, May 2026) · Claude Code 101 (Anthrop
 AI Fluency: Framework & Foundations (Anthropic, May 2026) · AI Capabilities and Limitations
 (Anthropic, May 2026) · Power BI Data Modeling with DAX (LinkedIn Learning, August 2025) · Power
 BI Essential Training (LinkedIn Learning, July 2025) · SQL Essential Training (LinkedIn
-Learning, June 2025) · Aha! Product Management Professional (March 2025) · MBA Math (July 2024)
+Learning, June 2025) · Machine Learning Crash Course (Google, October 2026) · Aha! Product Management Professional
+(March 2025) · MBA Math (July 2024)

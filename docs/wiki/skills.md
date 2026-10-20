@@ -8,7 +8,7 @@ sources:
 related:
   - content-guardrails.md
   - experience.md
-updated: 2026-09-24
+updated: 2026-10-20
 ---
 
 # Skills and Capabilities
@@ -24,7 +24,7 @@ domain-separated matrix instead; that part of them survives. Grouping is the inf
 
 ## The groups
 
-**Product** — AI/ML implementation, product lifecycle management, backlog prioritisation,
+**Product** — AI/ML implementation, machine learning fundamentals, product lifecycle management, backlog prioritisation,
 roadmapping, go-to-market strategy, cost optimisation.
 
 **Analytics** — survey design and analysis, benchmarking, data governance.

@@ -358,3 +358,8 @@ One line per action, newest at the bottom.
   `deployment-domain.md` gains an HSTS preload section: what is now binding (every subdomain
   must serve HTTPS, keep the header's `preload`) and where to re-check. `linear.md` moves the
   item from Open to Shipped. Page updated: deployment-domain.
+- 2026-10-20 — Google Machine Learning Crash Course (11 badges, 8 Sep – 20 Oct 2026) added as a
+  studied-not-applied credential: a text-only card linking his public profile (g.dev/deepayansinha; lists 10 badges against the
+  vault's 11, so no module count is shown), a skills item, and a resume certifications line. Wording is
+  "completed", never applied; note content stays unpublished. Pages updated:
+  education-and-credentials, skills.
