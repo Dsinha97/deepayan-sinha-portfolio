@@ -365,3 +365,4 @@ One line per action, newest at the bottom.
   education-and-credentials, skills.
 - 2026-10-20 — Fort Monroe case study: the mis-migrated benchmark catch is now worded as surfacing
   after the engagement, not before delivery (owner correction). Page updated: case-study-fort-monroe.
+- 2026-10-20 — ML Crash Course card gains the Neural networks badge artwork from the public Google profile (gstatic badge SVG rasterised to a 360px PNG, because check-dist rejects the SVG's inline <style>). Page updated: education-and-credentials.
