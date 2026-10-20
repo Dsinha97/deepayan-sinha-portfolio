@@ -78,8 +78,8 @@ for the team's own parking workstream. It was reported anyway.
 
 A second finding was a catch, not a result: a benchmark figure from another site had migrated
 into the team's roadmap as if it were a Fort Monroe baseline, at roughly double the real local
-figure. Publishing a recommendation on top of it would have been a real error — caught by
-tracing the number back to where it actually came from, before it went out the door.
+figure. It surfaced after the engagement, when the number was traced back to where it
+actually came from.
 
 ## The response
 

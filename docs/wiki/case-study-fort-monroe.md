@@ -11,7 +11,7 @@ sources:
 related:
   - content-guardrails.md
   - experience.md
-updated: 2026-09-10
+updated: 2026-10-20
 ---
 
 # Case Study — Fort Monroe Consultancy
@@ -77,8 +77,9 @@ for his own team's parking workstream. He reported it anyway.
 
 A related catch, and the better story: a figure from a benchmark site had migrated into the
 team's roadmap as if it were a Fort Monroe revenue baseline, at roughly double the real local
-figure. Publishing a recommendation on top of it would have been a real error, caught because
-someone traced the number back to where it came from.
+figure. It surfaced after the engagement, when the number was traced back to where it came
+from. (The site previously said it was caught before the work went out; the owner corrected that
+on 2026-10-20 — do not claim the catch preceded delivery.)
 
 **Tell this on the site without the number.** Say "roughly double the real figure", never the
 dollar amount. Printing it beside the client's name is how it propagates again, which is the
