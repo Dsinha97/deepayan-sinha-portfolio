@@ -87,7 +87,7 @@ Foundations***, not "Foundation and Frameworks". Titles now match what the issue
 
 **Machine Learning Crash Course (2026-10-20).** Eleven Google Developer Program badges earned
 8 Sep – 20 Oct 2026 (dates as shown on the badge pages, per the vault). It is **studied, not
-applied**: published as a completed course, text-only card, never as project experience. The card links his public Google Developer Program profile (`g.dev/deepayansinha`, checked
+applied**: published as a completed course, with the Neural networks badge artwork on the card, never as project experience. The card links his public Google Developer Program profile (`g.dev/deepayansinha`, checked
 logged-out 2026-10-20: it lists the badges, but showed 10 where the vault records 11, so the card
 states no module count). Note
 content (second-hand Gemini readings of handwritten pages, unchecked) is not published.
