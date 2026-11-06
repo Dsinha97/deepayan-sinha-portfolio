@@ -92,6 +92,14 @@ branch; docs-only branches pass, and `[skip-ingest]` in a commit message is the 
 override — say why when you use it. The same hook guards fpl-app, whose wiki timeline feeds the
 FPL case study's Recent Updates panel.
 
+**Plan a multi-file change with `/plan-build`.** It runs three read-only retrievers in parallel
+(`wiki-retriever`, `history-retriever`, `code-retriever`), hands their results to the `planner`
+agent, and executes the plan it returns, stopping at commits, pushes, PRs, `headers.template`
+changes and anything touching `private/`. The agents live in `.claude/agents/` and are committed to
+this public repo, so they restate the rules in this file and hold no private facts. When a rule
+here or in `content-guardrails.md` changes, change it there first, then update the agent prompts.
+Skip it for one-line tweaks.
+
 **Git identity is local to this repo.** The global identity is a work account. This repo is
 `Deepayan Sinha <deepayansinha@gmail.com>`, GitHub `Dsinha97`. Check `git config user.email`
 before the first commit in a fresh clone.
