@@ -7,7 +7,7 @@ stack: ["Survey design & analysis", "Comparative benchmarking", "Make-or-buy ana
 cover: "../../assets/work/fort-monroe-cover.jpg"
 coverFocus: "left"
 kicker: "Consulting"
-bentoSize: "tall"
+bentoSize: "md"
 order: 3
 published: 2026-09-12
 updated: 2026-09-24

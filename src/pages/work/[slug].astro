@@ -12,7 +12,8 @@
  * `claimScope: engagement-outcomes` renders a visible footnote saying the
  * results describe deliverables and the client's response, not what the
  * client did next — content-guardrails.md is the rule, this is only where
- * it renders.
+ * it renders. `team-research` renders its own: the findings are a team's and
+ * the figures are counts from small synthetic tests.
  */
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
@@ -54,6 +55,12 @@ const jsonLd = await caseStudyArticle(entry, new URL(Astro.url.pathname, Astro.s
 const { updates, live } =
   data.updates === 'fpl-timeline' ? await getFplUpdates() : { updates: [], live: false };
 
+/* Research entries go back to their own homepage section (DSI-222). */
+const back =
+  data.section === 'research'
+    ? { href: '/#research', label: 'Research' }
+    : { href: '/#work', label: 'Selected work' };
+
 const LINK_LABEL: Record<'live' | 'repo' | 'document', string> = {
   live: 'Visit',
   repo: 'Source',
@@ -84,8 +91,8 @@ const link =
 >
 	<article class="mx-auto max-w-[75rem] px-4 pb-8 pt-10 md:px-6 lg:pt-16">
 		<nav aria-label="Breadcrumb" class="text-meta text-fg-muted">
-			<a href="/#work" class={link}>
-				<span aria-hidden="true">←</span> Selected work
+			<a href={back.href} class={link}>
+				<span aria-hidden="true">←</span> {back.label}
 			</a>
 		</nav>
 
@@ -227,6 +234,16 @@ const link =
 				<p class="mt-12 max-w-[65ch] rounded-card border border-border bg-surface p-4 text-meta text-fg-muted">
 					These results describe what was delivered and how the client responded — not what the
 					client subsequently did with the recommendations, which is not documented.
+				</p>
+			)
+		}
+
+		{
+			data.claimScope === 'team-research' && (
+				<p class="mt-12 max-w-[65ch] rounded-card border border-border bg-surface p-4 text-meta text-fg-muted">
+					This is co-authored research. The findings are the team's, and the role above lists my
+					own contributions as printed in the report. The data is synthetic and the test sets are
+					small, so the figures are counts from these experiments, not rates for deployed systems.
 				</p>
 			)
 		}

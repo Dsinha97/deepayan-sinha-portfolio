@@ -10,6 +10,7 @@ product:
   items:
     - "AI/ML implementation"
     - "Machine learning fundamentals"
+    - "LLM evaluation"
     - "Product lifecycle management"
     - "Backlog prioritisation"
     - "Roadmapping"

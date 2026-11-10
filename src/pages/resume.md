@@ -2,7 +2,7 @@
 layout: ../layouts/ResumeLayout.astro
 title: Resume — Deepayan Sinha
 description: Deepayan Sinha — MBA graduate, six years in AI/ML product engineering, analytics and applied strategy consulting.
-updated: September 2026
+updated: November 2026
 ---
 
 # Deepayan Sinha
@@ -82,12 +82,29 @@ August 2025 – May 2026 · Williamsburg, VA
 - Facilitated weekly review sessions for MBA students across demand theory, elasticity, market
   structures, pricing strategy and managerial decision-making
 
+## Research
+
+### Laundered Consensus: Do AI Watchdogs Check the Approvals Other Agents Claim?
+
+Apart Research Swarm Alignment Sprint · November 2026 · co-authored with L. Coetzee and P. Vijay
+
+- Built the adaptive attack loop, live relay chains and scoring code, ran the fine-tuning and
+  pre-registered evaluations, and wrote the results sections of the report
+
+### Quiet Suppression: Collusion and Watchdog Capture in AI Grievance Pipelines
+
+Apart Research AI Collusion Research Sprint · October 2026 · co-authored with L. Coetzee and P. Vijay
+
+- Ran six of the thirteen watchdog models evaluated, reviewed every pull request on the shared
+  repository, and edited the report
+- Designed and built the public companion sites for both reports
+
 ## Skills
 
 **Technical and tools** — SQL, Python, Power BI, Excel, JavaScript, TypeScript, Astro, Next.js,
-Cloudflare Workers
+Cloudflare Workers, Modal, OpenRouter, Ollama, Google AI Studio, Claude Console
 
-**Domains and methodologies** — AI/ML implementation, machine learning fundamentals, product lifecycle management, go-to-market
+**Domains and methodologies** — AI/ML implementation, machine learning fundamentals, LLM evaluation, model fine-tuning, product lifecycle management, go-to-market
 strategy, Lean Six Sigma, process optimisation, data governance, benchmarking, survey design and
 analysis
 

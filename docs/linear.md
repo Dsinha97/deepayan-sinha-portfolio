@@ -345,6 +345,8 @@ change. What happened and why is in the wiki log's 2026-09-26 entries.
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
+| DSI-222 | Research section and two case studies: Apart sprints | M6 | **In progress** — built on `feat/research-case-studies`; waits on owner review of the copy, then a PR. Rules: [content-guardrails.md](wiki/content-guardrails.md#co-authored-research); record: [research-sprints.md](wiki/research-sprints.md) |
+| DSI-223 | Research case study: AI x Epistemics Sprint | M6 | **Blocked** — the sprint has finished, the report is public with all authors agreeing, and its Author Contributions are final |
 | DSI-110 | Contact form | M6 | **Blocked** — owner decides the form is worth a backend, a database and a CSP widening |
 | DSI-113 | Fourth case study: Wipro | M6 | **Blocked** — owner decides whether enough survives genericization to carry a page |
 | DSI-114 | Writing or notes section | M6 | **Blocked** — launch set of four pieces (owner decision, 2026-10-01), each drafted by Claude and rewritten by the owner; the section waits on those rewrites |

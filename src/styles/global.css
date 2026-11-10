@@ -362,7 +362,7 @@ html {
 
 /*
  * Matches the sticky header's tallest (unshrunk) height so an in-page anchor
- * — primary nav, mobile menu, the Recognition bento tile, the case-study
+ * — primary nav, mobile menu, the case-study
  * breadcrumb — lands its target heading clear of the header instead of
  * partially hidden under it.
  */
@@ -531,8 +531,7 @@ samp {
     --panel-travel: 0px;
     --panel-blur: 0px;
   }
-  .t-dialog,
-  .t-disclosure {
+  .t-dialog {
     transform: none !important;
   }
   [role='tooltip'] {

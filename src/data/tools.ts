@@ -18,6 +18,7 @@ import astro from '../assets/tools/astro.png';
 import canva from '../assets/tools/canva.png';
 import chatgpt from '../assets/tools/chatgpt.svg';
 import claude from '../assets/tools/claude.svg';
+import claudeConsole from '../assets/tools/claude-console.png';
 import cloudflare from '../assets/tools/cloudflare.png';
 import deno from '../assets/tools/deno.png';
 import postgres from '../assets/tools/postgres.png';
@@ -28,15 +29,20 @@ import discord from '../assets/tools/discord.svg';
 import excel from '../assets/tools/excel.svg';
 import gemini from '../assets/tools/gemini.svg';
 import github from '../assets/tools/github.svg';
+import googleAiStudio from '../assets/tools/google-ai-studio.png';
 import html from '../assets/tools/html.svg';
 import jasp from '../assets/tools/jasp.png';
 import javascript from '../assets/tools/javascript.png';
 import jira from '../assets/tools/jira.svg';
 import linear from '../assets/tools/linear.png';
 import microsoftFabric from '../assets/tools/microsoft-fabric.png';
+import modal from '../assets/tools/modal.png';
+import modelFineTuning from '../assets/tools/model-fine-tuning.png';
 import mysql from '../assets/tools/mysql.svg';
 import nextjs from '../assets/tools/nextjs.svg';
 import notebooklm from '../assets/tools/notebooklm.svg';
+import ollama from '../assets/tools/ollama.png';
+import openrouter from '../assets/tools/openrouter.png';
 import numpy from '../assets/tools/numpy.png';
 import pandas from '../assets/tools/pandas.svg';
 import perplexity from '../assets/tools/perplexity.svg';
@@ -114,6 +120,18 @@ export const toolGroups: ToolGroup[] = [
       { name: 'Perplexity', logo: perplexity },
       { name: 'NotebookLM', logo: notebooklm },
       { name: 'Prompt engineering', logo: promptEngineering },
+      /* From the two research sprints (DSI-222): the compute platform, the
+       * model APIs the watchdogs and attackers were called through, and the
+       * fine-tuning itself. The last is a method, not a product, and takes
+       * a generic badge the way Prompt engineering does. All six ship as
+       * PNGs: the supplied SVGs carry a <style> block or integer path
+       * coordinates, both of which the dist guard rejects. */
+      { name: 'Modal', logo: modal },
+      { name: 'Claude Console', logo: claudeConsole },
+      { name: 'Google AI Studio', logo: googleAiStudio },
+      { name: 'OpenRouter', logo: openrouter },
+      { name: 'Ollama', logo: ollama },
+      { name: 'Model fine-tuning', logo: modelFineTuning },
     ],
   },
   {

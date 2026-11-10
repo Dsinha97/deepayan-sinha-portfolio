@@ -9,8 +9,9 @@ sources:
 related:
   - experience.md
   - case-study-fort-monroe.md
+  - research-sprints.md
   - profile.md
-updated: 2026-09-24
+updated: 2026-11-09
 ---
 
 # Content Guardrails
@@ -82,6 +83,26 @@ What did **not** change is the provenance. `selfReported` remains a distinct fie
 records why. Anyone asked to defend a figure can find out in one step which three are
 recollection rather than record. **Merging that field into the ordinary bullets would destroy
 the last trace in the code and must not be done as a tidy-up.**
+
+## Co-authored research
+
+Added 2026-11-09 for the two Apart Research sprint projects (*Quiet Suppression*, AI Collusion
+Research Sprint, October 2026; *Laundered Consensus*, Swarm Alignment Sprint, November 2026).
+The same rules cover any later team research entry. Case studies under them declare
+`claimScope: team-research`, which renders its own footnote.
+
+| Rule | Why |
+|---|---|
+| **Claim only what the report's Author Contributions print for him** | Each report states who did what. That printed line is the source; anything wider is a claim the co-authors never agreed to. Study design, the datasets, most of the *Quiet Suppression* experiments and both videos are a co-author's |
+| Findings are the team's — "we found", never "I found" | A three-author report has three authors |
+| **Every quoted figure carries its limits** | All data in both studies is synthetic and the cells are small (12 to 48 items). A count such as "20 of 32" is quoted as a count, with the setup beside it, never as a general rate |
+| **Nothing from *Laundered Consensus* Appendix A** | The attack texts, planted lines, forged notes, transcripts and answer keys are withheld as dual-use. Tactics by category only. The private repository is never linked or named |
+| No judging, prize, ranking or funding claims | Outcomes are not known. A sprint that has not happened yet is not mentioned |
+| No spend figures | Internal to the team |
+| Co-authors **are** named (owner decision, 2026-11-09) | Liezl Coetzee and Prashanth Vijay are public authors on both reports, the Apart project pages and the companion sites, and have posted about the sprints publicly with him tagged as author. This differs from Fort Monroe, where teammates never chose to be public. Name and co-authorship only — no bios, employers or photographs |
+| Reports, slides and videos are linked, never rehosted | They are joint work, and a link needs no CSP change |
+| A sprint is not a role | No Experience entry. The site does not name an employer for this work |
+| Images are reviewed by eye before commit | The dist guard does not scan images. Covers come from the projects' own public companion sites and must show no attack text, transcript or person |
 
 ## Framework fluency is not experience
 

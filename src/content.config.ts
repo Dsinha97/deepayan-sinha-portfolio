@@ -4,10 +4,14 @@
  * docs/wiki/content-guardrails.md for what each field is guarding.
  *
  * `work.claimScope` is required with no default: a new case study cannot be
- * added without choosing `own-outcomes` or `engagement-outcomes`. The layout
- * (not this file) renders the visible footnote for the latter — the rule
- * lives in content-guardrails.md, this schema only enforces that a choice was
- * made.
+ * added without choosing `own-outcomes`, `engagement-outcomes` or
+ * `team-research`. The layout (not this file) renders the visible footnote for
+ * the last two — the rules live in content-guardrails.md, this schema only
+ * enforces that a choice was made.
+ *
+ * `work.section` picks the homepage section an entry is listed in. Research
+ * entries (DSI-222) share the collection, the route and the page template
+ * with the rest; only the listing differs.
  *
  * `experience.genericised` marks an entry whose client and vendor names must
  * never appear, so the constraint travels with the data.
@@ -41,6 +45,8 @@ const work = defineCollection({
      * tile in the portrait.so reference. */
     bentoSize: z.enum(['lg', 'md', 'sm', 'tall']),
     order: z.number(),
+    /* Which homepage section lists the entry: Selected work, or Research. */
+    section: z.enum(['work', 'research']).default('work'),
     /* The day this case study went live on the site, and the day it last
      * changed materially — from git history, never estimated. They feed
      * article:published_time / modified_time and the Article's JSON-LD, which
@@ -48,7 +54,7 @@ const work = defineCollection({
      * from whatever is on the page. */
     published: z.coerce.date(),
     updated: z.coerce.date().optional(),
-    claimScope: z.enum(['own-outcomes', 'engagement-outcomes']),
+    claimScope: z.enum(['own-outcomes', 'engagement-outcomes', 'team-research']),
     /* A "Recent updates" panel synced at build time from the project's own
      * changelog. Only FPL Decision has one — see src/lib/fpl-updates.ts. */
     updates: z.enum(['fpl-timeline']).optional(),
