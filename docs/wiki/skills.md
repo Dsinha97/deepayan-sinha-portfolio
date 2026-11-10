@@ -24,7 +24,7 @@ domain-separated matrix instead; that part of them survives. Grouping is the inf
 
 ## The groups
 
-**Product** — AI/ML implementation, machine learning fundamentals, LLM evaluation, model fine-tuning, product lifecycle management, backlog prioritisation,
+**Product** — AI/ML implementation, machine learning fundamentals, LLM evaluation, product lifecycle management, backlog prioritisation,
 roadmapping, go-to-market strategy, cost optimisation.
 
 **Analytics** — survey design and analysis, benchmarking, data governance.
@@ -79,8 +79,10 @@ by the survey and the internship, the product group by six years at Wipro, and t
 group by the credential. If a reader asks "where did he do this", every group has an answer on
 the same page. LLM evaluation and model fine-tuning (added 2026-11-09) are evidenced by the two
 research sprints, where he ran the watchdog evaluations and the fine-tuning himself; see
-[research-sprints](research-sprints.md). Modal is named in those case studies' stacks and on the
-resume but is not in the toolkit grid, which needs a logo asset per tool. That test is what keeps a skills list honest, and anything failing it does not
+[research-sprints](research-sprints.md). The toolkit's AI group carries what those sprints ran
+on: Modal, the model APIs (Claude Console, Google AI Studio, OpenRouter, Ollama) and model
+fine-tuning, which moved from the Product chips to the toolkit so it is listed once and takes
+the owner's badge. That test is what keeps a skills list honest, and anything failing it does not
 go in the list. See [content-guardrails](content-guardrails.md#framework-fluency-is-not-experience).
 
 ## Sources

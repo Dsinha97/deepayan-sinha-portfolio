@@ -102,7 +102,7 @@ Apart Research AI Collusion Research Sprint · October 2026 · co-authored with 
 ## Skills
 
 **Technical and tools** — SQL, Python, Power BI, Excel, JavaScript, TypeScript, Astro, Next.js,
-Cloudflare Workers, Modal
+Cloudflare Workers, Modal, OpenRouter, Ollama, Google AI Studio, Claude Console
 
 **Domains and methodologies** — AI/ML implementation, machine learning fundamentals, LLM evaluation, model fine-tuning, product lifecycle management, go-to-market
 strategy, Lean Six Sigma, process optimisation, data governance, benchmarking, survey design and

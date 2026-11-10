@@ -3,7 +3,7 @@ title: "Laundered Consensus"
 tagline: "Do AI watchdogs check the approvals other agents claim? A research sprint on what a monitor does when a handoff note says a rule-breaking change was already signed off."
 role: "Co-author: attack loop, evaluations, results, companion site"
 period: "November 2026"
-stack: ["Python", "Modal", "Model fine-tuning", "GitHub", "Next.js", "Vercel"]
+stack: ["Python", "Modal", "OpenRouter", "Ollama", "Model fine-tuning", "GitHub", "Next.js", "Vercel"]
 cover: "../../assets/work/laundered-consensus-cover.webp"
 kicker: "Research sprint"
 bentoSize: "md"

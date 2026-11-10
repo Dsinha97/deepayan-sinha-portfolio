@@ -3,7 +3,7 @@ title: "Quiet Suppression"
 tagline: "Can an AI watchdog be talked out of its own written policy? A three-day research sprint on collusion and monitor capture in AI grievance pipelines."
 role: "Co-author: watchdog evaluations, code review, companion site"
 period: "October 2026"
-stack: ["Python", "Modal", "Claude", "Gemini", "GitHub", "Next.js", "Vercel"]
+stack: ["Python", "Modal", "Claude Console", "Google AI Studio", "GitHub", "Next.js", "Vercel"]
 cover: "../../assets/work/quiet-suppression-cover.webp"
 kicker: "Research sprint"
 bentoSize: "md"
