@@ -19,6 +19,10 @@
  * the button makes it the overlay's containing block mid-press, the overlay
  * shrinks to the button, mouseup lands outside it and the click never fires.
  *
+ * `section` picks which entries are listed (DSI-222): the homepage renders the
+ * grid twice, once for Selected work and once for Research. The Recognition
+ * tile and its panel belong to Selected work only.
+ *
  * The span classes come from a static lookup, never from concatenation.
  * Tailwind 4 scans for complete class strings.
  */
@@ -49,8 +53,19 @@ const SIZES = {
 	tall: '(min-width: 1024px) 25rem, (min-width: 768px) 50vw, 100vw',
 } as const;
 
-const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
-const recognition = (await getCollection('recognition')).sort((a, b) => a.data.order - b.data.order);
+interface Props {
+	section?: 'work' | 'research';
+}
+
+const { section = 'work' } = Astro.props;
+
+const work = (await getCollection('work', ({ data }) => data.section === section)).sort(
+	(a, b) => a.data.order - b.data.order,
+);
+const recognition =
+	section === 'work'
+		? (await getCollection('recognition')).sort((a, b) => a.data.order - b.data.order)
+		: [];
 const honor = recognition.find((entry) => entry.data.kind === 'honor')?.data;
 const paper = recognition.find((entry) => entry.data.kind === 'publication')?.data;
 

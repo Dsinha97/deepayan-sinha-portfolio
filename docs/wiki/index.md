@@ -9,7 +9,7 @@ single home for what may and may not be published, and every other page defers t
 
 ## Rules
 
-- [Content Guardrails](content-guardrails.md) — claim rules, genericization, personal data, files
+- [Content Guardrails](content-guardrails.md) — claim rules, genericization, co-authored research, personal data, files
 - [AGENTS.md](AGENTS.md) — how this wiki is maintained
 
 ## Who the site is about
@@ -27,6 +27,8 @@ single home for what may and may not be published, and every other page defers t
   client site
 - [Case Study — Fort Monroe Consultancy](case-study-fort-monroe.md) — survey, monetization,
   event plan, comparative
+- [Research — the Apart sprints](research-sprints.md) — Quiet Suppression and Laundered
+  Consensus, co-authored; what the two pages may claim
 
 ## How the site is built
 

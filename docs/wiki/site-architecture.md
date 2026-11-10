@@ -9,7 +9,7 @@ related:
   - design-system.md
   - deployment-domain.md
   - content-guardrails.md
-updated: 2026-09-27
+updated: 2026-11-09
 status: built
 ---
 
@@ -120,7 +120,7 @@ everything that is a list of records.
 
 | Collection | Loader | Holds |
 |---|---|---|
-| `work` | glob, markdown | the three case studies |
+| `work` | glob, markdown | five case studies: three under Selected work, two under Research |
 | `experience` | YAML file | four roles |
 | `education` | YAML file | two degrees |
 | `certifications` | YAML file | nine certificates with verification URLs |
@@ -129,8 +129,15 @@ everything that is a list of records.
 
 Two schema fields carry rules rather than data:
 
-**`work.claimScope`** is a required enum, `own-outcomes` or `engagement-outcomes`, with no
-default. A new case study cannot be added without choosing one. `engagement-outcomes` makes the
+**`work.section`** (`work` or `research`, default `work`) picks the homepage section that lists
+an entry. Research entries share the collection, the `/work/<slug>/` route and the page template
+with the rest; only the listing and the breadcrumb differ (DSI-222, see
+[research-sprints](research-sprints.md)).
+
+**`work.claimScope`** is a required enum, `own-outcomes`, `engagement-outcomes` or
+`team-research`, with no default. `team-research` renders its own footnote: the findings are a
+team's, the role lists his printed contributions, and the figures are counts from small
+synthetic tests. A new case study cannot be added without choosing one. `engagement-outcomes` makes the
 layout render a visible footnote saying the results describe deliverables and the client
 response, not the client's later business outcomes. Fort Monroe is the only entry using it. The
 rule itself lives in [content-guardrails](content-guardrails.md) and is not restated in the
@@ -149,7 +156,7 @@ image, and a bento size.
 | Route | Notes |
 |---|---|
 | `/` | the single page, anchor-linked sections |
-| `/work/<slug>/` | `fpl-decision`, `abhijit-sinha-website`, `fort-monroe-consultancy` |
+| `/work/<slug>/` | `fpl-decision`, `abhijit-sinha-website`, `fort-monroe-consultancy`, and the research entries `quiet-suppression`, `laundered-consensus` |
 | `/resume/` | HTML resume rendered from `src/pages/resume.md`. **No PDF viewer** — print the page |
 | `/404` | emitted as `dist/404.html`, served by the Worker |
 | `/sitemap-index.xml` | from `@astrojs/sitemap` |
@@ -202,11 +209,14 @@ the seam:
 2. **01 Selected work** (`WorkGrid.astro`) — FPL Decision full width; Fort Monroe as a `tall`
    tile beside the Abhijit site and the Recognition tile, which expands to show the Beta Gamma
    Sigma certificate and the paper's abstract.
-3. **02 Experience** (`Experience.astro`) — a card per role with the employer's logo, each
+3. **02 Research** (`WorkGrid.astro` with `section="research"`, added 2026-11-09) — the two
+   Apart sprint reports as ordinary tiles, with no Recognition tile. See
+   [research-sprints](research-sprints.md).
+4. **03 Experience** (`Experience.astro`) — a card per role with the employer's logo, each
    opening a dialog with the detail; a role with a case study gets the short version and a link.
-4. **03 Skills** (`Skills.astro`) — method groups as chips, then the toolkit with logos
+5. **04 Skills** (`Skills.astro`) — method groups as chips, then the toolkit with logos
    (`src/data/tools.ts`).
-5. **04 Credentials** (`Education.astro`) — degree cards, then one grid of certifications
+6. **05 Credentials** (`Education.astro`) — degree cards, then one grid of certifications
    (open in a viewer) and courses (link to the issuer).
 6. **05 About** — the lead paragraph in the serif, the rest in body.
 
