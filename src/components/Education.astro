@@ -18,8 +18,11 @@
  * degree certificates are never published. See
  * docs/wiki/content-guardrails.md.
  *
- * Recognition — Beta Gamma Sigma and the paper — moved to the homepage bento's
- * Recognition tile in the redesign, which expands to show both.
+ * Beta Gamma Sigma sits directly under the William & Mary degree it was earned
+ * in (owner decision, 2026-11-09), full width from `md`; its certificate opens
+ * in the same viewer as the others. It is second in the DOM so a phone reads
+ * W&M, the honor, then VIT, and the grid classes put the two degrees side by
+ * side above it on wider screens. The paper is in the Research section.
  *
  * No GPA appears in any source material, so none is published.
  */
@@ -32,6 +35,11 @@ import vitMark from '../../images/Vellore_Institute_of_Technology_seal_2017.svg.
 
 const degrees = (await getCollection('education')).sort((a, b) => a.data.order - b.data.order);
 const certs = (await getCollection('certifications')).sort((a, b) => a.data.order - b.data.order);
+const honor = (await getCollection('recognition')).find((entry) => entry.data.kind === 'honor')?.data;
+const HONOR_SCHOOL = 'William & Mary, Raymond A. Mason School of Business';
+
+/* Static strings: Tailwind only sees whole class names. */
+const DEGREE_CELL = ['md:col-start-1 md:row-start-1', 'md:col-start-2 md:row-start-1'];
 
 /*
  * Institution marks are balanced by AREA, not by height. The ratios here run
@@ -63,8 +71,9 @@ const marks: Record<string, ImageMetadata> = {
 
 <ul class="mt-10 grid gap-5 md:grid-cols-2 md:gap-6">
 	{
-		degrees.map(({ data: degree }) => (
-			<li class="flex items-center gap-5 rounded-tile border border-border bg-surface p-6 md:p-7">
+		degrees.map(({ data: degree }, index) => (
+			<>
+			<li class:list={['flex items-center gap-5 rounded-tile border border-border bg-surface p-6 md:p-7', DEGREE_CELL[index]]}>
 				{marks[degree.school] && (
 					<div class="flex h-24 w-32 shrink-0 items-center justify-center rounded-card bg-mark-plate p-3">
 						<Image
@@ -90,6 +99,35 @@ const marks: Record<string, ImageMetadata> = {
 					)}
 				</div>
 			</li>
+			{degree.school === HONOR_SCHOOL && honor && (
+				<li class="flex items-center gap-5 rounded-tile border border-border bg-surface p-6 md:col-span-2 md:row-start-2 md:p-7">
+					{honor.image && (
+						<button
+							type="button"
+							popovertarget="cert-bgs"
+							class="flex h-24 w-32 shrink-0 overflow-hidden rounded-card border border-border bg-white transition-[border-color,scale] duration-100 hover:border-border-strong active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+							aria-label="View the Beta Gamma Sigma certificate"
+						>
+							<Image src={honor.image} alt="" widths={[256, 384]} sizes="8rem" class="size-full object-cover object-top" />
+						</button>
+					)}
+					<div class="min-w-0">
+						<p class="font-mono text-label uppercase tracking-[0.12em] text-gold">
+							Honor{honor.date && ` · ${honor.date}`}
+						</p>
+						<h3 class="mt-1 font-semibold text-fg">Beta Gamma Sigma inductee</h3>
+						{honor.summary && (
+							<p class="mt-1 max-w-[62ch] text-fg-2">
+								{honor.summary} Membership is open to the top 20% of the MBA cohort.
+							</p>
+						)}
+					</div>
+					{honor.image && (
+						<CertDialog id="cert-bgs" title="Beta Gamma Sigma" meta={`William & Mary chapter · ${honor.date ?? ''}`} image={honor.image} />
+					)}
+				</li>
+			)}
+			</>
 		))
 	}
 </ul>

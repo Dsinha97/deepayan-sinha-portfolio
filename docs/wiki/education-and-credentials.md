@@ -9,7 +9,7 @@ sources:
 related:
   - experience.md
   - content-guardrails.md
-updated: 2026-10-20
+updated: 2026-11-09
 ---
 
 # Education and Credentials
@@ -111,13 +111,20 @@ than height — wide marks otherwise dwarf compact ones at the same `max-h`.
 any 2x or 3x screen upscaled it, and the lossy WebP conversion softened the seal's fine strokes.
 They now ship `densities={[1, 2, 3]}` as lossless PNG. Checked at 2x after the change.
 
-## Recognition on the homepage
+## Where the honor and the paper render
 
-Beta Gamma Sigma and the ICPAT-19 paper moved out of this section into the homepage bento's
-Recognition tile, which expands in place to show the BGS certificate (openable in the same
-viewer as the others) and the paper's title, venue, full abstract and ResearchGate link. The
-abstract is the paper's own, from `research-paper-details.md`; the data lives in
-`src/content/recognition/items.yaml`.
+**Beta Gamma Sigma is in Credentials, directly under the William & Mary degree** (owner
+decision, 2026-11-09): a full-width card with the certificate as a thumbnail that opens the
+same viewer as the other certificates. It is second in the DOM, so a phone reads W&M, the
+honor, then VIT.
+
+**The ICPAT-19 paper is in the Research section**, as a full-width tile after the two sprint
+reports, with its title, venue, full abstract and ResearchGate link all shown.
+
+Both lived in an expanding Recognition tile in the Selected work bento from the 2026-09
+redesign until 2026-11-09. That tile is retired, and with it the disclosure pattern
+(`disclosure.js`, `.t-disclosure`), which nothing else used. The abstract is the paper's own,
+from `research-paper-details.md`; the data is still `src/content/recognition/items.yaml`.
 
 ## Sources
 

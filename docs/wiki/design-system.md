@@ -467,7 +467,9 @@ up to 60rem wide is the large blurred area the Motion rule forbids.
 **Disclosure without a layout shift.** The inline theme script now also adds `js` to `<html>`
 before first paint. `.t-disclosure` panels are open by default and only collapse under
 `:root.js`, so the no-JS page shows the content and the scripted page starts closed without
-reflowing. `disclosure.js` toggles `data-open`. Used by the Recognition tile.
+reflowing. `disclosure.js` toggles `data-open`. Used by the Recognition tile. **Removed 2026-11-09** with
+that tile, its only user; the `js` class on `<html>` remains. This paragraph and the next are
+kept as the record of the pattern and its one bug.
 
 **A stretched hit area must not scale mid-press (DSI-198, 2026-09-25).** The Recognition tile's
 disclosure button covers the whole card with an `after:absolute after:inset-0` overlay, anchored

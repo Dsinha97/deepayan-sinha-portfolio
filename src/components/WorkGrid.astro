@@ -4,33 +4,20 @@
  * run edge to edge inside large-radius tiles, with the meta line, title,
  * tagline and an arrow chip below.
  *
- * Layout: one column, two from `md`. The `lg` tile takes the full row; a `tall`
- * tile spans two rows beside two ordinary ones — Abhijit's site and the
- * Recognition tile — so the grid tiles with no gap.
- *
- * The Recognition tile expands in place (owner request, 2026-09-24): its
- * panel spans the full row under the grid and carries the Beta Gamma Sigma
- * certificate and the paper's abstract. It is a disclosure, not a dialog —
- * the content belongs in the page flow, and without JavaScript it is simply
- * shown. See .t-disclosure in motion.css.
- *
- * The whole tile is the button's hit area, via its stretched `::after` (DSI-198).
- * Press feedback therefore lives on the <li>, never on the button: a `scale` on
- * the button makes it the overlay's containing block mid-press, the overlay
- * shrinks to the button, mouseup lands outside it and the click never fires.
+ * Layout: one column, two from `md`. The `lg` tile takes the full row and the
+ * rest pair up beneath it.
  *
  * `section` picks which entries are listed (DSI-222): the homepage renders the
- * grid twice, once for Selected work and once for Research. The Recognition
- * tile and its panel belong to Selected work only.
+ * grid twice, once for Selected work and once for Research. Research closes
+ * with a full-width tile for the published paper, from the `recognition`
+ * collection: title, venue, abstract and the link, all shown, nothing to expand.
  *
  * The span classes come from a static lookup, never from concatenation.
  * Tailwind 4 scans for complete class strings.
  */
 import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
 import WorkCover from './WorkCover.astro';
 import IconArrowUpRight from './IconArrowUpRight.astro';
-import CertDialog from './CertDialog.astro';
 
 const SPAN = {
 	lg: 'md:col-span-2',
@@ -62,12 +49,12 @@ const { section = 'work' } = Astro.props;
 const work = (await getCollection('work', ({ data }) => data.section === section)).sort(
 	(a, b) => a.data.order - b.data.order,
 );
-const recognition =
-	section === 'work'
-		? (await getCollection('recognition')).sort((a, b) => a.data.order - b.data.order)
-		: [];
-const honor = recognition.find((entry) => entry.data.kind === 'honor')?.data;
-const paper = recognition.find((entry) => entry.data.kind === 'publication')?.data;
+/* The published paper sits with the research entries (owner decision,
+ * 2026-11-09). Beta Gamma Sigma, the other recognition item, is in Credentials. */
+const paper =
+	section === 'research'
+		? (await getCollection('recognition')).find((entry) => entry.data.kind === 'publication')?.data
+		: undefined;
 
 const isLive = (links?: { type: string }[]) => links?.some((link) => link.type === 'live');
 ---
@@ -117,100 +104,32 @@ const isLive = (links?: { type: string }[]) => links?.some((link) => link.type =
 	}
 
 	{
-		honor && (
-			<li class="relative flex flex-col justify-between gap-6 rounded-tile border border-transparent bg-surface-2 p-6 transition-[border-color,scale] duration-100 has-[[data-disclosure]:hover]:border-border-strong has-[[data-disclosure]:active]:scale-[0.99] md:p-7">
-				<p class="flex items-center justify-between font-mono text-label uppercase tracking-[0.12em] text-gold">
-					Recognition
-				</p>
-				<div>
-					<h3 class="font-serif text-3xl font-normal leading-[1.1] text-fg">Beta Gamma Sigma inductee</h3>
-					<p class="mt-3 text-fg-2">
-						Top 20% of the MBA cohort, plus a published paper on thermal-comfort modelling.
-					</p>
-					<button
-						type="button"
-						hidden
-						data-disclosure
-						aria-expanded="false"
-						aria-controls="recognition-panel"
-						data-open-text="Hide details"
-						data-closed-text="Show certificate and paper"
-						class="mt-4 inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-control text-accent transition-colors duration-100 after:absolute after:inset-0 after:rounded-tile hover:text-accent-hoverfocus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-expanded:[&_svg]:rotate-45"
-					>
-						<span data-disclosure-label>Show certificate and paper</span>
-						<svg viewBox="0 0 24 24" class="size-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-							<path d="M12 5v14M5 12h14" />
-						</svg>
-					</button>
+		paper && (
+			<li class="grid gap-6 rounded-tile border border-border bg-surface p-6 md:col-span-2 md:grid-cols-2 md:gap-8 md:p-8">
+				<div class="flex flex-col items-start gap-4">
+					<p class="font-mono text-label uppercase text-fg-muted">Published paper · ICPAT-19</p>
+					<h3 class="font-serif text-3xl font-normal leading-[1.1] text-fg">{paper.title}</h3>
+					{paper.venue && <p class="text-meta text-fg-muted">{paper.venue}</p>}
+					{paper.href && (
+						<a
+							href={paper.href}
+							rel="noopener"
+							target="_blank"
+							class="mt-auto inline-flex min-h-11 items-center gap-2 rounded-full bg-accent-fill px-5 text-on-accent transition-[background-color,scale] duration-100 hover:bg-accent-fill-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+						>
+							Read on ResearchGate
+							<IconArrowUpRight class="size-4" />
+							<span class="sr-only">(opens in a new tab)</span>
+						</a>
+					)}
 				</div>
-			</li>
-		)
-	}
-
-	{
-		(honor || paper) && (
-			<li
-				id="recognition-panel"
-				class="t-disclosure grid gap-8 rounded-tile border border-border bg-surface p-6 md:col-span-2 md:grid-cols-2 md:p-8"
-			>
-				{honor && (
-					<div class="flex flex-col gap-4">
-						<p class="font-mono text-label uppercase tracking-[0.12em] text-gold">
-							Honor{honor.date && ` · ${honor.date}`}
-						</p>
-						<h4 class="font-serif text-3xl font-normal leading-[1.1] text-fg">Beta Gamma Sigma</h4>
-						{honor.summary && <p class="text-fg-2">{honor.summary} Membership is open to the top 20% of the MBA cohort.</p>}
-						{honor.image && (
-							<button
-								type="button"
-								popovertarget="cert-bgs"
-								class="overflow-hidden rounded-card border border-border bg-white transition-[border-color,scale] duration-100 hover:border-border-strong active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-								aria-label="View the Beta Gamma Sigma certificate"
-							>
-								<Image
-									src={honor.image}
-									alt=""
-									widths={[480, 800, 1000]}
-									sizes="(min-width: 1024px) 24rem, (min-width: 768px) 45vw, 100vw"
-									class="h-auto w-full"
-								/>
-							</button>
-						)}
-						{honor.image && (
-							<CertDialog id="cert-bgs" title="Beta Gamma Sigma" meta={`William & Mary chapter · ${honor.date ?? ''}`} image={honor.image} />
-						)}
-					</div>
-				)}
-				{paper && (
-					<div class="flex flex-col gap-4 md:border-l md:border-border md:pl-8">
-						<p class="font-mono text-label uppercase tracking-[0.12em] text-gold">Publication · ICPAT-19</p>
-						<h4 class="font-serif text-3xl font-normal leading-[1.1] text-fg">{paper.title}</h4>
-						{paper.venue && <p class="text-meta text-fg-muted">{paper.venue}</p>}
-						{paper.abstract && (
-							<div class="rounded-card bg-surface-2 p-5">
-								<p class="font-mono text-label uppercase tracking-[0.12em] text-fg-muted">Abstract</p>
-								<p class="mt-2 text-fg-2">{paper.abstract}</p>
-							</div>
-						)}
-						{paper.href && (
-							<a
-								href={paper.href}
-								rel="noopener"
-								target="_blank"
-								class="inline-flex min-h-11 items-center gap-2 self-start rounded-full bg-accent-fill px-5 text-on-accent transition-[background-color,scale] duration-100 hover:bg-accent-fill-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-							>
-								Read on ResearchGate
-								<IconArrowUpRight class="size-4" />
-								<span class="sr-only">(opens in a new tab)</span>
-							</a>
-						)}
+				{paper.abstract && (
+					<div class="rounded-card bg-surface-2 p-5">
+						<p class="font-mono text-label uppercase tracking-[0.12em] text-fg-muted">Abstract</p>
+						<p class="mt-2 text-fg-2">{paper.abstract}</p>
 					</div>
 				)}
 			</li>
 		)
 	}
 </ul>
-
-<script>
-	import '../scripts/disclosure.js';
-</script>

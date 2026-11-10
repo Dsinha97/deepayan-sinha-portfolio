@@ -1,9 +1,11 @@
 # Beta Gamma Sigma and the ICPAT-19 paper (DSI-94, migrated to a collection by
 # DSI-98). See docs/wiki/education-and-credentials.md.
 #
-# The homepage Recognition tile expands to show both. The certificate image is
-# rendered from private/Achievements/ by scripts/render-certs.py; the abstract
-# is the paper's own, from private/Achievements/research-paper-details.md.
+# Beta Gamma Sigma renders in Credentials, under the William & Mary degree; the
+# paper renders in the Research section (both moved 2026-11-09, when the
+# homepage Recognition tile was retired). The certificate image is rendered
+# from private/Achievements/ by scripts/render-certs.py; the abstract is the
+# paper's own, from private/Achievements/research-paper-details.md.
 
 beta-gamma-sigma:
   order: 1

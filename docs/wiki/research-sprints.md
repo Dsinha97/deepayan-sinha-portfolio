@@ -52,7 +52,9 @@ and a funding application.
 - **Two pages, not one.** The first plan was a single combined case study; the owner chose a
   page per report.
 - **A separate Research section.** Team research sits apart from Selected work so it never
-  reads as solo or client work.
+  reads as solo or client work. Its heading is generic, "Research and publications", not
+  about AI safety (owner correction, same day), and it also holds the ICPAT-19 paper, moved
+  from the retired Recognition tile.
 - **Co-authors are named.** See the guardrails page for why this differs from Fort Monroe.
 - **Covers come from the companion sites**: the *Quiet Suppression* hero image and the
   *Laundered Consensus* social card, both converted to WebP in `src/assets/work/`. Both were
@@ -74,8 +76,9 @@ and a funding application.
   dark theme. Redrawing them on the site's tokens would be a separate piece of work.
 - **No video embed.** The CSP has no `media-src` or `frame-src`, and the videos are a
   co-author's work; the companion sites carry them.
-- **The Recognition tile is unchanged.** These are sprint submissions, not peer-reviewed
-  publications.
+- **The sprint reports are not presented as publications.** They are sprint submissions, not
+  peer-reviewed. The one peer-reviewed item, the ICPAT-19 paper, sits in the same section in
+  its own tile, labelled "Published paper", so the two kinds stay distinct.
 - A third sprint, AI x Epistemics, is tracked as DSI-223 and blocked until it is finished
   and public.
 

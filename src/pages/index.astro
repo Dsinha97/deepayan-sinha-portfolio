@@ -21,8 +21,8 @@ import { profilePage } from '../data/schema';
  *
  * Each section opens with a numbered label pair (SectionHeading) and is joined
  * to the next by the kintsugi seam. Research (DSI-222) is its own section, a
- * second WorkGrid filtered to the research entries, so team research never
- * reads as solo or client work. The closing band sits outside the column,
+ * second WorkGrid filtered to the research entries plus the published paper,
+ * so team research never reads as solo or client work. The closing band sits outside the column,
  * full container width, so the page ends on one strong call to action.
  *
  * The rail joins the layout at `lg` (1024). Below that it stacks above the
@@ -50,10 +50,10 @@ const jsonLd = await profilePage();
 			<Seam class="my-16 md:my-24" />
 
 			<section id="research">
-				<SectionHeading eyebrow="02 · Research" title="AI safety research, done in sprints" />
+				<SectionHeading eyebrow="02 · Research" title="Research and publications" />
 				<p class="mt-4 max-w-[62ch] text-lg text-fg-2">
-					Two co-authored reports from Apart Research sprints, each testing how an AI model set to
-					watch other AI agents can be misled.
+					Co-authored work written up for other people to check: two research-sprint reports and
+					a published engineering paper.
 				</p>
 				<WorkGrid section="research" />
 			</section>
