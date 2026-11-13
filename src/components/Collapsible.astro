@@ -1,0 +1,56 @@
+---
+/*
+ * A native <details> panel with a summary tile (design audit 2026-11-13). Used
+ * where a section's full list is long and a visitor is better served by a count
+ * and a few names first: the certificates grid and the tools list.
+ *
+ * Native on purpose: no script, so nothing changes in the CSP or the JS budget,
+ * and Enter, Space and the accessible name all come from the browser. The whole
+ * summary tile is the hit area (well over 44px). The chevron turns with
+ * `rotate`, which is a composite property; closing is instant, like the other
+ * keyboard-reachable surfaces. Content stays in the DOM when closed.
+ *
+ * The hidden marker is removed for both engines: `list-none` for Firefox and
+ * Chromium's new default, the webkit pseudo for Safari.
+ */
+interface Props {
+	/** The heading text, set in the serif like the section's other h3s. */
+	title: string;
+	/** One line of what is inside: a count, then a few names. */
+	summary: string;
+	/** Heading level for the title; the section h2 sits above it. */
+	as?: 'h3' | 'h4';
+}
+
+const { title, summary, as: Tag = 'h3' } = Astro.props;
+---
+
+<details class="group mt-8">
+	<summary
+		class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 rounded-tile border border-border bg-surface p-5 transition-[border-color] duration-100 hover:border-border-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring md:px-7 [&::-webkit-details-marker]:hidden"
+	>
+		<span class="flex min-w-0 flex-col gap-1">
+			<Tag class="font-serif text-3xl font-normal leading-[1.1] text-fg">{title}</Tag>
+			<span class="text-meta text-fg-muted">{summary}</span>
+		</span>
+		<span class="flex shrink-0 items-center gap-2 text-meta text-accent">
+			<span class="group-open:hidden">Show all</span>
+			<span class="hidden group-open:inline">Hide</span>
+			<svg
+				viewBox="0 0 24 24"
+				class="size-4 transition-[rotate] duration-150 ease-out group-open:rotate-180"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				aria-hidden="true"
+			>
+				<path d="M6 9l6 6 6-6"></path>
+			</svg>
+		</span>
+	</summary>
+	<div class="mt-6">
+		<slot />
+	</div>
+</details>

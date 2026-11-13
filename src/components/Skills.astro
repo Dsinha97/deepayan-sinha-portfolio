@@ -17,8 +17,12 @@
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import { toolGroups } from '../data/tools';
+import Collapsible from './Collapsible.astro';
 
 const groups = (await getCollection('skills')).sort((a, b) => a.data.order - b.data.order);
+const toolCount = toolGroups.reduce((sum, group) => sum + group.items.length, 0);
+const toolNames = toolGroups.map((group) => group.group);
+const toolSummary = `${toolCount} tools across ${toolNames.slice(0, -1).join(', ')} and ${toolNames.at(-1)}`;
 ---
 
 <dl class="mt-10 border-t border-border">
@@ -38,6 +42,10 @@ const groups = (await getCollection('skills')).sort((a, b) => a.data.order - b.d
 			</div>
 		))
 	}
+</dl>
+
+<Collapsible title="Tools and software" summary={toolSummary}>
+<dl class="border-t border-border">
 	{
 		toolGroups.map((group) => (
 			<div class="grid gap-3 border-b border-border py-5 md:grid-cols-[11rem_minmax(0,1fr)] md:gap-8">
@@ -58,3 +66,4 @@ const groups = (await getCollection('skills')).sort((a, b) => a.data.order - b.d
 		))
 	}
 </dl>
+</Collapsible>

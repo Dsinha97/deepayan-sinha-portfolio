@@ -29,6 +29,7 @@
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import CertDialog from './CertDialog.astro';
+import Collapsible from './Collapsible.astro';
 import IconArrowUpRight from './IconArrowUpRight.astro';
 import wmMark from '../../images/WM_Business_School_Internal_Logo.png';
 import vitMark from '../../images/Vellore_Institute_of_Technology_seal_2017.svg.webp';
@@ -36,6 +37,8 @@ import vitMark from '../../images/Vellore_Institute_of_Technology_seal_2017.svg.
 const degrees = (await getCollection('education')).sort((a, b) => a.data.order - b.data.order);
 const certs = (await getCollection('certifications')).sort((a, b) => a.data.order - b.data.order);
 const honor = (await getCollection('recognition')).find((entry) => entry.data.kind === 'honor')?.data;
+const issuers = [...new Set(certs.map(({ data }) => data.issuer))].filter((name) => name !== 'MBA Math');
+const certSummary = `${certs.length} certificates and courses from ${issuers.slice(0, -1).join(', ')} and ${issuers.at(-1)}`;
 const HONOR_SCHOOL = 'William & Mary, Raymond A. Mason School of Business';
 
 /* Static strings: Tailwind only sees whole class names. */
@@ -132,12 +135,9 @@ const marks: Record<string, ImageMetadata> = {
 	}
 </ul>
 
-<div class="mt-14">
-	<h3 class="font-serif text-3xl font-normal leading-[1.1] text-fg">Certifications and courses</h3>
-	<p class="mt-2 text-meta text-fg-muted">Certificates open in a viewer. Courses open the issuer's verification page.</p>
-</div>
-
-<ul class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+<Collapsible title="Certifications and courses" summary={certSummary}>
+<p class="mb-6 text-meta text-fg-muted">Certificates open in a viewer. Courses open the issuer's verification page.</p>
+<ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 	{
 		certs.map(({ id, data: cert }) => {
 			const card =
@@ -198,3 +198,4 @@ const marks: Record<string, ImageMetadata> = {
 		})
 	}
 </ul>
+</Collapsible>
