@@ -11,7 +11,7 @@ related:
   - site-architecture.md
   - case-study-fpl-decision.md
   - research-synthesis.md
-updated: 2026-09-27
+updated: 2026-11-13
 status: built
 ---
 
@@ -532,6 +532,39 @@ showcase, and general enough to reuse:
   styles.
 - **The About h2 hides its "05 ·" number from screen readers**, like the other sections' eyebrows.
 - **An empty palette search names the query and the way out.**
+
+## Design audit (2026-11-13)
+
+A `design-hq:improve-design` pass over the live homepage and the FPL Decision case study, at 1440
+and 375, both themes. No text pair failed (lowest body pair 4.87:1) and nothing scrolled sideways.
+Four fixes and one structural change came out of it:
+
+- **One filled button in the first screen.** The rail had three outline icon buttons and no
+  primary action; the real call to action sat at the foot of a 9,500px page. The rail now carries
+  a filled "Get in touch" (`accent-fill`, jumps to `#contact`) above the icons. The Resume link
+  stays in the header, outline, so the rail still does not carry it twice.
+- **The email pill reaches 44px.** The mailto link and copy button were 40px against the 44px
+  rule. Both are 44, and the pill's padding went from `p-1` to `p-0.5` so its row height stays
+  48px, level with the LinkedIn and GitHub pills.
+- **The sticky header is a solid fill.** It had `bg-elevated/95` over `backdrop-blur-sm`; at 95%
+  opacity the blur was invisible, and a full-width blur is the cost the Motion section already
+  forbids. Computed `backdrop-filter` is now `none`.
+- **Radii are back on the named scale.** The case-study cover frame and the dialog panel were
+  `1.75rem` (28px) and the command palette `1.25rem` (20px), neither a token. They now use
+  `rounded-band` (32px) and `rounded-media` (20px).
+- **`Collapsible.astro`: long lists open on a summary tile.** The certificates grid and the logo
+  tools list were 2,121px and 1,249px of a 9,543px desktop page. Both now sit in a native
+  `<details>` whose tile shows the serif title, one line of what is inside and "Show all". The
+  line is built from the data (a count and the issuers or group names), so it cannot go stale.
+  Degrees, the honour and the three method skill groups stay visible. Desktop page height fell to
+  7,508px. It is native on purpose: no script, so no CSP or JS-budget change, and the browser
+  supplies keyboard behaviour. The chevron turns by `rotate` (composite); closing is instant.
+  This is not the removed `.t-disclosure` pattern: that one animated and needed a script.
+
+**Left alone, on a phone window.** The 12px mono uppercase labels (20 elements), 13px mono dates
+(7) and 13px Inter meta (36) were checked at 375 and read cleanly; their contrast is at least
+4.87:1. If one change is wanted, 13px mono dates to 14px on phone is the only candidate. Not
+checked on a real device.
 
 ## Motion
 

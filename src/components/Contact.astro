@@ -46,10 +46,10 @@ const pill =
 			alone is ~231px at 16px; below `sm` the envelope drops and the text steps
 			down to `text-sm`, which with the band's `px-5` fits a 360px screen.
 		*/}
-		<div class="flex min-h-12 items-center rounded-full bg-on-band p-1 text-purple-800">
+		<div class="flex min-h-12 items-center rounded-full bg-on-band p-0.5 text-purple-800">
 			<a
 				href={`mailto:${site.email}`}
-				class="inline-flex min-h-10 flex-1 items-center justify-center gap-2 rounded-full px-3 text-sm font-semibold transition-[background-color,scale] duration-100 hover:bg-white active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-band sm:pr-3 sm:pl-5 sm:text-base"
+				class="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-full px-3 text-sm font-semibold transition-[background-color,scale] duration-100 hover:bg-white active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-band sm:pr-3 sm:pl-5 sm:text-base"
 				data-contact-email={site.email}
 			>
 				<IconEmail class="size-5 max-sm:hidden" />
@@ -61,7 +61,7 @@ const pill =
 				data-contact-copy
 				aria-label="Copy email address"
 				title="Copy email address"
-				class="grid size-10 shrink-0 cursor-pointer place-items-center rounded-full transition-[background-color,scale] duration-100 hover:bg-white active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-band [&>span]:col-start-1 [&>span]:row-start-1 [&>span]:transition-opacity [&>span]:duration-150 [&>span]:ease-out"
+				class="grid size-11 shrink-0 cursor-pointer place-items-center rounded-full transition-[background-color,scale] duration-100 hover:bg-white active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-band [&>span]:col-start-1 [&>span]:row-start-1 [&>span]:transition-opacity [&>span]:duration-150 [&>span]:ease-out"
 			>
 				<span data-copy-icon="idle"><IconCopy class="size-5" /></span>
 				<span data-copy-icon="done" class="opacity-0">
