@@ -106,6 +106,7 @@ gate rather than copying it into a second place where it can rot.
 | Google Machine Learning Crash Course credential (studied, not applied) | DSI-220 | M6 | [education-and-credentials.md](wiki/education-and-credentials.md) |
 | Apex submitted to the HSTS preload list | DSI-201 | M6 | [deployment-domain.md](wiki/deployment-domain.md#hsts-preload) |
 | Research section, two Apart sprint case studies, Recognition tile retired | DSI-222 | M6 | [research-sprints.md](wiki/research-sprints.md), [content-guardrails.md](wiki/content-guardrails.md#co-authored-research) |
+| Research case study: Phantom Witnesses (AI x Epistemics Sprint) | DSI-223 | M6 | [research-sprints.md](wiki/research-sprints.md), [content-guardrails.md](wiki/content-guardrails.md#co-authored-research) |
 
 **M1 closed 2026-09-11.** Astro/Tailwind scaffold, tokens, Workers deploy with push-to-deploy on
 `main`, apex domain with `www` redirect and HSTS, and `contact@` email routing are all live.
@@ -346,7 +347,6 @@ change. What happened and why is in the wiki log's 2026-09-26 entries.
 
 | Issue | Item | Milestone | Gate / blocker |
 |---|---|---|---|
-| DSI-223 | Research case study: AI x Epistemics Sprint | M6 | **Blocked** — the sprint has finished, the report is public with all authors agreeing, and its Author Contributions are final |
 | DSI-110 | Contact form | M6 | **Blocked** — owner decides the form is worth a backend, a database and a CSP widening |
 | DSI-113 | Fourth case study: Wipro | M6 | **Blocked** — owner decides whether enough survives genericization to carry a page |
 | DSI-114 | Writing or notes section | M6 | **Blocked** — launch set of four pieces (owner decision, 2026-10-01), each drafted by Claude and rewritten by the owner; the section waits on those rewrites |
