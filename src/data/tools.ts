@@ -120,7 +120,7 @@ export const toolGroups: ToolGroup[] = [
       { name: 'Perplexity', logo: perplexity },
       { name: 'NotebookLM', logo: notebooklm },
       { name: 'Prompt engineering', logo: promptEngineering },
-      /* From the two research sprints (DSI-222): the compute platform, the
+      /* From the research sprints (DSI-222): the compute platform, the
        * model APIs the watchdogs and attackers were called through, and the
        * fine-tuning itself. The last is a method, not a product, and takes
        * a generic badge the way Prompt engineering does. All six ship as

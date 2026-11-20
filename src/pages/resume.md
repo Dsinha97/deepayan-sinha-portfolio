@@ -84,6 +84,13 @@ August 2025 – May 2026 · Williamsburg, VA
 
 ## Research
 
+### Phantom Witnesses: When LLM Reviewers Report a Source That Isn't There
+
+Apart Research AI x Epistemics Sprint · November 2026 · co-authored with L. Coetzee and P. Vijay
+
+- Wrote the reviewer prompt, label-form script, run scripts and scoring code, and a scripted
+  generator for the tuning data, and designed and built the companion site
+
 ### Laundered Consensus: Do AI Watchdogs Check the Approvals Other Agents Claim?
 
 Apart Research Swarm Alignment Sprint · November 2026 · co-authored with L. Coetzee and P. Vijay

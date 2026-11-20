@@ -118,8 +118,9 @@ decision, 2026-11-09): a full-width card with the certificate as a thumbnail tha
 same viewer as the other certificates. It is second in the DOM, so a phone reads W&M, the
 honor, then VIT.
 
-**The ICPAT-19 paper is in the Research section**, as a full-width tile after the two sprint
-reports, with its title, venue, full abstract and ResearchGate link all shown.
+**The ICPAT-19 paper is in the Research section**, as a card after the three sprint reports,
+showing its title, venue and a three-line abstract; the full abstract and ResearchGate link open
+in a Dialog, as on the Experience cards (changed 2026-11-19 from a full-width tile).
 
 Both lived in an expanding Recognition tile in the Selected work bento from the 2026-09
 redesign until 2026-11-09. That tile is retired, and with it the disclosure pattern

@@ -9,20 +9,23 @@ sources:
   - "https://laundered-consensus.vercel.app/"
   - "https://apartresearch.com/sprints/projects/laundered-consensus-do-ai-watchdogs-check-the-approvals-other-agents-claim-mod49815oz"
   - "https://github.com/Dsinha97/laundered-consensus"
+  - "https://phantom-witnesses.vercel.app/"
+  - "https://apartresearch.com/sprints/projects/phantom-witnesses-when-llm-reviewers-report-a-source-that-isnt-there-htnokj26zf"
+  - "https://github.com/LiezlC/ai-epistemics-sprint"
 related:
   - content-guardrails.md
   - site-architecture.md
   - skills.md
-updated: 2026-11-09
+updated: 2026-11-19
 ---
 
 # Research — the Apart sprints
 
-> Two co-authored AI-safety reports from Apart Research sprints, published as their own
+> Three co-authored AI-safety reports from Apart Research sprints, published as their own
 > homepage section with one case-study page each (DSI-222). The rules for what these pages may
 > say are in [content-guardrails](content-guardrails.md#co-authored-research).
 
-## The two entries
+## The first two entries
 
 | | Quiet Suppression | Laundered Consensus |
 |---|---|---|
@@ -79,8 +82,17 @@ and a funding application.
 - **The sprint reports are not presented as publications.** They are sprint submissions, not
   peer-reviewed. The one peer-reviewed item, the ICPAT-19 paper, sits in the same section in
   its own tile, labelled "Published paper", so the two kinds stay distinct.
-- A third sprint, AI x Epistemics, is tracked as DSI-223 and blocked until it is finished
-  and public.
+- **Third entry: Phantom Witnesses** (AI x Epistemics Sprint, 13–15 Nov 2026, DSI-223),
+  added 2026-11-19 at `/work/phantom-witnesses/`, `order: 6`. **The report has no Author
+  Contributions section** (the companion site says "Full author contributions: to come from the
+  authors"), so the role and action lines follow the contribution lines on the companion site's
+  team page, which are drawn from the report's LLM usage statement, Appendix E.12 and Section
+  3.3, Appendix E and Table P1, and the site's own credit. The owner chose that over waiting
+  (2026-11-19), so the page says "the report's LLM usage statement" and never "Author
+  Contributions", and the shared `team-research` footnote now reads "as the report and its
+  companion site state them" instead of "as printed in the report". Co-authors are the same two. Cover: the companion site's own social card, no
+  person or attack text. Not on the page: the funding route and judging, the video, the report's
+  figures, and the Prashanth wording beyond his team-page line.
 
 ## Sources
 
