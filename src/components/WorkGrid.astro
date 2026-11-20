@@ -9,14 +9,16 @@
  *
  * `section` picks which entries are listed (DSI-222): the homepage renders the
  * grid twice, once for Selected work and once for Research. Research closes
- * with a full-width tile for the published paper, from the `recognition`
- * collection: title, venue, abstract and the link, all shown, nothing to expand.
+ * with a tile for the published paper, from the `recognition` collection:
+ * title, venue and the abstract clamped to three lines, with a Dialog (as in
+ * Experience) holding the full abstract and the ResearchGate link.
  *
  * The span classes come from a static lookup, never from concatenation.
  * Tailwind 4 scans for complete class strings.
  */
 import { getCollection } from 'astro:content';
 import WorkCover from './WorkCover.astro';
+import Dialog from './Dialog.astro';
 import IconArrowUpRight from './IconArrowUpRight.astro';
 
 const SPAN = {
@@ -46,7 +48,7 @@ interface Props {
 
 const { section = 'work' } = Astro.props;
 
-const work = (await getCollection('work', ({ data }) => data.section === section)).sort(
+const work = (await getCollection('work', ({ data }) => (data.section ?? 'work') === section)).sort(
 	(a, b) => a.data.order - b.data.order,
 );
 /* The published paper sits with the research entries (owner decision,
@@ -105,30 +107,53 @@ const isLive = (links?: { type: string }[]) => links?.some((link) => link.type =
 
 	{
 		paper && (
-			<li class="grid gap-6 rounded-tile border border-border bg-surface p-6 md:col-span-2 md:grid-cols-2 md:gap-8 md:p-8">
-				<div class="flex flex-col items-start gap-4">
-					<p class="font-mono text-label uppercase text-fg-muted">Published paper · ICPAT-19</p>
-					<h3 class="font-serif text-3xl font-normal leading-[1.1] text-fg">{paper.title}</h3>
-					{paper.venue && <p class="text-meta text-fg-muted">{paper.venue}</p>}
-					{paper.href && (
-						<a
-							href={paper.href}
-							rel="noopener"
-							target="_blank"
-							class="mt-auto inline-flex min-h-11 items-center gap-2 rounded-full bg-accent-fill px-5 text-on-accent transition-[background-color,scale] duration-100 hover:bg-accent-fill-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-						>
-							Read on ResearchGate
-							<IconArrowUpRight class="size-4" />
-							<span class="sr-only">(opens in a new tab)</span>
-						</a>
-					)}
-				</div>
-				{paper.abstract && (
-					<div class="rounded-card bg-surface-2 p-5">
-						<p class="font-mono text-label uppercase tracking-[0.12em] text-fg-muted">Abstract</p>
-						<p class="mt-2 text-fg-2">{paper.abstract}</p>
+			<li class="flex">
+				<button
+					type="button"
+					popovertarget="paper-icpat-19"
+					class="group flex w-full flex-col gap-4 rounded-tile border border-border bg-surface p-6 text-left transition-[border-color,scale] duration-100 hover:border-border-strong active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring md:p-7"
+				>
+					<span class="font-mono text-label uppercase text-fg-muted">Published paper · ICPAT-19</span>
+					<span class="font-serif text-3xl font-normal leading-[1.1] text-fg">{paper.title}</span>
+					{paper.venue && <span class="text-meta text-fg-muted">{paper.venue}</span>}
+					{paper.abstract && <span class="line-clamp-3 text-fg-2">{paper.abstract}</span>}
+					<span class="mt-auto inline-flex items-center gap-1.5 text-meta font-medium text-accent group-hover:text-accent-hover">
+						Read the abstract
+						<svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+							<path d="M12 5v14M5 12h14" />
+						</svg>
+					</span>
+				</button>
+
+				<Dialog id="paper-icpat-19" labelledby="paper-icpat-19-title">
+					<Fragment slot="header">
+						<p class="font-mono text-label uppercase text-fg-muted">Published paper · ICPAT-19</p>
+						<h3 id="paper-icpat-19-title" class="mt-1 font-serif text-3xl font-normal leading-[1.1] text-fg">
+							{paper.title}
+						</h3>
+						{paper.venue && <p class="mt-1 text-meta text-fg-muted">{paper.venue}</p>}
+					</Fragment>
+					<div class="flex flex-col gap-5 px-6 py-6 md:px-7">
+						{paper.abstract && (
+							<div class="rounded-card bg-surface p-4">
+								<p class="font-mono text-label uppercase tracking-[0.12em] text-fg-muted">Abstract</p>
+								<p class="mt-2 text-fg-2">{paper.abstract}</p>
+							</div>
+						)}
+						{paper.href && (
+							<a
+								href={paper.href}
+								rel="noopener"
+								target="_blank"
+								class="inline-flex min-h-12 items-center gap-2 self-start rounded-full bg-accent-fill px-6 text-on-accent transition-[background-color,scale] duration-100 hover:bg-accent-fill-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+							>
+								Read on ResearchGate
+								<IconArrowUpRight class="size-4" />
+								<span class="sr-only">(opens in a new tab)</span>
+							</a>
+						)}
 					</div>
-				)}
+				</Dialog>
 			</li>
 		)
 	}

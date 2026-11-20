@@ -120,7 +120,7 @@ everything that is a list of records.
 
 | Collection | Loader | Holds |
 |---|---|---|
-| `work` | glob, markdown | five case studies: three under Selected work, two under Research |
+| `work` | glob, markdown | six case studies: three under Selected work, three under Research |
 | `experience` | YAML file | four roles |
 | `education` | YAML file | two degrees |
 | `certifications` | YAML file | nine certificates with verification URLs |
@@ -210,8 +210,9 @@ the seam:
    and Fort Monroe side by side. The Recognition tile that used to fill the fourth cell was
    retired on 2026-11-09 and Fort Monroe went from a `tall` tile to an ordinary one.
 3. **02 Research** (`WorkGrid.astro` with `section="research"`, added 2026-11-09) — "Research
-   and publications": the two Apart sprint reports as ordinary tiles, then a full-width tile
-   for the ICPAT-19 paper. The heading is deliberately not about one field. See
+   and publications": the three Apart sprint reports as ordinary tiles, then a card for the
+   ICPAT-19 paper (title, venue, abstract clamped to three lines) that opens a Dialog with the
+   full abstract and the ResearchGate link, like an Experience card (2026-11-19). The heading is deliberately not about one field. See
    [research-sprints](research-sprints.md).
 4. **03 Experience** (`Experience.astro`) — a card per role with the employer's logo, each
    opening a dialog with the detail; a role with a case study gets the short version and a link.
