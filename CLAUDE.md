@@ -204,6 +204,26 @@ Both are read-only references. Tailwind 4 differs from the Abhijit site's Tailwi
 break a direct copy — the differences are tabulated in
 [docs/wiki/site-architecture.md](docs/wiki/site-architecture.md).
 
+## Agents
+
+Read-only subagents in `.claude/agents/`: `wiki-retriever`, `history-retriever`, `code-retriever` and
+`planner`; `/plan-build` runs the retrievers in parallel, hands their results to the planner, and the main
+session executes its plan. After the planner, run `worker` per ticket and `reviewer` after every worker;
+coding briefs may go to Antigravity. Agents never push, open a PR or merge: `main` has no bypass and a merge
+deploys. The lanes, the never-open list and the content rules agents restate are in [AGENTS.md](AGENTS.md).
+
+## Decisions and learning
+
+Jobs: DECISIONS and RETRO. Detail: `plans-private/Decisions/CONVENTIONS.md` (gitignored; the repo is public).
+
+- A decision or gotcha is only registered after the user's verdict. A choice made unasked is
+  logged `Decision (Claude): ...` in `docs/wiki/log.md` and stays `pending` until acknowledged.
+- The scanner reads `docs/wiki/log.md` and proposes candidates in a local inbox. It never
+  promotes anything and never edits CLAUDE.md.
+- RETRO: turn recurring corrections into one-line rules, show the diff, wait for a yes.
+- A content rule stays in `docs/wiki/content-guardrails.md` and here; the register only adds the why
+  and a revisit trigger, and never holds a private fact.
+
 ## Communication style
 
 Keep responses concise. Skip preamble and restating the request; lead with the answer or the

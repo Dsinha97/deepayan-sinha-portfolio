@@ -43,3 +43,6 @@ images/copy.svg
 
 # Obsidian vault settings from opening the repo in Obsidian
 .obsidian/
+
+# Local agent runs, decisions and gotchas: never committed (repo is public)
+plans-private/
