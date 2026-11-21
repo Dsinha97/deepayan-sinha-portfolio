@@ -35,7 +35,8 @@ No GPA is recorded anywhere in the source material, so none is published.
 
 *Design and Analysis of Thermal Comfort of a Naturally Ventilated Recreational Vehicle* —
 published in the International Journal of Energy, Environment and Economics, presented at
-ICPAT-19.
+ICPAT-19. **Co-authored** (owner, 2026-11-20; the author list is not recorded in the repo, and the
+Google Scholar page could not be read because of a bot check).
 
 The work designed a recreational vehicle for India's climate range with minimal HVAC load,
 using energy modelling to show that orientation, fabric and glazing ratio changes bring
