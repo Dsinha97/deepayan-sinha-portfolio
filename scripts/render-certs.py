@@ -28,6 +28,7 @@ SOURCES = {
     "claude-code-101": "Certificates/Claude code 101.pdf",
     "ai-fluency": "Certificates/AI Fluency Foundation and Frameworks.pdf",
     "ai-capabilities": "Certificates/AI Capabilities and Limitations.pdf",
+    "aha-ai-builder": "Certificates/AI Builder Day Certificate - Deepayan Sinha.pdf",
     "bgs": "Achievements/bgs-award.pdf",
 }
 

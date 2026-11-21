@@ -44,8 +44,8 @@
     "last_ingested": "2026-09-10"
   },
   "private/sources/mba-brain/deepayan-sinha.md": {
-    "hash": "sha256:5c1f735c093f777bffb999970a6952afe349932971bda4786ed9c44f52ef6f74",
-    "last_ingested": "2026-10-20"
+    "hash": "sha256:1998301752bb84c785ca88ce6900dc862c6cdb30f99a47fb0e2a08b9269fb42e",
+    "last_ingested": "2026-11-20"
   },
   "private/sources/mba-brain/fort-monroe-15th-anniversary-event.md": {
     "hash": "sha256:c15f136ad415e46051dbb9caa3fe0eb8284a98a0bed85171a5f0bdab5881d764",
@@ -64,16 +64,20 @@
     "last_ingested": "2026-09-10"
   },
   "private/sources/mba-brain/job-search-brief.md": {
-    "hash": "sha256:4a47a8f6662ce2d0cd6a017aaf38956dff9d9f7776ca04a7d8d289540b349061",
-    "last_ingested": "2026-10-20"
+    "hash": "sha256:bd93c3a232b4254bb8a4496d7a6a6ce084a6dbb4402a557a21b1b7a4e107b358",
+    "last_ingested": "2026-11-20"
   },
   "private/sources/mba-brain/machine-learning-fundamentals.md": {
-    "hash": "sha256:cefac791192ac7878259fcd59833f15f7d354d6ab1afc92af3af8ebaf548d692",
-    "last_ingested": "2026-10-20"
+    "hash": "sha256:e492c689d302cff627f9fa340efef139ca836d06665011cc7e766228e35a9be5",
+    "last_ingested": "2026-11-20"
   },
   "private/sources/mba-brain/profile-source.md": {
     "hash": "sha256:eb67bb415a9d513fcc8e13e87d458ba5fd5b4720bd5418cbbfd0573738ddd972",
     "last_ingested": "2026-09-10"
+  },
+  "private/sources/mba-brain/tabshare-aha-builder-day.md": {
+    "hash": "sha256:39a47aa19e6a8cf6674996421ce195503464cbbe50798755d23cffccc0526d32",
+    "last_ingested": "2026-11-20"
   },
   "private/sources/mba-brain/wipro-digital-health-assistant.md": {
     "hash": "sha256:b562aeb884c4001743e318c95717eedb43a0639487dac86b117941fef608f49e",

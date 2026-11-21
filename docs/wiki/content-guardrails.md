@@ -6,12 +6,14 @@ sources:
   - private/sources/mba-brain/job-search-brief.md
   - private/sources/mba-brain/fort-monroe-engagement.md
   - private/sources/mba-brain/wipro-digital-health-assistant.md
+  - private/sources/mba-brain/tabshare-aha-builder-day.md
 related:
   - experience.md
   - case-study-fort-monroe.md
   - research-sprints.md
+  - education-and-credentials.md
   - profile.md
-updated: 2026-11-09
+updated: 2026-11-20
 ---
 
 # Content Guardrails
@@ -97,12 +99,29 @@ The same rules cover any later team research entry. Case studies under them decl
 | Findings are the team's — "we found", never "I found" | A three-author report has three authors |
 | **Every quoted figure carries its limits** | All data in both studies is synthetic and the cells are small (12 to 48 items). A count such as "20 of 32" is quoted as a count, with the setup beside it, never as a general rate |
 | **Nothing from *Laundered Consensus* Appendix A** | The attack texts, planted lines, forged notes, transcripts and answer keys are withheld as dual-use. Tactics by category only. The private repository is never linked or named |
-| No judging, prize, ranking or funding claims | Outcomes are not known. A sprint that has not happened yet is not mentioned |
+| No judging, prize, ranking or funding claims for a research sprint | Reworded 2026-11-20: the old reason, "outcomes are not known", went stale once one sprint had a result. The rule stands for a different reason: a result is the team's and the organiser's, not his alone to publish, and it has no public page the site can cite. A result is published only when the owner clears it and a public source can be cited, and then only as a sentence in the case study's result text, never as a metric. No entry counts and no reviewer text, whatever the result. A sprint that has not happened yet is not mentioned. The held result is tracked in Linear, not described here |
 | No spend figures | Internal to the team |
 | Co-authors **are** named (owner decision, 2026-11-09) | Liezl Coetzee and Prashanth Vijay are public authors on both reports, the Apart project pages and the companion sites, and have posted about the sprints publicly with him tagged as author. This differs from Fort Monroe, where teammates never chose to be public. Name and co-authorship only — no bios, employers or photographs |
 | Reports, slides and videos are linked, never rehosted | They are joint work, and a link needs no CSP change |
 | A sprint is not a role | No Experience entry. The site does not name an employer for this work |
 | Images are reviewed by eye before commit | The dist guard does not scan images. Covers come from the projects' own public companion sites and must show no attack text, transcript or person |
+
+## Competitions
+
+Added 2026-11-20, after the Aha! AI Builder Day (17 to 20 Nov 2026), where a team of three
+entered a bill-splitting app, TabShare, and received an honorable mention. The research table
+above does not cover this: it is a product-build contest, not a sprint report, and the
+organiser issued Deepayan a personal certificate. These are the owner's decisions of that date.
+
+| Rule | Why |
+|---|---|
+| **A competition result is published as a credential, not a story** | It is one certificate card in Credentials and one line in the resume's Certifications paragraph. No case study, no Research entry, no recognition record |
+| **Say "honorable mention"; never "won", "winner" or "prize"** | An honorable mention carries a badge and a certificate. Winners received a prize this entry did not |
+| **Name the category the organiser's own announcement used: *Most innovative user interface*** | One organiser email calls it "Most intuitive user experience". The ceremony slide and the events email agree on the first, and the owner confirmed it on 2026-11-20. The certificate itself names no category |
+| The entry may be named (TabShare) and described as a team of three | The organiser permits promotion of submissions, but that is not a teammate's consent, so no teammate is named. If a teammate later posts publicly about the entry with him tagged, the research precedent (name and co-authorship only) is the model |
+| No role copy | There is no printed contribution statement, and the research rule — claim only what is printed for him — is the safer reading. The build history lives with the team's own records |
+| Not published: the pre-window prototype the entry grew from, the platform support ticket, a teammate's equipment failure, the organiser's trial or review offers, and the LinkedIn short link | Internal team detail, or detail that could misstate what was built inside the contest window |
+| The result is a credential claim, not a business outcome | It records an award received. It says nothing about users, revenue or adoption, and none is claimed |
 
 ## Framework fluency is not experience
 
@@ -164,6 +183,10 @@ experience entries: data-driven decision making (the Wipro AI/ML work) and gover
   three carry an official's printed name or signature — accepted as ordinary for a certificate.
   **Academic records stay private without exception**: transcripts, marksheets and degree
   certificates are not rendered and not published.
+- **Extended by the owner on 2026-11-20: the Aha! AI Builder Day certificate** (see
+  [Competitions](#competitions)). Same pipeline, same eye review. It prints no ID and no contact
+  detail; it carries two officials' printed names and signatures and the honorable-mention badge.
+  The render does not ship until the owner has seen it.
 - The three LinkedIn Learning course cards use the preview image each verification page
   publishes as its own share image, downloaded once and served from the site (the CSP allows
   no third-party image host). MBA Math publishes no such image — its page is a per-module
@@ -179,3 +202,5 @@ experience entries: data-driven decision making (the Wipro AI/ML work) and gover
   attribution of deliverables, the parking-figure correction
 - [wipro-digital-health-assistant.md](../../private/sources/mba-brain/wipro-digital-health-assistant.md)
   — the withheld names and the self-reported figures
+- [tabshare-aha-builder-day.md](../../private/sources/mba-brain/tabshare-aha-builder-day.md) —
+  the Aha! AI Builder Day result and certificate, behind the [Competitions](#competitions) rules

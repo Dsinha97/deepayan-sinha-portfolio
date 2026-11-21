@@ -121,7 +121,8 @@ analysis
 
 Lean Six Sigma Green Belt (William & Mary, May 2026) · Claude Code 101 (Anthropic, June 2026) ·
 AI Fluency: Framework & Foundations (Anthropic, May 2026) · AI Capabilities and Limitations
-(Anthropic, May 2026) · Power BI Data Modeling with DAX (LinkedIn Learning, August 2025) · Power
+(Anthropic, May 2026) · AI Application Builder, AI Builder Day honorable mention (Aha!, November
+2026) · Power BI Data Modeling with DAX (LinkedIn Learning, August 2025) · Power
 BI Essential Training (LinkedIn Learning, July 2025) · SQL Essential Training (LinkedIn
 Learning, June 2025) · Machine Learning Crash Course (Google, October 2026) · Aha! Product Management Professional
 (March 2025) · MBA Math (July 2024)

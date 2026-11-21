@@ -16,7 +16,7 @@ related:
   - content-guardrails.md
   - site-architecture.md
   - skills.md
-updated: 2026-11-19
+updated: 2026-11-20
 ---
 
 # Research — the Apart sprints
@@ -70,7 +70,9 @@ and a funding application.
 - A count as a general rate. "20 of 32" is 20 of 32 synthetic packets.
 - Any attack text, planted line or forged note from *Laundered Consensus*, or a link to the
   private repository.
-- A judging result, prize or ranking. None is known.
+- A judging result, prize or ranking. None is published: see the reworded row in
+  [content-guardrails](content-guardrails.md#co-authored-research). A result goes in only when
+  the owner clears it and a public source can be cited.
 - Anything about funding, spend, or a sprint that has not happened.
 
 ## Not done

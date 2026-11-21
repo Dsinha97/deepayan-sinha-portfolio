@@ -9,7 +9,7 @@ related:
   - design-system.md
   - deployment-domain.md
   - content-guardrails.md
-updated: 2026-11-09
+updated: 2026-11-20
 status: built
 ---
 
@@ -123,7 +123,7 @@ everything that is a list of records.
 | `work` | glob, markdown | six case studies: three under Selected work, three under Research |
 | `experience` | YAML file | four roles |
 | `education` | YAML file | two degrees |
-| `certifications` | YAML file | nine certificates with verification URLs |
+| `certifications` | YAML file | eleven entries: six certificates shown as images, five courses with verification URLs |
 | `skills` | YAML file | four groups |
 | `recognition` | YAML file | Beta Gamma Sigma (rendered in Credentials), the ICPAT-19 paper (rendered in Research) |
 
