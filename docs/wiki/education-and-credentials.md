@@ -6,15 +6,16 @@ sources:
   - private/sources/mba-brain/deepayan-sinha.md
   - docs/sources/research-paper-details.md
   - docs/sources/additional-cert-links.md
+  - private/sources/mba-brain/tabshare-aha-builder-day.md
 related:
   - experience.md
   - content-guardrails.md
-updated: 2026-11-09
+updated: 2026-11-20
 ---
 
 # Education and Credentials
 
-> Two degrees, one publication, one honour society, and ten certificates — with the
+> Two degrees, one publication, one honour society, and eleven certificates — with the
 > verification links the site publishes for each.
 
 ## Degrees
@@ -63,6 +64,7 @@ grid:
 | Claude Code 101 | Anthropic | Jun 2026 | certificate on file |
 | AI Fluency: Framework & Foundations | Anthropic | May 2026 | certificate on file |
 | AI Capabilities and Limitations | Anthropic | May 2026 | certificate on file |
+| AI Application Builder (AI Builder Day, honorable mention, Most innovative user interface) | Aha! | Nov 2026 | certificate on file |
 | Machine Learning Crash Course | Google | Oct 2026 | [public profile](https://g.dev/deepayansinha) |
 | Power BI Data Modeling with DAX | LinkedIn Learning | Aug 2025 | [verify](https://www.linkedin.com/learning/certificates/88e165371499c5e946bb363e6d6a18e9ea60984fea90b9f38059a034cbe25ee3?u=51086953) |
 | Power BI Essential Training | LinkedIn Learning | Jul 2025 | [verify](https://www.linkedin.com/learning/certificates/fc6fe15ae3a6ba6e0d049b94956bd86cb375e7a6bcb66ee9cac458607287243d?u=51086953) |
@@ -84,6 +86,16 @@ Foundations***, not "Foundation and Frameworks". Titles now match what the issue
 - **Supplied by the owner:** the three Anthropic certificates. Those PDFs carry **no date
   anywhere on the certificate** — the design simply does not print one, so the files cannot
   settle it and re-reading them will not help a future pass.
+
+**AI Application Builder (2026-11-20).** A personal certificate of achievement from Aha!,
+dated 20 November 2026 as printed on the file, issued after its AI Builder Day contest. The
+card states the honorable mention and the category the owner confirmed,
+*Most innovative user interface*, because the certificate names none. It is a credential, not a
+case study, and it is **not** a `recognition` record: `Education.astro` renders only the first
+`honor`, so a second one would be dropped silently. The rules (never "won" or "prize", no
+teammate names, no role copy, what is held back) are in
+[content-guardrails](content-guardrails.md#competitions). The card's image is subject to the
+2026-11-20 extension of the image exception.
 
 **Machine Learning Crash Course (2026-10-20).** Eleven Google Developer Program badges earned
 8 Sep – 20 Oct 2026 (dates as shown on the badge pages, per the vault). It is **studied, not
