@@ -7,7 +7,7 @@
  */
 
 /*
- * `unit` renders at half size beside the number, so a figure like "4 in 7 wks"
+ * `unit` renders at half size beside the number, so a figure like "6 yrs"
  * holds one line in a quarter-width tile instead of wrapping its unit.
  */
 export type Stat = { value: string; unit?: string; label: string };
@@ -19,8 +19,8 @@ export type Stat = { value: string; unit?: string; label: string };
  */
 export const proof: Stat[] = [
   { value: '6', unit: 'yrs', label: 'AI/ML product engineering' },
-  { value: '226', label: 'survey respondents, designed & analysed' },
-  { value: '4', unit: 'in 7 wks', label: 'consulting deliverables' },
+  { value: '226', label: 'client survey responses, questionnaire to findings' },
+  { value: '4', label: 'co-authored research papers & reports' },
   { value: '2', label: 'production sites shipped' },
 ];
 

@@ -8,7 +8,7 @@ sources:
 related:
   - content-guardrails.md
   - experience.md
-updated: 2026-11-09
+updated: 2026-11-20
 ---
 
 # Skills and Capabilities
@@ -82,7 +82,9 @@ research sprints, where he ran the watchdog evaluations and the fine-tuning hims
 [research-sprints](research-sprints.md). The toolkit's AI group carries what those sprints ran
 on: Modal, the model APIs (Claude Console, Google AI Studio, OpenRouter, Ollama) and model
 fine-tuning, which moved from the Product chips to the toolkit so it is listed once and takes
-the owner's badge. That test is what keeps a skills list honest, and anything failing it does not
+the owner's badge. Aha! Builder joined that group on 2026-11-20 (owner's call): it is the AI
+app builder the Aha! AI Builder Day entry was built in, so it is applied use, in line with the
+rule above. Its logo was supplied opaque on white and converted to a transparent PNG. That test is what keeps a skills list honest, and anything failing it does not
 go in the list. See [content-guardrails](content-guardrails.md#framework-fluency-is-not-experience).
 
 ## Sources

@@ -41,6 +41,7 @@ import modelFineTuning from '../assets/tools/model-fine-tuning.png';
 import mysql from '../assets/tools/mysql.svg';
 import nextjs from '../assets/tools/nextjs.svg';
 import notebooklm from '../assets/tools/notebooklm.svg';
+import ahaBuilder from '../assets/tools/aha-builder.png';
 import ollama from '../assets/tools/ollama.png';
 import openrouter from '../assets/tools/openrouter.png';
 import numpy from '../assets/tools/numpy.png';
@@ -131,6 +132,10 @@ export const toolGroups: ToolGroup[] = [
       { name: 'Google AI Studio', logo: googleAiStudio },
       { name: 'OpenRouter', logo: openrouter },
       { name: 'Ollama', logo: ollama },
+      /* Aha! Builder: the AI app builder the Aha! AI Builder Day entry was
+       * built in (Nov 2026). The supplied PNG was opaque on white, so white
+       * was converted to alpha before the 128px cap. */
+      { name: 'Aha! Builder', logo: ahaBuilder },
       { name: 'Model fine-tuning', logo: modelFineTuning },
     ],
   },
